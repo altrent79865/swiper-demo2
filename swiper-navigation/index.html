@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Swiper Navigation</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="../assets/leo-portrait.jpg" class="portrait-img" />
+          <div class="swiper-slide-content">
+            <div class="swiper-slide-title">Little Cool Guy</div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="../assets/veronica-portrait.jpeg" class="portrait-img" />
+          <div class="swiper-slide-content">
+            <div class="swiper-slide-title">Enjoying a little time with Leo</div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="../assets/leo-portrait2.jpg" class="portrait-img" />
+          <div class="swiper-slide-content">
+            <div class="swiper-slide-title">Italian Roots</div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="../assets/leo-landscape.jpg" class="landscape-img" />
+          <div class="swiper-slide-content">
+            <div class="swiper-slide-title">Leo Williams</div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-button-next" style="color: white"></div>
+      <div class="swiper-button-prev" style="color: white"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+  </body>
+</html>
