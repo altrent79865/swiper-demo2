@@ -23,6 +23,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: black;
+  height: 100vh;
 }
 
 .title-row {
@@ -178,7 +179,7 @@ body {
 }
 
 .portrait-img {
-  width: 100%;
+  width: auto;
   height: 100vh; /* Set the height to cover the full viewport */
   object-fit: cover; /* Ensures the image covers the entire area, cropping as needed */
   display: block;
