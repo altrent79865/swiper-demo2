@@ -179,8 +179,9 @@ body {
 }
 
 .portrait-img {
-  width: auto;
   height: 100vh; /* Set the height to cover the full viewport */
+  max-height: 100vh;
+  width: auto;
   object-fit: cover; /* Ensures the image covers the entire area, cropping as needed */
   display: block;
 }
@@ -193,9 +194,8 @@ body {
 /* Media query to adjust for wider screens (around 500px and above) */
 @media (min-width: 500px) {
   .portrait-img {
-    height: auto; /* Adjust height to auto */
-    max-height: 100vh; /* Max height will keep the image visible without cutting off */
-    width: auto; /* Adjust the width so it shows black bars if necessary */
-    object-fit: contain; /* Maintain the aspect ratio without cutting off the top */
+    height: 100vh; /* Keep height consistent across all images */
+    width: auto;
+    object-fit: cover; /* Adjust to maintain aspect ratio */
   }
 }
