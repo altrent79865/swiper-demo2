@@ -179,8 +179,8 @@ body {
 }
 
 .portrait-img {
-  height: 100vh; /* Set the height to cover the full viewport */
-  max-height: 100vh;
+  height: 100svh; /* Set the height to cover the full viewport */
+  max-height: 100svh;
   width: auto;
   object-fit: cover; /* Ensures the image covers the entire area, cropping as needed */
   display: block;
