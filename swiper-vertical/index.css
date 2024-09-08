@@ -222,6 +222,17 @@ body {
   margin-top: 8px;
 }
 
+/* Need to use class names that Adam is already using. */
+.link-clickable {
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #808080;
+  margin-top: 20px;
+  margin-left: 4px;
+  margin-bottom: 8px;
+}
+
 .grey_button {
   display: inline-flex;
   align-items: center;
@@ -232,7 +243,7 @@ body {
   background: linear-gradient(#ffffff, #f7f2f2);
   padding: 6px 10px; /* Adjust padding to control button size */
   margin-top: 7px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   margin-left: 4px;
   font-size: 14px;
   text-decoration: none;
@@ -243,18 +254,18 @@ body {
 }
 
 .button-icon {
-  width: 14px;
-  height: 14px;
-  margin-right: 12px;
+  width: 16px;
+  height: 16px;
+  margin-right: 14px;
   object-fit: contain;
   display: inline-block;
-  padding: 0;
+  padding: 0 0 0 2px;
   vertical-align: middle;
 }
 
 .grey_button span {
   display: inline-block;
-  margin: 0;
+  margin: 0 6px 0 0;
 }
 
 .portrait-img {
