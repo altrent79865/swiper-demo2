@@ -276,6 +276,16 @@ body {
   display: block;
 }
 
+.youtube-portrait {
+  max-height: 90svh;
+  height: auto;
+  width: auto;
+  max-width: 98%;
+  object-fit: contain;
+  margin: 0 auto;
+  /* display: block; */
+}
+
 .swiper-slide img {
   display: block;
   width: 100%;
