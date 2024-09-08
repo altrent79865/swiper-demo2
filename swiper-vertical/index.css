@@ -178,6 +178,22 @@ body {
   object-fit: contain;
   display: block;
 }
+.kenya-video-iphone-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.centered-video_play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 68px;
+  opacity: 0.9;
+  object-fit: contain;
+  cursor: pointer
+}
 
 .link-img {
   width: 100%;
