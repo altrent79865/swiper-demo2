@@ -235,10 +235,11 @@ body {
 .button-icon {
   width: 14px;
   height: 14px;
-  margin-right: 6px;
+  margin-right: 12px;
   object-fit: contain;
   display: inline-block;
   vertical-align: middle;
+  padding: 0;
 }
 
 .portrait-img {
