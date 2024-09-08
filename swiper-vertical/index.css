@@ -234,10 +234,11 @@ body {
 
 .button-icon {
   width: 14px;
-  height: 14px; /* Maintains the aspect ratio of the icon */
-  margin-right: 8px; /* Space between the icon and text */
-  object-fit: contain; /* Keeps the aspect ratio without stretching */
-  display: inline-block; /* Ensures proper alignment with text */
+  height: 14px;
+  margin-right: 6px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .portrait-img {
