@@ -220,9 +220,9 @@ body {
   border: 1px solid #d6d6d6;
   cursor: pointer;
   background: linear-gradient(#ffffff, #f7f2f2);
-  padding: 6px 12px;
+  padding: 6px 14px;
   margin-top: 7px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-left: 4px;
   font-size: 14px;
   text-decoration: none;
@@ -235,8 +235,10 @@ body {
 .button-icon {
   width: 14px;
   height: 14px;
-  margin-right: 8px;
-  object-fit: contain;
+  padding-right: 10px;
+  padding-left: 2px;
+  /* margin-right: 8px; */
+  /* object-fit: contain; */
 }
 
 .portrait-img {
