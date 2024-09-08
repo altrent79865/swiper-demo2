@@ -23,7 +23,8 @@ body {
   justify-content: center;
   align-items: center;
   background-color: black;
-  height: 100vh;
+  height: 100svh;
+  /* position: relative; */
 }
 
 .title-row {
@@ -163,27 +164,74 @@ body {
   text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
-
-/* .landscape-img {
+.landscape-img {
   width: 100vw;
-  height: auto; 
-  object-fit: contain; 
-  display: block;
-} */
-
-/* .landscape-img {
-  width: 100%; 
-  height: 100vh; 
+  height: auto;
+  max-height: 100svh;
   object-fit: contain;
   display: block;
-} */
+}
 
-.landscape-img {
-  width: 100vw; /* Set the width to cover the full viewport width */
-  height: auto; /* Maintain aspect ratio */
-  max-height: 100svh; /* Ensures the image doesn't exceed the viewport height, accounting for dynamic safe area */
-  object-fit: contain; /* Ensures the image scales appropriately within its container */
+.link-img {
+  width: 100%;
+  height: auto;
+  max-height: 54svh;
+  object-fit: cover;
   display: block;
+  position: fixed; /* Keeps the image in the desired fixed position */
+  top: 48px; /* Position the image 48px from the top */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 1; /* Ensures the image appears above other elements */
+}
+
+.link-container {
+  background-color: white;
+  width: 100%;
+  position: fixed;
+  top: calc(
+    54svh + 48px
+  ); /* Position the white background just below the image */
+  left: 0;
+  padding: 10px; /* Add padding for the text inside */
+  z-index: 0; /* Layer the container properly */
+}
+
+.link-title,
+.link-description {
+  text-align: left;
+  color: black;
+  padding-right: 24px;
+  margin-left: 4px;
+}
+
+.link-title {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.grey_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  border: 1px solid #d6d6d6;
+  cursor: pointer;
+  background: linear-gradient(#ffffff, #f7f2f2);
+  padding: 6px 12px;
+  margin-top: 7px;
+  margin-bottom: 60px;
+  white-space: nowrap;
+  margin-left: 4px;
+}
+
+.button-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  object-fit: contain;
 }
 
 .portrait-img {
@@ -202,7 +250,7 @@ body {
 /* Media query to adjust for wider screens (around 500px and above) */
 @media (min-width: 500px) {
   .portrait-img {
-    height: 100vh; /* Keep height consistent across all images */
+    height: 100svh; /* Keep height consistent across all images */
     width: auto;
     object-fit: cover; /* Adjust to maintain aspect ratio */
   }
