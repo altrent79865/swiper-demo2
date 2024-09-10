@@ -24,7 +24,6 @@ body {
   align-items: center;
   background-color: black;
   height: 100svh;
-  /* position: relative; */
 }
 
 .title-row {
@@ -152,10 +151,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: auto;
+  padding: 0 2px;
   height: 28px;
   background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 20%;
+  border-radius: 14px;
   position: absolute;
   right: 14px;
   border: none;
@@ -178,9 +177,21 @@ body {
   object-fit: contain;
   display: block;
 }
+
 .kenya-video-iphone-image-container {
   position: relative;
-  display: inline-block;
+  width: 100%; /* Matches the container to the image width */
+  max-width: 100vw; /* Ensures it doesn't exceed the viewport width */
+  display: flex; /* Centers the image */
+  justify-content: center;
+  align-items: center;
+}
+
+.youtube-landscape {
+  width: 100%; 
+  height: auto; 
+  max-width: none; 
+  object-fit: cover; 
 }
 
 .centered-video_play-icon {
@@ -192,7 +203,7 @@ body {
   height: 68px;
   opacity: 0.9;
   object-fit: contain;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .link-img {
@@ -217,8 +228,8 @@ body {
     54svh + 48px
   ); /* Position the white background just below the image */
   left: 0;
-  padding: 10px; /* Add padding for the text inside */
-  z-index: 0; /* Layer the container properly */
+  padding: 10px;
+  z-index: 0;
   height: calc(
     100vh - (54svh + 48px)
   ); /* Extend the container to the bottom without changing content height */
