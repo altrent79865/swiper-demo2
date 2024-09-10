@@ -275,8 +275,10 @@
           </div>
         </div>
       </div>
-      <div class="swiper-button-next" style="color: white"></div>
-      <div class="swiper-button-prev" style="color: white"></div>
+      <!-- Custom Left Arrow Button -->
+      <button class="left-arrow-btn"></button>
+      <!-- Custom Right Arrow Button -->
+      <button class="right-arrow-btn"></button>
     </div>
 
     <!-- Swiper JS -->
@@ -284,12 +286,58 @@
 
     <!-- Initialize Swiper -->
     <script>
-      var swiper = new Swiper(".mySwiper", {
+      // Initialize Swiper without default navigation
+      const swiper = new Swiper(".mySwiper", {
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
+          nextEl: null,
+          prevEl: null,
+        },
+        on: {
+          slideChange: updateArrowStyles, // Update arrow styles on slide change
+          reachBeginning: updateArrowStyles, // Update when at the first slide
+          reachEnd: updateArrowStyles, // Update when at the last slide
         },
       });
+
+      // Manually trigger Swiper navigation with custom buttons
+      document
+        .querySelector(".left-arrow-btn")
+        .addEventListener("click", () => {
+          swiper.slidePrev();
+        });
+
+      document
+        .querySelector(".right-arrow-btn")
+        .addEventListener("click", () => {
+          swiper.slideNext();
+        });
+
+      // Function to update arrow styles based on Swiper's current state
+      function updateArrowStyles() {
+        const leftArrow = document.querySelector(".left-arrow-btn");
+        const rightArrow = document.querySelector(".right-arrow-btn");
+
+        // Update left arrow opacity when at the first slide
+        if (swiper.isBeginning) {
+          leftArrow.style.opacity = "0.5"; // Reduced opacity
+          leftArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
+        } else {
+          leftArrow.style.opacity = "1"; // Full opacity
+          leftArrow.style.cursor = "pointer"; // Normal cursor
+        }
+
+        // Update right arrow opacity when at the last slide
+        if (swiper.isEnd) {
+          rightArrow.style.opacity = "0.5"; // Reduced opacity
+          rightArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
+        } else {
+          rightArrow.style.opacity = "1"; // Full opacity
+          rightArrow.style.cursor = "pointer"; // Normal cursor
+        }
+      }
+
+      // Initial call to set arrow styles correctly when the page loads
+      updateArrowStyles();
     </script>
   </body>
 </html>
