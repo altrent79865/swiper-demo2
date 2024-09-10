@@ -285,10 +285,27 @@
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+    <!-- Initialize Swiper -->
+    <!-- <script>
+      var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        effect: "fade",
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+    </script> -->
+
     <!-- Initialize Swiper with Custom Navigation -->
     <script>
-      // Initialize Swiper without default navigation
       const swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        effect: "fade",
         navigation: {
           nextEl: null,
           prevEl: null,
@@ -320,20 +337,20 @@
 
         // Update left arrow opacity when at the first slide
         if (swiper.isBeginning) {
-          leftArrow.style.opacity = "0.5"; // Reduced opacity
+          leftArrow.style.opacity = "0.5"; 
           leftArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
         } else {
-          leftArrow.style.opacity = "1"; // Full opacity
-          leftArrow.style.cursor = "pointer"; // Normal cursor
+          leftArrow.style.opacity = "1"; 
+          leftArrow.style.cursor = "pointer"; 
         }
 
         // Update right arrow opacity when at the last slide
         if (swiper.isEnd) {
-          rightArrow.style.opacity = "0.5"; // Reduced opacity
+          rightArrow.style.opacity = "0.5";
           rightArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
         } else {
-          rightArrow.style.opacity = "1"; // Full opacity
-          rightArrow.style.cursor = "pointer"; // Normal cursor
+          rightArrow.style.opacity = "1"; 
+          rightArrow.style.cursor = "pointer"; 
         }
       }
 
