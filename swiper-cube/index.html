@@ -12,64 +12,277 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-
-    <!-- Demo styles -->
-    <style>
-      html,
-      body {
-        position: relative;
-        height: 100%;
-      }
-
-      body {
-        background: #eee;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color: #000;
-        margin: 0;
-        padding: 0;
-      }
-
-      .swiper {
-        width: 300px;
-        height: 300px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -150px;
-        margin-top: -150px;
-      }
-
-      .swiper-slide {
-        background-position: center;
-        background-size: cover;
-      }
-
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/index.css" />
   </head>
 
   <body>
     <!-- Swiper -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
+        <!-- Crawfish Link -->
         <div class="swiper-slide">
-          <img src="../assets/leo-portrait.jpg" class="portrait-img" />
+          <div class="link-main-page-container">
+            <div class="image-container-for-portraits-desktop-link">
+              <img src="../assets/crawfish-etouffee.jpg" class="link-img" />
+            </div>
+            <div class="link-container">
+              <p class="link-title">Drago's Charbroiled Oyster Recipe</p>
+              <p class="link-description">
+                This authentic recipe for charbroiled oysters was developed by
+                Tommy Cicero of Drago's Restaurant in New Orleans and Metarie,
+                Louisiana.
+              </p>
+              <a
+                href="https://www.saveur.com"
+                rel="noopener noreferrer"
+                class="link-clickable"
+                >SAVEUR.COM</a
+              >
+              <a
+                href="https://www.saveur.com"
+                class="grey_button"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="../assets/jump_link.png"
+                  alt="icon"
+                  class="button-icon"
+                />
+                <span>Open Link</span>
+              </a>
+            </div>
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">Crawfish Etouffee</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">38/64</span>
+            </div>
+          </div>
         </div>
+        <!-- Little Guy (portrait) -->
         <div class="swiper-slide">
-          <img src="../assets/veronica-portrait.jpeg" class="portrait-img" />
+          <div class="image-container-for-portraits-desktop">
+            <img src="../assets/leo-portrait.jpg" class="portrait-img" />
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">Little Guy</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">39/64</span>
+            </div>
+          </div>
         </div>
+        <!-- Christmas Meal slide (portrait) -->
         <div class="swiper-slide">
-          <img src="../assets/leo-portrait2.jpg" class="portrait-img" />
+          <div class="image-container-for-portraits-desktop">
+            <img src="../assets/christmas-meal.jpg" class="portrait-img" />
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
+              <p class="media-item-title">Christmas Dinner Table Setting</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">40/64</span>
+            </div>
+          </div>
         </div>
+        <!-- Italian Roots (portrait) -->
+        <div class="swiper-slide">
+          <div class="image-container-for-portraits-desktop">
+            <img src="../assets/leo-portrait2.jpg" class="portrait-img" />
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">Italian Roots</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">41/64</span>
+            </div>
+          </div>
+        </div>
+        <!-- Pork with Rosemary with Pencil Icon and Add a Caption feature (portrait) -->
+        <div class="swiper-slide">
+          <div class="image-container-for-portraits-desktop">
+            <img src="../assets/meat-portrait.jpg" class="portrait-img" />
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <img src="../assets/pencil-white.png" class="pencil" alt="" />
+              <p class="media-item-title add-new-caption">Add a Caption</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">42/64</span>
+            </div>
+          </div>
+        </div>
+        <!-- Christmas Meal slide (portrait) -->
+        <div class="swiper-slide">
+          <div class="image-container-for-portraits-desktop">
+            <img src="../assets/christmas-meal.jpg" class="portrait-img" />
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
+              <p class="media-item-title">Christmas Dinner Table Setting</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">43/64</span>
+            </div>
+          </div>
+        </div>
+        <!-- Leo sideways (landscape) -->
         <div class="swiper-slide">
           <img src="../assets/leo-landscape.jpg" class="landscape-img" />
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">Leo Williams</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">44/64</span>
+            </div>
+          </div>
+        </div>
+        <!-- Youtube Video in Africa in playing mode for mobile (portrait) -->
+        <div class="swiper-slide">
+          <div class="image-container-for-portraits-desktop">
+            <img
+              src="../assets/youtube-kenya-iphone-playing.png"
+              class="portrait-img youtube-portrait"
+            />
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">Finding the Wildebeasts on Safari</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">45/64</span>
+            </div>
+          </div>
+        </div>
+        <!-- Youtube Video in Africa not in play mode for mobile (landscape) -->
+        <div class="swiper-slide">
+          <div class="youtube-video-iphone-image-container">
+            <img
+              src="../assets/youtube-kenya-iphone-not-playing.jpg"
+              class="landscape-img youtube-landscape"
+            />
+            <img
+              src="../assets/video_play.png"
+              alt="icon"
+              class="centered-video_play-icon"
+            />
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">Finding the Wildebeasts on Safari</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">46/64</span>
+            </div>
+          </div>
+        </div>
+        <!-- Pasta with Truffle (landscape) -->
+        <div class="swiper-slide">
+          <img src="../assets/pasta.jpg" class="landscape-img" />
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">A great pasta dish with truffle</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">47/64</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="swiper-pagination"></div>
+      <!-- Custom Left Arrow Button -->
+      <button class="left-arrow-btn"></button>
+      <!-- Custom Right Arrow Button -->
+      <button class="right-arrow-btn"></button>
+      <!-- <div class="swiper-pagination"></div> -->
     </div>
 
     <!-- Swiper JS -->
@@ -77,7 +290,7 @@
 
     <!-- Initialize Swiper -->
     <script>
-      var swiper = new Swiper(".mySwiper", {
+      const swiper = new Swiper(".mySwiper", {
         effect: "cube",
         grabCursor: true,
         cubeEffect: {
@@ -86,10 +299,56 @@
           shadowOffset: 20,
           shadowScale: 0.94,
         },
-        pagination: {
-          el: ".swiper-pagination",
+        navigation: {
+          nextEl: null,
+          prevEl: null,
+        },
+        on: {
+          slideChange: updateArrowStyles, // Update arrow styles on slide change
+          reachBeginning: updateArrowStyles, // Update when at the first slide
+          reachEnd: updateArrowStyles, // Update when at the last slide
         },
       });
+
+      // Manually trigger Swiper navigation with custom buttons
+      document
+        .querySelector(".left-arrow-btn")
+        .addEventListener("click", () => {
+          swiper.slidePrev();
+        });
+
+      document
+        .querySelector(".right-arrow-btn")
+        .addEventListener("click", () => {
+          swiper.slideNext();
+        });
+
+      // Function to update arrow styles based on Swiper's current state
+      function updateArrowStyles() {
+        const leftArrow = document.querySelector(".left-arrow-btn");
+        const rightArrow = document.querySelector(".right-arrow-btn");
+
+        // Update left arrow opacity when at the first slide
+        if (swiper.isBeginning) {
+          leftArrow.style.opacity = "0.5";
+          leftArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
+        } else {
+          leftArrow.style.opacity = "1";
+          leftArrow.style.cursor = "pointer";
+        }
+
+        // Update right arrow opacity when at the last slide
+        if (swiper.isEnd) {
+          rightArrow.style.opacity = "0.5";
+          rightArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
+        } else {
+          rightArrow.style.opacity = "1";
+          rightArrow.style.cursor = "pointer";
+        }
+      }
+
+      // Initial call to set arrow styles correctly when the page loads
+      updateArrowStyles();
     </script>
   </body>
 </html>
