@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Swiper demo</title>
+    <title>Swiper Fade demo</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
@@ -12,13 +12,63 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="../css/index.css" />
   </head>
 
   <body>
     <!-- Swiper -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
+        <!-- Crawfish Link -->
+        <div class="swiper-slide">
+          <div class="link-main-page-container">
+            <div class="image-container-for-portraits-desktop">
+              <img src="../assets/crawfish-etouffee.jpg" class="link-img" />
+            </div>
+            <div class="link-container-mobile link-container-desktop">
+              <p class="link-title">Drago's Charbroiled Oyster Recipe</p>
+              <p class="link-description">
+                This authentic recipe for charbroiled oysters was developed by
+                Tommy Cicero of Drago's Restaurant in New Orleans and Metarie,
+                Louisiana.
+              </p>
+              <a
+                href="https://www.saveur.com"
+                rel="noopener noreferrer"
+                class="link-clickable"
+                >SAVEUR.COM</a
+              >
+              <a
+                href="https://www.saveur.com"
+                class="grey_button"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="../assets/jump_link.png"
+                  alt="icon"
+                  class="button-icon"
+                />
+                <span>Open Link</span>
+              </a>
+            </div>
+          </div>
+          <div class="title-row">
+            <a href="../index.html" class="close-btn"></a>
+            <div class="pencil-title-row">
+              <p class="media-item-title">Crawfish Etouffee</p>
+            </div>
+            <a href="" class="options-btn">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </a>
+          </div>
+          <div class="title-row-bottom">
+            <div class="number-of-items-btn">
+              <span class="number-of-items-text">38/64</span>
+            </div>
+          </div>
+        </div>
         <!-- Little Guy (portrait) -->
         <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
@@ -203,7 +253,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">45/64</span>
+              <span class="number-of-items-text">46/64</span>
             </div>
           </div>
         </div>
@@ -223,40 +273,49 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">46/64</span>
+              <span class="number-of-items-text">47/64</span>
             </div>
           </div>
         </div>
         <!-- Crawfish Link -->
-        <div class="swiper-slide">
-          <div class="image-container-for-portraits-desktop">
-            <img src="../assets/crawfish-etouffee.jpg" class="link-img" />
-          </div>
-          <div class="link-container">
-            <p class="link-title">Drago's Charbroiled Oyster Recipe</p>
-            <p class="link-description">
-              This authentic recipe for charbroiled oysters was developed by
-              Tommy Cicero of Drago's Restaurant in New Orleans and Metarie,
-              Louisiana.
-            </p>
-            <a
-              href="https://www.saveur.com"
-              rel="noopener noreferrer"
-              class="link-clickable"
-              >SAVEUR.COM</a
-            >
-            <a
-              href="https://www.saveur.com"
-              class="grey_button"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="../assets/jump_link.png"
-                alt="icon"
-                class="button-icon"
-              />
-              <span>Open Link</span>
-            </a>
+        <div class="swiper-slide crawfish-slide">
+          <!-- Main Wrapper Container -->
+          <div class="crawfish-main-wrapper">
+            <!-- Parent container the image -->
+            <div class="crawfish-image-wrapper">
+              <div class="image-container-for-portraits-desktop">
+                <img src="../assets/crawfish-etouffee.jpg" class="link-img" />
+              </div>
+            </div>
+            <!-- Parent container for link-container -->
+            <div class="crawfish-link-wrapper">
+              <div class="link-container">
+                <p class="link-title">Drago's Charbroiled Oyster Recipe</p>
+                <p class="link-description">
+                  This authentic recipe for charbroiled oysters was developed by
+                  Tommy Cicero of Drago's Restaurant in New Orleans and Metarie,
+                  Louisiana.
+                </p>
+                <a
+                  href="https://www.saveur.com"
+                  rel="noopener noreferrer"
+                  class="link-clickable"
+                  >SAVEUR.COM</a
+                >
+                <a
+                  href="https://www.saveur.com"
+                  class="grey_button"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="../assets/jump_link.png"
+                    alt="icon"
+                    class="button-icon"
+                  />
+                  <span>Open Link</span>
+                </a>
+              </div>
+            </div>
           </div>
           <div class="title-row">
             <a href="../index.html" class="close-btn"></a>
@@ -271,7 +330,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">47/64</span>
+              <span class="number-of-items-text">48/64</span>
             </div>
           </div>
         </div>
@@ -337,11 +396,11 @@
 
         // Update left arrow opacity when at the first slide
         if (swiper.isBeginning) {
-          leftArrow.style.opacity = "0.5"; 
+          leftArrow.style.opacity = "0.5";
           leftArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
         } else {
-          leftArrow.style.opacity = "1"; 
-          leftArrow.style.cursor = "pointer"; 
+          leftArrow.style.opacity = "1";
+          leftArrow.style.cursor = "pointer";
         }
 
         // Update right arrow opacity when at the last slide
@@ -349,8 +408,8 @@
           rightArrow.style.opacity = "0.5";
           rightArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
         } else {
-          rightArrow.style.opacity = "1"; 
-          rightArrow.style.cursor = "pointer"; 
+          rightArrow.style.opacity = "1";
+          rightArrow.style.cursor = "pointer";
         }
       }
 
