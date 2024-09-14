@@ -209,34 +209,24 @@ body {
 }
 
 /* Link Layout for mobile */
-
-.link-wrapper {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
 .link-img {
   width: 100%;
   height: auto;
   max-height: 54svh;
   object-fit: cover;
   display: block;
-  position: fixed; /* Keeps the image in the desired fixed position */
-  top: 48px; /* Position the image 48px from the top */
+  position: fixed;
+  top: 48px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  z-index: 1; /* Ensures the image appears above other elements */
+  z-index: 1;
 }
 
-.link-container-mobile {
+.link-container {
   background-color: white;
   width: 100%;
   position: relative;
-  /* position: fixed; */
   top: 25px;
   /* top: calc(
     54svh + 48px
@@ -280,7 +270,7 @@ body {
   color: #808080;
   margin-top: 20px;
   margin-left: 4px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   letter-spacing: 0.1px;
 }
 
@@ -437,59 +427,43 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    /* padding: 20px; */
     background-color: white;
     width: 90%;
-    /* margin-top: 164px; */
-    /* height: 90%; */
-    /* height: 50%;
-    max-width: 90%; */
   }
 
-  .image-container-for-portraits-desktop {
+  .image-container-for-portraits-desktop-link {
     flex: 1;
-    /* max-width: 44%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-left: 0px; */
   }
 
   .link-img {
-    /* top: -100px; */
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
-    /* max-height: none; */
-    /* object-fit: contain;  */
-    /* position: relative;
-    left: auto;
-    right: auto;
-    margin: 0;
-    width: 120%; */
+    position: initial;
+    max-height: initial;
+    top: initial;
+    left: initial;
+    right: initial;
+    margin: initial;
+    z-index: initial;
   }
 
-  /* .link-main-page-wrapper .link-details-wrapper {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    max-width: 54%;
-    position: relative;
-    padding-left: 40px;
-  } */
-
-  .link-container-desktop {
+  .link-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* max-width: 50%;  */
     padding-right: 14px;
-    /* top: -610px; */
-    /* top: -404px; */
-    /* width: 100%; */
-    /* margin-left: 10px; */
-    /* height: 560px; */
+    width: initial;
+    position: initial;
+    top: initial;
+    left: initial;
+    padding: initial;
+    z-index: initial;
+    margin-top: initial;
+    height: initial;
+    overflow-y: auto;
+    margin-left: initial;
   }
 }
