@@ -278,12 +278,11 @@
           </div>
         </div>
       </div>
-      <!-- Custom Left Arrow Button -->
-      <button class="left-arrow-btn"></button>
-      <!-- Custom Right Arrow Button -->
-      <button class="right-arrow-btn"></button>
     </div>
-
+    <!-- Custom Left Arrow Button -->
+    <button class="left-arrow-btn"></button>
+    <!-- Custom Right Arrow Button -->
+    <button class="right-arrow-btn"></button>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -305,59 +304,125 @@
 
     <!-- Initialize Swiper with Custom Navigation -->
     <script>
-      const swiper = new Swiper(".mySwiper", {
-        spaceBetween: 30,
-        effect: "fade",
-        navigation: {
-          nextEl: null,
-          prevEl: null,
-        },
-        on: {
-          slideChange: updateArrowStyles, // Update arrow styles on slide change
-          reachBeginning: updateArrowStyles, // Update when at the first slide
-          reachEnd: updateArrowStyles, // Update when at the last slide
-        },
+      document.addEventListener("DOMContentLoaded", function () {
+        let isTitleRowVisible = true; // Start with title-row visible
+
+        // Initialize Swiper
+        const swiper = new Swiper(".mySwiper", {
+          spaceBetween: 30,
+          effect: "fade",
+          navigation: {
+            nextEl: null,
+            prevEl: null,
+          },
+          on: {
+            slideChange: function () {
+              updateArrowStyles();
+              applyTitleRowVisibility();
+            },
+            reachBeginning: updateArrowStyles,
+            reachEnd: updateArrowStyles,
+          },
+        });
+
+        // Manually trigger Swiper navigation with custom buttons
+        document
+          .querySelector(".left-arrow-btn")
+          .addEventListener("click", (event) => {
+            event.stopPropagation();
+            swiper.slidePrev();
+          });
+
+        document
+          .querySelector(".right-arrow-btn")
+          .addEventListener("click", (event) => {
+            event.stopPropagation();
+            swiper.slideNext();
+          });
+
+        // Function to update arrow styles
+        function updateArrowStyles() {
+          const leftArrow = document.querySelector(".left-arrow-btn");
+          const rightArrow = document.querySelector(".right-arrow-btn");
+
+          if (swiper.isBeginning) {
+            leftArrow.style.opacity = "0.5";
+            leftArrow.style.cursor = "not-allowed";
+          } else {
+            leftArrow.style.opacity = "1";
+            leftArrow.style.cursor = "pointer";
+          }
+
+          if (swiper.isEnd) {
+            rightArrow.style.opacity = "0.5";
+            rightArrow.style.cursor = "not-allowed";
+          } else {
+            rightArrow.style.opacity = "1";
+            rightArrow.style.cursor = "pointer";
+          }
+        }
+
+        // Initial calls
+        updateArrowStyles();
+        applyTitleRowVisibility();
+
+        // Event listener to toggle title-row
+        const swiperContainer = document.querySelector(".swiper");
+
+        swiperContainer.addEventListener("click", function (event) {
+          if (
+            event.target.closest(".title-row") ||
+            event.target.closest(".close-btn") ||
+            event.target.closest(".options-btn") ||
+            event.target.closest(".pencil-title-row") ||
+            event.target.closest(".link-clickable") ||
+            event.target.closest(".grey_button") ||
+            event.target.closest(".left-arrow-btn") ||
+            event.target.closest(".right-arrow-btn")
+          ) {
+            return;
+          }
+
+          const activeSlide = swiper.slides[swiper.activeIndex];
+          toggleTitleRowVisibility(activeSlide);
+          isTitleRowVisible = !isTitleRowVisible;
+        });
+
+        // Function to toggle title-row visibility
+        function toggleTitleRowVisibility(slide) {
+          const titleRow = slide.querySelector(".title-row");
+          const titleRowBottom = slide.querySelector(".title-row-bottom");
+
+          if (titleRow) {
+            titleRow.classList.toggle("hidden-title-row");
+          }
+
+          if (titleRowBottom) {
+            titleRowBottom.classList.toggle("hidden-title-row");
+          }
+        }
+
+        // Function to apply the current visibility state
+        function applyTitleRowVisibility() {
+          const activeSlide = swiper.slides[swiper.activeIndex];
+
+          if (isTitleRowVisible) {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.remove("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.remove("hidden-title-row");
+          } else {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.add("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.add("hidden-title-row");
+          }
+        }
       });
-
-      // Manually trigger Swiper navigation with custom buttons
-      document
-        .querySelector(".left-arrow-btn")
-        .addEventListener("click", () => {
-          swiper.slidePrev();
-        });
-
-      document
-        .querySelector(".right-arrow-btn")
-        .addEventListener("click", () => {
-          swiper.slideNext();
-        });
-
-      // Function to update arrow styles based on Swiper's current state
-      function updateArrowStyles() {
-        const leftArrow = document.querySelector(".left-arrow-btn");
-        const rightArrow = document.querySelector(".right-arrow-btn");
-
-        // Update left arrow opacity when at the first slide
-        if (swiper.isBeginning) {
-          leftArrow.style.opacity = "0.5";
-          leftArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
-        } else {
-          leftArrow.style.opacity = "1";
-          leftArrow.style.cursor = "pointer";
-        }
-
-        // Update right arrow opacity when at the last slide
-        if (swiper.isEnd) {
-          rightArrow.style.opacity = "0.5";
-          rightArrow.style.cursor = "not-allowed"; // Change cursor to indicate it's disabled
-        } else {
-          rightArrow.style.opacity = "1";
-          rightArrow.style.cursor = "pointer";
-        }
-      }
-
-      // Initial call to set arrow styles correctly when the page loads
-      updateArrowStyles();
     </script>
   </body>
 </html>

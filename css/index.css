@@ -422,6 +422,11 @@ body {
   }
 }
 
+/* Hide the title-row when clicking on page */
+.hidden-title-row {
+  display: none;
+}
+
 @media only screen and (min-width: 975px) {
   .link-main-page-container {
     display: flex;
