@@ -285,13 +285,93 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Initialize Swiper -->
-    <script>
+    <!-- <script>
       var swiper = new Swiper(".mySwiper", {
         direction: "vertical",
         pagination: {
           el: ".swiper-pagination",
           clickable: true,
         },
+      });
+    </script> -->
+
+    <!-- Initialize Swiper and Implement Title Row Toggle -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let isTitleRowVisible = true; // Start with title-row visible
+
+        var swiper = new Swiper(".mySwiper", {
+          direction: "vertical",
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          on: {
+            slideChange: function () {
+              applyTitleRowVisibility();
+            },
+          },
+        });
+
+        // Function to apply the current visibility state
+        function applyTitleRowVisibility() {
+          const activeSlide = swiper.slides[swiper.activeIndex];
+
+          if (isTitleRowVisible) {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.remove("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.remove("hidden-title-row");
+          } else {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.add("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.add("hidden-title-row");
+          }
+        }
+
+        // Initial call to set visibility state
+        applyTitleRowVisibility();
+
+        // Add event listener to toggle the title-row
+        const swiperContainer = document.querySelector(".swiper");
+
+        swiperContainer.addEventListener("click", function (event) {
+          // Check if the click was on an interactive element
+          if (
+            event.target.closest(".title-row") ||
+            event.target.closest(".close-btn") ||
+            event.target.closest(".options-btn") ||
+            event.target.closest(".pencil-title-row") ||
+            event.target.closest(".link-clickable") ||
+            event.target.closest(".grey_button")
+          ) {
+            // Do nothing if the click was on an interactive element
+            return;
+          }
+
+          const activeSlide = swiper.slides[swiper.activeIndex];
+          toggleTitleRowVisibility(activeSlide);
+          isTitleRowVisible = !isTitleRowVisible;
+        });
+
+        // Function to toggle title-row visibility
+        function toggleTitleRowVisibility(slide) {
+          const titleRow = slide.querySelector(".title-row");
+          const titleRowBottom = slide.querySelector(".title-row-bottom");
+
+          if (titleRow) {
+            titleRow.classList.toggle("hidden-title-row");
+          }
+
+          if (titleRowBottom) {
+            titleRowBottom.classList.toggle("hidden-title-row");
+          }
+        }
       });
     </script>
   </body>
