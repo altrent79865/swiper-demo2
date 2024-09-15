@@ -278,7 +278,12 @@
           </div>
         </div>
       </div>
-      <div class="swiper-pagination"></div>
+      <!-- <div class="swiper-pagination"></div> -->
+    </div>
+    <!-- Custom Up and Down Buttons -->
+    <div class="navigation-buttons">
+      <button class="up-button"></button>
+      <button class="down-button"></button>
     </div>
 
     <!-- Swiper JS -->
@@ -295,83 +300,55 @@
       });
     </script> -->
 
-    <!-- Initialize Swiper and Implement Title Row Toggle -->
+    <!-- Initialize Swiper and Button Functionality -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        let isTitleRowVisible = true; // Start with title-row visible
-
+        // Initialize Swiper
         var swiper = new Swiper(".mySwiper", {
           direction: "vertical",
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
           on: {
             slideChange: function () {
-              applyTitleRowVisibility();
+              updateNavigationButtonStyles();
             },
+            reachBeginning: updateNavigationButtonStyles,
+            reachEnd: updateNavigationButtonStyles,
           },
         });
 
-        // Function to apply the current visibility state
-        function applyTitleRowVisibility() {
-          const activeSlide = swiper.slides[swiper.activeIndex];
+        // Select buttons
+        const upButton = document.querySelector(".up-button");
+        const downButton = document.querySelector(".down-button");
 
-          if (isTitleRowVisible) {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.remove("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.remove("hidden-title-row");
-          } else {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.add("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.add("hidden-title-row");
+        // Add event listeners to buttons
+        upButton.addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent the click from propagating to the swiper
+          if (!swiper.isBeginning) {
+            swiper.slidePrev(); // Navigate to the previous slide
           }
-        }
-
-        // Initial call to set visibility state
-        applyTitleRowVisibility();
-
-        // Add event listener to toggle the title-row
-        const swiperContainer = document.querySelector(".swiper");
-
-        swiperContainer.addEventListener("click", function (event) {
-          // Check if the click was on an interactive element
-          if (
-            event.target.closest(".title-row") ||
-            event.target.closest(".close-btn") ||
-            event.target.closest(".options-btn") ||
-            event.target.closest(".pencil-title-row") ||
-            event.target.closest(".link-clickable") ||
-            event.target.closest(".grey_button")
-          ) {
-            // Do nothing if the click was on an interactive element
-            return;
-          }
-
-          const activeSlide = swiper.slides[swiper.activeIndex];
-          toggleTitleRowVisibility(activeSlide);
-          isTitleRowVisible = !isTitleRowVisible;
         });
 
-        // Function to toggle title-row visibility
-        function toggleTitleRowVisibility(slide) {
-          const titleRow = slide.querySelector(".title-row");
-          const titleRowBottom = slide.querySelector(".title-row-bottom");
-
-          if (titleRow) {
-            titleRow.classList.toggle("hidden-title-row");
+        downButton.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (!swiper.isEnd) {
+            swiper.slideNext(); // Navigate to the next slide
           }
+        });
 
-          if (titleRowBottom) {
-            titleRowBottom.classList.toggle("hidden-title-row");
-          }
+        // Function to update button styles based on swiper's state
+        function updateNavigationButtonStyles() {
+          upButton.disabled = swiper.isBeginning;
+          upButton.style.opacity = swiper.isBeginning ? "0.5" : "1";
+          upButton.style.cursor = swiper.isBeginning
+            ? "not-allowed"
+            : "pointer";
+
+          downButton.disabled = swiper.isEnd;
+          downButton.style.opacity = swiper.isEnd ? "0.5" : "1";
+          downButton.style.cursor = swiper.isEnd ? "not-allowed" : "pointer";
         }
+
+        // Initial update to button styles
+        updateNavigationButtonStyles();
       });
     </script>
   </body>

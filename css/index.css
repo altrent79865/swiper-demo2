@@ -180,6 +180,19 @@ body {
   display: block;
 }
 
+/* Vertical Swiper */
+/* Changes color of all pagination bullets*/
+.swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(178, 178, 178, 0.9);
+}
+
+/* Changes color of the active pagination bullet */
+.swiper-pagination-bullet-active {
+  background-color: #ffffff; 
+}
+
+/* Youtube Videos */
 .youtube-video-iphone-image-container {
   position: relative;
   width: 100%; /* Matches the container to the image width */
@@ -337,7 +350,7 @@ body {
   width: 100%;
 }
 
-/* Custom arrows */
+/* Custom arrows for horizontal swiping for Navigation and Fade Swiper */
 .left-arrow-btn {
   display: flex;
   justify-content: center;
@@ -411,6 +424,62 @@ body {
 
 .right-arrow-btn::after {
   transform: rotate(-45deg) translate(-6px, 0px); /* Bottom line of the arrow */
+}
+
+/* Custom arrows for vertical swiping for Vertical Swiper */
+/* Style for the navigation buttons container */
+.navigation-buttons {
+  position: fixed;
+  bottom: 16px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px; /* Space between buttons */
+  z-index: 100; /* Ensure buttons are above other elements */
+}
+
+/* Base styles for buttons to match the style of the close button */
+.navigation-buttons button {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black background */
+  opacity: 1;
+  cursor: pointer;
+  border-radius: 50%; /* Make buttons circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px); /* Adds a subtle blur effect like close-btn */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); /* Optional: Add some shadow for depth */
+  transition: opacity 0.3s; /* Smooth transition for hover or disabled state */
+}
+
+/* Disabled state */
+.navigation-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Add icons to buttons */
+.up-button::before,
+.down-button::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5)); /* Add shadow to icons to match close-btn style */
+}
+
+/* Up arrow icon */
+.up-button::before {
+  background-image: url("../assets/arrow_up-vertical-swiper-white.png"); /* Replace with your up arrow icon path */
+}
+
+/* Down arrow icon */
+.down-button::before {
+  background-image: url("../assets/arrow_down-vertical-swiper-white.png"); /* Replace with your down arrow icon path */
 }
 
 /* Media query to adjust for wider screens (around 500px and above) */
