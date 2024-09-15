@@ -434,14 +434,14 @@ body {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 34px; /* Space between buttons */
+  gap: 40px; /* Space between buttons */
   z-index: 100; /* Ensure buttons are above other elements */
 }
 
 /* Base styles for buttons to match the style of the close button */
 .navigation-buttons button {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border: none;
   padding: 0px;
   background-color: rgba(0, 0, 0, 0.3);
@@ -466,8 +466,8 @@ body {
 .up-button::before,
 .down-button::before {
   content: "";
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   background-size: contain;
   background-repeat: no-repeat;
   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
