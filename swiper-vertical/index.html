@@ -304,7 +304,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let elementsVisible = true; // Track visibility state of buttons and title rows
-    
+
         // Initialize Swiper
         var swiper = new Swiper(".mySwiper", {
           direction: "vertical",
@@ -316,11 +316,11 @@
             reachEnd: updateNavigationButtonStyles,
           },
         });
-    
+
         // Select buttons
         const upButton = document.querySelector(".up-button");
         const downButton = document.querySelector(".down-button");
-    
+
         // Add event listeners to buttons
         upButton.addEventListener("click", function (e) {
           e.stopPropagation(); // Prevent the click from propagating to the swiper
@@ -328,28 +328,30 @@
             swiper.slidePrev(); // Navigate to the previous slide
           }
         });
-    
+
         downButton.addEventListener("click", function (e) {
           e.stopPropagation();
           if (!swiper.isEnd) {
             swiper.slideNext(); // Navigate to the next slide
           }
         });
-    
+
         // Function to update button styles based on swiper's state
         function updateNavigationButtonStyles() {
           upButton.disabled = swiper.isBeginning;
           upButton.style.opacity = swiper.isBeginning ? "0.5" : "1";
-          upButton.style.cursor = swiper.isBeginning ? "not-allowed" : "pointer";
-    
+          upButton.style.cursor = swiper.isBeginning
+            ? "not-allowed"
+            : "pointer";
+
           downButton.disabled = swiper.isEnd;
           downButton.style.opacity = swiper.isEnd ? "0.5" : "1";
           downButton.style.cursor = swiper.isEnd ? "not-allowed" : "pointer";
         }
-    
+
         // Initial update to button styles
         updateNavigationButtonStyles();
-    
+
         // Add event listener to toggle the visibility of title rows and buttons
         const swiperContainer = document.querySelector(".swiper");
         swiperContainer.addEventListener("click", function (event) {
@@ -366,18 +368,21 @@
             // Do nothing if clicked on an interactive element
             return;
           }
-    
+
           // Toggle visibility state
           elementsVisible = !elementsVisible;
           updateElementsVisibility();
         });
-    
+
         // Function to update the visibility of title rows and buttons
         function updateElementsVisibility() {
           const titleRows = document.querySelectorAll(".title-row");
-          const titleRowBottoms = document.querySelectorAll(".title-row-bottom");
-          const navigationButtons = document.querySelector(".navigation-buttons");
-    
+          const titleRowBottoms =
+            document.querySelectorAll(".title-row-bottom");
+          const navigationButtons = document.querySelector(
+            ".navigation-buttons"
+          );
+
           // Toggle visibility based on the state
           if (elementsVisible) {
             titleRows.forEach((row) => (row.style.display = "flex"));
@@ -389,7 +394,7 @@
             navigationButtons.style.display = "none";
           }
         }
-    
+
         // Initial call to set the visibility state
         updateElementsVisibility();
       });
