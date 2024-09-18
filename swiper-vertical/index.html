@@ -335,6 +335,13 @@
             swiper.slideNext(); // Navigate to the next slide
           }
         });
+        // Prevent double-tap zoom on mobile
+        function preventZoom(event) {
+          event.preventDefault();
+        }
+
+        upButton.addEventListener("touchstart", preventZoom);
+        downButton.addEventListener("touchstart", preventZoom);
 
         // Function to update button styles based on swiper's state
         function updateNavigationButtonStyles() {
