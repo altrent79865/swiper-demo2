@@ -238,7 +238,7 @@ body {
   background-color: white;
   width: 100vw;
   position: relative;
-  padding-left: 20px;
+  padding-left: 22px;
   margin-top: calc(55svh); 
   height: calc(100svh - 55svh); 
   overflow-y: auto;
@@ -249,7 +249,7 @@ body {
 .link-description {
   text-align: left;
   color: black;
-  padding-right: 20px;
+  padding-right: 22px;
   margin-left: 4px;
 }
 
@@ -358,42 +358,57 @@ body {
 /* Style for the navigation buttons container */
 .navigation-buttons {
   position: fixed;
-  bottom: 56px; 
+  bottom: 18px; /* Adjust as needed */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  z-index: 100; 
+  gap: 40px; /* Space between buttons */
+  z-index: 100; /* Ensure buttons are above other elements */
 }
 
-/* Arrows for horizontal swiping for Navigation and Fade Swiper */
-.up-arrow-btn, .down-arrow-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Base styles for buttons to match the style of the close button */
+.navigation-buttons button {
   width: 40px;
   height: 40px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  cursor: pointer;
   border: none;
-  z-index: 10;
-  transition: opacity 0.3s;
-  background-size: 26px 26px; 
+  padding: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); /* Optional: Add some shadow for depth */
+  transition: opacity 0.3s; /* Smooth transition for hover or disabled state */
+}
+
+/* Disabled state */
+.navigation-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Add icons to buttons */
+.up-button::before,
+.down-button::before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  background-size: contain;
   background-repeat: no-repeat;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
 }
 
-.up-arrow-btn {
-  position: absolute;
-  left: -60px;
-  background-image: url(../assets/64x64_0021_up-arrow-white.png);
-  background-position: center 48%;
+/* Up arrow icon */
+.up-button::before {
+  background-image: url("../assets/arrow_up-vertical-swiper-white.png"); /* Replace with your up arrow icon path */
 }
 
-.down-arrow-btn {
-  position: absolute;
-  right: -60px;
-  background-image: url("../assets/64x64_0022_down-arrow-white.png");
-  background-position: center 58%;
+/* Down arrow icon */
+.down-button::before {
+  background-image: url("../assets/arrow_down-vertical-swiper-white.png"); /* Replace with your down arrow icon path */
 }
 
 /* Media query to adjust for wider screens (around 500px and above) */
@@ -402,7 +417,6 @@ body {
     height: 100svh; /* Keep height consistent across all images */
     width: auto;
     object-fit: cover; /* Adjust to maintain aspect ratio */
-    background-position: center 55%;
   }
 }
 
