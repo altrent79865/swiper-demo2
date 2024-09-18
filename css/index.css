@@ -351,79 +351,36 @@ body {
 }
 
 /* Custom arrows for horizontal swiping for Navigation and Fade Swiper */
-.left-arrow-btn {
+.left-arrow-btn, .right-arrow-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   position: absolute;
   top: 50%;
-  left: 9px;
   transform: translateY(-50%);
   cursor: pointer;
   border: none;
   z-index: 10;
   transition: opacity 0.3s;
+  background-size: 28px 28px; 
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Define the left-facing arrow lines */
-.left-arrow-btn::before,
-.left-arrow-btn::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 2px;
-  background-color: white;
-  left: 18%;
+.left-arrow-btn {
+  left: 9px;
+  background-image: url(../assets/64x64_0021_left-arrow-white.png);
+  background-position: calc(50% - 2px) center;
 }
 
-.left-arrow-btn::before {
-  transform: rotate(135deg) translate(-6px, 0px); /* Top line of the arrow */
-}
-
-.left-arrow-btn::after {
-  transform: rotate(225deg) translate(-6px, 0px); /* Bottom line of the arrow */
-}
-
-/* Custom right arrow button with styles similar to close-btn */
 .right-arrow-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 38px;
-  height: 38px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
   right: 9px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  border: none;
-  z-index: 10;
-  transition: opacity 0.3s; /* Smooth transition for opacity changes */
-}
-
-/* Define the right-facing arrow lines */
-.right-arrow-btn::before,
-.right-arrow-btn::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 2px;
-  background-color: white;
-  right: 18%;
-}
-
-.right-arrow-btn::before {
-  transform: rotate(45deg) translate(-6px, 0px); /* Top line of the arrow */
-}
-
-.right-arrow-btn::after {
-  transform: rotate(-45deg) translate(-6px, 0px); /* Bottom line of the arrow */
+  background-image: url("../assets/64x64_0022_right-arrow-white.png");
+  background-position: calc(50% + 2px) center; /
 }
 
 /* Custom arrows for vertical swiping for Vertical Swiper */
