@@ -60,7 +60,7 @@ body {
 .close-btn::after {
   content: "";
   position: absolute;
-  width: 16px; /* Length of the lines */
+  width: 18px; /* Length of the lines */
   height: 2px; /* Thickness of the lines */
   background-color: white; /* Color of the 'X' */
 }
