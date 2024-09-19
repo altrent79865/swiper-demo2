@@ -365,8 +365,9 @@ body {
   z-index: 100; 
 }
 
-/* Arrows for horizontal swiping for Navigation and Fade Swiper */
+/* Arrows for vertical swiping */
 .up-arrow-btn, .down-arrow-btn {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -383,6 +384,18 @@ body {
   touch-action: manipulation;
 }
 
+/* Increase the clickable area of the buttons to prevent accidently turning the title row on or off */
+.up-arrow-btn::before,
+.down-arrow-btn::before {
+  content: '';
+  position: absolute;
+  top: -4px; 
+  bottom: -4px; 
+  left: -4px; 
+  right: -4px; 
+  background: transparent; 
+}
+
 .up-arrow-btn {
   position: absolute;
   left: -60px;
@@ -397,29 +410,20 @@ body {
   background-position: center 58%;
 }
 
-/* Media query to adjust for wider screens (around 500px and above) */
-@media (orientation: landscape) {
-  .portrait-img {
-    height: 100svh;  /* Keep full height */
-    width: auto; 
-    max-width: 55svh; /* Control the width to simulate portrait mode */
-    object-fit: cover; /* Ensure the image still covers the space properly */
-  }
-}
-
 /* Hide the title-row when clicking on page */
 .hidden-title-row {
   display: none;
 }
 
-/* Prevent portrait mode from turning to landscape on iOS */
-@media (orientation: landscape) {
+/* Media query to adjust for wider screens (around 500px and above)  NOTE max-width 55svh needs tested on older phones that have screen heights under 600px */
+/* @media (orientation: landscape) {
   .portrait-img {
-    height: 100vh; 
+    height: 100svh;  
     width: auto; 
-    max-width: none; 
+    max-width: 55svh; 
+    object-fit: cover; /
   }
-}
+} */
 
 @media only screen and (min-width: 975px) {
   .link-main-page-container {
