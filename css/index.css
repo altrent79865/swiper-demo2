@@ -412,6 +412,15 @@ body {
   display: none;
 }
 
+/* Prevent portrait mode from turning to landscape on iOS */
+@media (orientation: landscape) {
+  .portrait-img {
+    height: 100vh; 
+    width: auto; 
+    max-width: none; 
+  }
+}
+
 @media only screen and (min-width: 975px) {
   .link-main-page-container {
     display: flex;
