@@ -310,7 +310,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTitleRowVisible = true; // Start with title-row visible
-        let lastTouchTime = 0; // Track time of last touch event
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -329,37 +328,19 @@
         });
 
         // Manually trigger Swiper navigation with custom buttons
-        const leftArrowBtn = document.querySelector(".left-arrow-btn");
-        const rightArrowBtn = document.querySelector(".right-arrow-btn");
-        const swiperContainer = document.querySelector(".swiper");
+        document
+          .querySelector(".left-arrow-btn")
+          .addEventListener("click", (event) => {
+            event.stopPropagation();
+            swiper.slidePrev();
+          });
 
-        leftArrowBtn.addEventListener("click", (event) => {
-          event.stopPropagation();
-          swiper.slidePrev();
-        });
-
-        rightArrowBtn.addEventListener("click", (event) => {
-          event.stopPropagation();
-          swiper.slideNext();
-        });
-
-        // Prevent double-tap zoom on mobile
-        function preventDoubleTapZoom(event) {
-          const currentTime = new Date().getTime();
-          const timeSinceLastTouch = currentTime - lastTouchTime;
-
-          if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
-            // Prevent zoom if the time between touches is too short (double-tap)
-            event.preventDefault();
-          }
-
-          lastTouchTime = currentTime;
-        }
-
-        // Add touchstart event listeners to prevent double-tap zoom
-        leftArrowBtn.addEventListener("touchstart", preventDoubleTapZoom);
-        rightArrowBtn.addEventListener("touchstart", preventDoubleTapZoom);
-        swiperContainer.addEventListener("touchstart", preventDoubleTapZoom);
+        document
+          .querySelector(".right-arrow-btn")
+          .addEventListener("click", (event) => {
+            event.stopPropagation();
+            swiper.slideNext();
+          });
 
         // Function to update arrow styles
         function updateArrowStyles() {
@@ -388,6 +369,8 @@
         applyTitleRowVisibility();
 
         // Event listener to toggle title-row
+        const swiperContainer = document.querySelector(".swiper");
+
         swiperContainer.addEventListener("click", function (event) {
           if (
             event.target.closest(".title-row") ||

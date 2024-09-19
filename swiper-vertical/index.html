@@ -77,7 +77,9 @@
             <img src="../assets/leo-portrait.jpg" class="portrait-img" />
           </div>
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <p class="media-item-title">Little Guy</p>
             </div>
@@ -99,7 +101,9 @@
             <img src="../assets/christmas-meal.jpg" class="portrait-img" />
           </div>
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
               <p class="media-item-title">Christmas Dinner Table Setting</p>
@@ -122,7 +126,9 @@
             <img src="../assets/leo-portrait2.jpg" class="portrait-img" />
           </div>
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <p class="media-item-title">Italian Roots</p>
             </div>
@@ -144,7 +150,9 @@
             <img src="../assets/meat-portrait.jpg" class="portrait-img" />
           </div>
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <img src="../assets/pencil-white.png" class="pencil" alt="" />
               <p class="media-item-title add-new-caption">Add a Caption</p>
@@ -167,7 +175,9 @@
             <img src="../assets/christmas-meal.jpg" class="portrait-img" />
           </div>
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
               <p class="media-item-title">Christmas Dinner Table Setting</p>
@@ -188,7 +198,9 @@
         <div class="swiper-slide">
           <img src="../assets/leo-landscape.jpg" class="landscape-img" />
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <p class="media-item-title">Leo Williams</p>
             </div>
@@ -213,7 +225,9 @@
             />
           </div>
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <p class="media-item-title">Finding the Wildebeasts on Safari</p>
             </div>
@@ -243,7 +257,9 @@
             />
           </div>
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <p class="media-item-title">Finding the Wildebeasts on Safari</p>
             </div>
@@ -263,7 +279,9 @@
         <div class="swiper-slide">
           <img src="../assets/pasta.jpg" class="landscape-img" />
           <div class="title-row">
-            <a href="../index.html" class="close-btn"><span class="x-line"></span></a>
+            <a href="../index.html" class="close-btn"
+              ><span class="x-line"></span
+            ></a>
             <div class="pencil-title-row">
               <p class="media-item-title">A great pasta dish with truffle</p>
             </div>
@@ -313,21 +331,6 @@
         const upButton = document.querySelector(".up-arrow-btn");
         const downButton = document.querySelector(".down-arrow-btn");
 
-        // Add event listeners to buttons
-        upButton.addEventListener("click", function (e) {
-          e.stopPropagation(); // Prevent the click from propagating to the swiper
-          if (!swiper.isBeginning) {
-            swiper.slidePrev(); // Navigate to the previous slide
-          }
-        });
-
-        downButton.addEventListener("click", function (e) {
-          e.stopPropagation();
-          if (!swiper.isEnd) {
-            swiper.slideNext(); // Navigate to the next slide
-          }
-        });
-
         // Prevent double-tap zoom on mobile
         function preventDoubleTapZoom(event) {
           const currentTime = new Date().getTime();
@@ -344,15 +347,28 @@
         upButton.addEventListener("touchstart", preventDoubleTapZoom);
         downButton.addEventListener("touchstart", preventDoubleTapZoom);
 
+        // Add event listeners to buttons
+        upButton.addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent the click from propagating to the swiper
+          if (!swiper.isBeginning) {
+            swiper.slidePrev(); // Navigate to the previous slide
+          }
+        });
+
+        downButton.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (!swiper.isEnd) {
+            swiper.slideNext(); // Navigate to the next slide
+          }
+        });
+
         // Function to update button styles based on swiper's state
         function updateNavigationButtonStyles() {
-          upButton.disabled = swiper.isBeginning;
           upButton.style.opacity = swiper.isBeginning ? "0.5" : "1";
           upButton.style.cursor = swiper.isBeginning
             ? "not-allowed"
             : "pointer";
 
-          downButton.disabled = swiper.isEnd;
           downButton.style.opacity = swiper.isEnd ? "0.5" : "1";
           downButton.style.cursor = swiper.isEnd ? "not-allowed" : "pointer";
         }
