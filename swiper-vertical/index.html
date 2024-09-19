@@ -304,6 +304,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let elementsVisible = true; // Track visibility state of buttons and title rows
+        let lastTouchTime = 0; // Track time of last touch event
 
         // Initialize Swiper
         var swiper = new Swiper(".mySwiper", {
@@ -335,13 +336,22 @@
             swiper.slideNext(); // Navigate to the next slide
           }
         });
+
         // Prevent double-tap zoom on mobile
-        function preventZoom(event) {
-          event.preventDefault();
+        function preventDoubleTapZoom(event) {
+          const currentTime = new Date().getTime();
+          const timeSinceLastTouch = currentTime - lastTouchTime;
+
+          if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
+            // Prevent zoom if the time between touches is too short (double-tap)
+            event.preventDefault();
+          }
+
+          lastTouchTime = currentTime;
         }
 
-        upButton.addEventListener("touchstart", preventZoom);
-        downButton.addEventListener("touchstart", preventZoom);
+        upButton.addEventListener("touchstart", preventDoubleTapZoom);
+        downButton.addEventListener("touchstart", preventDoubleTapZoom);
 
         // Function to update button styles based on swiper's state
         function updateNavigationButtonStyles() {
