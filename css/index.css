@@ -389,10 +389,10 @@ body {
 .down-arrow-btn::before {
   content: '';
   position: absolute;
-  top: -8px; 
-  bottom: -8px; 
-  left: -8px; 
-  right: -8px; 
+  top: -15px; 
+  bottom: -15px; 
+  left: -15px; 
+  right: -15px; 
   background: transparent; 
 }
 
