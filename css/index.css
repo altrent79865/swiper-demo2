@@ -1,3 +1,5 @@
+/* CHECK z-index everywhere to make sure it makes sense and is consistent. */
+
 html,
 body {
   position: relative;
@@ -53,35 +55,43 @@ body {
   left: 9px;
   cursor: pointer;
   border: none;
-  z-index: 10
+  z-index: 10;
+  position: relative; 
 }
 
-/* Increase the clickable area of buttons to prevent accidently turning the title row on or off */
-.close-btn::before {
-  content: '';
-  position: absolute;
-  top: -14px;   
-  bottom: -14px; 
-  left: -14px;   
-  right: -14px;  
-  background: transparent; 
-}
-
-.close-btn::before,
-.close-btn::after {
+/* The lines of the "X".*/
+.close-btn .x-line::before,
+.close-btn .x-line::after {
   content: "";
   position: absolute;
-  width: 18px; /* Length of the lines */
-  height: 2px; /* Thickness of the lines */
-  background-color: white; /* Color of 'X' */
+  width: 18px; 
+  height: 2px; 
+  background-color: white; 
+  top: 50%; 
+  left: 50%; 
+  transform-origin: center;
 }
 
+/* First line of the 'X' */
+.close-btn .x-line::before {
+  transform: translate(-50%, -50%) rotate(45deg); 
+}
+
+/* Second line of the 'X' */
+.close-btn .x-line::after {
+  transform: translate(-50%, -50%) rotate(-45deg); 
+}
+
+/* Increases the clickable area of buttons to prevent accidently turning the title row on or off  */
 .close-btn::before {
-  transform: rotate(45deg); /* First line of the 'X' */
-}
-
-.close-btn::after {
-  transform: rotate(-45deg); /* Second line of the 'X' */
+  content: "";
+  position: absolute;
+  top: -14px;
+  bottom: -14px;
+  left: -14px;
+  right: -14px;
+  background: transparent;
+  z-index: -1; 
 }
 
 .title-row .close-btn,
@@ -107,7 +117,7 @@ body {
   z-index: 10
 }
 
-/* Increase the clickable area of buttons to prevent accidently turning the title row on or off */
+/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
 .title-row .pencil::before {
   content: '';
   position: absolute;
@@ -123,7 +133,7 @@ body {
   z-index: 10
 }
 
-/* Increase the clickable area of buttons to prevent accidently turning the title row on or off */
+/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
 .title-row .add-new-caption::before {
   content: '';
   position: absolute;
@@ -163,7 +173,7 @@ body {
   z-index: 10
 }
 
-/* Increase the clickable area of buttons to prevent accidently turning the title row on or off */
+/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
 .title-row .options-btn::before {
   content: '';
   position: absolute;
@@ -390,7 +400,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Increase the clickable area of buttons to prevent accidently turning the title row on or off */
+/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
 .left-arrow-btn::before,
 .right-arrow-btn::before {
   content: '';
@@ -444,7 +454,7 @@ body {
   touch-action: manipulation;
 }
 
-/* Increase clickable area of buttons to prevent accidently turning the title row on or off */
+/* Increases clickable area of buttons to prevent accidently turning the title row on or off */
 .up-arrow-btn::before,
 .down-arrow-btn::before {
   content: '';
