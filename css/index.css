@@ -321,15 +321,19 @@ body {
   letter-spacing: 0.1px;
 }
 
+
+.link-clickable-text-wrapper {
+  margin-top: 20px; 
+  margin-bottom: 16px; 
+}
+
 /* Need to use class names that Adam is already using. */
-.link-clickable {
-  display: block;
+.link-clickable-text {
+  display: inline;
   text-decoration: none;
   text-transform: uppercase;
   color: #808080;
-  margin-top: 20px;
   margin-left: 4px;
-  margin-bottom: 16px;
   letter-spacing: 0.1px;
 }
 
