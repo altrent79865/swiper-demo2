@@ -398,12 +398,12 @@ body {
 }
 
 /* Media query to adjust for wider screens (around 500px and above) */
-@media (min-width: 500px) {
+@media (orientation: landscape) {
   .portrait-img {
-    height: 100svh; /* Keep height consistent across all images */
-    width: auto;
-    object-fit: cover; /* Adjust to maintain aspect ratio */
-    background-position: center 55%;
+    height: 100svh;  /* Keep full height */
+    width: auto; 
+    max-width: 55svh; /* Control the width to simulate portrait mode */
+    object-fit: cover; /* Ensure the image still covers the space properly */
   }
 }
 
