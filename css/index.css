@@ -437,18 +437,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   cursor: pointer;
   border: none;
   transition: opacity 0.3s;
-  background-size: 20px 20px; 
+  background-size: 26px 26px; 
   background-repeat: no-repeat;
   touch-action: manipulation;
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
-  background-position: center;
+  background-position: center 60%;
 }
 
 /* Increases clickable area of buttons to prevent accidently turning the title row on or off */
