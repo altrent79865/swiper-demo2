@@ -444,7 +444,7 @@ body {
   cursor: pointer;
   border: none;
   transition: opacity 0.3s;
-  background-size: 24px 24px; 
+  background-size: 23px 23px; 
   background-repeat: no-repeat;
   touch-action: manipulation;
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
