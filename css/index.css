@@ -425,7 +425,7 @@ body {
 /* Style for the navigation buttons container */
 .navigation-buttons {
   position: absolute;
-  bottom: 16px; 
+  bottom: 12px; 
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
@@ -444,7 +444,7 @@ body {
   cursor: pointer;
   border: none;
   transition: opacity 0.3s;
-  background-size: 26px 26px; 
+  background-size: 28px 28px; 
   background-repeat: no-repeat;
   touch-action: manipulation;
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
