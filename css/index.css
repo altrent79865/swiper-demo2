@@ -1,4 +1,3 @@
-/* CHECK z-index everywhere to make sure it makes sense and is consistent. */
 
 html,
 body {
@@ -29,6 +28,7 @@ body {
   align-items: center;
 }
 
+/* Title Row */
 .title-row {
   position: fixed;
   top: 0;
@@ -37,8 +37,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 300;
   margin-top: 10px;
+  cursor: default;
+  overflow: visible;
 }
 
 /* Close Button Styles */
@@ -51,11 +52,9 @@ body {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   position: absolute;
-  /* top: 9px; */
   left: 9px;
   cursor: pointer;
   border: none;
-  z-index: 10;
   position: relative; 
 }
 
@@ -86,12 +85,11 @@ body {
 .close-btn::before {
   content: "";
   position: absolute;
-  top: -14px;
-  bottom: -14px;
-  left: -14px;
-  right: -14px;
+  top: -10px;
+  bottom: -10px;
+  left: -10px;
+  right: -10px;
   background: transparent;
-  z-index: -1; 
 }
 
 .title-row .close-btn,
@@ -104,44 +102,42 @@ body {
   justify-content: center;
   align-items: center;
   height: 28px;
-  color: white;
+}
+
+.pencil-container {
+  position: relative; 
+  display: inline-block;
+  cursor: pointer; 
+}
+
+/* Increases the clickable area of buttons to prevent accidently turning the title row on or off  */
+.pencil-container::before, .title-row .add-new-caption::before {
+  content: '';
+  position: absolute;
+  top: -14px;   
+  bottom: -14px; 
+  left: -14px;   
+  right: -10px;  
+  pointer-events: auto;
+  z-index: 100;
 }
 
 .title-row .pencil {
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  cursor: pointer;
   height: 18px;
   width: auto;
-  margin-right: 2px;
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5))
-    drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-  cursor: pointer;
-  z-index: 10
-}
-
-/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
-.title-row .pencil::before {
-  content: '';
-  position: absolute;
-  top: -14px;  
-  bottom: -14px; 
-  left: -14px;  
-  right: -14px;  
-  background: transparent;  
+  margin-right: -14px; 
+  position: relative;
+  z-index: 200;
 }
 
 .title-row .add-new-caption {
+  position: relative;
   cursor: pointer;
-  z-index: 10
-}
-
-/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
-.title-row .add-new-caption::before {
-  content: '';
-  position: absolute;
-  top: -14px;  
-  bottom: -14px; 
-  left: -14px;  
-  right: -14px;  
-  background: transparent;  
+  z-index: 200;
+  display: inline-block; 
+  padding: 14px;
 }
 
 .title-row .media-item-title {
@@ -170,18 +166,18 @@ body {
   cursor: pointer;
   border: none;
   gap: 0.158rem;
-  z-index: 10
 }
 
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
 .title-row .options-btn::before {
   content: '';
   position: absolute;
-  top: -14px;  
-  bottom: -14px; 
-  left: -14px;  
-  right: -14px;  
-  background: transparent;  
+  top: -10px;  
+  bottom: -10px; 
+  left: -10px;  
+  right: -10px;  
+  background: transparent;
+  z-index: 100;  
 }
 
 .dot {
@@ -201,7 +197,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 300;
   margin-top: -18px;
 }
 
@@ -289,7 +284,6 @@ body {
   left: 0;
   right: 0;
   margin: 0 auto;
-  z-index: 1;
 }
 
 .link-container {
@@ -300,7 +294,6 @@ body {
   margin-top: calc(55svh); 
   height: calc(100svh - 55svh); 
   overflow-y: auto;
-  z-index: 0;
 }
 
 .link-title,
@@ -397,7 +390,7 @@ body {
   transform: translateY(-50%);
   cursor: pointer;
   border: none;
-  z-index: 10;
+  z-index: 100;
   transition: opacity 0.3s;
   background-size: 20px 20px; 
   background-position: center;
@@ -451,7 +444,6 @@ body {
   border-radius: 50%;
   cursor: pointer;
   border: none;
-  z-index: 10;
   transition: opacity 0.3s;
   background-size: 20px 20px; 
   background-repeat: no-repeat;
@@ -523,7 +515,6 @@ body {
     left: initial;
     right: initial;
     margin: initial;
-    z-index: initial;
   }
 
   .link-container {
@@ -535,7 +526,6 @@ body {
     position: initial;
     padding: initial;
     padding-right: 14px;
-    z-index: initial;
     margin-top: initial;
     height: initial;
     margin-left: initial;
