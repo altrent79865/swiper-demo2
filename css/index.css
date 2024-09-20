@@ -424,17 +424,16 @@ body {
 /* Custom arrows for vertical swiping for Vertical Swiper */
 /* Style for the navigation buttons container */
 .navigation-buttons {
-  position: fixed;
-  bottom: 56px; 
+  position: absolute;
+  bottom: 16px; 
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  z-index: 100; 
+  z-index: 100;
+  display: block; 
 }
 
-/* Arrows for vertical swiping */
-.up-arrow-btn, .down-arrow-btn {
-  position: absolute;
+/* Arrows for vertical swiping.  I also had up- */
+.down-arrow-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -448,10 +447,11 @@ body {
   background-size: 20px 20px; 
   background-repeat: no-repeat;
   touch-action: manipulation;
+  background-image: url("../assets/64x64_0022_down-arrow-white.png");
+  background-position: center;
 }
 
 /* Increases clickable area of buttons to prevent accidently turning the title row on or off */
-.up-arrow-btn::before,
 .down-arrow-btn::before {
   content: '';
   position: absolute;
@@ -460,20 +460,6 @@ body {
   left: -20px; 
   right: -20px; 
   background: transparent; 
-}
-
-.up-arrow-btn {
-  position: absolute;
-  left: -62px;
-  background-image: url(../assets/64x64_0021_up-arrow-white.png);
-  background-position: center 48%;
-}
-
-.down-arrow-btn {
-  position: absolute;
-  right: -62px;
-  background-image: url("../assets/64x64_0022_down-arrow-white.png");
-  background-position: center 58%;
 }
 
 /* Hide the title-row when clicking on page */

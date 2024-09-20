@@ -305,7 +305,7 @@
     </div>
     <!-- Custom Up and Down Buttons -->
     <div class="navigation-buttons">
-      <button class="up-arrow-btn"></button>
+      <!-- <button class="up-arrow-btn"></button> -->
       <button class="down-arrow-btn"></button>
     </div>
 
@@ -331,8 +331,7 @@
           },
         });
 
-        // Select buttons
-        const upButton = document.querySelector(".up-arrow-btn");
+        // Select down button
         const downButton = document.querySelector(".down-arrow-btn");
 
         // Prevent double-tap zoom on mobile
@@ -348,17 +347,9 @@
           lastTouchTime = currentTime;
         }
 
-        upButton.addEventListener("touchstart", preventDoubleTapZoom);
         downButton.addEventListener("touchstart", preventDoubleTapZoom);
 
         // Add event listeners to buttons
-        upButton.addEventListener("click", function (e) {
-          e.stopPropagation();
-          if (!swiper.isBeginning) {
-            swiper.slidePrev();
-          }
-        });
-
         downButton.addEventListener("click", function (e) {
           e.stopPropagation();
           if (!swiper.isEnd) {
@@ -368,11 +359,6 @@
 
         // Function to update button styles based on swiper's state
         function updateNavigationButtonStyles() {
-          upButton.style.opacity = swiper.isBeginning ? "0.5" : "1";
-          upButton.style.cursor = swiper.isBeginning
-            ? "not-allowed"
-            : "pointer";
-
           downButton.style.opacity = swiper.isEnd ? "0.5" : "1";
           downButton.style.cursor = swiper.isEnd ? "not-allowed" : "pointer";
         }
@@ -390,8 +376,7 @@
             event.target.closest(".pencil-title-row") ||
             event.target.closest(".link-clickable") ||
             event.target.closest(".grey_button") ||
-            event.target.closest(".up-button") ||
-            event.target.closest(".down-button")
+            event.target.closest(".down-arrow-btn")
           ) {
             // Do nothing if clicked on an interactive element
             return;
