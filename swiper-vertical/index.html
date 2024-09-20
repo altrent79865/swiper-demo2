@@ -321,6 +321,7 @@
         // Initialize Swiper
         var swiper = new Swiper(".mySwiper", {
           direction: "vertical",
+          speed: 200,
           on: {
             slideChange: function () {
               updateNavigationButtonStyles();
@@ -352,16 +353,16 @@
 
         // Add event listeners to buttons
         upButton.addEventListener("click", function (e) {
-          e.stopPropagation(); // Prevent the click from propagating to the swiper
+          e.stopPropagation();
           if (!swiper.isBeginning) {
-            swiper.slidePrev(); // Navigate to the previous slide
+            swiper.slidePrev();
           }
         });
 
         downButton.addEventListener("click", function (e) {
           e.stopPropagation();
           if (!swiper.isEnd) {
-            swiper.slideNext(); // Navigate to the next slide
+            swiper.slideNext();
           }
         });
 
