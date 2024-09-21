@@ -22,6 +22,20 @@ body {
   padding: 0; */
 }
 
+/* Container to add animation to have page slide in when loaded */
+.page-content {
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slide-in 0.3s forwards;
+}
+
+@keyframes slide-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Prevent any scrollbars */
 ::-webkit-scrollbar {
   display: none;
