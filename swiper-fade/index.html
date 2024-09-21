@@ -316,7 +316,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTitleRowVisible = true; // Start with title-row visible
-    
+        let lastTouchTime = 0; // Track time of last touch event
+
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
           spaceBetween: 30,
@@ -334,21 +335,41 @@
             reachEnd: updateArrowStyles,
           },
         });
-    
+
+        // Prevent double-tap zoom on mobile by blocking double touch events
+        function preventDoubleTapZoom(event) { 
+          const currentTime = new Date().getTime();
+          const timeSinceLastTouch = currentTime - lastTouchTime;
+
+          // Block zoom if the time between touches is too short (less than 300ms)
+          if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
+            event.preventDefault(); // Prevent zoom if double-tap is detected
+          }
+          lastTouchTime = currentTime;
+        }
+
+        // Apply preventDoubleTapZoom to all touchable elements that need to block zooming
+        const touchElements = document.querySelectorAll(
+          ".swiper, .left-arrow-btn, .right-arrow-btn"
+        );
+        touchElements.forEach((el) => {
+          el.addEventListener("touchstart", preventDoubleTapZoom);
+        });
+
         // Manually trigger Swiper navigation with custom buttons
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
-    
+
         leftArrow.addEventListener("click", (event) => {
           event.stopPropagation();
           swiper.slidePrev();
         });
-    
+
         rightArrow.addEventListener("click", (event) => {
           event.stopPropagation();
           swiper.slideNext();
         });
-    
+
         // Function to update arrow styles
         function updateArrowStyles() {
           if (swiper.isBeginning) {
@@ -358,7 +379,7 @@
             leftArrow.style.opacity = "1";
             leftArrow.style.cursor = "pointer";
           }
-    
+
           if (swiper.isEnd) {
             rightArrow.style.opacity = "0.3";
             rightArrow.style.cursor = "not-allowed";
@@ -367,14 +388,14 @@
             rightArrow.style.cursor = "pointer";
           }
         }
-    
+
         // Initial calls
         updateArrowStyles();
         applyTitleRowVisibility();
-    
+
         // Event listener to toggle title-row
         const swiperContainer = document.querySelector(".swiper");
-    
+
         swiperContainer.addEventListener("click", function (event) {
           if (
             event.target.closest(".title-row") ||
@@ -388,30 +409,30 @@
           ) {
             return;
           }
-    
+
           const activeSlide = swiper.slides[swiper.activeIndex];
           toggleTitleRowVisibility(activeSlide);
           isTitleRowVisible = !isTitleRowVisible;
         });
-    
+
         // Function to toggle title-row visibility
         function toggleTitleRowVisibility(slide) {
           const titleRow = slide.querySelector(".title-row");
           const titleRowBottom = slide.querySelector(".title-row-bottom");
-    
+
           if (titleRow) {
             titleRow.classList.toggle("hidden-title-row");
           }
-    
+
           if (titleRowBottom) {
             titleRowBottom.classList.toggle("hidden-title-row");
           }
         }
-    
+
         // Function to apply the current visibility state
         function applyTitleRowVisibility() {
           const activeSlide = swiper.slides[swiper.activeIndex];
-    
+
           if (isTitleRowVisible) {
             activeSlide
               .querySelector(".title-row")
