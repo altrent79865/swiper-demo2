@@ -287,7 +287,8 @@ body {
 }
 
 .link-container {
-  background-color: white;
+  /* background-color: white; */
+  background-color: black;
   width: 100vw;
   position: relative;
   padding-left: 20px;
@@ -299,7 +300,8 @@ body {
 .link-title,
 .link-description {
   text-align: left;
-  color: black;
+  /* color: black; */
+  color: white;
   padding-right: 20px;
   margin-left: 4px;
 }
@@ -337,7 +339,8 @@ body {
   padding: 6px 16px 6px 10px;
   text-decoration: none;
   color: black;
-  background: linear-gradient(#ffffff, #f7f2f2);
+  /* background: linear-gradient(#ffffff, #f7f2f2); */
+  background: linear-gradient(#d9d9d9, #cbcbcb);
   cursor: pointer;
   gap: 5px;
   max-width: 125px;
@@ -482,7 +485,8 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    background-color: white;
+    /* background-color: white; */
+    background-color:black;
     width: 90%;
   }
 
