@@ -336,8 +336,8 @@
           },
         });
 
-        // Prevent double-tap zoom on mobile by blocking double touch events
-        function preventDoubleTapZoom(event) { 
+        // Prevent double-tap zoom on mobile
+        function preventDoubleTapZoom(event) {
           const currentTime = new Date().getTime();
           const timeSinceLastTouch = currentTime - lastTouchTime;
 
@@ -348,9 +348,9 @@
           lastTouchTime = currentTime;
         }
 
-        // Apply preventDoubleTapZoom to all touchable elements that need to block zooming
+        // Apply preventDoubleTapZoom only to elements where double-tap might cause zoom
         const touchElements = document.querySelectorAll(
-          ".swiper, .left-arrow-btn, .right-arrow-btn"
+          ".left-arrow-btn, .right-arrow-btn"
         );
         touchElements.forEach((el) => {
           el.addEventListener("touchstart", preventDoubleTapZoom);
