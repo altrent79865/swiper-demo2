@@ -335,7 +335,7 @@
           },
         });
 
-        // Prevent double-tap zoom on mobile
+        // Prevent double-tap zoom on mobile (applied globally to the document)
         function preventDoubleTapZoom(event) {
           const currentTime = new Date().getTime();
           const timeSinceLastTouch = currentTime - lastTouchTime;
@@ -347,14 +347,13 @@
           lastTouchTime = currentTime;
         }
 
-        // Apply preventDoubleTapZoom on touchstart events for buttons
+        // Apply preventDoubleTapZoom globally to the whole document
+        document.addEventListener("touchstart", preventDoubleTapZoom);
+
+        // Manually trigger Swiper navigation with custom buttons
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
-        leftArrow.addEventListener("touchstart", preventDoubleTapZoom);
-        rightArrow.addEventListener("touchstart", preventDoubleTapZoom);
-
-        // Manually trigger Swiper navigation with custom buttons
         leftArrow.addEventListener("click", (event) => {
           event.stopPropagation();
           swiper.slidePrev();
