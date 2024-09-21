@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <title>Swiper Fade demo</title>
+    <!-- user-scalable=no added because a double tap on arrows was zooming screen and getting it stuck where it wouldn't zoom back.  Also, I don't believe swiper supports user zoom -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, , user-scalable=no"
     />
     <!-- Link Swiper's CSS -->
     <link
@@ -341,7 +342,7 @@
           const timeSinceLastTouch = currentTime - lastTouchTime;
 
           // Block zoom if the time between touches is too short (less than 300ms)
-          if (timeSinceLastTouch < 500 && timeSinceLastTouch > 0) {
+          if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
             event.preventDefault(); // Prevent zoom if double-tap is detected
           }
           lastTouchTime = currentTime;
