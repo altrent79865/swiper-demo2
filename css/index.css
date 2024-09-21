@@ -22,6 +22,7 @@ body {
   padding: 0; */
 }
 
+/* Prevent any scrollbars */
 ::-webkit-scrollbar {
   display: none;
 }
