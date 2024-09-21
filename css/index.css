@@ -394,6 +394,13 @@ body {
   width: 100%;
 }
 
+/* Prevent double-tap zoom, but still allow taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  I also changed meta tag in html to prevent the double tap zoom. */
+.left-arrow-btn,
+.right-arrow-btn,
+.swiper {
+  touch-action: manipulation; 
+}
+
 /* Arrows for horizontal swiping for Navigation and Fade Swiper */
 .left-arrow-btn, .right-arrow-btn {
   display: flex;
