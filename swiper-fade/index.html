@@ -69,7 +69,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">38/64</span>
+              <span class="number-of-items-text">38/47</span>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">39/64</span>
+              <span class="number-of-items-text">39/47</span>
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">40/64</span>
+              <span class="number-of-items-text">40/47</span>
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">41/64</span>
+              <span class="number-of-items-text">41/47</span>
             </div>
           </div>
         </div>
@@ -169,7 +169,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">42/64</span>
+              <span class="number-of-items-text">42/47</span>
             </div>
           </div>
         </div>
@@ -194,7 +194,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">43/64</span>
+              <span class="number-of-items-text">43/47</span>
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">44/64</span>
+              <span class="number-of-items-text">44/47</span>
             </div>
           </div>
         </div>
@@ -243,7 +243,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">45/64</span>
+              <span class="number-of-items-text">45/47</span>
             </div>
           </div>
         </div>
@@ -275,7 +275,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">46/64</span>
+              <span class="number-of-items-text">46/47</span>
             </div>
           </div>
         </div>
@@ -297,7 +297,7 @@
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
-              <span class="number-of-items-text">47/64</span>
+              <span class="number-of-items-text">47/47</span>
             </div>
           </div>
         </div>
@@ -315,6 +315,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTitleRowVisible = true; // Start with title-row visible
+        let lastTouchTime = 0; // Track time of last touch event
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -334,26 +335,38 @@
           },
         });
 
-        // Manually trigger Swiper navigation with custom buttons
-        document
-          .querySelector(".left-arrow-btn")
-          .addEventListener("click", (event) => {
-            event.stopPropagation();
-            swiper.slidePrev();
-          });
+        // Prevent double-tap zoom on mobile
+        function preventDoubleTapZoom(event) {
+          const currentTime = new Date().getTime();
+          const timeSinceLastTouch = currentTime - lastTouchTime;
 
-        document
-          .querySelector(".right-arrow-btn")
-          .addEventListener("click", (event) => {
-            event.stopPropagation();
-            swiper.slideNext();
-          });
+          if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
+            event.preventDefault(); // Prevent zoom if the time between touches is too short (double-tap)
+          }
+
+          lastTouchTime = currentTime;
+        }
+
+        // Apply preventDoubleTapZoom on touchstart events for buttons
+        const leftArrow = document.querySelector(".left-arrow-btn");
+        const rightArrow = document.querySelector(".right-arrow-btn");
+
+        leftArrow.addEventListener("touchstart", preventDoubleTapZoom);
+        rightArrow.addEventListener("touchstart", preventDoubleTapZoom);
+
+        // Manually trigger Swiper navigation with custom buttons
+        leftArrow.addEventListener("click", (event) => {
+          event.stopPropagation();
+          swiper.slidePrev();
+        });
+
+        rightArrow.addEventListener("click", (event) => {
+          event.stopPropagation();
+          swiper.slideNext();
+        });
 
         // Function to update arrow styles
         function updateArrowStyles() {
-          const leftArrow = document.querySelector(".left-arrow-btn");
-          const rightArrow = document.querySelector(".right-arrow-btn");
-
           if (swiper.isBeginning) {
             leftArrow.style.opacity = "0.5";
             leftArrow.style.cursor = "not-allowed";
