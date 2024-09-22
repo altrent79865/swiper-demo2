@@ -23,52 +23,72 @@ body {
 }
 
 /* Container to add animation to have page slide in when loaded */
-
+/* This page-content will have first slide come up from bottom. */
+/* Fade swiper slide-in animation */
 .page-content {
   opacity: 0;
   position: relative;
-  top: 100vh; /* Start off-screen at the bottom */
-  animation: slide-in 0.2s forwards;
+  top: 100vh; 
+  animation: fade-slide-in 0.2s forwards;
 }
 
-@keyframes slide-in {
+@keyframes fade-slide-in {
   to {
     opacity: 1;
     top: 0;
   }
 }
+
+/* This page-content will have first slide come up from right side. */
 /* .page-content {
   opacity: 0;
-  transform: translateY(100%);
+  transform: translateX(100%);
   animation: slide-in 0.2s forwards;
 }
 
 @keyframes slide-in {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 } */
 
-/* Overlay that covers the entire viewport */
-.overlay {
+
+/* Overlay that covers the entire viewport.  This only relates to swiper vertical because page-content doesn't work with swiper vertical, but is working with swiper fade. */
+/* .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: white; /* Adjust color as needed */
-  z-index: 9999;
-  animation: slide-up 0.2s forwards;
+  background-color: white; 
+  z-index: 400;
+  animation: slide-up 0.3s forwards;
 }
 
-/* Keyframes for sliding the overlay up */
 @keyframes slide-up {
   from {
     transform: translateY(0%);
   }
   to {
     transform: translateY(-100%);
+  }
+} */
+
+/* Animate the first slide content */
+.first-slide .link-main-page-container,
+.first-slide .title-row,
+.first-slide .title-row-bottom {
+  opacity: 0;
+  transform: translateY(100%);
+  animation: vertical-slide-in 0.2s forwards;
+  animation-delay: 0.1s; /* Adjust delay for smooth appearance */
+}
+
+@keyframes vertical-slide-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
