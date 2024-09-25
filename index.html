@@ -101,28 +101,35 @@
     </div>
     <!-- FOOTER -->
     <footer>
-      <div>
+      <button id="footer-dropdown-btn" class="dropdown-toggle">Not Used</button>
+      <div id="footer-links" class="popup-container">
+        <button id="footer-close-btn" class="dropdown-close-btn">×</button>
         <a href="./swiper-navigation/" class="swiper-link">Swiper Navigation</a>
-      </div>
-      <div>
-        <a href="./swiper-fade/" class="swiper-link">Fade</a>
-      </div>
-      <!-- <div>
-        <a href="./swiper-vertical/" class="swiper-link">Swiper Vertical</a>
-      </div> -->
-      <div>
-        <a href="./swiper-effects-card-tinder/" class="swiper-link">Tinder</a>
-      </div>
-      <div>
+        <a href="./swiper-fade/" class="swiper-link">Swiper Fade</a>
+        <a href="./swiper-effects-card-tinder/" class="swiper-link">Swiper Tinder</a>
         <a
           href="./swiper-navigation-original-swiper-arrows/"
           class="swiper-link"
-          >Navigation with Original Arrows</a
+          >Navigation Original Arrows</a
         >
-      </div>
-      <div>
-        <a href="./swiper-cube/index.html" class="swiper-link">Cube</a>
+        <a href="./swiper-cube/index.html" class="swiper-link">Swiper Cube</a>
       </div>
     </footer>
+
+    <script>
+      document
+        .getElementById("footer-dropdown-btn")
+        .addEventListener("click", function () {
+          const footerLinks = document.getElementById("footer-links");
+          footerLinks.classList.toggle("open");
+        });
+
+      document
+        .getElementById("footer-close-btn")
+        .addEventListener("click", function () {
+          const footerLinks = document.getElementById("footer-links");
+          footerLinks.classList.remove("open");
+        });
+    </script>
   </body>
 </html>
