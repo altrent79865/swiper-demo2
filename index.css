@@ -12,6 +12,7 @@ body {
   width: 100vw;
   margin: 0;
   padding: 0;
+  overscroll-behavior: none;
 }
 
 body {
@@ -38,6 +39,10 @@ header {
   align-items: center;
   padding: 3px;
   border-bottom: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
 }
 
 .nav-left {
