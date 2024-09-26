@@ -548,9 +548,9 @@ body {
   opacity: 1;
 }
 
-.down-arrow-btn:active {
+/* .down-arrow-btn:active {
   opacity: 0.1;
-}
+} */
 
 /* Active state - Only apply when the button is not disabled */
 .down-arrow-btn:not(.disabled):active {
@@ -561,6 +561,7 @@ body {
 .down-arrow-btn.disabled {
   opacity: 0.3;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* Increases clickable area of buttons to prevent accidently turning the title row on or off */

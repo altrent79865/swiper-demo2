@@ -355,7 +355,7 @@
         // Manually trigger Swiper navigation with custom buttons
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
-        
+
         leftArrow.addEventListener("click", (event) => {
           event.stopPropagation();
           swiper.slidePrev();
@@ -380,6 +380,11 @@
             rightArrow.classList.remove("disabled");
           }
         }
+
+        // Add event listeners to handle when swiper reaches the beginning or end
+        swiper.on("reachBeginning", updateArrowStyles);
+        swiper.on("reachEnd", updateArrowStyles);
+        swiper.on("slideChange", updateArrowStyles);
 
         // Initial calls
         updateArrowStyles();
