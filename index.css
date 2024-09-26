@@ -24,16 +24,22 @@ body {
   padding-bottom: 10px;
 }
 
+.container-wrapper {
+  width: 100vw;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
 .container {
   max-width: 974px;
-  width: 100%;
-  margin: 0 auto;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   position: relative;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
 }
 
 header {
@@ -48,6 +54,12 @@ header {
   background-color: white;
   height: 42px;
   width: 100%;
+  max-width: 974px; /* Matches the container width */
+  margin: 0 auto; /* Center the header within the container */
+  left: 0;
+  right: 0;
+  border-left: 1px solid #ccc; /* Moved border here */
+  border-right: 1px solid #ccc; /* Moved border here */
 }
 
 .nav-left {
