@@ -95,6 +95,7 @@ header {
   gap: 10px;
   padding: 0 14px;
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .image {
@@ -162,7 +163,7 @@ footer {
   padding: 24px;
   border-radius: 4px;
   position: absolute;
-  top: -154px;
+  top: -134px;
   width: 270px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -186,8 +187,8 @@ footer {
   padding: 10px;
   cursor: pointer;
   border-radius: 4px;
-  margin-bottom: 10px;
-  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 .dropdown-toggle:hover {
