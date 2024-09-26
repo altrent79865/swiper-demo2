@@ -490,20 +490,18 @@ body {
   left: 9px;
   background-image: url(../assets/64x64_0021_left-arrow-white.png);
   background-position: calc(50% - 2px) center;
-  opacity: 1;
 }
 
 .right-arrow-btn {
   right: 9px;
   background-image: url("../assets/64x64_0022_right-arrow-white.png");
   background-position: calc(50% + 2px) center;
-  opacity: 1;
 }
 
-.left-arrow-btn:active,
+/* .left-arrow-btn:active,
 .right-arrow-btn:active {
   opacity: 0.1;
-}
+} */
 
 /* Active state - Only apply when the button is not disabled */
 .left-arrow-btn:not(.disabled):active,
@@ -516,6 +514,7 @@ body {
 .right-arrow-btn.disabled {
   opacity: 0.3;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* Custom arrows for vertical swiping for Vertical Swiper */
