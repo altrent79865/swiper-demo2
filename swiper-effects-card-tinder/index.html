@@ -384,6 +384,11 @@
           }
         }
 
+        // Add event listeners to handle when swiper reaches the beginning or end
+        swiper.on("reachBeginning", updateArrowStyles);
+        swiper.on("reachEnd", updateArrowStyles);
+        swiper.on("slideChange", updateArrowStyles);
+
         // Initial calls
         updateArrowStyles();
         applyTitleRowVisibility();
