@@ -524,6 +524,18 @@ body {
   touch-action: manipulation;
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
   background-position: center 58%;
+  opacity: 1;
+}
+
+/* Active state - Even lighter opacity when clicked */
+.down-arrow-btn:active {
+  opacity: 0.3; 
+}
+
+/* Disabled state - When the swiper is at the end */
+.down-arrow-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 /* Increases clickable area of buttons to prevent accidently turning the title row on or off */

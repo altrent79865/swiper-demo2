@@ -359,8 +359,11 @@
 
           // Function to update button styles based on Swiper's state
           function updateNavigationButtonStyles() {
-            downButton.style.opacity = swiper.isEnd ? "0.3" : "1";
-            downButton.style.cursor = swiper.isEnd ? "not-allowed" : "pointer";
+            if (swiper.isEnd) {
+              downButton.classList.add("disabled");
+            } else {
+              downButton.classList.remove("disabled");
+            }
           }
 
           // Initial update to button styles
