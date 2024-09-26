@@ -471,6 +471,7 @@ body {
   background-size: 20px 20px;
   background-position: center;
   background-repeat: no-repeat;
+  opacity: 1;
 }
 
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
@@ -502,6 +503,12 @@ body {
 .left-arrow-btn:active,
 .right-arrow-btn:active {
   opacity: 0.1;
+}
+
+/* Active state - Only apply when the button is not disabled */
+.left-arrow-btn:not(.disabled):active,
+.right-arrow-btn:not(.disabled):active {
+  opacity: 1;
 }
 
 /* When the swiper is at the end */
@@ -544,6 +551,11 @@ body {
 
 .down-arrow-btn:active {
   opacity: 0.1;
+}
+
+/* Active state - Only apply when the button is not disabled */
+.down-arrow-btn:not(.disabled):active {
+  opacity: 1;
 }
 
 /* When the swiper is at the end */
