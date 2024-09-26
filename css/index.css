@@ -529,7 +529,7 @@ body {
 
 /* Active state - Even lighter opacity when clicked */
 .down-arrow-btn:active {
-  opacity: 0.3; 
+  opacity: .1; 
 }
 
 /* Disabled state - When the swiper is at the end */
