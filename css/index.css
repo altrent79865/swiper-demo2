@@ -179,7 +179,6 @@ body {
   bottom: -14px; 
   left: -14px;   
   right: -10px;  
-  /* pointer-events: auto; */
   z-index: 100;
 }
 
@@ -294,15 +293,15 @@ body {
 
 /* Vertical Swiper */
 /* Changes color of all pagination bullets*/
-.swiper-pagination-bullet {
+/* .swiper-pagination-bullet {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(178, 178, 178, 0.9);
-}
+} */
 
 /* Changes color of the active pagination bullet */
-.swiper-pagination-bullet-active {
+/* .swiper-pagination-bullet-active {
   background-color: #ffffff;
-}
+} */
 
 /* Youtube Videos */
 .youtube-video-iphone-image-container {
@@ -391,7 +390,7 @@ body {
   display: inline;
   text-decoration: none;
   text-transform: uppercase;
-  color: #808080;
+  color: rgb(128, 128, 128);
   margin-left: 4px;
   letter-spacing: 0.1px;
 }
@@ -558,13 +557,16 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    /* background-color: white; */
-    background-color:black;
     width: 90%;
+    background-color: black;
+    max-height: calc(100vh - 120px); 
+    padding-top: -8px; 
+    overflow: hidden; 
   }
 
   .image-container-for-portraits-desktop-link {
     flex: 1;
+    max-height: 100%;
   }
 
   .link-img {
@@ -578,6 +580,7 @@ body {
     left: initial;
     right: initial;
     margin: initial;
+    border: 1px solid rgba(128, 128, 128, 0.6);
   }
 
   .link-container {
@@ -591,6 +594,10 @@ body {
     padding-right: 14px;
     margin-top: initial;
     height: initial;
-    margin-left: initial;
+    margin-left: 10px;
+  }
+
+  .link-title {
+    margin-top: 0px;
   }
 }
