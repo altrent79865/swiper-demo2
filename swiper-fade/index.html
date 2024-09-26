@@ -110,7 +110,9 @@
               ></a>
               <div class="pencil-title-row non-interactive">
                 <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
-                <p class="media-item-title">Christmas Dinner Table Setting...</p>
+                <p class="media-item-title">
+                  Christmas Dinner Table Setting...
+                </p>
               </div>
               <a href="" class="options-btn">
                 <span class="dot"></span>
@@ -186,7 +188,9 @@
               ></a>
               <div class="pencil-title-row non-interactive">
                 <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
-                <p class="media-item-title">Christmas Dinner Table Setting...</p>
+                <p class="media-item-title">
+                  Christmas Dinner Table Setting...
+                </p>
               </div>
               <a href="" class="options-btn">
                 <span class="dot"></span>
@@ -377,19 +381,15 @@
         // Function to update arrow styles
         function updateArrowStyles() {
           if (swiper.isBeginning) {
-            leftArrow.style.opacity = "0.3";
-            leftArrow.style.cursor = "not-allowed";
+            leftArrow.classList.add("disabled");
           } else {
-            leftArrow.style.opacity = "1";
-            leftArrow.style.cursor = "pointer";
+            leftArrow.classList.remove("disabled");
           }
 
           if (swiper.isEnd) {
-            rightArrow.style.opacity = "0.3";
-            rightArrow.style.cursor = "not-allowed";
+            rightArrow.classList.add("disabled");
           } else {
-            rightArrow.style.opacity = "1";
-            rightArrow.style.cursor = "pointer";
+            rightArrow.classList.remove("disabled");
           }
         }
 

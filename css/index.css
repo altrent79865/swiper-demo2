@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 html,
 body {
   position: relative;
@@ -28,7 +27,7 @@ body {
 .page-content {
   opacity: 0;
   position: relative;
-  top: 100vh; 
+  top: 100vh;
   animation: fade-slide-in 0.2s forwards;
 }
 
@@ -116,7 +115,7 @@ body {
   left: 9px;
   cursor: pointer;
   border: none;
-  position: relative; 
+  position: relative;
 }
 
 /* The lines of the "X".*/
@@ -124,22 +123,22 @@ body {
 .close-btn .x-line::after {
   content: "";
   position: absolute;
-  width: 18px; 
-  height: 2px; 
-  background-color: white; 
-  top: 50%; 
-  left: 50%; 
+  width: 18px;
+  height: 2px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
   transform-origin: center;
 }
 
 /* First line of the 'X' */
 .close-btn .x-line::before {
-  transform: translate(-50%, -50%) rotate(45deg); 
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 /* Second line of the 'X' */
 .close-btn .x-line::after {
-  transform: translate(-50%, -50%) rotate(-45deg); 
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off  */
@@ -166,28 +165,30 @@ body {
 }
 
 .pencil-container {
-  position: relative; 
+  position: relative;
   display: inline-block;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off  */
-.pencil-container::before, .title-row .add-new-caption::before {
-  content: '';
+.pencil-container::before,
+.title-row .add-new-caption::before {
+  content: "";
   position: absolute;
-  top: -14px;   
-  bottom: -14px; 
-  left: -14px;   
-  right: -10px;  
+  top: -14px;
+  bottom: -14px;
+  left: -14px;
+  right: -10px;
   z-index: 100;
 }
 
 .title-row .pencil {
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
   cursor: pointer;
   height: 18px;
   width: auto;
-  margin-right: -14px; 
+  margin-right: -14px;
   position: relative;
   z-index: 200;
 }
@@ -196,7 +197,7 @@ body {
   position: relative;
   cursor: pointer;
   z-index: 200;
-  display: inline-block; 
+  display: inline-block;
   padding: 14px;
 }
 
@@ -230,14 +231,14 @@ body {
 
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
 .title-row .options-btn::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: -10px;  
-  bottom: -10px; 
-  left: -10px;  
-  right: -10px;  
+  top: -10px;
+  bottom: -10px;
+  left: -10px;
+  right: -10px;
   background: transparent;
-  z-index: 100;  
+  z-index: 100;
 }
 
 .dot {
@@ -307,7 +308,7 @@ body {
 .youtube-video-iphone-image-container {
   position: relative;
   width: 100%; /* Matches the container to the image width */
-  max-width: 100vw; 
+  max-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -352,8 +353,8 @@ body {
   width: 100vw;
   position: relative;
   padding-left: 20px;
-  margin-top: calc(55svh); 
-  height: calc(100svh - 55svh); 
+  margin-top: calc(55svh);
+  height: calc(100svh - 55svh);
   overflow-y: auto;
 }
 
@@ -379,10 +380,9 @@ body {
   color: rgb(218, 218, 218);
 }
 
-
 .link-clickable-text-wrapper {
-  margin-top: 20px; 
-  margin-bottom: 16px; 
+  margin-top: 20px;
+  margin-bottom: 16px;
 }
 
 /* Need to use class names that Adam is already using. */
@@ -422,10 +422,10 @@ body {
 }
 
 .portrait-img {
-  height: 100svh; 
+  height: 100svh;
   max-height: 100svh;
   width: auto;
-  object-fit: cover; 
+  object-fit: cover;
   display: block;
 }
 
@@ -448,11 +448,12 @@ body {
 .left-arrow-btn,
 .right-arrow-btn,
 .swiper {
-  touch-action: manipulation; 
+  touch-action: manipulation;
 }
 
 /* Arrows for horizontal swiping for Navigation and Fade Swiper */
-.left-arrow-btn, .right-arrow-btn {
+.left-arrow-btn,
+.right-arrow-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -467,7 +468,7 @@ body {
   border: none;
   z-index: 100;
   transition: opacity 0.3s;
-  background-size: 20px 20px; 
+  background-size: 20px 20px;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -475,36 +476,50 @@ body {
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
 .left-arrow-btn::before,
 .right-arrow-btn::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: -20px; 
-  bottom: -20px; 
-  left: -20px; 
-  right: -20px; 
-  background: transparent; 
+  top: -20px;
+  bottom: -20px;
+  left: -20px;
+  right: -20px;
+  background: transparent;
 }
 
 .left-arrow-btn {
   left: 9px;
   background-image: url(../assets/64x64_0021_left-arrow-white.png);
   background-position: calc(50% - 2px) center;
+  opacity: 1;
 }
 
 .right-arrow-btn {
   right: 9px;
   background-image: url("../assets/64x64_0022_right-arrow-white.png");
-  background-position: calc(50% + 2px) center; /
+  background-position: calc(50% + 2px) center;
+  opacity: 1;
+}
+
+.left-arrow-btn:active,
+.right-arrow-btn:active {
+  opacity: 0.1;
+}
+
+/* When the swiper is at the end */
+.left-arrow-btn.disabled,
+.right-arrow-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 /* Custom arrows for vertical swiping for Vertical Swiper */
 /* Style for the navigation buttons container */
 .navigation-buttons {
   position: absolute;
-  bottom: 12px; 
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  display: block; 
+  display: block;
 }
 
 /* Arrows for vertical swiping.  I also had up- */
@@ -519,7 +534,7 @@ body {
   cursor: pointer;
   border: none;
   transition: opacity 0.3s;
-  background-size: 23px 23px; 
+  background-size: 23px 23px;
   background-repeat: no-repeat;
   touch-action: manipulation;
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
@@ -527,12 +542,11 @@ body {
   opacity: 1;
 }
 
-/* Active state - Even lighter opacity when clicked */
 .down-arrow-btn:active {
-  opacity: .1; 
+  opacity: 0.1;
 }
 
-/* Disabled state - When the swiper is at the end */
+/* When the swiper is at the end */
 .down-arrow-btn.disabled {
   opacity: 0.3;
   cursor: not-allowed;
@@ -540,13 +554,13 @@ body {
 
 /* Increases clickable area of buttons to prevent accidently turning the title row on or off */
 .down-arrow-btn::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: -20px; 
-  bottom: -20px; 
-  left: -20px; 
-  right: -20px; 
-  background: transparent; 
+  top: -20px;
+  bottom: -20px;
+  left: -20px;
+  right: -20px;
+  background: transparent;
 }
 
 /* Hide the title-row when clicking on page */
@@ -571,9 +585,9 @@ body {
     gap: 20px;
     width: 90%;
     background-color: black;
-    max-height: calc(100vh - 120px); 
-    padding-top: -8px; 
-    overflow: hidden; 
+    max-height: calc(100vh - 120px);
+    padding-top: -8px;
+    overflow: hidden;
   }
 
   .image-container-for-portraits-desktop-link {
