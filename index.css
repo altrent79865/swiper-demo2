@@ -179,13 +179,15 @@ footer {
 }
 
 /* Dropdown toggle button styles */
-.dropdown-toggle {
+.dropdown-toggle-btn {
   background-color: #f1f1f1;
   color: rgb(99, 99, 99);
   border: none;
   padding: 10px;
   cursor: pointer;
   border-radius: 4px;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .dropdown-toggle:hover {
