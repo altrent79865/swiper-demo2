@@ -580,7 +580,7 @@ body {
     left: initial;
     right: initial;
     margin: initial;
-    border: 1px solid rgba(128, 128, 128, 0.6);
+    border: 1px solid rgba(128, 128, 128, 0.5);
   }
 
   .link-container {
