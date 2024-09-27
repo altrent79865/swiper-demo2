@@ -375,9 +375,14 @@
         function handleClick(e, slideDirection) {
           if (!isTouchActive) {
             e.stopPropagation();
+            // Temporarily reduce the opacity on button click
             if (slideDirection === "prev") {
+              leftArrow.style.opacity = "0.1";
+              setTimeout(() => (leftArrow.style.opacity = "1"), 200);
               swiper.slidePrev();
             } else if (slideDirection === "next") {
+              rightArrow.style.opacity = "0.1";
+              setTimeout(() => (rightArrow.style.opacity = "1"), 200);
               swiper.slideNext();
             }
           }
@@ -430,14 +435,18 @@
         function updateArrowStyles() {
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
+            leftArrow.style.opacity = "0.3"; // Dim the left arrow when at the beginning
           } else {
             leftArrow.classList.remove("disabled");
+            leftArrow.style.opacity = "1"; // Reset the opacity when not at the beginning
           }
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
+            rightArrow.style.opacity = "0.3"; // Dim the right arrow when at the end
           } else {
             rightArrow.classList.remove("disabled");
+            rightArrow.style.opacity = "1"; // Reset the opacity when not at the end
           }
         }
 
