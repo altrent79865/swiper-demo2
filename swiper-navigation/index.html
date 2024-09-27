@@ -326,7 +326,6 @@
           on: {
             slideChange: function () {
               updateArrowStyles();
-              applyTitleRowVisibility(); // Ensure title-row is visible based on state
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
@@ -336,41 +335,46 @@
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
-        // Function to add and remove click opacity effect
+        // Function to handle arrow click with opacity effect
         function handleArrowClick(button, direction) {
           if (!button.classList.contains("disabled")) {
-            button.classList.add("active-opacity"); // Apply the opacity class
+            button.classList.add("active-opacity");
 
             // Remove the class after 200ms for the transition effect
             setTimeout(() => {
               button.classList.remove("active-opacity");
             }, 200);
 
-            // Only trigger slide navigation if touch event is not active
-            if (!isTouchActive) {
-              if (direction === "prev" && !swiper.isBeginning) {
-                swiper.slidePrev();
-              } else if (direction === "next" && !swiper.isEnd) {
-                swiper.slideNext();
-              }
+            // Trigger slide navigation directly
+            if (direction === "prev" && !swiper.isBeginning) {
+              swiper.slidePrev();
+            } else if (direction === "next" && !swiper.isEnd) {
+              swiper.slideNext();
             }
           }
         }
 
-        // Handle touch events for arrows
-        function handleTouchStart(e) {
+        // Touch event handlers
+        function handleTouchStart() {
           isTouchActive = true;
         }
 
         function handleTouchEnd(e, direction) {
           handleArrowClick(e.target, direction);
-          // Reset isTouchActive after touchend to prevent click triggering
+
+          // Slide movement on touchend
+          if (direction === "prev" && !swiper.isBeginning) {
+            swiper.slidePrev();
+          } else if (direction === "next" && !swiper.isEnd) {
+            swiper.slideNext();
+          }
+
           setTimeout(() => {
             isTouchActive = false;
-          }, 100); // Small delay to ensure touch events finish before resetting
+          }, 100);
         }
 
-        // Attach touch and click event listeners to the arrow buttons
+        // Attach touch and click events to arrow buttons
         leftArrow.addEventListener("touchstart", handleTouchStart);
         leftArrow.addEventListener("touchend", (e) =>
           handleTouchEnd(e, "prev")
@@ -410,30 +414,37 @@
           }
         }
 
-        // Function to ensure title row visibility based on the state
-        function applyTitleRowVisibility() {
+        // Function to toggle the title-row visibility
+        function toggleTitleRow() {
           const activeSlide = swiper.slides[swiper.activeIndex];
+          const titleRow = activeSlide.querySelector(".title-row");
+          const titleRowBottom = activeSlide.querySelector(".title-row-bottom");
 
           if (isTitleRowVisible) {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.remove("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.remove("hidden-title-row");
+            titleRow.classList.add("hidden-title-row");
+            titleRowBottom.classList.add("hidden-title-row");
           } else {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.add("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.add("hidden-title-row");
+            titleRow.classList.remove("hidden-title-row");
+            titleRowBottom.classList.remove("hidden-title-row");
           }
+
+          isTitleRowVisible = !isTitleRowVisible; // Toggle the visibility state
         }
 
-        // Initial call to set arrow styles and title row visibility
+        // Attach click event listener to toggle title-row, excluding the arrows
+        const swiperContainer = document.querySelector(".swiper");
+        swiperContainer.addEventListener("click", function (event) {
+          // Check if the click is on the arrows, in which case we don't toggle the title-row
+          if (
+            !event.target.classList.contains("left-arrow-btn") &&
+            !event.target.classList.contains("right-arrow-btn")
+          ) {
+            toggleTitleRow();
+          }
+        });
+
+        // Initial call to set arrow styles
         updateArrowStyles();
-        applyTitleRowVisibility(); // Ensure title-row visibility is correct on load
       });
     </script>
   </body>
