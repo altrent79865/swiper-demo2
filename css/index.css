@@ -86,10 +86,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  user-select: none; /* Prevent text and image selection */
-  -webkit-user-select: none; /* For Safari and iOS */
-  -moz-user-select: none; /* For Firefox */
-  -ms-user-select: none; /* For older IE/Edge */
+  /* Apply below to make images long touch not open native features */
+  /* user-select: none; 
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none;  */
 }
 
 /* Title Row */
@@ -476,8 +477,13 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 1;
-  -webkit-touch-callout: none; /* Disable long-press context menu on iOS */
-  user-select: none; /* Prevent text selection */
+  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
+  user-select: none; /* Disable text selection */
+  -webkit-user-select: none; /* Safari/Chrome for iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  touch-action: manipulation; /* Prevent zooming and double-tap issues */
+  pointer-events: auto; /* Ensure touch events work */
 }
 
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
