@@ -406,18 +406,22 @@
           swiper.slideNext();
         });
 
-        // Function to update arrow styles
+        // Function to update arrow styles (for opacity)
         function updateArrowStyles() {
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
+            leftArrow.style.opacity = "0.3"; // Set lower opacity for disabled left arrow
           } else {
             leftArrow.classList.remove("disabled");
+            leftArrow.style.opacity = "1"; // Full opacity when not disabled
           }
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
+            rightArrow.style.opacity = "0.3"; // Set lower opacity for disabled right arrow
           } else {
             rightArrow.classList.remove("disabled");
+            rightArrow.style.opacity = "1"; // Full opacity when not disabled
           }
         }
 
