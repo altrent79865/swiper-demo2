@@ -314,8 +314,7 @@
     <!-- Initialize Swiper and Button Functionality -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        let isLongPress = false; // To track if a long press occurred
-        let isTouchActive = false; // To track if touch event is in progress
+        let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
 
         // Initialize Swiper
@@ -337,17 +336,15 @@
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
-        // Handle click opacity for the arrows
+        // Function to add and remove click opacity effect
         function handleArrowClick(button, direction) {
           if (!button.classList.contains("disabled")) {
-            button.classList.add("active-opacity");
-            // Force reflow for iOS to ensure opacity change
-            button.style.display = "none";
-            button.offsetHeight; // Trigger reflow
-            button.style.display = "";
+            button.classList.add("active-opacity"); // Apply the opacity class
+
+            // Remove the class after 200ms for the transition effect
             setTimeout(() => {
               button.classList.remove("active-opacity");
-            }, 100); // Restore opacity faster (100ms)
+            }, 200);
 
             if (direction === "prev" && !swiper.isBeginning) {
               swiper.slidePrev();
@@ -357,37 +354,14 @@
           }
         }
 
-        // Prevent long press behavior and handle short taps
+        // Handle touch events for arrows
         function handleTouchStart(e) {
-          isLongPress = false;
           isTouchActive = true;
-          const timeout = setTimeout(() => {
-            isLongPress = true;
-            e.preventDefault(); // Prevent the long press native action
-          }, 500);
-
-          function cancelLongPress() {
-            clearTimeout(timeout);
-          }
-
-          e.target.addEventListener("touchend", cancelLongPress, {
-            once: true,
-          });
-          e.target.addEventListener("touchmove", cancelLongPress, {
-            once: true,
-          });
         }
 
-        function handleTouchEnd(e, slideDirection) {
-          if (!isLongPress) {
-            if (slideDirection === "prev" && !swiper.isBeginning) {
-              swiper.slidePrev();
-            } else if (slideDirection === "next" && !swiper.isEnd) {
-              swiper.slideNext();
-            }
-          }
+        function handleTouchEnd(e, direction) {
           isTouchActive = false;
-          e.preventDefault();
+          handleArrowClick(e.target, direction);
         }
 
         // Attach touch and click event listeners to the arrow buttons
@@ -396,7 +370,9 @@
           handleTouchEnd(e, "prev")
         );
         leftArrow.addEventListener("click", (e) => {
-          handleArrowClick(leftArrow, "prev");
+          if (!isTouchActive) {
+            handleArrowClick(leftArrow, "prev");
+          }
         });
 
         rightArrow.addEventListener("touchstart", handleTouchStart);
@@ -404,59 +380,10 @@
           handleTouchEnd(e, "next")
         );
         rightArrow.addEventListener("click", (e) => {
-          handleArrowClick(rightArrow, "next");
+          if (!isTouchActive) {
+            handleArrowClick(rightArrow, "next");
+          }
         });
-
-        // Toggle title-row visibility when clicking elsewhere
-        const swiperContainer = document.querySelector(".swiper");
-
-        swiperContainer.addEventListener("click", function (event) {
-          if (
-            event.target.classList.contains("left-arrow-btn") ||
-            event.target.classList.contains("right-arrow-btn")
-          ) {
-            return; // Ignore clicks on arrow buttons
-          }
-
-          const activeSlide = swiper.slides[swiper.activeIndex];
-          toggleTitleRowVisibility(activeSlide);
-          isTitleRowVisible = !isTitleRowVisible;
-        });
-
-        // Function to toggle title-row visibility
-        function toggleTitleRowVisibility(slide) {
-          const titleRow = slide.querySelector(".title-row");
-          const titleRowBottom = slide.querySelector(".title-row-bottom");
-
-          if (titleRow) {
-            titleRow.classList.toggle("hidden-title-row");
-          }
-
-          if (titleRowBottom) {
-            titleRowBottom.classList.toggle("hidden-title-row");
-          }
-        }
-
-        // Ensure title-row is applied consistently on slide change
-        function applyTitleRowVisibility() {
-          const activeSlide = swiper.slides[swiper.activeIndex];
-
-          if (isTitleRowVisible) {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.remove("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.remove("hidden-title-row");
-          } else {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.add("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.add("hidden-title-row");
-          }
-        }
 
         // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
@@ -474,6 +401,27 @@
           } else {
             rightArrow.classList.remove("disabled");
             rightArrow.style.opacity = "1"; // Full opacity when enabled
+          }
+        }
+
+        // Function to ensure title row visibility based on the state
+        function applyTitleRowVisibility() {
+          const activeSlide = swiper.slides[swiper.activeIndex];
+
+          if (isTitleRowVisible) {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.remove("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.remove("hidden-title-row");
+          } else {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.add("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.add("hidden-title-row");
           }
         }
 
