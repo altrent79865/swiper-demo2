@@ -86,6 +86,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none; /* Prevent text and image selection */
+  -webkit-user-select: none; /* For Safari and iOS */
+  -moz-user-select: none; /* For Firefox */
+  -ms-user-select: none; /* For older IE/Edge */
 }
 
 /* Title Row */
