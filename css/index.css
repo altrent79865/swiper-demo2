@@ -87,10 +87,10 @@ body {
   justify-content: center;
   align-items: center;
   /* Apply below to make images long touch not open native features */
-  /* user-select: none; 
-  -webkit-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none;  */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Title Row */
