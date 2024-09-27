@@ -315,8 +315,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTitleRowVisible = true; // Start with title-row visible
-        let lastTouchTime = 0; // Track time of last touch event
-        let isLongPress = false; // Track long press
+        let isLongPress = false; // To track if a long press occurred
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -334,29 +333,10 @@
           },
         });
 
-        // Prevent double-tap zoom on mobile
-        // function preventDoubleTapZoom(event) {
-        //   const currentTime = new Date().getTime();
-        //   const timeSinceLastTouch = currentTime - lastTouchTime;
-        //
-        //   if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
-        //     event.preventDefault();
-        //   }
-        //
-        //   lastTouchTime = currentTime;
-        // }
-
-        // Apply preventDoubleTapZoom on touchstart events for buttons
-        // const leftArrow = document.querySelector(".left-arrow-btn");
-        // const rightArrow = document.querySelector(".right-arrow-btn");
-
-        // leftArrow.addEventListener("touchstart", preventDoubleTapZoom);
-        // rightArrow.addEventListener("touchstart", preventDoubleTapZoom);
-
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
-        // Handle long press behavior and short taps
+        // Prevent long press behavior and handle short taps
         function handleTouchStart(e) {
           isLongPress = false;
           const timeout = setTimeout(() => {
@@ -384,6 +364,13 @@
               swiper.slideNext();
             }
           }
+
+          // Reset opacity after touch ends (in case of long press)
+          if (slideDirection === "prev" && !swiper.isBeginning) {
+            leftArrow.style.opacity = "1";
+          } else if (slideDirection === "next" && !swiper.isEnd) {
+            rightArrow.style.opacity = "1";
+          }
         }
 
         // Attach touchstart and touchend listeners to the arrow buttons
@@ -404,7 +391,7 @@
               event.target.classList.contains("left-arrow-btn")) ||
             (swiper.isEnd && event.target.classList.contains("right-arrow-btn"))
           ) {
-            event.stopPropagation(); // Prevents the event from affecting the title-row
+            event.stopPropagation(); // Prevents the event from bubbling up and affecting the title-row
           }
         }
 
