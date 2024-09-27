@@ -360,9 +360,10 @@
 
         function handleTouchEnd(e, slideDirection) {
           if (!isLongPress) {
-            if (slideDirection === "prev") {
+            // Prevent interaction with disabled buttons
+            if (slideDirection === "prev" && !swiper.isBeginning) {
               swiper.slidePrev();
-            } else if (slideDirection === "next") {
+            } else if (slideDirection === "next" && !swiper.isEnd) {
               swiper.slideNext();
             }
           }
@@ -375,12 +376,19 @@
           } else if (slideDirection === "next" && !swiper.isEnd) {
             rightArrow.style.opacity = "1";
           }
+
+          // Prevent default behavior to block long press native actions
+          e.preventDefault();
         }
 
         // Prevent double navigation (touch + click)
         function handleClick(e, slideDirection) {
           if (!isTouchActive) {
             e.stopPropagation();
+            handleClickWithOpacityChange(
+              slideDirection === "prev" ? leftArrow : rightArrow,
+              slideDirection
+            );
             if (slideDirection === "prev") {
               swiper.slidePrev();
             } else if (slideDirection === "next") {
@@ -419,6 +427,21 @@
             rightArrow.classList.remove("disabled");
             rightArrow.style.opacity = "1"; // Full opacity when not disabled
           }
+        }
+
+        // Function to change opacity on button clicks
+        function handleClickWithOpacityChange(button, slideDirection) {
+          if (button.classList.contains("disabled")) return; // No change if button is disabled
+
+          button.style.opacity = "0.1"; // Temporarily set opacity to 0.1
+          setTimeout(() => {
+            if (
+              (slideDirection === "prev" && !swiper.isBeginning) ||
+              (slideDirection === "next" && !swiper.isEnd)
+            ) {
+              button.style.opacity = "1"; // Restore opacity after 100ms
+            }
+          }, 100);
         }
 
         // Add event listeners to handle when swiper reaches the beginning or end
