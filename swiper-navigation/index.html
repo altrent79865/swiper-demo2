@@ -355,14 +355,38 @@
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
-        // Prevent long-press behavior only for the arrow buttons
-        leftArrow.addEventListener("touchstart", function (e) {
-          e.preventDefault(); // Prevent default behavior on long press
-        });
+        let touchDuration = 0;
+        let touchStartTime;
 
-        rightArrow.addEventListener("touchstart", function (e) {
-          e.preventDefault(); // Prevent default behavior on long press
-        });
+        // Function to handle touchstart and prevent long-press behavior
+        function handleTouchStart(e) {
+          touchStartTime = new Date().getTime();
+        }
+
+        // Function to handle touchend and only allow short taps
+        function handleTouchEnd(e, slideDirection) {
+          touchDuration = new Date().getTime() - touchStartTime;
+          if (touchDuration < 500) {
+            // If touch duration is less than 500ms, treat it as a short click
+            if (slideDirection === "prev") {
+              swiper.slidePrev();
+            } else if (slideDirection === "next") {
+              swiper.slideNext();
+            }
+          }
+          e.preventDefault(); // Prevent long-press default behavior
+        }
+
+        // Attach touchstart and touchend listeners to the arrow buttons
+        leftArrow.addEventListener("touchstart", handleTouchStart);
+        leftArrow.addEventListener("touchend", (e) =>
+          handleTouchEnd(e, "prev")
+        );
+
+        rightArrow.addEventListener("touchstart", handleTouchStart);
+        rightArrow.addEventListener("touchend", (e) =>
+          handleTouchEnd(e, "next")
+        );
 
         // Manually trigger Swiper navigation with custom buttons
         leftArrow.addEventListener("click", (event) => {
