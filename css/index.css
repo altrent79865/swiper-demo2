@@ -472,6 +472,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 1;
+  -webkit-touch-callout: none; /* Disable long-press context menu on iOS */
+  user-select: none; /* Prevent text selection */
 }
 
 /* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
