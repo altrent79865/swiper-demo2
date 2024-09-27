@@ -315,7 +315,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTitleRowVisible = true; // Start with title-row visible
-        let isLongPress = false; // To track if a long press occurred
+        let lastTouchTime = 0; // Track time of last touch event
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -332,6 +332,25 @@
             reachEnd: updateArrowStyles,
           },
         });
+
+        // Prevent double-tap zoom on mobile
+        // function preventDoubleTapZoom(event) {
+        //   const currentTime = new Date().getTime();
+        //   const timeSinceLastTouch = currentTime - lastTouchTime;
+
+        //   if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
+        //     event.preventDefault();
+        //   }
+
+        //   lastTouchTime = currentTime;
+        // }
+
+        // Apply preventDoubleTapZoom on touchstart events for buttons
+        // const leftArrow = document.querySelector(".left-arrow-btn");
+        // const rightArrow = document.querySelector(".right-arrow-btn");
+
+        // leftArrow.addEventListener("touchstart", preventDoubleTapZoom);
+        // rightArrow.addEventListener("touchstart", preventDoubleTapZoom);
 
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
@@ -364,13 +383,6 @@
               swiper.slideNext();
             }
           }
-
-          // Reset opacity after touch ends (in case of long press)
-          if (slideDirection === "prev" && !swiper.isBeginning) {
-            leftArrow.style.opacity = "1";
-          } else if (slideDirection === "next" && !swiper.isEnd) {
-            rightArrow.style.opacity = "1";
-          }
         }
 
         // Attach touchstart and touchend listeners to the arrow buttons
@@ -384,49 +396,40 @@
           handleTouchEnd(e, "next")
         );
 
-        // Add click effect for opacity change
-        function handleClickWithOpacityChange(button, slideDirection) {
-          button.style.opacity = "0.1"; // Temporarily set opacity to 0.1
-          setTimeout(() => {
-            // Restore the opacity after 100ms
-            if (
-              (slideDirection === "prev" && !swiper.isBeginning) ||
-              (slideDirection === "next" && !swiper.isEnd)
-            ) {
-              button.style.opacity = "1";
-            }
-          }, 100);
+        // Prevent arrow clicks from toggling title-row when at the beginning or end
+        function preventToggleOnArrowClick(event) {
+          if (
+            (swiper.isBeginning &&
+              event.target.classList.contains("left-arrow-btn")) ||
+            (swiper.isEnd && event.target.classList.contains("right-arrow-btn"))
+          ) {
+            event.stopPropagation(); // Prevents the event from bubbling up and affecting the title-row
+          }
         }
 
         // Manually trigger Swiper navigation with custom buttons
         leftArrow.addEventListener("click", (event) => {
           event.stopPropagation();
-          handleClickWithOpacityChange(leftArrow, "prev");
           swiper.slidePrev();
         });
 
         rightArrow.addEventListener("click", (event) => {
           event.stopPropagation();
-          handleClickWithOpacityChange(rightArrow, "next");
           swiper.slideNext();
         });
 
-        // Function to update arrow styles (for opacity)
+        // Function to update arrow styles
         function updateArrowStyles() {
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
-            leftArrow.style.opacity = "0.3"; // Set lower opacity for disabled left arrow
           } else {
             leftArrow.classList.remove("disabled");
-            leftArrow.style.opacity = "1"; // Full opacity when not disabled
           }
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
-            rightArrow.style.opacity = "0.3"; // Set lower opacity for disabled right arrow
           } else {
             rightArrow.classList.remove("disabled");
-            rightArrow.style.opacity = "1"; // Full opacity when not disabled
           }
         }
 
