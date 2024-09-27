@@ -352,10 +352,19 @@
         // leftArrow.addEventListener("touchstart", preventDoubleTapZoom);
         // rightArrow.addEventListener("touchstart", preventDoubleTapZoom);
 
-        // Manually trigger Swiper navigation with custom buttons
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
+        // Prevent long-press behavior only for the arrow buttons
+        leftArrow.addEventListener("touchstart", function (e) {
+          e.preventDefault(); // Prevent default behavior on long press
+        });
+
+        rightArrow.addEventListener("touchstart", function (e) {
+          e.preventDefault(); // Prevent default behavior on long press
+        });
+
+        // Manually trigger Swiper navigation with custom buttons
         leftArrow.addEventListener("click", (event) => {
           event.stopPropagation();
           swiper.slidePrev();
