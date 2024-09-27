@@ -314,10 +314,8 @@
     <!-- Initialize Swiper and Button Functionality -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        let isTitleRowVisible = true; // Start with title-row visible
         let isLongPress = false; // To track if a long press occurred
         let isTouchActive = false; // To track if touch event is in progress
-        let touchTimeout = null; // To manage touch timeout for long press
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -328,7 +326,6 @@
           on: {
             slideChange: function () {
               updateArrowStyles();
-              applyTitleRowVisibility();
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
@@ -342,19 +339,24 @@
         function handleTouchStart(e) {
           isLongPress = false;
           isTouchActive = true;
-
-          // Clear any existing timeouts
-          clearTimeout(touchTimeout);
-
-          touchTimeout = setTimeout(() => {
+          const timeout = setTimeout(() => {
             isLongPress = true;
-            e.preventDefault(); // Prevent the long-press native action
+            e.preventDefault(); // Prevent the long press native action
           }, 500); // Time threshold to detect a long press
+
+          function cancelLongPress() {
+            clearTimeout(timeout);
+          }
+
+          e.target.addEventListener("touchend", cancelLongPress, {
+            once: true,
+          });
+          e.target.addEventListener("touchmove", cancelLongPress, {
+            once: true,
+          });
         }
 
         function handleTouchEnd(e, slideDirection) {
-          clearTimeout(touchTimeout); // Clear the long press timeout
-
           if (!isLongPress) {
             // Prevent interaction with disabled buttons
             if (slideDirection === "prev" && !swiper.isBeginning) {
@@ -365,15 +367,6 @@
           }
 
           isTouchActive = false;
-
-          // Reset opacity after touch ends (in case of long press)
-          if (slideDirection === "prev" && !swiper.isBeginning) {
-            leftArrow.style.opacity = "1";
-          } else if (slideDirection === "next" && !swiper.isEnd) {
-            rightArrow.style.opacity = "1";
-          }
-
-          // Prevent default behavior to block long press native actions
           e.preventDefault();
         }
 
@@ -381,10 +374,6 @@
         function handleClick(e, slideDirection) {
           if (!isTouchActive) {
             e.stopPropagation();
-            handleClickWithOpacityChange(
-              slideDirection === "prev" ? leftArrow : rightArrow,
-              slideDirection
-            );
             if (slideDirection === "prev") {
               swiper.slidePrev();
             } else if (slideDirection === "next") {
@@ -406,48 +395,23 @@
         );
         rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
 
-        // Function to update arrow styles (for opacity)
+        // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
-            leftArrow.style.opacity = "0.3"; // Set lower opacity for disabled left arrow
           } else {
             leftArrow.classList.remove("disabled");
-            leftArrow.style.opacity = "1"; // Full opacity when not disabled
           }
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
-            rightArrow.style.opacity = "0.3"; // Set lower opacity for disabled right arrow
           } else {
             rightArrow.classList.remove("disabled");
-            rightArrow.style.opacity = "1"; // Full opacity when not disabled
           }
         }
 
-        // Function to change opacity on button clicks
-        function handleClickWithOpacityChange(button, slideDirection) {
-          if (button.classList.contains("disabled")) return; // No change if button is disabled
-
-          button.style.opacity = "0.1"; // Temporarily set opacity to 0.1
-          setTimeout(() => {
-            if (
-              (slideDirection === "prev" && !swiper.isBeginning) ||
-              (slideDirection === "next" && !swiper.isEnd)
-            ) {
-              button.style.opacity = "1"; // Restore opacity after 100ms
-            }
-          }, 100);
-        }
-
-        // Add event listeners to handle when swiper reaches the beginning or end
-        swiper.on("reachBeginning", updateArrowStyles);
-        swiper.on("reachEnd", updateArrowStyles);
-        swiper.on("slideChange", updateArrowStyles);
-
         // Initial calls
         updateArrowStyles();
-        applyTitleRowVisibility();
       });
     </script>
   </body>
