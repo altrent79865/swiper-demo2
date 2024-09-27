@@ -513,7 +513,7 @@ body {
 
 .left-arrow-btn:active,
 .right-arrow-btn:active {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .active-opacity {

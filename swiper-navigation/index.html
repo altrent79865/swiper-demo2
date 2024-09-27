@@ -427,18 +427,25 @@
           }
         }
 
-        // Function to toggle the title-row visibility
         function toggleTitleRow() {
-          const activeSlide = swiper.slides[swiper.activeIndex];
-          const titleRow = activeSlide.querySelector(".title-row");
-          const titleRowBottom = activeSlide.querySelector(".title-row-bottom");
+          const titleRows = document.querySelectorAll(".title-row");
+          const titleRowBottoms =
+            document.querySelectorAll(".title-row-bottom");
 
           if (isTitleRowVisible) {
-            titleRow.classList.add("hidden-title-row");
-            titleRowBottom.classList.add("hidden-title-row");
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.add("hidden-title-row")
+            );
+            titleRowBottoms.forEach((titleRowBottom) =>
+              titleRowBottom.classList.add("hidden-title-row")
+            );
           } else {
-            titleRow.classList.remove("hidden-title-row");
-            titleRowBottom.classList.remove("hidden-title-row");
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.remove("hidden-title-row")
+            );
+            titleRowBottoms.forEach((titleRowBottom) =>
+              titleRowBottom.classList.remove("hidden-title-row")
+            );
           }
 
           isTitleRowVisible = !isTitleRowVisible; // Toggle the visibility state
