@@ -538,13 +538,11 @@ body {
 .right-arrow-btn.disabled {
   opacity: 0.3;
   cursor: not-allowed;
-  pointer-events: none; /* Disables mouse and touch interactions */
   touch-action: none; /* Prevents default touch behaviors like zooming */
 }
 
 .left-arrow-btn.disabled::before,
 .right-arrow-btn.disabled::before {
-  pointer-events: none; /* Ensures pseudo-elements don't capture events */
   touch-action: none; /* Prevents default touch behaviors */
 }
 

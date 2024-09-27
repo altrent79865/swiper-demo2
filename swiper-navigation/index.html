@@ -6,7 +6,7 @@
     <!-- user-scalable=no added because a double tap on arrows was zooming screen and getting it stuck where it wouldn't zoom back.  Also, I don't believe swiper supports user zoom -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
     />
     <!-- Link Swiper's CSS -->
     <link
@@ -357,10 +357,12 @@
 
         // Touch event handlers
         function handleTouchStart(e) {
-          e.preventDefault(); // Always prevent default behavior
           if (e.target.classList.contains("disabled")) {
+            e.preventDefault(); // Prevent default behavior (like zooming)
+            e.stopPropagation(); // Prevent event from bubbling up
             return;
           }
+          e.preventDefault(); // Always prevent default behavior
           isTouchActive = true;
           hasSwipedOnTouch = false; // Reset the swipe flag at the start of touch
         }
@@ -395,6 +397,19 @@
         );
         rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
 
+        // Prevent click events on disabled arrow buttons from toggling title-row
+        leftArrow.addEventListener("click", function (e) {
+          if (leftArrow.classList.contains("disabled")) {
+            e.stopPropagation();
+          }
+        });
+
+        rightArrow.addEventListener("click", function (e) {
+          if (rightArrow.classList.contains("disabled")) {
+            e.stopPropagation();
+          }
+        });
+
         // Detect swipe to prevent touchend from triggering slide navigation twice
         swiper.on("slidePrevTransitionStart", () => {
           hasSwipedOnTouch = true;
@@ -427,6 +442,7 @@
           }
         }
 
+        // Function to toggle the title-row visibility
         function toggleTitleRow() {
           const titleRows = document.querySelectorAll(".title-row");
           const titleRowBottoms =
