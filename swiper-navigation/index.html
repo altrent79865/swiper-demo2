@@ -357,8 +357,8 @@
 
         // Touch event handlers
         function handleTouchStart(e) {
+          e.preventDefault(); // Always prevent default behavior
           if (e.target.classList.contains("disabled")) {
-            e.preventDefault();
             return;
           }
           isTouchActive = true;
