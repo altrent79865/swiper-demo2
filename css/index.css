@@ -510,30 +510,30 @@ body {
   background-position: calc(50% + 2px) center;
 }
 
-/* .left-arrow-btn:active,
+.left-arrow-btn:active,
 .right-arrow-btn:active {
   opacity: 0.1;
-} */
+}
 
 /* Active state - Only apply when the button is not disabled */
-/* .left-arrow-btn:not(.disabled):active,
+.left-arrow-btn:not(.disabled):active,
 .right-arrow-btn:not(.disabled):active {
   opacity: 0.1;
-} */
+}
 
 /* Ensure the buttons return to full opacity after the click */
-/* .left-arrow-btn:not(.disabled),
+.left-arrow-btn:not(.disabled),
 .right-arrow-btn:not(.disabled) {
   opacity: 1;
-} */
+}
 
 /* When the swiper is at the end */
-/* .left-arrow-btn.disabled,
+.left-arrow-btn.disabled,
 .right-arrow-btn.disabled {
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
-} */
+}
 
 /* Custom arrows for vertical swiping for Vertical Swiper */
 /* Style for the navigation buttons container */
