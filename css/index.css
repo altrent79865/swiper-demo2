@@ -509,6 +509,12 @@ body {
   opacity: 0.1;
 }
 
+/* Ensure the buttons return to full opacity after the click */
+.left-arrow-btn:not(.disabled),
+.right-arrow-btn:not(.disabled) {
+  opacity: 1; /* Fully visible when not clicked */
+}
+
 /* When the swiper is at the end */
 .left-arrow-btn.disabled,
 .right-arrow-btn.disabled {
@@ -555,6 +561,11 @@ body {
 /* Active state - Only apply when the button is not disabled */
 .down-arrow-btn:not(.disabled):active {
   opacity: 0.1;
+}
+
+/* Ensure the buttons return to full opacity after the click */
+.down-arrow-btn:not(.disabled) {
+  opacity: 1; /* Fully visible when not clicked */
 }
 
 /* When the swiper is at the end */
