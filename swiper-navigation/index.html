@@ -346,10 +346,13 @@
               button.classList.remove("active-opacity");
             }, 200);
 
-            if (direction === "prev" && !swiper.isBeginning) {
-              swiper.slidePrev();
-            } else if (direction === "next" && !swiper.isEnd) {
-              swiper.slideNext();
+            // Only trigger slide navigation if touch event is not active
+            if (!isTouchActive) {
+              if (direction === "prev" && !swiper.isBeginning) {
+                swiper.slidePrev();
+              } else if (direction === "next" && !swiper.isEnd) {
+                swiper.slideNext();
+              }
             }
           }
         }
@@ -360,8 +363,11 @@
         }
 
         function handleTouchEnd(e, direction) {
-          isTouchActive = false;
           handleArrowClick(e.target, direction);
+          // Reset isTouchActive after touchend to prevent click triggering
+          setTimeout(() => {
+            isTouchActive = false;
+          }, 100); // Small delay to ensure touch events finish before resetting
         }
 
         // Attach touch and click event listeners to the arrow buttons
