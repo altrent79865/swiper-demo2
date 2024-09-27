@@ -327,6 +327,7 @@
           on: {
             slideChange: function () {
               updateArrowStyles();
+              applyTitleRowVisibility(); // Ensure title-row is visible based on state
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
@@ -339,10 +340,14 @@
         // Handle click opacity for the arrows
         function handleArrowClick(button, direction) {
           if (!button.classList.contains("disabled")) {
-            button.classList.add("active-opacity"); // Temporarily set lower opacity on click
+            button.classList.add("active-opacity");
+            // Force reflow for iOS to ensure opacity change
+            button.style.display = "none";
+            button.offsetHeight; // Trigger reflow
+            button.style.display = "";
             setTimeout(() => {
               button.classList.remove("active-opacity");
-            }, 200);
+            }, 100); // Restore opacity faster (100ms)
 
             if (direction === "prev" && !swiper.isBeginning) {
               swiper.slidePrev();
@@ -432,11 +437,32 @@
           }
         }
 
+        // Ensure title-row is applied consistently on slide change
+        function applyTitleRowVisibility() {
+          const activeSlide = swiper.slides[swiper.activeIndex];
+
+          if (isTitleRowVisible) {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.remove("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.remove("hidden-title-row");
+          } else {
+            activeSlide
+              .querySelector(".title-row")
+              ?.classList.add("hidden-title-row");
+            activeSlide
+              .querySelector(".title-row-bottom")
+              ?.classList.add("hidden-title-row");
+          }
+        }
+
         // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
-            leftArrow.style.opacity = "0.3"; // Set lower opacity when disabled
+            leftArrow.style.opacity = "0.3"; // Lower opacity when disabled
           } else {
             leftArrow.classList.remove("disabled");
             leftArrow.style.opacity = "1"; // Full opacity when enabled
@@ -444,15 +470,16 @@
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
-            rightArrow.style.opacity = "0.3"; // Set lower opacity when disabled
+            rightArrow.style.opacity = "0.3"; // Lower opacity when disabled
           } else {
             rightArrow.classList.remove("disabled");
             rightArrow.style.opacity = "1"; // Full opacity when enabled
           }
         }
 
-        // Initial call to set arrow styles
+        // Initial call to set arrow styles and title row visibility
         updateArrowStyles();
+        applyTitleRowVisibility(); // Ensure title-row visibility is correct on load
       });
     </script>
   </body>
