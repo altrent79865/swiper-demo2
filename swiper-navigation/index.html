@@ -317,6 +317,7 @@
         let isTitleRowVisible = true; // Start with title-row visible
         let isLongPress = false; // To track if a long press occurred
         let isTouchActive = false; // To track if touch event is in progress
+        let touchTimeout = null; // To manage touch timeout for long press
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -341,24 +342,19 @@
         function handleTouchStart(e) {
           isLongPress = false;
           isTouchActive = true;
-          const timeout = setTimeout(() => {
+
+          // Clear any existing timeouts
+          clearTimeout(touchTimeout);
+
+          touchTimeout = setTimeout(() => {
             isLongPress = true;
-            e.preventDefault(); // Prevent the long press native action
+            e.preventDefault(); // Prevent the long-press native action
           }, 500); // Time threshold to detect a long press
-
-          function cancelLongPress() {
-            clearTimeout(timeout);
-          }
-
-          e.target.addEventListener("touchend", cancelLongPress, {
-            once: true,
-          });
-          e.target.addEventListener("touchmove", cancelLongPress, {
-            once: true,
-          });
         }
 
         function handleTouchEnd(e, slideDirection) {
+          clearTimeout(touchTimeout); // Clear the long press timeout
+
           if (!isLongPress) {
             // Prevent interaction with disabled buttons
             if (slideDirection === "prev" && !swiper.isBeginning) {
