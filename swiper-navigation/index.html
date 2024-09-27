@@ -384,25 +384,30 @@
           handleTouchEnd(e, "next")
         );
 
-        // Prevent arrow clicks from toggling title-row when at the beginning or end
-        function preventToggleOnArrowClick(event) {
-          if (
-            (swiper.isBeginning &&
-              event.target.classList.contains("left-arrow-btn")) ||
-            (swiper.isEnd && event.target.classList.contains("right-arrow-btn"))
-          ) {
-            event.stopPropagation(); // Prevents the event from bubbling up and affecting the title-row
-          }
+        // Add click effect for opacity change
+        function handleClickWithOpacityChange(button, slideDirection) {
+          button.style.opacity = "0.1"; // Temporarily set opacity to 0.1
+          setTimeout(() => {
+            // Restore the opacity after 100ms
+            if (
+              (slideDirection === "prev" && !swiper.isBeginning) ||
+              (slideDirection === "next" && !swiper.isEnd)
+            ) {
+              button.style.opacity = "1";
+            }
+          }, 100);
         }
 
         // Manually trigger Swiper navigation with custom buttons
         leftArrow.addEventListener("click", (event) => {
           event.stopPropagation();
+          handleClickWithOpacityChange(leftArrow, "prev");
           swiper.slidePrev();
         });
 
         rightArrow.addEventListener("click", (event) => {
           event.stopPropagation();
+          handleClickWithOpacityChange(rightArrow, "next");
           swiper.slideNext();
         });
 
