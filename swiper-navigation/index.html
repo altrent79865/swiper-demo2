@@ -356,16 +356,19 @@
         }
 
         // Touch event handlers
-        function handleTouchStart() {
+        function handleTouchStart(e) {
+          if (e.target.classList.contains("disabled")) {
+            e.preventDefault();
+            return;
+          }
           isTouchActive = true;
           hasSwipedOnTouch = false; // Reset the swipe flag at the start of touch
         }
 
         function handleTouchEnd(e, direction) {
-          if (!hasSwipedOnTouch) {
+          if (!e.target.classList.contains("disabled") && !hasSwipedOnTouch) {
             handleArrowClick(e.target, direction);
           }
-
           setTimeout(() => {
             isTouchActive = false;
           }, 100);
@@ -406,17 +409,21 @@
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
             leftArrow.style.opacity = "0.3"; // Lower opacity when disabled
+            leftArrow.setAttribute("disabled", true);
           } else {
             leftArrow.classList.remove("disabled");
             leftArrow.style.opacity = "1"; // Full opacity when enabled
+            leftArrow.removeAttribute("disabled");
           }
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
             rightArrow.style.opacity = "0.3"; // Lower opacity when disabled
+            rightArrow.setAttribute("disabled", true);
           } else {
             rightArrow.classList.remove("disabled");
             rightArrow.style.opacity = "1"; // Full opacity when enabled
+            rightArrow.removeAttribute("disabled");
           }
         }
 
