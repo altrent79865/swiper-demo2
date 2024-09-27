@@ -447,10 +447,9 @@
         // Attach click event listener to toggle title-row, excluding the arrows
         const swiperContainer = document.querySelector(".swiper");
         swiperContainer.addEventListener("click", function (event) {
-          // Check if the click is on the arrows, in which case we don't toggle the title-row
           if (
-            !event.target.classList.contains("left-arrow-btn") &&
-            !event.target.classList.contains("right-arrow-btn")
+            !event.target.closest(".left-arrow-btn") &&
+            !event.target.closest(".right-arrow-btn")
           ) {
             toggleTitleRow();
           }

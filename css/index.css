@@ -496,6 +496,7 @@ body {
   left: -20px;
   right: -20px;
   background: transparent;
+  pointer-events: auto;
 }
 
 .left-arrow-btn {
