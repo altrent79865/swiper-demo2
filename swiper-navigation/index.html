@@ -355,26 +355,34 @@
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
-        let touchDuration = 0;
-        let touchStartTime;
-
-        // Function to handle touchstart and prevent long-press behavior
+        // Prevent long press behavior and handle short taps
         function handleTouchStart(e) {
-          touchStartTime = new Date().getTime();
+          isLongPress = false;
+          const timeout = setTimeout(() => {
+            isLongPress = true;
+            e.preventDefault(); // Prevent the long press native action
+          }, 500); // Time threshold to detect a long press
+
+          function cancelLongPress() {
+            clearTimeout(timeout);
+          }
+
+          e.target.addEventListener("touchend", cancelLongPress, {
+            once: true,
+          });
+          e.target.addEventListener("touchmove", cancelLongPress, {
+            once: true,
+          });
         }
 
-        // Function to handle touchend and only allow short taps
         function handleTouchEnd(e, slideDirection) {
-          touchDuration = new Date().getTime() - touchStartTime;
-          if (touchDuration < 500) {
-            // If touch duration is less than 500ms, treat it as a short click
+          if (!isLongPress) {
             if (slideDirection === "prev") {
               swiper.slidePrev();
             } else if (slideDirection === "next") {
               swiper.slideNext();
             }
           }
-          e.preventDefault(); // Prevent long-press default behavior
         }
 
         // Attach touchstart and touchend listeners to the arrow buttons
@@ -387,6 +395,17 @@
         rightArrow.addEventListener("touchend", (e) =>
           handleTouchEnd(e, "next")
         );
+
+        // Prevent arrow clicks from toggling title-row when at the beginning or end
+        function preventToggleOnArrowClick(event) {
+          if (
+            (swiper.isBeginning &&
+              event.target.classList.contains("left-arrow-btn")) ||
+            (swiper.isEnd && event.target.classList.contains("right-arrow-btn"))
+          ) {
+            event.stopPropagation(); // Prevents the event from bubbling up and affecting the title-row
+          }
+        }
 
         // Manually trigger Swiper navigation with custom buttons
         leftArrow.addEventListener("click", (event) => {
