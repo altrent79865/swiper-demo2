@@ -535,6 +535,10 @@ body {
   pointer-events: none;
 }
 
+.active-opacity {
+  opacity: 0.1 !important;
+}
+
 /* Custom arrows for vertical swiping for Vertical Swiper */
 /* Style for the navigation buttons container */
 .navigation-buttons {

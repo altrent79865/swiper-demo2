@@ -336,6 +336,22 @@
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
+        // Handle click opacity for the arrows
+        function handleArrowClick(button, direction) {
+          if (!button.classList.contains("disabled")) {
+            button.classList.add("active-opacity"); // Temporarily set lower opacity on click
+            setTimeout(() => {
+              button.classList.remove("active-opacity");
+            }, 100);
+
+            if (direction === "prev" && !swiper.isBeginning) {
+              swiper.slidePrev();
+            } else if (direction === "next" && !swiper.isEnd) {
+              swiper.slideNext();
+            }
+          }
+        }
+
         // Prevent long press behavior and handle short taps
         function handleTouchStart(e) {
           isLongPress = false;
@@ -343,7 +359,7 @@
           const timeout = setTimeout(() => {
             isLongPress = true;
             e.preventDefault(); // Prevent the long press native action
-          }, 500); // Time threshold to detect a long press
+          }, 500);
 
           function cancelLongPress() {
             clearTimeout(timeout);
@@ -359,47 +375,32 @@
 
         function handleTouchEnd(e, slideDirection) {
           if (!isLongPress) {
-            // Prevent interaction with disabled buttons
             if (slideDirection === "prev" && !swiper.isBeginning) {
               swiper.slidePrev();
             } else if (slideDirection === "next" && !swiper.isEnd) {
               swiper.slideNext();
             }
           }
-
           isTouchActive = false;
           e.preventDefault();
         }
 
-        // Prevent double navigation (touch + click)
-        function handleClick(e, slideDirection) {
-          if (!isTouchActive) {
-            e.stopPropagation();
-            // Temporarily reduce the opacity on button click
-            if (slideDirection === "prev") {
-              leftArrow.style.opacity = "0.1";
-              setTimeout(() => (leftArrow.style.opacity = "1"), 200);
-              swiper.slidePrev();
-            } else if (slideDirection === "next") {
-              rightArrow.style.opacity = "0.1";
-              setTimeout(() => (rightArrow.style.opacity = "1"), 200);
-              swiper.slideNext();
-            }
-          }
-        }
-
-        // Attach touchstart and touchend listeners to the arrow buttons
+        // Attach touch and click event listeners to the arrow buttons
         leftArrow.addEventListener("touchstart", handleTouchStart);
         leftArrow.addEventListener("touchend", (e) =>
           handleTouchEnd(e, "prev")
         );
-        leftArrow.addEventListener("click", (e) => handleClick(e, "prev"));
+        leftArrow.addEventListener("click", (e) => {
+          handleArrowClick(leftArrow, "prev");
+        });
 
         rightArrow.addEventListener("touchstart", handleTouchStart);
         rightArrow.addEventListener("touchend", (e) =>
           handleTouchEnd(e, "next")
         );
-        rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
+        rightArrow.addEventListener("click", (e) => {
+          handleArrowClick(rightArrow, "next");
+        });
 
         // Toggle title-row visibility when clicking elsewhere
         const swiperContainer = document.querySelector(".swiper");
@@ -435,22 +436,22 @@
         function updateArrowStyles() {
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
-            leftArrow.style.opacity = "0.3"; // Dim the left arrow when at the beginning
+            leftArrow.style.opacity = "0.3"; // Set lower opacity when disabled
           } else {
             leftArrow.classList.remove("disabled");
-            leftArrow.style.opacity = "1"; // Reset the opacity when not at the beginning
+            leftArrow.style.opacity = "1"; // Full opacity when enabled
           }
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
-            rightArrow.style.opacity = "0.3"; // Dim the right arrow when at the end
+            rightArrow.style.opacity = "0.3"; // Set lower opacity when disabled
           } else {
             rightArrow.classList.remove("disabled");
-            rightArrow.style.opacity = "1"; // Reset the opacity when not at the end
+            rightArrow.style.opacity = "1"; // Full opacity when enabled
           }
         }
 
-        // Initial calls
+        // Initial call to set arrow styles
         updateArrowStyles();
       });
     </script>
