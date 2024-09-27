@@ -316,6 +316,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
+        let hasSwipedOnTouch = false; // Flag to track swiping during touch event
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -357,16 +358,12 @@
         // Touch event handlers
         function handleTouchStart() {
           isTouchActive = true;
+          hasSwipedOnTouch = false; // Reset the swipe flag at the start of touch
         }
 
         function handleTouchEnd(e, direction) {
-          handleArrowClick(e.target, direction);
-
-          // Slide movement on touchend
-          if (direction === "prev" && !swiper.isBeginning) {
-            swiper.slidePrev();
-          } else if (direction === "next" && !swiper.isEnd) {
-            swiper.slideNext();
+          if (!hasSwipedOnTouch) {
+            handleArrowClick(e.target, direction);
           }
 
           setTimeout(() => {
@@ -374,25 +371,34 @@
           }, 100);
         }
 
-        // Attach touch and click events to arrow buttons
+        // Prevent double navigation (touch + click)
+        function handleClick(e, direction) {
+          if (!isTouchActive && !e.target.classList.contains("disabled")) {
+            e.stopPropagation();
+            handleArrowClick(e.target, direction);
+          }
+        }
+
+        // Attach touchstart and touchend listeners to arrow buttons
         leftArrow.addEventListener("touchstart", handleTouchStart);
         leftArrow.addEventListener("touchend", (e) =>
           handleTouchEnd(e, "prev")
         );
-        leftArrow.addEventListener("click", (e) => {
-          if (!isTouchActive) {
-            handleArrowClick(leftArrow, "prev");
-          }
-        });
+        leftArrow.addEventListener("click", (e) => handleClick(e, "prev"));
 
         rightArrow.addEventListener("touchstart", handleTouchStart);
         rightArrow.addEventListener("touchend", (e) =>
           handleTouchEnd(e, "next")
         );
-        rightArrow.addEventListener("click", (e) => {
-          if (!isTouchActive) {
-            handleArrowClick(rightArrow, "next");
-          }
+        rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
+
+        // Detect swipe to prevent touchend from triggering slide navigation twice
+        swiper.on("slidePrevTransitionStart", () => {
+          hasSwipedOnTouch = true;
+        });
+
+        swiper.on("slideNextTransitionStart", () => {
+          hasSwipedOnTouch = true;
         });
 
         // Function to update arrow styles (for disabling)
