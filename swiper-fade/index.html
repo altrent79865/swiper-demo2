@@ -325,8 +325,9 @@
     <!-- Initialize Swiper with Custom Navigation -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
-        let lastTouchTime = 0; // Track time of last touch event
+        let hasSwipedOnTouch = false; // Flag to track swiping during touch event
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -339,125 +340,159 @@
           on: {
             slideChange: function () {
               updateArrowStyles();
-              applyTitleRowVisibility();
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
           },
         });
 
-        // Prevent double-tap zoom on mobile
-        // function preventDoubleTapZoom(event) {
-        //   const currentTime = new Date().getTime();
-        //   const timeSinceLastTouch = currentTime - lastTouchTime;
-
-        //   if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
-        //     event.preventDefault();
-        //   }
-        //   lastTouchTime = currentTime;
-        // }
-
-        // const touchElements = document.querySelectorAll(
-        //   ".left-arrow-btn, .right-arrow-btn"
-        // );
-        // touchElements.forEach((el) => {
-        //   el.addEventListener("touchstart", preventDoubleTapZoom);
-        // });
-
-        // Manually trigger Swiper navigation with custom buttons
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
 
-        leftArrow.addEventListener("click", (event) => {
-          event.stopPropagation();
-          swiper.slidePrev();
+        // Function to handle arrow click with opacity effect
+        function handleArrowClick(button, direction) {
+          if (!button.classList.contains("disabled")) {
+            button.classList.add("active-opacity");
+
+            // Remove the class after 200ms for the transition effect
+            setTimeout(() => {
+              button.classList.remove("active-opacity");
+            }, 200);
+
+            // Trigger slide navigation directly
+            if (direction === "prev" && !swiper.isBeginning) {
+              swiper.slidePrev();
+            } else if (direction === "next" && !swiper.isEnd) {
+              swiper.slideNext();
+            }
+          }
+        }
+
+        // Touch event handlers
+        function handleTouchStart(e) {
+          if (e.target.classList.contains("disabled")) {
+            e.preventDefault(); // Prevent default behavior (like zooming)
+            e.stopPropagation(); // Prevent event from bubbling up
+            return;
+          }
+          e.preventDefault(); // Always prevent default behavior
+          isTouchActive = true;
+          hasSwipedOnTouch = false; // Reset the swipe flag at the start of touch
+        }
+
+        function handleTouchEnd(e, direction) {
+          if (!e.target.classList.contains("disabled") && !hasSwipedOnTouch) {
+            handleArrowClick(e.target, direction);
+          }
+          setTimeout(() => {
+            isTouchActive = false;
+          }, 100);
+        }
+
+        // Prevent double navigation (touch + click)
+        function handleClick(e, direction) {
+          if (!isTouchActive && !e.target.classList.contains("disabled")) {
+            e.stopPropagation();
+            handleArrowClick(e.target, direction);
+          }
+        }
+
+        // Attach touchstart and touchend listeners to arrow buttons
+        leftArrow.addEventListener("touchstart", handleTouchStart);
+        leftArrow.addEventListener("touchend", (e) =>
+          handleTouchEnd(e, "prev")
+        );
+        leftArrow.addEventListener("click", (e) => handleClick(e, "prev"));
+
+        rightArrow.addEventListener("touchstart", handleTouchStart);
+        rightArrow.addEventListener("touchend", (e) =>
+          handleTouchEnd(e, "next")
+        );
+        rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
+
+        // Prevent click events on disabled arrow buttons from toggling title-row
+        leftArrow.addEventListener("click", function (e) {
+          if (leftArrow.classList.contains("disabled")) {
+            e.stopPropagation();
+          }
         });
 
-        rightArrow.addEventListener("click", (event) => {
-          event.stopPropagation();
-          swiper.slideNext();
+        rightArrow.addEventListener("click", function (e) {
+          if (rightArrow.classList.contains("disabled")) {
+            e.stopPropagation();
+          }
         });
 
-        // Function to update arrow styles
+        // Detect swipe to prevent touchend from triggering slide navigation twice
+        swiper.on("slidePrevTransitionStart", () => {
+          hasSwipedOnTouch = true;
+        });
+
+        swiper.on("slideNextTransitionStart", () => {
+          hasSwipedOnTouch = true;
+        });
+
+        // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
           if (swiper.isBeginning) {
             leftArrow.classList.add("disabled");
+            leftArrow.style.opacity = "0.3"; // Lower opacity when disabled
+            leftArrow.setAttribute("disabled", true);
           } else {
             leftArrow.classList.remove("disabled");
+            leftArrow.style.opacity = "1"; // Full opacity when enabled
+            leftArrow.removeAttribute("disabled");
           }
 
           if (swiper.isEnd) {
             rightArrow.classList.add("disabled");
+            rightArrow.style.opacity = "0.3"; // Lower opacity when disabled
+            rightArrow.setAttribute("disabled", true);
           } else {
             rightArrow.classList.remove("disabled");
+            rightArrow.style.opacity = "1"; // Full opacity when enabled
+            rightArrow.removeAttribute("disabled");
           }
         }
 
-        // Add event listeners to handle when swiper reaches the beginning or end
-        swiper.on("reachBeginning", updateArrowStyles);
-        swiper.on("reachEnd", updateArrowStyles);
-        swiper.on("slideChange", updateArrowStyles);
-
-        // Initial calls
-        updateArrowStyles();
-        applyTitleRowVisibility();
-
-        // Event listener to toggle title-row
-        const swiperContainer = document.querySelector(".swiper");
-
-        swiperContainer.addEventListener("click", function (event) {
-          if (
-            event.target.closest(".title-row") ||
-            event.target.closest(".close-btn") ||
-            event.target.closest(".options-btn") ||
-            event.target.closest(".pencil-title-row") ||
-            event.target.closest(".link-clickable") ||
-            event.target.closest(".grey_button") ||
-            event.target.closest(".left-arrow-btn") ||
-            event.target.closest(".right-arrow-btn")
-          ) {
-            return;
-          }
-
-          const activeSlide = swiper.slides[swiper.activeIndex];
-          toggleTitleRowVisibility(activeSlide);
-          isTitleRowVisible = !isTitleRowVisible;
-        });
-
-        // Function to toggle title-row visibility
-        function toggleTitleRowVisibility(slide) {
-          const titleRow = slide.querySelector(".title-row");
-          const titleRowBottom = slide.querySelector(".title-row-bottom");
-
-          if (titleRow) {
-            titleRow.classList.toggle("hidden-title-row");
-          }
-
-          if (titleRowBottom) {
-            titleRowBottom.classList.toggle("hidden-title-row");
-          }
-        }
-
-        // Function to apply the current visibility state
-        function applyTitleRowVisibility() {
-          const activeSlide = swiper.slides[swiper.activeIndex];
+        // Function to toggle the title-row visibility
+        function toggleTitleRow() {
+          const titleRows = document.querySelectorAll(".title-row");
+          const titleRowBottoms =
+            document.querySelectorAll(".title-row-bottom");
 
           if (isTitleRowVisible) {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.remove("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.remove("hidden-title-row");
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.add("hidden-title-row")
+            );
+            titleRowBottoms.forEach((titleRowBottom) =>
+              titleRowBottom.classList.add("hidden-title-row")
+            );
           } else {
-            activeSlide
-              .querySelector(".title-row")
-              ?.classList.add("hidden-title-row");
-            activeSlide
-              .querySelector(".title-row-bottom")
-              ?.classList.add("hidden-title-row");
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.remove("hidden-title-row")
+            );
+            titleRowBottoms.forEach((titleRowBottom) =>
+              titleRowBottom.classList.remove("hidden-title-row")
+            );
           }
+
+          isTitleRowVisible = !isTitleRowVisible; // Toggle the visibility state
         }
+
+        // Attach click event listener to toggle title-row, excluding the arrows
+        const swiperContainer = document.querySelector(".swiper");
+        swiperContainer.addEventListener("click", function (event) {
+          if (
+            !event.target.closest(".left-arrow-btn") &&
+            !event.target.closest(".right-arrow-btn")
+          ) {
+            toggleTitleRow();
+          }
+        });
+
+        // Initial call to set arrow styles
+        updateArrowStyles();
       });
     </script>
   </body>
