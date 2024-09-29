@@ -498,7 +498,14 @@
             !event.target.closest(".left-arrow-btn") &&
             !event.target.closest(".right-arrow-btn")
           ) {
-            toggleTitleRow();
+            if (dropdownMenu.classList.contains("open")) {
+              // Close the dropdown menu
+              dropdownMenu.classList.remove("open");
+              dropdownMenu.style.display = "none";
+              activeOptionsBtn = null;
+            } else {
+              toggleTitleRow();
+            }
           }
         });
 
