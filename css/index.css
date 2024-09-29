@@ -266,7 +266,7 @@ body {
   /* background-color: rgb(47, 47, 47); */
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
-  border: 1px solid #696969;
+  border: 1px solid rgba(128, 128, 128, 0.6);
   padding: 20px 4px 18px 4px;
   border-radius: 3px;
   position: fixed;
