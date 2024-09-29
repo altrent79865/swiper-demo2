@@ -276,12 +276,13 @@ body {
   /* box-shadow: 2px 2px 6px rgba(119, 119, 119, 0.4); */
   z-index: 1000;
   /* padding-bottom: 12px; */
+  transition: opacity 0.3s ease, transform 0.4s ease;
 }
 
 /* Links in the dropdown */
 #options-links li {
   display: block;
-  padding: 6px 15px 6px 20px; /* Optional: Add padding for better spacing */
+  padding: 6px 20px;
   color: white;
   text-decoration: none;
   margin-top: 2px;
@@ -309,6 +310,8 @@ body {
 
 #options-links.open {
   display: flex;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Close Button (X) */
@@ -321,7 +324,7 @@ body {
   color: white;
   font-size: 26px;
   cursor: pointer;
-  padding: 5px;
+  padding: 4px 8px 5px 5px;
 }
 
 .dropdown-title {
