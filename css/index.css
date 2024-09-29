@@ -264,16 +264,16 @@ body {
   justify-content: flex-start;
   /* align-items: stretch; */
   /* background-color: rgb(47, 47, 47); */
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
   color: white;
-  border: 1px solid #454545;
+  border: 1px solid #696969;
   padding: 20px 4px 14px 4px;
   border-radius: 3px;
   position: fixed;
   /* top: 50px;
   right: 10px; */
-  width: 200px;
-  box-shadow: 2px 2px 6px rgba(144, 144, 144, 0.6);
+  width: 220px;
+  /* box-shadow: 2px 2px 6px rgba(119, 119, 119, 0.4); */
   z-index: 1000;
   /* padding-bottom: 12px; */
 }
