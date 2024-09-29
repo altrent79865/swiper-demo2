@@ -61,11 +61,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Crawfish Etouffee</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -85,11 +86,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Little Guy</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -110,11 +112,12 @@
               <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
               <p class="media-item-title">Christmas Dinner Table Setting...</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -134,11 +137,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Italian Roots</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -161,11 +165,12 @@
               </div>
               <p class="media-item-title add-new-caption">Add a Caption</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -186,11 +191,12 @@
               <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
               <p class="media-item-title">Christmas Dinner Table Setting...</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -208,11 +214,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Leo Williams</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -235,11 +242,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Finding the Wildebeasts on Safari</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -267,11 +275,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Finding the Wildebeasts on Safari</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -289,11 +298,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">A great pasta dish with truffle</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -307,6 +317,20 @@
     <button class="left-arrow-btn"></button>
     <!-- Custom Right Arrow Button -->
     <button class="right-arrow-btn"></button>
+    <!-- Options POPUP-->
+    <div id="options-links" class="popup-container">
+      <button id="options-close-btn" class="dropdown-close-btn">×</button>
+      <div class="dropdown-title">Options</div>
+      <!-- Menu List -->
+      <ul>
+        <li>Edit Caption</li>
+        <li>Change Header</li>
+        <li>Set as Album Cover</li>
+        <li>Send to a Connection</li>
+        <li>Copy to an Album</li>
+        <li>Delete</li>
+      </ul>
+    </div>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -475,6 +499,80 @@
             !event.target.closest(".right-arrow-btn")
           ) {
             toggleTitleRow();
+          }
+        });
+
+        // Options Dropdown Menu
+        const optionsBtns = document.querySelectorAll(".options-btn");
+        const dropdownMenu = document.getElementById("options-links");
+        const closeBtn = document.getElementById("options-close-btn");
+
+        let activeOptionsBtn = null;
+
+        function positionDropdownMenu() {
+          if (!activeOptionsBtn) return;
+
+          // Temporarily display the dropdown menu to get its dimensions
+          dropdownMenu.style.display = "block";
+          dropdownMenu.style.visibility = "hidden";
+
+          // Allow the browser to render the dropdown menu
+          dropdownMenu.offsetHeight;
+
+          // Get the position of the options button relative to the viewport
+          const rect = activeOptionsBtn.getBoundingClientRect();
+
+          // Get the dropdown menu's width
+          const dropdownWidth = dropdownMenu.offsetWidth;
+
+          // Position the dropdown menu so that its top right corner aligns with the top right corner of the options button
+          dropdownMenu.style.position = "fixed";
+          dropdownMenu.style.top = rect.top + "px"; // Align top edges
+          dropdownMenu.style.left = rect.right - dropdownWidth + "px"; // Align right edges
+
+          dropdownMenu.style.visibility = "visible";
+        }
+
+        optionsBtns.forEach(function (optionsBtn) {
+          optionsBtn.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent click from toggling the title row
+
+            const isOpen = dropdownMenu.classList.contains("open");
+
+            if (isOpen) {
+              // Close dropdown menu
+              dropdownMenu.classList.remove("open");
+              dropdownMenu.style.display = "none";
+              activeOptionsBtn = null;
+            } else {
+              // Set the active options button
+              activeOptionsBtn = optionsBtn;
+
+              dropdownMenu.classList.add("open");
+
+              // Position the dropdown menu
+              positionDropdownMenu();
+            }
+          });
+        });
+
+        // Dropdown Close Button
+        closeBtn.addEventListener("click", function (event) {
+          event.stopPropagation();
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none"; // Hide the dropdown menu
+          activeOptionsBtn = null;
+        });
+
+        // Prevent event propagation when clicking inside the dropdown menu
+        dropdownMenu.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+
+        // Reposition the dropdown menu on window resize
+        window.addEventListener("resize", function () {
+          if (dropdownMenu.classList.contains("open")) {
+            positionDropdownMenu();
           }
         });
 
