@@ -276,7 +276,7 @@ body {
   /* box-shadow: 2px 2px 6px rgba(119, 119, 119, 0.4); */
   z-index: 1000;
   /* padding-bottom: 12px; */
-  transition: opacity 0.3s ease, transform 0.4s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Links in the dropdown */
