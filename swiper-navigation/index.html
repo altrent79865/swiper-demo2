@@ -615,17 +615,11 @@
 
         // Function to open the edit caption popup
         function openEditCaptionPopup() {
-          // Get the current slide
           const currentSlide = swiper.slides[swiper.activeIndex];
-
-          // Get the current title element in the title row
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Set the placeholder text
+          // Set the placeholder text and current title
           editCaptionTextarea.placeholder = "Type a Caption";
-
-          // Set the textarea value to the current title text
-          // If titleElement exists and is not the "Add a Caption" element
           if (
             titleElement &&
             !titleElement.classList.contains("add-new-caption")
@@ -637,6 +631,7 @@
 
           // Show the popup
           editCaptionPopup.classList.remove("hidden");
+          editCaptionTextarea.focus(); // Set focus to the textarea immediately when popup opens
 
           // Optionally, hide the title row while editing
           const titleRow = currentSlide.querySelector(".title-row");
@@ -649,6 +644,7 @@
         function closeEditCaptionPopup() {
           // Hide the popup
           editCaptionPopup.classList.add("hidden");
+          editCaptionTextarea.focus();
 
           // Show the title row
           const currentSlide = swiper.slides[swiper.activeIndex];
