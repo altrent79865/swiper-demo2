@@ -597,16 +597,16 @@ body {
 
 .active-opacity {
   opacity: 0.1 !important;
-  transition: opacity 0.05s linear;
+  transition: opacity 0.03s linear;
   /* transition: opacity 0.1s ease; */
   /* transition: opacity 0.5s; */
 }
 
 /* Active state - Only apply when the button is not disabled */
-.left-arrow-btn:not(.disabled):active,
+/* .left-arrow-btn:not(.disabled):active,
 .right-arrow-btn:not(.disabled):active {
   opacity: 0.1;
-}
+} */
 
 /* Ensure the buttons return to full opacity after the click */
 /* .left-arrow-btn:not(.disabled),
