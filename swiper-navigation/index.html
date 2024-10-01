@@ -372,9 +372,19 @@
             // Add an event listener for beforeSlideChange to handle popup
             slideChangeTransitionStart: function () {
               handleSlideChange();
+              // Close the dropdown if it is open
+              if (dropdownMenu.classList.contains("open")) {
+                closeDropdownMenu();
+              }
             },
           },
         });
+
+        function closeDropdownMenu() {
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none";
+          activeOptionsBtn = null;
+        }
 
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
