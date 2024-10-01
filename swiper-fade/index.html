@@ -641,22 +641,25 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Set the placeholder text and current title
-          editCaptionTextarea.placeholder = "Photo Caption";
+          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first openend.
+          let captionText = "";
           if (
             titleElement &&
             !titleElement.classList.contains("add-new-caption")
           ) {
-            editCaptionTextarea.value = titleElement.textContent;
-          } else {
-            editCaptionTextarea.value = "";
+            captionText = titleElement.textContent.trim();
           }
+
+          // Set the placeholder text and current title
+          editCaptionTextarea.placeholder = "Photo Caption";
+          editCaptionTextarea.value = captionText;
 
           // Show the popup
           editCaptionPopup.classList.remove("hidden");
-          editCaptionTextarea.focus(); // Set focus to the textarea immediately when popup opens
+          editCaptionTextarea.scrollTop = 0;
+          editCaptionTextarea.focus();
 
-          // Optionally, hide the title row while editing
+          // Hide the title row while editing
           const titleRow = currentSlide.querySelector(".title-row");
           if (titleRow) {
             titleRow.classList.add("hidden-title-row");

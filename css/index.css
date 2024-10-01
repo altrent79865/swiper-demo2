@@ -722,12 +722,7 @@ body {
   resize: none;
   height: 72px;
   margin-right: 10px;
-  line-height: 1.4;
   text-align: left;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  vertical-align: top;
 }
 
 .edit-caption-popup textarea:focus {
