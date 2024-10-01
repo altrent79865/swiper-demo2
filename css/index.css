@@ -268,7 +268,7 @@ body {
   color: white;
   border: 1px solid rgba(128, 128, 128, 0.6);
   padding: 20px 4px 18px 4px;
-  border-radius: 6px;
+  border-radius: 4px;
   position: fixed;
   /* top: 50px;
   right: 10px; */
@@ -613,17 +613,17 @@ body {
 }
 
 /* When the swiper is at the end */
-.left-arrow-btn.disabled,
+/* .left-arrow-btn.disabled,
 .right-arrow-btn.disabled {
-  opacity: 0.3;
+  opacity: 0.2;
   cursor: not-allowed;
-  touch-action: none; /* Prevents default touch behaviors like zooming */
-}
+  touch-action: none; 
+} */
 
-.left-arrow-btn.disabled::before,
+/* .left-arrow-btn.disabled::before,
 .right-arrow-btn.disabled::before {
-  touch-action: none; /* Prevents default touch behaviors */
-}
+  touch-action: none; 
+} */
 
 /* Custom arrows for vertical swiping for Vertical Swiper */
 /* Style for the navigation buttons container */
