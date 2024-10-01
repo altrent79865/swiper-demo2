@@ -694,8 +694,8 @@
           // Get the new caption from the textarea
           const newCaption = editCaptionTextarea.value.trim();
 
-          // Get the current slide
-          const currentSlide = swiper.slides[swiper.activeIndex];
+          // Get the current slide at the moment of saving (not after slide change)
+          const currentSlide = swiper.slides[swiper.previousIndex];
 
           // Get the pencilTitleRow
           const pencilTitleRow =
@@ -724,11 +724,6 @@
             pencilImg.alt = "";
 
             pencilContainer.appendChild(pencilImg);
-
-            // **Added:** Close the dropdown menu if it's open
-            if (dropdownMenu.classList.contains("open")) {
-              closeDropdownMenu();
-            }
 
             // Attach event listener to pencilContainer
             pencilContainer.addEventListener("click", function (event) {
