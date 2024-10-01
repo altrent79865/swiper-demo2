@@ -597,7 +597,9 @@ body {
 
 .active-opacity {
   opacity: 0.1 !important;
-  transition: opacity 0.1s ease;
+  transition: opacity 0.05s linear;
+  /* transition: opacity 0.1s ease; */
+  /* transition: opacity 0.5s; */
 }
 
 /* Active state - Only apply when the button is not disabled */
