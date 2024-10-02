@@ -315,7 +315,7 @@
       </div>
       <!-- <div class="swiper-pagination"></div> -->
     </div>
-    <!-- Custom Up and Down Buttons -->
+    <!-- Custom Down Button -->
     <div class="navigation-buttons">
       <!-- <button class="up-arrow-btn"></button> -->
       <button class="down-arrow-btn"></button>
@@ -347,12 +347,12 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTouchActive = false;
-        let isTitleRowVisible = true;
-        let hasSwipedOnTouch = false;
+        let isTitleRowVisible = true; // Start with title-row visible
+        let hasSwipedOnTouch = false; // Flag to track swiping during touch event
 
         // Initialize Swiper (vertical direction)
         const swiper = new Swiper(".mySwiper", {
-          direction: "vertical",
+          direction: "vertical", // Changed to vertical
           speed: 200,
           on: {
             slideChange: function () {
@@ -360,6 +360,7 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
+            // Add an event listener for beforeSlideChange to handle popup
             slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -370,13 +371,14 @@
           },
         });
 
+        // Function to close dropdown menu
         function closeDropdownMenu() {
           dropdownMenu.classList.remove("open");
           dropdownMenu.style.display = "none";
           activeOptionsBtn = null;
         }
 
-        const downButton = document.querySelector(".down-arrow-btn");
+        const downButton = document.querySelector(".down-arrow-btn"); 
 
         // Elements for Edit Caption functionality
         const editCaptionPopup = document.getElementById("edit-caption-popup");
@@ -388,41 +390,91 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            saveCaptionBtn.click(); // Save the current caption
+            // Simulate clicking the "Save" button
+            saveCaptionBtn.click();
           }
         }
 
         // Function to handle arrow click with opacity effect and popup check
-        function handleArrowClick(button) {
+        function handleArrowClick(button, direction) {
           if (!button.classList.contains("disabled")) {
+            // Check if the popup is open
             if (!editCaptionPopup.classList.contains("hidden")) {
+              // Save the current caption
               saveCaptionBtn.click();
             }
 
             button.classList.add("active-opacity");
+
+            // Remove the class after 200ms for the transition effect
             setTimeout(() => {
               button.classList.remove("active-opacity");
             }, 200);
 
-            if (!swiper.isEnd) {
+            // Trigger slide navigation directly
+            if (direction === "next" && !swiper.isEnd) {
               swiper.slideNext();
             }
           }
         }
 
-        downButton.addEventListener("click", () =>
-          handleArrowClick(downButton)
+        // Touch event handlers
+        function handleTouchStart(e) {
+          if (e.target.classList.contains("disabled")) {
+            e.preventDefault(); // Prevent default behavior (like zooming)
+            e.stopPropagation(); // Prevent event from bubbling up
+            return;
+          }
+          e.preventDefault(); // Always prevent default behavior
+          isTouchActive = true;
+          hasSwipedOnTouch = false; // Reset the swipe flag at the start of touch
+        }
+
+        function handleTouchEnd(e, direction) {
+          if (!e.target.classList.contains("disabled") && !hasSwipedOnTouch) {
+            handleArrowClick(e.target, direction);
+          }
+          setTimeout(() => {
+            isTouchActive = false;
+          }, 100);
+        }
+
+        // Prevent double navigation (touch + click)
+        function handleClick(e, direction) {
+          if (!isTouchActive && !e.target.classList.contains("disabled")) {
+            e.stopPropagation();
+            handleArrowClick(e.target, direction);
+          }
+        }
+
+        // Attach touchstart and touchend listeners to down button
+        downButton.addEventListener("touchstart", handleTouchStart);
+        downButton.addEventListener("touchend", (e) =>
+          handleTouchEnd(e, "next")
         );
+        downButton.addEventListener("click", (e) => handleClick(e, "next"));
+
+        // Prevent click events on disabled down button from toggling title-row
+        downButton.addEventListener("click", function (e) {
+          if (downButton.classList.contains("disabled")) {
+            e.stopPropagation();
+          }
+        });
+
+        // Detect swipe to prevent touchend from triggering slide navigation twice
+        swiper.on("slideNextTransitionStart", () => {
+          hasSwipedOnTouch = true;
+        });
 
         // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
           if (swiper.isEnd) {
             downButton.classList.add("disabled");
-            downButton.style.opacity = "0.2";
+            downButton.style.opacity = "0.2"; // Lower opacity when disabled
             downButton.setAttribute("disabled", true);
           } else {
             downButton.classList.remove("disabled");
-            downButton.style.opacity = "1";
+            downButton.style.opacity = "1"; // Full opacity when enabled
             downButton.removeAttribute("disabled");
           }
         }
@@ -455,19 +507,22 @@
           isTitleRowVisible = !isTitleRowVisible;
         }
 
-        // Attach click event listener to toggle title-row
+        // Attach click event listener to toggle title-row, excluding the arrows
         const swiperContainer = document.querySelector(".swiper");
         swiperContainer.addEventListener("click", function (event) {
           if (!event.target.closest(".down-arrow-btn")) {
             if (dropdownMenu.classList.contains("open")) {
-              closeDropdownMenu();
+              // Close the dropdown menu
+              dropdownMenu.classList.remove("open");
+              dropdownMenu.style.display = "none";
+              activeOptionsBtn = null;
             } else {
               toggleTitleRow();
             }
           }
         });
 
-        // Dropdown functionality
+        // Options Dropdown Menu
         const optionsBtns = document.querySelectorAll(".options-btn");
         const dropdownMenu = document.getElementById("options-links");
         const closeBtn = document.getElementById("options-close-btn");
@@ -477,44 +532,60 @@
         function positionDropdownMenu() {
           if (!activeOptionsBtn) return;
 
+          // Temporarily display the dropdown menu to get its dimensions
           dropdownMenu.style.display = "block";
           dropdownMenu.style.visibility = "hidden";
 
+          // Allow the browser to render the dropdown menu
           dropdownMenu.offsetHeight;
 
+          // Get the position of the options button relative to the viewport
           const rect = activeOptionsBtn.getBoundingClientRect();
+
+          // Get the dropdown menu's width
           const dropdownWidth = dropdownMenu.offsetWidth;
 
+          // Position the dropdown menu so that its top right corner aligns with the top right corner of the options button
           dropdownMenu.style.position = "fixed";
-          dropdownMenu.style.top = rect.top + "px";
-          dropdownMenu.style.left = rect.right - dropdownWidth + "px";
+          dropdownMenu.style.top = rect.top + "px"; // Align top edges
+          dropdownMenu.style.left = rect.right - dropdownWidth + "px"; // Align right edges
+
           dropdownMenu.style.visibility = "visible";
         }
 
         optionsBtns.forEach(function (optionsBtn) {
           optionsBtn.addEventListener("click", function (event) {
-            event.stopPropagation();
+            event.stopPropagation(); // Prevent click from toggling the title row
+
             const isOpen = dropdownMenu.classList.contains("open");
 
             if (isOpen) {
+              // Close dropdown menu
               closeDropdownMenu();
             } else {
+              // Set the active options button
               activeOptionsBtn = optionsBtn;
+
               dropdownMenu.classList.add("open");
+
+              // Position the dropdown menu
               positionDropdownMenu();
             }
           });
         });
 
+        // Dropdown Close Button
         closeBtn.addEventListener("click", function (event) {
           event.stopPropagation();
           closeDropdownMenu();
         });
 
+        // Prevent event propagation when clicking inside the dropdown menu
         dropdownMenu.addEventListener("click", function (event) {
           event.stopPropagation();
         });
 
+        // Reposition the dropdown menu on window resize
         window.addEventListener("resize", function () {
           if (dropdownMenu.classList.contains("open")) {
             positionDropdownMenu();
@@ -534,23 +605,28 @@
             captionText = titleElement.textContent.trim();
           }
 
+          // Set the placeholder text and current title
           editCaptionTextarea.placeholder = "Photo Caption";
           editCaptionTextarea.value = captionText;
 
+          // Show the popup
           editCaptionPopup.classList.remove("hidden");
           editCaptionTextarea.scrollTop = 0;
           editCaptionTextarea.focus();
 
+          // Hide the title row while editing
           const titleRow = currentSlide.querySelector(".title-row");
           if (titleRow) {
             titleRow.classList.add("hidden-title-row");
           }
         }
 
+        // Function to close the edit caption popup
         function closeEditCaptionPopup() {
+          // Hide the popup
           editCaptionPopup.classList.add("hidden");
           editCaptionTextarea.focus();
-
+          // Show the title row
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleRow = currentSlide.querySelector(".title-row");
           if (titleRow) {
@@ -562,39 +638,51 @@
         const editCaptionOption = dropdownMenu.querySelector("li:nth-child(1)");
         editCaptionOption.addEventListener("click", function (event) {
           event.stopPropagation();
-          closeDropdownMenu();
+          closeDropdownMenu(); // Close the options dropdown
           openEditCaptionPopup();
         });
 
+        // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
+          // Get the new caption from the textarea
           const newCaption = editCaptionTextarea.value.trim();
+
+          // Get the current slide
           const currentSlide = swiper.slides[swiper.activeIndex];
+
+          // Get the pencilTitleRow
           const pencilTitleRow =
             currentSlide.querySelector(".pencil-title-row");
 
+          // Remove all existing title elements
           const existingTitleElements =
             pencilTitleRow.querySelectorAll(".media-item-title");
           existingTitleElements.forEach((element) => element.remove());
 
+          // Remove all existing pencil-container elements
           const existingPencilContainers =
             pencilTitleRow.querySelectorAll(".pencil-container");
           existingPencilContainers.forEach((element) => element.remove());
 
           if (newCaption === "") {
+            // When caption is empty, show pencil icon and "Add a Caption"
             const pencilContainer = document.createElement("div");
             pencilContainer.classList.add("pencil-container");
 
             const pencilImg = document.createElement("img");
-            pencilImg.src = "../assets/pencil-white.png";
+            pencilImg.src = "../assets/pencil-white.png"; // Update the path if necessary
             pencilImg.classList.add("pencil");
             pencilImg.alt = "";
 
             pencilContainer.appendChild(pencilImg);
+
+            // Attach event listener to pencilContainer
             pencilContainer.addEventListener("click", function (event) {
               event.stopPropagation();
               openEditCaptionPopup();
             });
 
+            // Create "Add a Caption" element
             const addCaptionElement = document.createElement("p");
             addCaptionElement.classList.add(
               "media-item-title",
@@ -602,23 +690,55 @@
             );
             addCaptionElement.textContent = "Add a Caption";
 
+            // Attach event listener to addCaptionElement
             addCaptionElement.addEventListener("click", function (event) {
               event.stopPropagation();
               openEditCaptionPopup();
             });
 
+            // Append pencilContainer and addCaptionElement to pencilTitleRow
             pencilTitleRow.appendChild(pencilContainer);
             pencilTitleRow.appendChild(addCaptionElement);
+
+            // Remove "non-interactive" class from pencilTitleRow
             pencilTitleRow.classList.remove("non-interactive");
           } else {
+            // When there is a caption, show caption text without pencil icon
             const titleElement = document.createElement("p");
             titleElement.classList.add("media-item-title");
             titleElement.textContent = newCaption;
+
+            // Append titleElement to pencilTitleRow
             pencilTitleRow.appendChild(titleElement);
+
+            // Add "non-interactive" class to pencilTitleRow
             pencilTitleRow.classList.add("non-interactive");
           }
 
+          // Close the popup
           closeEditCaptionPopup();
+        });
+
+        // Event listener for clicking on "Add a Caption" or the pencil icon
+        swiper.slides.forEach((slide) => {
+          const pencilContainer = slide.querySelector(".pencil-container");
+          const addCaptionElement = slide.querySelector(".add-new-caption");
+
+          // Click on the pencil icon
+          if (pencilContainer) {
+            pencilContainer.addEventListener("click", function (event) {
+              event.stopPropagation();
+              openEditCaptionPopup();
+            });
+          }
+
+          // Click on "Add a Caption"
+          if (addCaptionElement) {
+            addCaptionElement.addEventListener("click", function (event) {
+              event.stopPropagation();
+              openEditCaptionPopup();
+            });
+          }
         });
 
         // Close the edit caption popup when clicking outside of it
@@ -640,30 +760,7 @@
           event.stopPropagation();
         });
 
-        // Function to update the arrow styles (for disabling)
-        function updateArrowStyles() {
-          if (swiper.isBeginning) {
-            downButton.classList.add("disabled");
-            downButton.style.opacity = "0.2"; // Lower opacity when disabled
-            downButton.setAttribute("disabled", true);
-          } else {
-            downButton.classList.remove("disabled");
-            downButton.style.opacity = "1"; // Full opacity when enabled
-            downButton.removeAttribute("disabled");
-          }
-
-          if (swiper.isEnd) {
-            downButton.classList.add("disabled");
-            downButton.style.opacity = "0.2"; // Lower opacity when disabled
-            downButton.setAttribute("disabled", true);
-          } else {
-            downButton.classList.remove("disabled");
-            downButton.style.opacity = "1"; // Full opacity when enabled
-            downButton.removeAttribute("disabled");
-          }
-        }
-
-        // Ensure the arrow styles are updated when necessary
+        // Initial call to set arrow styles
         updateArrowStyles();
       });
     </script>
