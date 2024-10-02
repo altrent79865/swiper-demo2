@@ -63,11 +63,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Crawfish Etouffee</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -87,11 +88,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Little Guy</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -109,13 +111,14 @@
               ><span class="x-line"></span
             ></a>
             <div class="pencil-title-row non-interactive">
-              <p class="media-item-title">Christmas Dinner Table Setting</p>
+              <p class="media-item-title">Christmas Dinner Table Setting...</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -135,11 +138,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Italian Roots</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -162,11 +166,12 @@
               </div>
               <p class="media-item-title add-new-caption">Add a Caption</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -185,13 +190,14 @@
             ></a>
             <div class="pencil-title-row non-interactive">
               <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
-              <p class="media-item-title">Christmas Dinner Table Setting</p>
+              <p class="media-item-title">Christmas Dinner Table Setting...</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -209,11 +215,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Leo Williams</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -236,11 +243,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Finding the Wildebeasts on Safari</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -268,11 +276,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">Finding the Wildebeasts on Safari</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -290,11 +299,12 @@
             <div class="pencil-title-row non-interactive">
               <p class="media-item-title">A great pasta dish with truffle</p>
             </div>
-            <a href="" class="options-btn">
+            <!-- Options Button -->
+            <button class="options-btn">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
-            </a>
+            </button>
           </div>
           <div class="title-row-bottom">
             <div class="number-of-items-btn">
@@ -309,6 +319,25 @@
     <div class="navigation-buttons">
       <!-- <button class="up-arrow-btn"></button> -->
       <button class="down-arrow-btn"></button>
+      <!-- Options POPUP-->
+      <div id="options-links" class="popup-container">
+        <button id="options-close-btn" class="dropdown-close-btn">×</button>
+        <!-- <div class="dropdown-title">Options</div> -->
+        <!-- Menu List -->
+        <ul>
+          <li>Edit Caption</li>
+          <li>Change Header</li>
+          <li>Set as Album Cover</li>
+          <li>Send to a Connection</li>
+          <li>Copy to an Album</li>
+          <li>Delete</li>
+        </ul>
+      </div>
+      <!-- Edit Caption Pop-up -->
+      <div id="edit-caption-popup" class="edit-caption-popup hidden">
+        <textarea id="edit-caption-textarea" maxlength="100"></textarea>
+        <button id="save-caption-btn">Save</button>
+      </div>
     </div>
 
     <!-- Swiper JS -->
@@ -317,121 +346,325 @@
     <!-- Initialize Swiper and Button Functionality -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        let lastTouchTime = 0; // Track time of last touch event
-        const delaySwiperInit = 200; // Delay for Swiper initialization after the animation
+        let isTouchActive = false;
+        let isTitleRowVisible = true;
+        let hasSwipedOnTouch = false;
 
-        // Function to initialize Swiper
-        function initSwiper() {
-          var swiper = new Swiper(".mySwiper", {
-            direction: "vertical",
-            speed: 200,
-            on: {
-              slideChange: function () {
-                updateNavigationButtonStyles();
-              },
-              reachBeginning: updateNavigationButtonStyles,
-              reachEnd: updateNavigationButtonStyles,
+        // Initialize Swiper (vertical direction)
+        const swiper = new Swiper(".mySwiper", {
+          direction: "vertical",
+          speed: 200,
+          on: {
+            slideChange: function () {
+              updateArrowStyles();
             },
-          });
+            reachBeginning: updateArrowStyles,
+            reachEnd: updateArrowStyles,
+            slideChangeTransitionStart: function () {
+              handleSlideChange();
+              // Close the dropdown if it is open
+              if (dropdownMenu.classList.contains("open")) {
+                closeDropdownMenu();
+              }
+            },
+          },
+        });
 
-          const downButton = document.querySelector(".down-arrow-btn");
+        function closeDropdownMenu() {
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none";
+          activeOptionsBtn = null;
+        }
 
-          // Prevent double-tap zoom on mobile
-          function preventDoubleTapZoom(event) {
-            const currentTime = new Date().getTime();
-            const timeSinceLastTouch = currentTime - lastTouchTime;
+        const downButton = document.querySelector(".down-arrow-btn");
 
-            if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
-              event.preventDefault();
-            }
-            lastTouchTime = currentTime;
+        // Elements for Edit Caption functionality
+        const editCaptionPopup = document.getElementById("edit-caption-popup");
+        const editCaptionTextarea = document.getElementById(
+          "edit-caption-textarea"
+        );
+        const saveCaptionBtn = document.getElementById("save-caption-btn");
+
+        // Function to handle slide change if popup is open
+        function handleSlideChange() {
+          if (!editCaptionPopup.classList.contains("hidden")) {
+            saveCaptionBtn.click(); // Save the current caption
           }
+        }
 
-          downButton.addEventListener("touchstart", preventDoubleTapZoom);
+        // Function to handle arrow click with opacity effect and popup check
+        function handleArrowClick(button) {
+          if (!button.classList.contains("disabled")) {
+            if (!editCaptionPopup.classList.contains("hidden")) {
+              saveCaptionBtn.click();
+            }
 
-          // Add event listeners to buttons
-          downButton.addEventListener("click", function (e) {
-            e.stopPropagation();
+            button.classList.add("active-opacity");
+            setTimeout(() => {
+              button.classList.remove("active-opacity");
+            }, 200);
+
             if (!swiper.isEnd) {
               swiper.slideNext();
             }
-          });
-
-          // Function to update button styles based on Swiper's state
-          function updateNavigationButtonStyles() {
-            if (swiper.isEnd) {
-              downButton.classList.add("disabled");
-            } else {
-              downButton.classList.remove("disabled");
-            }
           }
-
-          // Initial update to button styles
-          updateNavigationButtonStyles();
         }
 
-        // Hide all slides except the first one initially
-        const slides = document.querySelectorAll(".swiper-slide");
-        slides.forEach((slide, index) => {
-          if (index !== 0) {
-            slide.style.visibility = "hidden"; // Hide all slides except the first
+        downButton.addEventListener("click", () =>
+          handleArrowClick(downButton)
+        );
+
+        // Function to update arrow styles (for disabling)
+        function updateArrowStyles() {
+          if (swiper.isEnd) {
+            downButton.classList.add("disabled");
+            downButton.style.opacity = "0.2";
+            downButton.setAttribute("disabled", true);
+          } else {
+            downButton.classList.remove("disabled");
+            downButton.style.opacity = "1";
+            downButton.removeAttribute("disabled");
           }
-        });
+        }
 
-        // Delay Swiper initialization until the first-slide animation completes
-        setTimeout(() => {
-          initSwiper();
-          // After initializing, reveal the slides
-          slides.forEach((slide) => {
-            slide.style.visibility = "visible"; // Show all slides after initialization
-          });
-        }, delaySwiperInit);
+        // Initial update to arrow styles
+        updateArrowStyles();
 
-        // Add event listener to toggle the visibility of title rows and buttons
-        const swiperContainer = document.querySelector(".swiper");
-        let elementsVisible = true; // Track visibility state of buttons and title rows
-        swiperContainer.addEventListener("click", function (event) {
-          // Check if the click was on an interactive element
-          if (
-            event.target.closest(".close-btn") ||
-            event.target.closest(".options-btn") ||
-            event.target.closest(".pencil-title-row") ||
-            event.target.closest(".link-clickable") ||
-            event.target.closest(".grey_button") ||
-            event.target.closest(".down-arrow-btn")
-          ) {
-            // Do nothing if clicked on an interactive element
-            return;
-          }
-
-          // Toggle visibility state
-          elementsVisible = !elementsVisible;
-          updateElementsVisibility();
-        });
-
-        // Function to update the visibility of title rows and buttons
-        function updateElementsVisibility() {
+        // Function to toggle the title-row visibility
+        function toggleTitleRow() {
           const titleRows = document.querySelectorAll(".title-row");
           const titleRowBottoms =
             document.querySelectorAll(".title-row-bottom");
-          const navigationButtons = document.querySelector(
-            ".navigation-buttons"
-          );
 
-          // Toggle visibility based on the state
-          if (elementsVisible) {
-            titleRows.forEach((row) => (row.style.display = "flex"));
-            titleRowBottoms.forEach((row) => (row.style.display = "flex"));
-            navigationButtons.style.display = "flex";
+          if (isTitleRowVisible) {
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.add("hidden-title-row")
+            );
+            titleRowBottoms.forEach((titleRowBottom) =>
+              titleRowBottom.classList.add("hidden-title-row")
+            );
           } else {
-            titleRows.forEach((row) => (row.style.display = "none"));
-            titleRowBottoms.forEach((row) => (row.style.display = "none"));
-            navigationButtons.style.display = "none";
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.remove("hidden-title-row")
+            );
+            titleRowBottoms.forEach((titleRowBottom) =>
+              titleRowBottom.classList.remove("hidden-title-row")
+            );
+          }
+
+          isTitleRowVisible = !isTitleRowVisible;
+        }
+
+        // Attach click event listener to toggle title-row
+        const swiperContainer = document.querySelector(".swiper");
+        swiperContainer.addEventListener("click", function (event) {
+          if (!event.target.closest(".down-arrow-btn")) {
+            if (dropdownMenu.classList.contains("open")) {
+              closeDropdownMenu();
+            } else {
+              toggleTitleRow();
+            }
+          }
+        });
+
+        // Dropdown functionality
+        const optionsBtns = document.querySelectorAll(".options-btn");
+        const dropdownMenu = document.getElementById("options-links");
+        const closeBtn = document.getElementById("options-close-btn");
+
+        let activeOptionsBtn = null;
+
+        function positionDropdownMenu() {
+          if (!activeOptionsBtn) return;
+
+          dropdownMenu.style.display = "block";
+          dropdownMenu.style.visibility = "hidden";
+
+          dropdownMenu.offsetHeight;
+
+          const rect = activeOptionsBtn.getBoundingClientRect();
+          const dropdownWidth = dropdownMenu.offsetWidth;
+
+          dropdownMenu.style.position = "fixed";
+          dropdownMenu.style.top = rect.top + "px";
+          dropdownMenu.style.left = rect.right - dropdownWidth + "px";
+          dropdownMenu.style.visibility = "visible";
+        }
+
+        optionsBtns.forEach(function (optionsBtn) {
+          optionsBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const isOpen = dropdownMenu.classList.contains("open");
+
+            if (isOpen) {
+              closeDropdownMenu();
+            } else {
+              activeOptionsBtn = optionsBtn;
+              dropdownMenu.classList.add("open");
+              positionDropdownMenu();
+            }
+          });
+        });
+
+        closeBtn.addEventListener("click", function (event) {
+          event.stopPropagation();
+          closeDropdownMenu();
+        });
+
+        dropdownMenu.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+
+        window.addEventListener("resize", function () {
+          if (dropdownMenu.classList.contains("open")) {
+            positionDropdownMenu();
+          }
+        });
+
+        // Function to open the edit caption popup
+        function openEditCaptionPopup() {
+          const currentSlide = swiper.slides[swiper.activeIndex];
+          const titleElement = currentSlide.querySelector(".media-item-title");
+
+          let captionText = "";
+          if (
+            titleElement &&
+            !titleElement.classList.contains("add-new-caption")
+          ) {
+            captionText = titleElement.textContent.trim();
+          }
+
+          editCaptionTextarea.placeholder = "Photo Caption";
+          editCaptionTextarea.value = captionText;
+
+          editCaptionPopup.classList.remove("hidden");
+          editCaptionTextarea.scrollTop = 0;
+          editCaptionTextarea.focus();
+
+          const titleRow = currentSlide.querySelector(".title-row");
+          if (titleRow) {
+            titleRow.classList.add("hidden-title-row");
           }
         }
 
-        // Initial call to set the visibility state
-        updateElementsVisibility();
+        function closeEditCaptionPopup() {
+          editCaptionPopup.classList.add("hidden");
+          editCaptionTextarea.focus();
+
+          const currentSlide = swiper.slides[swiper.activeIndex];
+          const titleRow = currentSlide.querySelector(".title-row");
+          if (titleRow) {
+            titleRow.classList.remove("hidden-title-row");
+          }
+        }
+
+        // Event listener for the "Edit Caption" option
+        const editCaptionOption = dropdownMenu.querySelector("li:nth-child(1)");
+        editCaptionOption.addEventListener("click", function (event) {
+          event.stopPropagation();
+          closeDropdownMenu();
+          openEditCaptionPopup();
+        });
+
+        saveCaptionBtn.addEventListener("click", function () {
+          const newCaption = editCaptionTextarea.value.trim();
+          const currentSlide = swiper.slides[swiper.activeIndex];
+          const pencilTitleRow =
+            currentSlide.querySelector(".pencil-title-row");
+
+          const existingTitleElements =
+            pencilTitleRow.querySelectorAll(".media-item-title");
+          existingTitleElements.forEach((element) => element.remove());
+
+          const existingPencilContainers =
+            pencilTitleRow.querySelectorAll(".pencil-container");
+          existingPencilContainers.forEach((element) => element.remove());
+
+          if (newCaption === "") {
+            const pencilContainer = document.createElement("div");
+            pencilContainer.classList.add("pencil-container");
+
+            const pencilImg = document.createElement("img");
+            pencilImg.src = "../assets/pencil-white.png";
+            pencilImg.classList.add("pencil");
+            pencilImg.alt = "";
+
+            pencilContainer.appendChild(pencilImg);
+            pencilContainer.addEventListener("click", function (event) {
+              event.stopPropagation();
+              openEditCaptionPopup();
+            });
+
+            const addCaptionElement = document.createElement("p");
+            addCaptionElement.classList.add(
+              "media-item-title",
+              "add-new-caption"
+            );
+            addCaptionElement.textContent = "Add a Caption";
+
+            addCaptionElement.addEventListener("click", function (event) {
+              event.stopPropagation();
+              openEditCaptionPopup();
+            });
+
+            pencilTitleRow.appendChild(pencilContainer);
+            pencilTitleRow.appendChild(addCaptionElement);
+            pencilTitleRow.classList.remove("non-interactive");
+          } else {
+            const titleElement = document.createElement("p");
+            titleElement.classList.add("media-item-title");
+            titleElement.textContent = newCaption;
+            pencilTitleRow.appendChild(titleElement);
+            pencilTitleRow.classList.add("non-interactive");
+          }
+
+          closeEditCaptionPopup();
+        });
+
+        // Close the edit caption popup when clicking outside of it
+        document.addEventListener("click", function (event) {
+          if (
+            !editCaptionPopup.contains(event.target) &&
+            !event.target.classList.contains("options-btn") &&
+            !event.target.closest(".pencil-container") &&
+            !event.target.classList.contains("add-new-caption")
+          ) {
+            if (!editCaptionPopup.classList.contains("hidden")) {
+              saveCaptionBtn.click();
+            }
+          }
+        });
+
+        // Prevent event propagation when clicking inside the edit caption popup
+        editCaptionPopup.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+
+        // Function to update the arrow styles (for disabling)
+        function updateArrowStyles() {
+          if (swiper.isBeginning) {
+            downButton.classList.add("disabled");
+            downButton.style.opacity = "0.2"; // Lower opacity when disabled
+            downButton.setAttribute("disabled", true);
+          } else {
+            downButton.classList.remove("disabled");
+            downButton.style.opacity = "1"; // Full opacity when enabled
+            downButton.removeAttribute("disabled");
+          }
+
+          if (swiper.isEnd) {
+            downButton.classList.add("disabled");
+            downButton.style.opacity = "0.2"; // Lower opacity when disabled
+            downButton.setAttribute("disabled", true);
+          } else {
+            downButton.classList.remove("disabled");
+            downButton.style.opacity = "1"; // Full opacity when enabled
+            downButton.removeAttribute("disabled");
+          }
+        }
+
+        // Ensure the arrow styles are updated when necessary
+        updateArrowStyles();
       });
     </script>
   </body>

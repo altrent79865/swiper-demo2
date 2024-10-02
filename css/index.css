@@ -532,6 +532,7 @@ body {
 /* Prevent double-tap zoom, but still allow taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  I also changed meta tag in html to prevent the double tap zoom. */
 .left-arrow-btn,
 .right-arrow-btn,
+.down-arrow-btn,
 .swiper {
   touch-action: manipulation;
 }
@@ -657,6 +658,13 @@ body {
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
   background-position: center 58%;
   opacity: 1;
+  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
+  user-select: none; /* Disable text selection */
+  -webkit-user-select: none; /* Safari/Chrome for iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  touch-action: manipulation; /* Prevent zooming and double-tap issues */
+  pointer-events: auto; /* Ensure touch events work */
 }
 
 /* .down-arrow-btn:active {
@@ -664,21 +672,21 @@ body {
 } */
 
 /* Active state - Only apply when the button is not disabled */
-.down-arrow-btn:not(.disabled):active {
+/* .down-arrow-btn:not(.disabled):active {
   opacity: 0.1;
-}
+} */
 
 /* Ensure the buttons return to full opacity after the click */
-.down-arrow-btn:not(.disabled) {
-  opacity: 1; /* Fully visible when not clicked */
-}
+/* .down-arrow-btn:not(.disabled) {
+  opacity: 1; 
+} */
 
 /* When the swiper is at the end */
-.down-arrow-btn.disabled {
+/* .down-arrow-btn.disabled {
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
-}
+} */
 
 /* Increases clickable area of buttons to prevent accidently turning the title row on or off */
 .down-arrow-btn::before {
@@ -689,6 +697,7 @@ body {
   left: -20px;
   right: -20px;
   background: transparent;
+  pointer-events: auto;
 }
 
 /* Hide the title-row when clicking on page */
