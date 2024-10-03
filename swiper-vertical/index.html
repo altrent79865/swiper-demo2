@@ -361,7 +361,7 @@
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
             // Add an event listener for beforeSlideChange to handle popup
-            slideChangeTransitionStart: function () {
+            beforeSlideChangeStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
               if (dropdownMenu.classList.contains("open")) {
@@ -370,13 +370,6 @@
             },
           },
         });
-
-        // Function to close dropdown menu
-        function closeDropdownMenu() {
-          dropdownMenu.classList.remove("open");
-          dropdownMenu.style.display = "none";
-          activeOptionsBtn = null;
-        }
 
         const downButton = document.querySelector(".down-arrow-btn");
 
@@ -391,7 +384,7 @@
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
             // Save caption to the previous slide instead of the active slide
-            saveCaptionToSlide(swiper.previousIndex);
+            saveCaptionToSlide(swiper.activeIndex);
           }
         }
 
