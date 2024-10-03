@@ -360,7 +360,7 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
-            // Add an event listener for slideChangeTransitionStart to handle popup
+            // Add an event listener for beforeSlideChange to handle popup
             slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -383,13 +383,8 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // FIX START
-            // Determine the direction of the swipe
-            if (swiper.activeIndex > swiper.previousIndex) {
-              // Swiping forward: save caption to the previous slide without closing the popup
-              saveCaptionToSlide(swiper.previousIndex, false);
-            }
-            // FIX END
+            // Save caption to the previous slide instead of the active slide
+            saveCaptionToSlide(swiper.previousIndex);
           }
         }
 
@@ -599,7 +594,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Trim any unnecessary spaces and ensure text is clean. Without this it was misaligning textarea and centering long text when popup was first opened.
+          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first opened.
           let captionText = "";
           if (
             titleElement &&
@@ -638,11 +633,6 @@
           }
         }
 
-        // FIX START
-        // Ensure only one definition of closeDropdownMenu exists
-        // (Assuming only one definition exists in this script)
-        // FIX END
-
         // Function to close dropdown menu
         function closeDropdownMenu() {
           dropdownMenu.classList.remove("open");
@@ -659,7 +649,7 @@
         });
 
         // Function to save caption to a specific slide
-        function saveCaptionToSlide(index, shouldClosePopup = true) {
+        function saveCaptionToSlide(index) {
           // Get the new caption from the textarea with trim to remove unnecessary whitespace
           const newCaption = editCaptionTextarea.value.trim();
 
@@ -740,21 +730,15 @@
             pencilTitleRow.classList.add("non-interactive");
           }
 
-          // FIX START
-          // Only close the popup if it's triggered by saving via arrow button or direct save
-          if (shouldClosePopup) {
-            closeEditCaptionPopup();
-          }
-          // FIX END
+          // Close the popup
+          closeEditCaptionPopup();
         }
 
         // FIX START
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          // Determine if the save is triggered by swiping or not
-          // If handleSlideChange was called, it already saved the caption
-          // So, clicking save should save to the current active slide
-          saveCaptionToSlide(swiper.activeIndex, true);
+          // Save caption to the active slide
+          saveCaptionToSlide(swiper.activeIndex);
         });
         // FIX END
 
