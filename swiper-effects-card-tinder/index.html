@@ -408,10 +408,10 @@
 
             button.classList.add("active-opacity");
 
-            // Remove the class after 200ms for the transition effect
+            // Remove the class after 100ms for the transition effect
             setTimeout(() => {
               button.classList.remove("active-opacity");
-            }, 200);
+            }, 100);
 
             // Trigger slide navigation directly
             if (direction === "prev" && !swiper.isBeginning) {

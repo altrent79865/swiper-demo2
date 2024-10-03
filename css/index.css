@@ -281,7 +281,7 @@ body {
   z-index: 1000;
   /* padding-bottom: 12px; */
   transition: opacity 0.3s ease, transform 0.3s ease;
-  /* display: none; */
+  display: none;
 }
 
 /* .swiper-vertical-popup {
@@ -293,8 +293,8 @@ body {
 
 .swiper-vertical-popup {
   position: fixed;
-  top: 10px; 
-  right: 10px; 
+  top: 10px;
+  right: 10px;
 }
 
 /* Links in the dropdown */
@@ -617,7 +617,7 @@ body {
 
 .active-opacity {
   opacity: 0.1 !important;
-  transition: opacity 0.03s linear;
+  /* transition: opacity 0.03s linear; */
   /* transition: opacity 0.1s ease; */
   /* transition: opacity 0.5s; */
 }
@@ -669,7 +669,7 @@ body {
   border-radius: 50%;
   cursor: pointer;
   border: none;
-  transition: opacity 0.3s;
+  transition: opacity 0.1s;
   background-size: 23px 23px;
   background-repeat: no-repeat;
   touch-action: manipulation;

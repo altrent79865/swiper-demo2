@@ -319,25 +319,25 @@
     <div class="navigation-buttons">
       <!-- <button class="up-arrow-btn"></button> -->
       <button class="down-arrow-btn"></button>
-      <!-- Options POPUP-->
-      <div id="options-links" class="popup-container swiper-vertical-popup">
-        <button id="options-close-btn" class="dropdown-close-btn">×</button>
-        <!-- <div class="dropdown-title">Options</div> -->
-        <!-- Menu List -->
-        <ul>
-          <li>Edit Caption</li>
-          <li>Change Header</li>
-          <li>Set as Album Cover</li>
-          <li>Send to a Connection</li>
-          <li>Copy to an Album</li>
-          <li>Delete</li>
-        </ul>
-      </div>
-      <!-- Edit Caption Pop-up -->
-      <div id="edit-caption-popup" class="edit-caption-popup hidden">
-        <textarea id="edit-caption-textarea" maxlength="100"></textarea>
-        <button id="save-caption-btn">Save</button>
-      </div>
+    </div>
+    <!-- Options POPUP-->
+    <div id="options-links" class="popup-container swiper-vertical-popup">
+      <button id="options-close-btn" class="dropdown-close-btn">×</button>
+      <!-- <div class="dropdown-title">Options</div> -->
+      <!-- Menu List -->
+      <ul>
+        <li>Edit Caption</li>
+        <li>Change Header</li>
+        <li>Set as Album Cover</li>
+        <li>Send to a Connection</li>
+        <li>Copy to an Album</li>
+        <li>Delete</li>
+      </ul>
+    </div>
+    <!-- Edit Caption Pop-up -->
+    <div id="edit-caption-popup" class="edit-caption-popup hidden">
+      <textarea id="edit-caption-textarea" maxlength="100"></textarea>
+      <button id="save-caption-btn">Save</button>
     </div>
 
     <!-- Swiper JS -->
@@ -406,10 +406,10 @@
 
             button.classList.add("active-opacity");
 
-            // Remove the class after 200ms for the transition effect
+            // Remove the class after 100ms for the transition effect
             setTimeout(() => {
               button.classList.remove("active-opacity");
-            }, 200);
+            }, 100);
 
             // Trigger slide navigation directly
             if (direction === "next" && !swiper.isEnd) {
