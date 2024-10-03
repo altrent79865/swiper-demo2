@@ -386,8 +386,8 @@
             // FIX START
             // Determine the direction of the swipe
             if (swiper.activeIndex > swiper.previousIndex) {
-              // Swiping forward: save caption to the previous slide
-              saveCaptionToSlide(swiper.previousIndex);
+              // Swiping forward: save caption to the previous slide without closing the popup
+              saveCaptionToSlide(swiper.previousIndex, false);
             }
             // FIX END
           }
@@ -639,10 +639,8 @@
         }
 
         // FIX START
-        // Remove duplicate closeDropdownMenu function if it exists
-        // Ensure only one definition exists
-        // If you have multiple, remove the extra ones below
-        // Assuming only one definition is present in this script
+        // Ensure only one definition of closeDropdownMenu exists
+        // (Assuming only one definition exists in this script)
         // FIX END
 
         // Function to close dropdown menu
@@ -661,7 +659,7 @@
         });
 
         // Function to save caption to a specific slide
-        function saveCaptionToSlide(index) {
+        function saveCaptionToSlide(index, shouldClosePopup = true) {
           // Get the new caption from the textarea with trim to remove unnecessary whitespace
           const newCaption = editCaptionTextarea.value.trim();
 
@@ -743,16 +741,20 @@
           }
 
           // FIX START
-          // Close the popup after saving the caption
-          closeEditCaptionPopup();
+          // Only close the popup if it's triggered by saving via arrow button or direct save
+          if (shouldClosePopup) {
+            closeEditCaptionPopup();
+          }
           // FIX END
         }
 
         // FIX START
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          // Save caption to the active slide
-          saveCaptionToSlide(swiper.activeIndex);
+          // Determine if the save is triggered by swiping or not
+          // If handleSlideChange was called, it already saved the caption
+          // So, clicking save should save to the current active slide
+          saveCaptionToSlide(swiper.activeIndex, true);
         });
         // FIX END
 
