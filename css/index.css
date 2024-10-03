@@ -21,6 +21,10 @@ body {
   padding: 0; */
 }
 
+.swiper {
+  position: relative;
+}
+
 /* Container to add animation to have page slide in when loaded */
 /* This page-content will have first slide come up from bottom. */
 /* Fade swiper slide-in animation */
@@ -277,6 +281,20 @@ body {
   z-index: 1000;
   /* padding-bottom: 12px; */
   transition: opacity 0.3s ease, transform 0.3s ease;
+  /* display: none; */
+}
+
+/* .swiper-vertical-popup {
+  position: fixed;
+  top: -600px; 
+  right: -400px; 
+  transform: none;
+} */
+
+.swiper-vertical-popup {
+  position: fixed;
+  top: 10px; 
+  right: 10px; 
 }
 
 /* Links in the dropdown */

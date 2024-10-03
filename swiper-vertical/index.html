@@ -320,7 +320,7 @@
       <!-- <button class="up-arrow-btn"></button> -->
       <button class="down-arrow-btn"></button>
       <!-- Options POPUP-->
-      <div id="options-links" class="popup-container">
+      <div id="options-links" class="popup-container swiper-vertical-popup">
         <button id="options-close-btn" class="dropdown-close-btn">×</button>
         <!-- <div class="dropdown-title">Options</div> -->
         <!-- Menu List -->
@@ -350,9 +350,9 @@
         let isTitleRowVisible = true; // Start with title-row visible
         let hasSwipedOnTouch = false; // Flag to track swiping during touch event
 
-        // Initialize Swiper (vertical direction)
+        // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
-          direction: "vertical", // Changed to vertical
+          direction: "vertical",
           speed: 200,
           on: {
             slideChange: function () {
@@ -378,7 +378,7 @@
           activeOptionsBtn = null;
         }
 
-        const downButton = document.querySelector(".down-arrow-btn"); 
+        const downButton = document.querySelector(".down-arrow-btn");
 
         // Elements for Edit Caption functionality
         const editCaptionPopup = document.getElementById("edit-caption-popup");
@@ -561,7 +561,9 @@
 
             if (isOpen) {
               // Close dropdown menu
-              closeDropdownMenu();
+              dropdownMenu.classList.remove("open");
+              dropdownMenu.style.display = "none";
+              activeOptionsBtn = null;
             } else {
               // Set the active options button
               activeOptionsBtn = optionsBtn;
@@ -577,7 +579,9 @@
         // Dropdown Close Button
         closeBtn.addEventListener("click", function (event) {
           event.stopPropagation();
-          closeDropdownMenu();
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none"; // Hide the dropdown menu
+          activeOptionsBtn = null;
         });
 
         // Prevent event propagation when clicking inside the dropdown menu
@@ -597,6 +601,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
+          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first openend.
           let captionText = "";
           if (
             titleElement &&
@@ -626,12 +631,20 @@
           // Hide the popup
           editCaptionPopup.classList.add("hidden");
           editCaptionTextarea.focus();
+
           // Show the title row
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleRow = currentSlide.querySelector(".title-row");
           if (titleRow) {
             titleRow.classList.remove("hidden-title-row");
           }
+        }
+
+        // Function to close the options dropdown menu
+        function closeDropdownMenu() {
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none";
+          activeOptionsBtn = null;
         }
 
         // Event listener for the "Edit Caption" option
@@ -669,12 +682,18 @@
             const pencilContainer = document.createElement("div");
             pencilContainer.classList.add("pencil-container");
 
+            // Create pencil-container with pencil icon
             const pencilImg = document.createElement("img");
-            pencilImg.src = "../assets/pencil-white.png"; // Update the path if necessary
+            pencilImg.src = "../assets/pencil-white.png";
             pencilImg.classList.add("pencil");
             pencilImg.alt = "";
 
             pencilContainer.appendChild(pencilImg);
+
+            // Close the dropdown menu if it's open
+            if (dropdownMenu.classList.contains("open")) {
+              closeDropdownMenu();
+            }
 
             // Attach event listener to pencilContainer
             pencilContainer.addEventListener("click", function (event) {
@@ -704,6 +723,8 @@
             pencilTitleRow.classList.remove("non-interactive");
           } else {
             // When there is a caption, show caption text without pencil icon
+
+            // Create new title element
             const titleElement = document.createElement("p");
             titleElement.classList.add("media-item-title");
             titleElement.textContent = newCaption;
@@ -728,6 +749,10 @@
           if (pencilContainer) {
             pencilContainer.addEventListener("click", function (event) {
               event.stopPropagation();
+              // Close the dropdown menu if it's open
+              if (dropdownMenu.classList.contains("open")) {
+                closeDropdownMenu();
+              }
               openEditCaptionPopup();
             });
           }
@@ -736,6 +761,10 @@
           if (addCaptionElement) {
             addCaptionElement.addEventListener("click", function (event) {
               event.stopPropagation();
+              // Close the dropdown menu if it's open
+              if (dropdownMenu.classList.contains("open")) {
+                closeDropdownMenu();
+              }
               openEditCaptionPopup();
             });
           }
@@ -750,6 +779,7 @@
             !event.target.classList.contains("add-new-caption")
           ) {
             if (!editCaptionPopup.classList.contains("hidden")) {
+              // Simulate clicking the "Save" button to save current caption
               saveCaptionBtn.click();
             }
           }

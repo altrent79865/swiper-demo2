@@ -718,13 +718,13 @@
             pencilContainer.classList.add("pencil-container");
 
             const pencilImg = document.createElement("img");
-            pencilImg.src = "../assets/pencil-white.png"; // Update the path if necessary
+            pencilImg.src = "../assets/pencil-white.png"; 
             pencilImg.classList.add("pencil");
             pencilImg.alt = "";
 
             pencilContainer.appendChild(pencilImg);
 
-            // **Added:** Close the dropdown menu if it's open
+            // Close the dropdown menu if it's open
             if (dropdownMenu.classList.contains("open")) {
               closeDropdownMenu();
             }
@@ -783,7 +783,7 @@
           if (pencilContainer) {
             pencilContainer.addEventListener("click", function (event) {
               event.stopPropagation();
-              // **Added:** Close the dropdown menu if it's open
+              // Close the dropdown menu if it's open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
               }
@@ -795,7 +795,7 @@
           if (addCaptionElement) {
             addCaptionElement.addEventListener("click", function (event) {
               event.stopPropagation();
-              // **Added:** Close the dropdown menu if it's open
+              // Close the dropdown menu if it's open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
               }
@@ -813,7 +813,7 @@
             !event.target.classList.contains("add-new-caption")
           ) {
             if (!editCaptionPopup.classList.contains("hidden")) {
-              // **Changed:** Simulate clicking the "Save" button to save current caption
+              // Simulate clicking the "Save" button to save current caption
               saveCaptionBtn.click();
             }
           }
