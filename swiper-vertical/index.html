@@ -349,7 +349,6 @@
         let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
         let hasSwipedOnTouch = false; // Flag to track swiping during touch event
-        let isSwiping = false; // FIX START: Flag to track if the save is triggered by swipe
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -361,7 +360,7 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
-            // Add an event listener for beforeSlideChange to handle popup
+            // Add an event listener for slideChangeTransitionStart to handle popup
             slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -385,10 +384,11 @@
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
             // FIX START
-            // Indicate that the save is triggered by a swipe
-            isSwiping = true;
-            // Save caption to the previous slide instead of the active slide
-            saveCaptionToSlide(swiper.previousIndex);
+            // Determine the direction of the swipe
+            if (swiper.activeIndex > swiper.previousIndex) {
+              // Swiping forward: save caption to the previous slide
+              saveCaptionToSlide(swiper.previousIndex);
+            }
             // FIX END
           }
         }
@@ -599,7 +599,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first opened.
+          // Trim any unnecessary spaces and ensure text is clean. Without this it was misaligning textarea and centering long text when popup was first opened.
           let captionText = "";
           if (
             titleElement &&
@@ -639,9 +639,18 @@
         }
 
         // FIX START
-        // Remove the duplicate closeDropdownMenu function
-        // (Only one definition exists above)
+        // Remove duplicate closeDropdownMenu function if it exists
+        // Ensure only one definition exists
+        // If you have multiple, remove the extra ones below
+        // Assuming only one definition is present in this script
         // FIX END
+
+        // Function to close dropdown menu
+        function closeDropdownMenu() {
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none";
+          activeOptionsBtn = null;
+        }
 
         // Event listener for the "Edit Caption" option
         const editCaptionOption = dropdownMenu.querySelector("li:nth-child(1)");
@@ -734,27 +743,16 @@
           }
 
           // FIX START
-          // Only close the popup if it's not being triggered by a swipe
-          if (!isSwiping) {
-            closeEditCaptionPopup();
-          } else {
-            // Reset the swiping flag
-            isSwiping = false;
-          }
+          // Close the popup after saving the caption
+          closeEditCaptionPopup();
           // FIX END
         }
 
         // FIX START
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          if (isSwiping) {
-            // Save caption to the previous slide if swiping
-            saveCaptionToSlide(swiper.previousIndex);
-            isSwiping = false; // Reset the swiping flag
-          } else {
-            // Save caption to the active slide if not swiping
-            saveCaptionToSlide(swiper.activeIndex);
-          }
+          // Save caption to the active slide
+          saveCaptionToSlide(swiper.activeIndex);
         });
         // FIX END
 
