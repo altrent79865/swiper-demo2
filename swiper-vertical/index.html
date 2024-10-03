@@ -361,8 +361,8 @@
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
             // FIX START
-            // Replace 'slideChangeTransitionStart' with 'beforeSlideChangeStart'
-            beforeSlideChangeStart: function () {
+            // Use 'slideChangeTransitionStart' instead of 'beforeSlideChangeStart'
+            slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
               if (dropdownMenu.classList.contains("open")) {
@@ -386,8 +386,8 @@
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
             // FIX START
-            // Save caption to the active slide instead of the previous slide
-            saveCaptionToSlide(swiper.activeIndex);
+            // Save caption to the previous slide instead of the active slide
+            saveCaptionToSlide(swiper.previousIndex);
             // FIX END
           }
         }
@@ -637,21 +637,6 @@
           }
         }
 
-        // Function to close the options dropdown menu
-        function closeDropdownMenu() {
-          dropdownMenu.classList.remove("open");
-          dropdownMenu.style.display = "none";
-          activeOptionsBtn = null;
-        }
-
-        // Event listener for the "Edit Caption" option
-        const editCaptionOption = dropdownMenu.querySelector("li:nth-child(1)");
-        editCaptionOption.addEventListener("click", function (event) {
-          event.stopPropagation();
-          closeDropdownMenu(); // Close the options dropdown
-          openEditCaptionPopup();
-        });
-
         // Function to save caption to a specific slide
         function saveCaptionToSlide(index) {
           // Get the new caption from the textarea with trim to remove unnecessary whitespace
@@ -738,13 +723,13 @@
           closeEditCaptionPopup();
         }
 
+        // FIX START
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          // FIX START
-          // Save caption to the active slide
-          saveCaptionToSlide(swiper.activeIndex);
-          // FIX END
+          // Save caption to the previous slide (swiper.previousIndex)
+          saveCaptionToSlide(swiper.previousIndex);
         });
+        // FIX END
 
         // Event listener for clicking on "Add a Caption" or the pencil icon
         swiper.slides.forEach((slide) => {
