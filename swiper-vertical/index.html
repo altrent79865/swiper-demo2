@@ -349,6 +349,7 @@
         let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
         let hasSwipedOnTouch = false; // Flag to track swiping during touch event
+        let isSwiping = false; // FIX START: Flag to track if the save is triggered by swipe
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -371,13 +372,6 @@
           },
         });
 
-        // Function to close dropdown menu
-        function closeDropdownMenu() {
-          dropdownMenu.classList.remove("open");
-          dropdownMenu.style.display = "none";
-          activeOptionsBtn = null;
-        }
-
         const downButton = document.querySelector(".down-arrow-btn");
 
         // Elements for Edit Caption functionality
@@ -390,8 +384,12 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
+            // FIX START
+            // Indicate that the save is triggered by a swipe
+            isSwiping = true;
             // Save caption to the previous slide instead of the active slide
             saveCaptionToSlide(swiper.previousIndex);
+            // FIX END
           }
         }
 
@@ -642,7 +640,7 @@
 
         // FIX START
         // Remove the duplicate closeDropdownMenu function
-        // (Assuming the second definition is removed as shown below)
+        // (Only one definition exists above)
         // FIX END
 
         // Event listener for the "Edit Caption" option
@@ -735,15 +733,28 @@
             pencilTitleRow.classList.add("non-interactive");
           }
 
-          // Close the popup
-          closeEditCaptionPopup();
+          // FIX START
+          // Only close the popup if it's not being triggered by a swipe
+          if (!isSwiping) {
+            closeEditCaptionPopup();
+          } else {
+            // Reset the swiping flag
+            isSwiping = false;
+          }
+          // FIX END
         }
 
         // FIX START
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          // Save caption to the active slide
-          saveCaptionToSlide(swiper.activeIndex);
+          if (isSwiping) {
+            // Save caption to the previous slide if swiping
+            saveCaptionToSlide(swiper.previousIndex);
+            isSwiping = false; // Reset the swiping flag
+          } else {
+            // Save caption to the active slide if not swiping
+            saveCaptionToSlide(swiper.activeIndex);
+          }
         });
         // FIX END
 
