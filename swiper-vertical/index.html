@@ -390,8 +390,8 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // Simulate clicking the "Save" button
-            saveCaptionBtn.click();
+            // Save caption to the previous slide instead of the active slide
+            saveCaptionToSlide(swiper.previousIndex);
           }
         }
 
@@ -657,7 +657,6 @@
 
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          // Get the new caption from the textarea
           const newCaption = editCaptionTextarea.value.trim();
 
           // Get the current slide
@@ -666,7 +665,6 @@
           // Get the pencilTitleRow
           const pencilTitleRow =
             currentSlide.querySelector(".pencil-title-row");
-
           // Remove all existing title elements
           const existingTitleElements =
             pencilTitleRow.querySelectorAll(".media-item-title");
