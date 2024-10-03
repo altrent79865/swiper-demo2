@@ -360,8 +360,7 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
-            // FIX START
-            // Use 'slideChangeTransitionStart' instead of 'beforeSlideChangeStart'
+            // Add an event listener for beforeSlideChange to handle popup
             slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -369,9 +368,15 @@
                 closeDropdownMenu();
               }
             },
-            // FIX END
           },
         });
+
+        // Function to close dropdown menu
+        function closeDropdownMenu() {
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none";
+          activeOptionsBtn = null;
+        }
 
         const downButton = document.querySelector(".down-arrow-btn");
 
@@ -385,10 +390,8 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // FIX START
             // Save caption to the previous slide instead of the active slide
             saveCaptionToSlide(swiper.previousIndex);
-            // FIX END
           }
         }
 
@@ -598,7 +601,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Trim any unnecessary spaces and ensure text is clean. Without this it was misaligning textarea and centering long text when popup was first opened.
+          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first opened.
           let captionText = "";
           if (
             titleElement &&
@@ -636,6 +639,19 @@
             titleRow.classList.remove("hidden-title-row");
           }
         }
+
+        // FIX START
+        // Remove the duplicate closeDropdownMenu function
+        // (Assuming the second definition is removed as shown below)
+        // FIX END
+
+        // Event listener for the "Edit Caption" option
+        const editCaptionOption = dropdownMenu.querySelector("li:nth-child(1)");
+        editCaptionOption.addEventListener("click", function (event) {
+          event.stopPropagation();
+          closeDropdownMenu(); // Close the options dropdown
+          openEditCaptionPopup();
+        });
 
         // Function to save caption to a specific slide
         function saveCaptionToSlide(index) {
@@ -726,8 +742,8 @@
         // FIX START
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          // Save caption to the previous slide (swiper.previousIndex)
-          saveCaptionToSlide(swiper.previousIndex);
+          // Save caption to the active slide
+          saveCaptionToSlide(swiper.activeIndex);
         });
         // FIX END
 
