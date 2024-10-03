@@ -360,7 +360,8 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
-            // Add an event listener for beforeSlideChange to handle popup
+            // FIX START
+            // Replace 'slideChangeTransitionStart' with 'beforeSlideChangeStart'
             beforeSlideChangeStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -368,6 +369,7 @@
                 closeDropdownMenu();
               }
             },
+            // FIX END
           },
         });
 
@@ -383,8 +385,10 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // Save caption to the previous slide instead of the active slide
+            // FIX START
+            // Save caption to the active slide instead of the previous slide
             saveCaptionToSlide(swiper.activeIndex);
+            // FIX END
           }
         }
 
@@ -594,7 +598,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first openend.
+          // Trim any unnecessary spaces and ensure text is clean. Without this it was misaligning textarea and centering long text when popup was first opened.
           let captionText = "";
           if (
             titleElement &&
@@ -648,16 +652,19 @@
           openEditCaptionPopup();
         });
 
-        // Event listener for the "Save" button in the popup
-        saveCaptionBtn.addEventListener("click", function () {
+        // Function to save caption to a specific slide
+        function saveCaptionToSlide(index) {
+          // Get the new caption from the textarea with trim to remove unnecessary whitespace
           const newCaption = editCaptionTextarea.value.trim();
 
-          // Get the current slide
-          const currentSlide = swiper.slides[swiper.activeIndex];
+          // Get the target slide based on the provided index
+          const targetSlide = swiper.slides[index];
+          if (!targetSlide) return; // Safety check
 
-          // Get the pencilTitleRow
-          const pencilTitleRow =
-            currentSlide.querySelector(".pencil-title-row");
+          // Get the pencilTitleRow within the target slide
+          const pencilTitleRow = targetSlide.querySelector(".pencil-title-row");
+          if (!pencilTitleRow) return; // Safety check
+
           // Remove all existing title elements
           const existingTitleElements =
             pencilTitleRow.querySelectorAll(".media-item-title");
@@ -729,6 +736,14 @@
 
           // Close the popup
           closeEditCaptionPopup();
+        }
+
+        // Event listener for the "Save" button in the popup
+        saveCaptionBtn.addEventListener("click", function () {
+          // FIX START
+          // Save caption to the active slide
+          saveCaptionToSlide(swiper.activeIndex);
+          // FIX END
         });
 
         // Event listener for clicking on "Add a Caption" or the pencil icon
