@@ -344,13 +344,11 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Initialize Swiper and Button Functionality -->
-    <!-- Initialize Swiper and Button Functionality -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
         let hasSwipedOnTouch = false; // Flag to track swiping during touch event
-        // Removed currentSlideIndex as it's no longer needed
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -362,7 +360,7 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
-            // Add event listeners for transition start and end
+            // Add event listeners for transition start
             slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -373,8 +371,6 @@
             // Removed slideChangeTransitionEnd as it's no longer needed
           },
         });
-
-        // Removed initialization of currentSlideIndex
 
         const downButton = document.querySelector(".down-arrow-btn");
 
@@ -625,14 +621,14 @@
         }
 
         // Function to close the edit caption popup
-        function closeEditCaptionPopup() {
+        function closeEditCaptionPopup(index) {
           // Hide the popup
           editCaptionPopup.classList.add("hidden");
           editCaptionTextarea.focus();
 
-          // Show the title row
-          const currentSlide = swiper.slides[swiper.activeIndex];
-          const titleRow = currentSlide.querySelector(".title-row");
+          // Show the title row of the slide being saved
+          const targetSlide = swiper.slides[index];
+          const titleRow = targetSlide.querySelector(".title-row");
           if (titleRow) {
             titleRow.classList.remove("hidden-title-row");
           }
@@ -735,8 +731,8 @@
             pencilTitleRow.classList.add("non-interactive");
           }
 
-          // Close the popup
-          closeEditCaptionPopup();
+          // Close the popup and show the correct title row
+          closeEditCaptionPopup(index);
         }
 
         // FIX START
