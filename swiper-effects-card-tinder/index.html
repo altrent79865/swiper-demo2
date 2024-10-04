@@ -386,8 +386,8 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // Simulate clicking the "Save" button
-            saveCaptionBtn.click();
+            // Save the caption to the slide being left using swiper.previousIndex
+            saveCaptionToSlide(swiper.previousIndex);
           }
         }
 
@@ -503,6 +503,9 @@
           }
         }
 
+        // Initial update to arrow styles
+        updateArrowStyles();
+
         // Function to toggle the title-row visibility
         function toggleTitleRow() {
           const titleRows = document.querySelectorAll(".title-row");
@@ -531,6 +534,7 @@
         // Attach click event listener to toggle title-row, excluding the arrows
         const swiperContainer = document.querySelector(".swiper");
         swiperContainer.addEventListener("click", function (event) {
+          // Check if the clicked element is within the downButton or options buttons
           if (
             !event.target.closest(".left-arrow-btn") &&
             !event.target.closest(".right-arrow-btn")
@@ -651,14 +655,14 @@
         }
 
         // Function to close the edit caption popup
-        function closeEditCaptionPopup() {
+        function closeEditCaptionPopup(index) {
           // Hide the popup
           editCaptionPopup.classList.add("hidden");
           editCaptionTextarea.focus();
 
-          // Show the title row
-          const currentSlide = swiper.slides[swiper.activeIndex];
-          const titleRow = currentSlide.querySelector(".title-row");
+          // Show the title row of the slide being saved
+          const targetSlide = swiper.slides[index];
+          const titleRow = targetSlide.querySelector(".title-row");
           if (titleRow) {
             titleRow.classList.remove("hidden-title-row");
           }
@@ -679,17 +683,18 @@
           openEditCaptionPopup();
         });
 
-        // Event listener for the "Save" button in the popup
-        saveCaptionBtn.addEventListener("click", function () {
-          // Get the new caption from the textarea
+        // Function to save caption to a specific slide
+        function saveCaptionToSlide(index) {
+          // Get the new caption from the textarea with trim to remove unnecessary whitespace
           const newCaption = editCaptionTextarea.value.trim();
 
-          // Get the current slide
-          const currentSlide = swiper.slides[swiper.activeIndex];
+          // Get the target slide based on the provided index
+          const targetSlide = swiper.slides[index];
+          if (!targetSlide) return; // Safety check
 
-          // Get the pencilTitleRow
-          const pencilTitleRow =
-            currentSlide.querySelector(".pencil-title-row");
+          // Get the pencilTitleRow within the target slide
+          const pencilTitleRow = targetSlide.querySelector(".pencil-title-row");
+          if (!pencilTitleRow) return; // Safety check
 
           // Remove all existing title elements
           const existingTitleElements =
@@ -703,19 +708,18 @@
 
           if (newCaption === "") {
             // When caption is empty, show pencil icon and "Add a Caption"
-
-            // Create pencil-container with pencil icon
             const pencilContainer = document.createElement("div");
             pencilContainer.classList.add("pencil-container");
 
+            // Create pencil-container with pencil icon
             const pencilImg = document.createElement("img");
-            pencilImg.src = "../assets/pencil-white.png"; // Update the path if necessary
+            pencilImg.src = "../assets/pencil-white.png";
             pencilImg.classList.add("pencil");
             pencilImg.alt = "";
 
             pencilContainer.appendChild(pencilImg);
 
-            // **Added:** Close the dropdown menu if it's open
+            // Close the dropdown menu if it's open
             if (dropdownMenu.classList.contains("open")) {
               closeDropdownMenu();
             }
@@ -761,8 +765,14 @@
             pencilTitleRow.classList.add("non-interactive");
           }
 
-          // Close the popup
-          closeEditCaptionPopup();
+          // Close the popup and show the correct title row
+          closeEditCaptionPopup(index);
+        }
+
+        // Event listener for the "Save" button in the popup
+        saveCaptionBtn.addEventListener("click", function () {
+          // Save caption to the active slide
+          saveCaptionToSlide(swiper.activeIndex);
         });
 
         // Event listener for clicking on "Add a Caption" or the pencil icon
@@ -774,7 +784,7 @@
           if (pencilContainer) {
             pencilContainer.addEventListener("click", function (event) {
               event.stopPropagation();
-              // **Added:** Close the dropdown menu if it's open
+              // Close the dropdown menu if it's open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
               }
@@ -786,7 +796,7 @@
           if (addCaptionElement) {
             addCaptionElement.addEventListener("click", function (event) {
               event.stopPropagation();
-              // **Added:** Close the dropdown menu if it's open
+              // Close the dropdown menu if it's open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
               }
@@ -804,7 +814,7 @@
             !event.target.classList.contains("add-new-caption")
           ) {
             if (!editCaptionPopup.classList.contains("hidden")) {
-              // **Changed:** Simulate clicking the "Save" button to save current caption
+              // Simulate clicking the "Save" button to save current caption
               saveCaptionBtn.click();
             }
           }
@@ -814,9 +824,6 @@
         editCaptionPopup.addEventListener("click", function (event) {
           event.stopPropagation();
         });
-
-        // Initial call to set arrow styles
-        updateArrowStyles();
       });
     </script>
   </body>
