@@ -64,7 +64,7 @@
               <p class="media-item-title">Crawfish Etouffee</p>
             </div>
             <!-- Options Button -->
-            <button class="options-btn">
+            <button class="options-btn" aria-label="Options">
               <span class="dot"></span>
               <span class="dot"></span>
               <span class="dot"></span>
@@ -318,7 +318,7 @@
     <!-- Custom Down Button -->
     <div class="navigation-buttons">
       <!-- <button class="up-arrow-btn"></button> -->
-      <button class="down-arrow-btn hidden"></button>
+      <button class="down-arrow-btn" aria-label="Navigate Down"></button>
     </div>
     <!-- Options POPUP-->
     <div id="options-links" class="popup-container swiper-vertical-popup">
@@ -509,18 +509,26 @@
           isTitleRowVisible = !isTitleRowVisible;
         }
 
-        // Attach click event listener to toggle title-row, excluding the arrows
+        // Attach click event listener to toggle title-row, excluding the downButton and options buttons
         const swiperContainer = document.querySelector(".swiper");
         swiperContainer.addEventListener("click", function (event) {
-          if (!event.target.closest(".down-arrow-btn")) {
+          // Check if the clicked element is within the downButton or options buttons
+          if (
+            !event.target.closest(".down-arrow-btn") &&
+            !event.target.closest(".options-btn")
+          ) {
             if (dropdownMenu.classList.contains("open")) {
+              console.log("Closing dropdown menu");
               // Close the dropdown menu
               dropdownMenu.classList.remove("open");
               dropdownMenu.style.display = "none";
               activeOptionsBtn = null;
             } else {
+              console.log("Toggling title rows and downButton");
               toggleTitleRow();
             }
+          } else {
+            console.log("Clicked on downButton or options-btn: No toggle");
           }
         });
 
