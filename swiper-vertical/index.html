@@ -360,7 +360,7 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
-            // Add an event listener for slideChangeTransitionStart to handle popup
+            // Add an event listener for beforeSlideChange to handle popup
             slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -383,14 +383,8 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // FIX START
-            // Determine the direction of the swipe
-            if (swiper.activeIndex > swiper.previousIndex) {
-              // Swiping forward: save caption to the previous slide and close the popup
-              saveCaptionToSlide(swiper.previousIndex);
-              closeEditCaptionPopup();
-            }
-            // FIX END
+            // Save caption to the previous slide instead of the active slide
+            saveCaptionBtn.click();
           }
         }
 
@@ -600,7 +594,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Trim any unnecessary spaces and ensure text is clean. Without this it was misaligning textarea and centering long text when popup was first opened.
+          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first opened.
           let captionText = "";
           if (
             titleElement &&
@@ -719,10 +713,8 @@
             pencilTitleRow.appendChild(pencilContainer);
             pencilTitleRow.appendChild(addCaptionElement);
 
-            // FIX START
             // Remove "non-interactive" class from pencilTitleRow
             pencilTitleRow.classList.remove("non-interactive");
-            // FIX END
           } else {
             // When there is a caption, show caption text without pencil icon
 
@@ -734,16 +726,12 @@
             // Append titleElement to pencilTitleRow
             pencilTitleRow.appendChild(titleElement);
 
-            // FIX START
             // Add "non-interactive" class to pencilTitleRow
             pencilTitleRow.classList.add("non-interactive");
-            // FIX END
           }
 
-          // FIX START
-          // Close the popup after saving the caption
+          // Close the popup
           closeEditCaptionPopup();
-          // FIX END
         }
 
         // FIX START
