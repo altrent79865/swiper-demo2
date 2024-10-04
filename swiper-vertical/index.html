@@ -743,13 +743,11 @@
           closeEditCaptionPopup(index);
         }
 
-        // FIX START
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
           // Save caption to the active slide
           saveCaptionToSlide(swiper.activeIndex);
         });
-        // FIX END
 
         // Event listener for clicking on "Add a Caption" or the pencil icon
         swiper.slides.forEach((slide) => {
