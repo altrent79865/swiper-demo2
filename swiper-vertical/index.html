@@ -350,7 +350,7 @@
         let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
         let hasSwipedOnTouch = false; // Flag to track swiping during touch event
-        let currentSlideIndex = 0; // Initialize to first slide
+        // Removed currentSlideIndex as it's no longer needed
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -370,15 +370,11 @@
                 closeDropdownMenu();
               }
             },
-            slideChangeTransitionEnd: function () {
-              // Update the currentSlideIndex after the transition ends
-              currentSlideIndex = swiper.activeIndex;
-            },
+            // Removed slideChangeTransitionEnd as it's no longer needed
           },
         });
 
-        // Set the initial currentSlideIndex
-        currentSlideIndex = swiper.activeIndex;
+        // Removed initialization of currentSlideIndex
 
         const downButton = document.querySelector(".down-arrow-btn");
 
@@ -392,8 +388,8 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // Save the caption to the slide being left (currentSlideIndex)
-            saveCaptionToSlide(currentSlideIndex);
+            // Save the caption to the slide being left using swiper.previousIndex
+            saveCaptionToSlide(swiper.previousIndex);
           }
         }
 
@@ -603,7 +599,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const titleElement = currentSlide.querySelector(".media-item-title");
 
-          // Trim any unnecessary spaces and ensure text is clean.  Without this it was misaligning textarea and centering long text when popup was first opened.
+          // Trim any unnecessary spaces and ensure text is clean. Without this it was misaligning textarea and centering long text when popup was first opened.
           let captionText = "";
           if (
             titleElement &&
@@ -747,7 +743,7 @@
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
           // Save caption to the active slide
-          saveCaptionToSlide(currentSlideIndex);
+          saveCaptionToSlide(swiper.activeIndex);
         });
         // FIX END
 
