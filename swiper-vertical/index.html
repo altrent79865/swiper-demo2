@@ -318,7 +318,7 @@
     <!-- Custom Down Button -->
     <div class="navigation-buttons">
       <!-- <button class="up-arrow-btn"></button> -->
-      <button class="down-arrow-btn"></button>
+      <button class="down-arrow-btn hidden"></button>
     </div>
     <!-- Options POPUP-->
     <div id="options-links" class="popup-container swiper-vertical-popup">
@@ -476,26 +476,34 @@
         // Initial update to arrow styles
         updateArrowStyles();
 
-        // Function to toggle the title-row visibility
+        // Function to toggle the title-row and downButton visibility
         function toggleTitleRow() {
           const titleRows = document.querySelectorAll(".title-row");
           const titleRowBottoms =
             document.querySelectorAll(".title-row-bottom");
 
           if (isTitleRowVisible) {
+            // Hide title rows
             titleRows.forEach((titleRow) =>
               titleRow.classList.add("hidden-title-row")
             );
             titleRowBottoms.forEach((titleRowBottom) =>
               titleRowBottom.classList.add("hidden-title-row")
             );
+
+            // Hide downButton
+            downButton.classList.add("hidden");
           } else {
+            // Show title rows
             titleRows.forEach((titleRow) =>
               titleRow.classList.remove("hidden-title-row")
             );
             titleRowBottoms.forEach((titleRowBottom) =>
               titleRowBottom.classList.remove("hidden-title-row")
             );
+
+            // Show downButton
+            downButton.classList.remove("hidden");
           }
 
           isTitleRowVisible = !isTitleRowVisible;

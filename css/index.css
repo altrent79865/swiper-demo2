@@ -788,6 +788,10 @@ body {
   }
 } */
 
+.hidden {
+  display: none;
+}
+
 @media only screen and (min-width: 975px) {
   .link-main-page-container {
     display: flex;
