@@ -344,11 +344,13 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Initialize Swiper and Button Functionality -->
+    <!-- Initialize Swiper and Button Functionality -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let isTouchActive = false;
         let isTitleRowVisible = true; // Start with title-row visible
         let hasSwipedOnTouch = false; // Flag to track swiping during touch event
+        let currentSlideIndex = 0; // Initialize to first slide
 
         // Initialize Swiper
         const swiper = new Swiper(".mySwiper", {
@@ -360,7 +362,7 @@
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
-            // Add an event listener for beforeSlideChange to handle popup
+            // Add event listeners for transition start and end
             slideChangeTransitionStart: function () {
               handleSlideChange();
               // Close the dropdown if it is open
@@ -368,8 +370,15 @@
                 closeDropdownMenu();
               }
             },
+            slideChangeTransitionEnd: function () {
+              // Update the currentSlideIndex after the transition ends
+              currentSlideIndex = swiper.activeIndex;
+            },
           },
         });
+
+        // Set the initial currentSlideIndex
+        currentSlideIndex = swiper.activeIndex;
 
         const downButton = document.querySelector(".down-arrow-btn");
 
@@ -383,8 +392,8 @@
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
-            // Save caption to the previous slide instead of the active slide
-            saveCaptionBtn.click();
+            // Save the caption to the slide being left (currentSlideIndex)
+            saveCaptionToSlide(currentSlideIndex);
           }
         }
 
@@ -738,7 +747,7 @@
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
           // Save caption to the active slide
-          saveCaptionToSlide(swiper.activeIndex);
+          saveCaptionToSlide(currentSlideIndex);
         });
         // FIX END
 
