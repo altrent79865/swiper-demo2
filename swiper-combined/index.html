@@ -878,6 +878,12 @@
         editCaptionPopup.addEventListener("click", function (event) {
           event.stopPropagation();
         });
+
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock("portrait").catch(function (error) {
+            console.error("Failed to lock screen orientation:", error);
+          });
+        }
       });
     </script>
   </body>
