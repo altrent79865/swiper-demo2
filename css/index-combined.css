@@ -877,6 +877,11 @@ body {
     display: flex;
   }
 
+  /* Add this new rule after the existing one */
+  .down-arrow-btn.hidden-title-row {
+    display: none;
+  }
+
   .left-arrow-btn,
   .right-arrow-btn {
     display: none;
