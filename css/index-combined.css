@@ -895,3 +895,21 @@ body {
     display: none;
   }
 }
+
+/* Force the page to always display in portrait mode when width is 600px or less */
+@media only screen and (max-width: 600px) and (orientation: landscape) {
+  html,
+  body {
+    transform: rotate(90deg); /* Rotate the layout */
+    width: 100vh; /* Switch width and height */
+    height: 100vw;
+    overflow: hidden;
+    position: fixed; /* Prevent scrolling */
+  }
+
+  .swiper-slide {
+    transform: rotate(-90deg); /* Rotate content back to portrait mode */
+    width: 100vw;
+    height: 100vh;
+  }
+}
