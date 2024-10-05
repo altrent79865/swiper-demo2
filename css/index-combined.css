@@ -526,7 +526,6 @@ body {
   width: auto;
   object-fit: cover;
   display: block;
-  object-position: center top;
 }
 
 .youtube-portrait {
@@ -902,7 +901,7 @@ body {
   .portrait-img {
     height: 100svh;
     width: auto;
-    object-fit: cover; /* Try 'contain' if 'cover' crops too much */
+    object-fit: contain;
     display: block;
   }
 }
