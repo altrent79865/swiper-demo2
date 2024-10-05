@@ -350,6 +350,13 @@
     <!-- Initialize Swiper and Handle Navigation -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        // Attempt to lock the orientation to portrait mode
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock("portrait").catch(function (error) {
+            console.error("Failed to lock screen orientation:", error);
+          });
+        }
+
         // Initialize Swiper with Breakpoints
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Default direction
@@ -878,12 +885,6 @@
         editCaptionPopup.addEventListener("click", function (event) {
           event.stopPropagation();
         });
-
-        if (screen.orientation && screen.orientation.lock) {
-          screen.orientation.lock("portrait").catch(function (error) {
-            console.error("Failed to lock screen orientation:", error);
-          });
-        }
       });
     </script>
   </body>
