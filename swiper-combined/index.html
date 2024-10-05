@@ -566,6 +566,7 @@
           const titleRows = document.querySelectorAll(".title-row");
           const titleRowBottoms =
             document.querySelectorAll(".title-row-bottom");
+          const downArrowBtn = document.querySelector(".down-arrow-btn"); // Select the down-arrow-btn
 
           if (isTitleRowVisible) {
             // Hide title rows
@@ -575,6 +576,8 @@
             titleRowBottoms.forEach((titleRowBottom) =>
               titleRowBottom.classList.add("hidden-title-row")
             );
+            // Hide down-arrow-btn
+            downArrowBtn.classList.add("hidden-title-row");
           } else {
             // Show title rows
             titleRows.forEach((titleRow) =>
@@ -583,6 +586,8 @@
             titleRowBottoms.forEach((titleRowBottom) =>
               titleRowBottom.classList.remove("hidden-title-row")
             );
+            // Show down-arrow-btn
+            downArrowBtn.classList.remove("hidden-title-row");
           }
 
           isTitleRowVisible = !isTitleRowVisible;
