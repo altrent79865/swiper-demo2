@@ -181,10 +181,10 @@ body {
 .title-row .add-new-caption::before {
   content: "";
   position: absolute;
-  top: -14px;
-  bottom: -14px;
-  left: -14px;
-  right: -10px;
+  top: -25px;
+  bottom: -25px;
+  left: -25px;
+  right: -25px;
   z-index: 100;
   pointer-events: none;
 }
