@@ -846,7 +846,7 @@ body {
 }
 
 /* Media Queries for Phones */
-@media (max-width: 767px) {
+@media (max-width: 974px) {
   .edit-caption-popup {
     flex-direction: column;
     align-items: flex-start;
@@ -869,7 +869,7 @@ body {
 }
 
 /* Show Vertical Navigation on small screens */
-@media (max-width: 767px) {
+@media (max-width: 974px) {
   .down-arrow-btn {
     display: flex;
   }
@@ -886,7 +886,7 @@ body {
 }
 
 /* Show Horizontal Navigation on larger screens.  This hides the down button. */
-@media (min-width: 768px) {
+@media (min-width: 975px) {
   .left-arrow-btn,
   .right-arrow-btn {
     display: flex;
