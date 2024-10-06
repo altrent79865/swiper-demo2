@@ -150,12 +150,12 @@ body {
 .close-btn::before {
   content: "";
   position: absolute;
-  top: -25px;
-  bottom: -25px;
-  left: -25px;
-  right: -25px;
+  top: -20px;
+  bottom: -20px;
+  left: -20px;
+  right: -20px;
   background: transparent;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .title-row .close-btn,
@@ -181,12 +181,12 @@ body {
 .title-row .add-new-caption::before {
   content: "";
   position: absolute;
-  top: -25px;
-  bottom: -25px;
-  left: -25px;
-  right: -25px;
+  top: -14px;
+  bottom: -14px;
+  left: -20px;
+  right: -20px;
   z-index: 100;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .title-row .pencil {
@@ -240,13 +240,13 @@ body {
 .title-row .options-btn::before {
   content: "";
   position: absolute;
-  top: -25px;
-  bottom: -25px;
-  left: -25px;
-  right: -25px;
+  top: -20px;
+  bottom: -20px;
+  left: -20px;
+  right: -20px;
   background: transparent;
   z-index: 100;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .dot {
