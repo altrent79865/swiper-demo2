@@ -16,28 +16,9 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
-  /* margin: 0;
-  padding: 0; */
 }
 
-/* Container to add animation to have page slide in when loaded */
-/* This page-content will have first slide come up from bottom. */
-/* Fade swiper slide-in animation */
-.page-content {
-  opacity: 0;
-  position: relative;
-  top: 100vh;
-  animation: fade-slide-in 0.2s forwards;
-}
-
-@keyframes fade-slide-in {
-  to {
-    opacity: 1;
-    top: 0;
-  }
-}
-
-/* This page-content will have first slide come up from right side. */
+/* Animate the first slide content for Swiper Navigation to slide in from the right side for screens 601px and wider. */
 /* .page-content {
   opacity: 0;
   transform: translateX(100%);
@@ -51,14 +32,14 @@ body {
   }
 } */
 
-/* Animate the first slide content */
-.first-slide .link-main-page-container,
+/* Animate the first slide content for Swiper Vertical to slide in from the bottom for screens up to 600px width. */
+/* .first-slide .link-main-page-container,
 .first-slide .title-row,
 .first-slide .title-row-bottom {
   opacity: 0;
   transform: translateY(100%);
   animation: vertical-slide-in 0.2s forwards;
-  animation-delay: 0.1s; /* Adjust delay for smooth appearance */
+  animation-delay: 0.1s;
 }
 
 @keyframes vertical-slide-in {
@@ -66,7 +47,7 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
+} */
 
 /* Prevent any scrollbars */
 ::-webkit-scrollbar {
@@ -262,30 +243,17 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* align-items: stretch; */
-  /* background-color: rgb(47, 47, 47); */
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
   border: 1px solid rgba(128, 128, 128, 0.6);
   padding: 20px 4px 18px 4px;
   border-radius: 4px;
   position: fixed;
-  /* top: 50px;
-  right: 10px; */
   width: 220px;
-  /* box-shadow: 2px 2px 6px rgba(119, 119, 119, 0.4); */
   z-index: 1000;
-  /* padding-bottom: 12px; */
   transition: opacity 0.3s ease, transform 0.3s ease;
   display: none;
 }
-
-/* .swiper-vertical-popup {
-  position: fixed;
-  top: -600px; 
-  right: -400px; 
-  transform: none;
-} */
 
 .swiper-vertical-popup {
   position: fixed;
@@ -306,21 +274,6 @@ body {
 #options-links li:hover {
   background-color: #3f3f3f;
 }
-
-/* Dropdown toggle button styles */
-/* .dropdown-toggle-btn {
-  background-color: #f1f1f1;
-  color: rgb(99, 99, 99);
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  margin-bottom: 18px;
-}
-
-.dropdown-toggle:hover {
-  background-color: #e0e0e0;
-} */
 
 #options-links.open {
   display: flex;
@@ -390,18 +343,6 @@ body {
   display: block;
 }
 
-/* Vertical Swiper */
-/* Changes color of all pagination bullets*/
-/* .swiper-pagination-bullet {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(178, 178, 178, 0.9);
-} */
-
-/* Changes color of the active pagination bullet */
-/* .swiper-pagination-bullet-active {
-  background-color: #ffffff;
-} */
-
 /* Youtube Videos */
 .youtube-video-iphone-image-container {
   position: relative;
@@ -439,14 +380,12 @@ body {
   object-fit: cover;
   display: block;
   position: fixed;
-  /* top: 48px; */
   left: 0;
   right: 0;
   margin: 0 auto;
 }
 
 .link-container {
-  /* background-color: white; */
   background-color: black;
   width: 100vw;
   position: relative;
@@ -459,7 +398,6 @@ body {
 .link-title,
 .link-description {
   text-align: left;
-  /* color: black; */
   color: white;
   padding-right: 20px;
   margin-left: 4px;
@@ -497,14 +435,10 @@ body {
 .grey_button {
   display: inline-flex;
   align-items: center;
-  /* border: 1px solid #d6d6d6; */
   border: 1px solid #696969;
   padding: 6px 16px 6px 10px;
   text-decoration: none;
-  /* color: black; */
   color: white;
-  /* background: linear-gradient(#ffffff, #f7f2f2); */
-  /* background: linear-gradient(#d9d9d9, #cbcbcb); */
   background: none;
   cursor: pointer;
   gap: 5px;
@@ -579,7 +513,7 @@ body {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   touch-action: manipulation; /* Prevent zooming and double-tap issues */
-  pointer-events: auto; /* Ensure touch events work */
+  pointer-events: auto;
   display: none;
 }
 
@@ -608,42 +542,9 @@ body {
   background-position: calc(50% + 2px) center;
 }
 
-/* .left-arrow-btn:active,
-.right-arrow-btn:active {
-  opacity: 0.3;
-} */
-
 .active-opacity {
   opacity: 0.1 !important;
-  /* transition: opacity 0.03s linear; */
-  /* transition: opacity 0.1s ease; */
-  /* transition: opacity 0.5s; */
 }
-
-/* Active state - Only apply when the button is not disabled */
-/* .left-arrow-btn:not(.disabled):active,
-.right-arrow-btn:not(.disabled):active {
-  opacity: 0.1;
-} */
-
-/* Ensure the buttons return to full opacity after the click */
-/* .left-arrow-btn:not(.disabled),
-.right-arrow-btn:not(.disabled) {
-  opacity: 1;
-} */
-
-/* When the swiper is at the end */
-/* .left-arrow-btn.disabled,
-.right-arrow-btn.disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-  touch-action: none; 
-} */
-
-/* .left-arrow-btn.disabled::before,
-.right-arrow-btn.disabled::before {
-  touch-action: none; 
-} */
 
 /* Custom arrows for vertical swiping for Vertical Swiper */
 /* Style for the navigation buttons container */
@@ -680,34 +581,13 @@ body {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   touch-action: manipulation; /* Prevent zooming and double-tap issues */
-  pointer-events: auto; /* Ensure touch events work */
+  pointer-events: auto;
 }
 
 .down-arrow-btn,
 .up-arrow-btn {
   display: none;
 }
-
-/* .down-arrow-btn:active {
-  opacity: 0.1;
-} */
-
-/* Active state - Only apply when the button is not disabled */
-/* .down-arrow-btn:not(.disabled):active {
-  opacity: 0.1;
-} */
-
-/* Ensure the buttons return to full opacity after the click */
-/* .down-arrow-btn:not(.disabled) {
-  opacity: 1; 
-} */
-
-/* When the swiper is at the end */
-/* .down-arrow-btn.disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-  pointer-events: none;
-} */
 
 /* Increases clickable area of buttons to prevent accidently turning the title row on or off */
 .down-arrow-btn::before {
@@ -769,9 +649,7 @@ body {
   padding: 9px 18px;
   color: black;
   font-size: 14px;
-  /* background-color: #656565; */
   background: linear-gradient(to bottom, #fdbb00 0%, #c98c00 100%);
-  /* border: 1px solid #636363; */
   border: none;
   border-radius: 2px;
   cursor: pointer;
@@ -780,16 +658,6 @@ body {
 .edit-caption-popup.hidden {
   display: none;
 }
-
-/* Media query to adjust for wider screens (around 500px and above)  NOTE max-width 55svh needs tested on older phones that have screen heights under 600px */
-/* @media (orientation: landscape) {
-  .portrait-img {
-    height: 100svh;  
-    width: auto; 
-    max-width: 55svh; 
-    object-fit: cover; /
-  }
-} */
 
 .hidden {
   display: none;
@@ -845,8 +713,36 @@ body {
   }
 }
 
+/* Define the animation for sliding in from the right side */
+@keyframes slide-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Define the animation for sliding in from the bottom */
+@keyframes vertical-slide-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Media Queries for Phones */
 @media (max-width: 600px) {
+  /* Animate the first slide content for Swiper Vertical to slide in from the bottom for screens up to 600px width. */
+  .first-slide .link-main-page-container,
+  .first-slide .title-row,
+  .first-slide .title-row-bottom {
+    /* Start with elements fully transparent and off-screen at the bottom */
+    opacity: 0;
+    transform: translateY(100%);
+    /* Apply the 'vertical-slide-in' animation */
+    animation: vertical-slide-in 0.2s forwards;
+    /* Add a slight delay for a smooth effect */
+    animation-delay: 0.1s;
+  }
   .edit-caption-popup {
     flex-direction: column;
     align-items: flex-start;
@@ -866,15 +762,12 @@ body {
     margin-top: 12px;
     margin-bottom: 12px;
   }
-}
 
-/* Show Vertical Navigation on small screens */
-@media (max-width: 600px) {
+  /* Enables Vertical Navigation on phones and small screens.  This hides the left and right arrow buttons. */
   .down-arrow-btn {
     display: flex;
   }
 
-  /* Add this new rule after the existing one */
   .down-arrow-btn.hidden-title-row {
     display: none;
   }
@@ -885,8 +778,18 @@ body {
   }
 }
 
-/* Show Horizontal Navigation on larger screens.  This hides the down button. */
+/* Enables Horizontal Navigation on larger screens.  This hides the down button. */
 @media (min-width: 601px) {
+  /* Animate the first slide content for Swiper Navigation to slide in from the right side for screens 601px and wider. */
+  .first-slide .link-main-page-container,
+  .first-slide .title-row,
+  .first-slide .title-row-bottom {
+    /* Start with elements fully transparent and off-screen to the right */
+    opacity: 0;
+    transform: translateX(100%);
+    /* Apply the 'slide-in' animation */
+    animation: slide-in 0.2s forwards;
+  }
   .left-arrow-btn,
   .right-arrow-btn {
     display: flex;
@@ -902,6 +805,16 @@ body {
     width: auto;
     object-fit: contain;
     display: block;
+  }
+  /* Animate the first slide content to slide in from the right */
+  .first-slide .link-main-page-container,
+  .first-slide .title-row,
+  .first-slide .title-row-bottom {
+    /* Start with elements fully transparent and off-screen to the right */
+    opacity: 0;
+    transform: translateX(100%);
+    /* Apply the 'slide-in' animation */
+    animation: slide-in 0.2s forwards;
   }
 }
 
