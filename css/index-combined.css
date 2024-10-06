@@ -663,57 +663,17 @@ body {
   display: none;
 }
 
-@media only screen and (min-width: 601px) {
-  .link-main-page-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    width: 90%;
-    background-color: black;
-    max-height: calc(100vh - 120px);
-    padding-top: -8px;
-    overflow: hidden;
-  }
-
-  .image-container-for-portraits-desktop-link {
-    flex: 1;
-    max-height: 100%;
-  }
-
-  .link-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    position: initial;
-    max-height: initial;
-    top: initial;
-    left: initial;
-    right: initial;
-    margin: initial;
-    border: 1px solid rgba(128, 128, 128, 0.4);
-  }
-
-  .link-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: initial;
-    position: initial;
-    padding: initial;
-    padding-right: 14px;
-    margin-top: initial;
-    height: initial;
-    margin-left: 10px;
-  }
-
-  .link-title {
-    margin-top: 0px;
-  }
+.image-container-for-portraits-desktop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  position: relative;
 }
 
-/* Define the animation for sliding in from the right side */
+/* Animation for sliding in from the right side */
 @keyframes slide-in {
   to {
     opacity: 1;
@@ -721,7 +681,7 @@ body {
   }
 }
 
-/* Define the animation for sliding in from the bottom */
+/* Animation for sliding in from the bottom */
 @keyframes vertical-slide-in {
   to {
     opacity: 1;
@@ -738,11 +698,10 @@ body {
     /* Start with elements fully transparent and off-screen at the bottom */
     opacity: 0;
     transform: translateY(100%);
-    /* Apply the 'vertical-slide-in' animation */
     animation: vertical-slide-in 0.2s forwards;
-    /* Add a slight delay for a smooth effect */
     animation-delay: 0.1s;
   }
+
   .edit-caption-popup {
     flex-direction: column;
     align-items: flex-start;
@@ -778,7 +737,6 @@ body {
   }
 }
 
-/* Enables Horizontal Navigation on larger screens.  This hides the down button. */
 @media (min-width: 601px) {
   /* Animate the first slide content for Swiper Navigation to slide in from the right side for screens 601px and wider. */
   .first-slide .link-main-page-container,
@@ -787,9 +745,10 @@ body {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
     transform: translateX(100%);
-    /* Apply the 'slide-in' animation */
     animation: slide-in 0.2s forwards;
   }
+
+  /* Enables Horizontal Navigation on larger screens.  This hides the down button. */
   .left-arrow-btn,
   .right-arrow-btn {
     display: flex;
@@ -806,24 +765,46 @@ body {
     object-fit: contain;
     display: block;
   }
-  /* Animate the first slide content to slide in from the right */
-  .first-slide .link-main-page-container,
-  .first-slide .title-row,
-  .first-slide .title-row-bottom {
-    /* Start with elements fully transparent and off-screen to the right */
-    opacity: 0;
-    transform: translateX(100%);
-    /* Apply the 'slide-in' animation */
-    animation: slide-in 0.2s forwards;
-  }
-}
 
-.image-container-for-portraits-desktop {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100svh;
-  overflow: hidden;
-  position: relative;
+  /* This makes layout better on a device that is not tall yet wide, specifically a phone in landscape mode. */
+  .link-img {
+    object-fit: cover;
+    object-position: center 25%;
+    position: initial;
+    max-height: initial;
+  }
+
+  .link-main-page-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 90%;
+    background-color: black;
+    max-height: calc(100vh - 120px);
+    padding-top: -8px;
+    overflow: hidden;
+  }
+
+  .image-container-for-portraits-desktop-link {
+    flex: 1;
+    max-height: 100%;
+  }
+
+  .link-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: initial;
+    position: initial;
+    padding: initial;
+    padding-right: 14px;
+    margin-top: initial;
+    height: initial;
+    margin-left: 10px;
+  }
+
+  .link-title {
+    margin-top: 0px;
+  }
 }
