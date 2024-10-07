@@ -353,10 +353,9 @@
         // Initialize Swiper with Breakpoints
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Default direction
-          effect: "slide", // Default effect
           speed: 200,
           navigation: {
-            nextEl: null, // Vertical navigation
+            nextEl: null,
             prevEl: null,
           },
           // Responsive breakpoints
@@ -881,6 +880,31 @@
         // Prevent event propagation when clicking inside the edit caption popup
         editCaptionPopup.addEventListener("click", function (event) {
           event.stopPropagation();
+        });
+
+        // Keydown event listner on keyboard
+        document.addEventListener("keydown", function (e) {
+          // Check if the swiper instance exists
+          if (!swiper) return;
+
+          // Determine the current direction of Swiper
+          if (swiper.isVertical()) {
+            if (e.key === "ArrowUp") {
+              e.preventDefault(); // Prevent default scrolling
+              swiper.slidePrev();
+            } else if (e.key === "ArrowDown") {
+              e.preventDefault(); // Prevent default scrolling
+              swiper.slideNext();
+            }
+          } else if (swiper.isHorizontal()) {
+            if (e.key === "ArrowLeft") {
+              e.preventDefault(); // Prevent default scrolling
+              swiper.slidePrev();
+            } else if (e.key === "ArrowRight") {
+              e.preventDefault(); // Prevent default scrolling
+              swiper.slideNext();
+            }
+          }
         });
       });
     </script>
