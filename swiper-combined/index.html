@@ -507,17 +507,17 @@
         upButton.addEventListener("click", (e) => handleClick(e, "prev"));
 
         // Touch and Click Event Handlers for Horizontal Navigation
-        // leftArrow.addEventListener("touchstart", handleTouchStart);
-        // leftArrow.addEventListener("touchend", (e) =>
-        //   handleTouchEnd(e, "prev")
-        // );
-        // leftArrow.addEventListener("click", (e) => handleClick(e, "prev"));
+        leftArrow.addEventListener("touchstart", handleTouchStart);
+        leftArrow.addEventListener("touchend", (e) =>
+          handleTouchEnd(e, "prev")
+        );
+        leftArrow.addEventListener("click", (e) => handleClick(e, "prev"));
 
-        // rightArrow.addEventListener("touchstart", handleTouchStart);
-        // rightArrow.addEventListener("touchend", (e) =>
-        //   handleTouchEnd(e, "next")
-        // );
-        // rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
+        rightArrow.addEventListener("touchstart", handleTouchStart);
+        rightArrow.addEventListener("touchend", (e) =>
+          handleTouchEnd(e, "next")
+        );
+        rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
 
         // Prevent double navigation (touch + click)
         let isTouchActive = false;
