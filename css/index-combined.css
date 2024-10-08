@@ -67,7 +67,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Apply below to make images long touch not open native features */
+  /* Apply below to make images a long touch not open native features */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -157,7 +157,7 @@ body {
   cursor: pointer;
 }
 
-/* Increases the clickable area of buttons to prevent accidently turning the title row on or off  */
+/* Increases clickable area of buttons to prevent accidently turning the title row on or off  */
 .pencil-container::before,
 .title-row .add-new-caption::before {
   content: "";
@@ -335,6 +335,20 @@ body {
     /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
 }
 
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
+.portrait-img {
+  height: 100svh;
+  max-height: 100svh;
+  width: auto;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+
 .landscape-img {
   width: 100vw;
   height: auto;
@@ -343,7 +357,7 @@ body {
   display: block;
 }
 
-/* Youtube Videos */
+/* Youtube Videos Layout */
 .youtube-video-iphone-image-container {
   position: relative;
   width: 100%; /* Matches the container to the image width */
@@ -353,11 +367,21 @@ body {
   align-items: center;
 }
 
-.youtube-landscape {
-  width: 100%;
+.youtube-portrait {
+  max-height: 90svh;
   height: auto;
-  max-width: none;
-  object-fit: cover;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+  /* display: block; */
+}
+
+.youtube-landscape {
+  /* width: 100%;
+  height: auto; */
+  /* max-width: none; */
+  /* object-fit: cover; */
 }
 
 .centered-video_play-icon {
@@ -372,7 +396,7 @@ body {
   cursor: pointer;
 }
 
-/* Link Layout for mobile */
+/* Link Layout */
 .link-img {
   width: 100%;
   height: auto;
@@ -421,7 +445,6 @@ body {
   margin-bottom: 16px;
 }
 
-/* Need to use class names that Adam is already using. */
 .link-clickable-text {
   display: inline;
   text-decoration: none;
@@ -452,30 +475,6 @@ body {
   width: 16px;
   height: 16px;
   object-fit: contain;
-}
-
-.portrait-img {
-  height: 100svh;
-  max-height: 100svh;
-  width: auto;
-  object-fit: cover;
-  object-position: center 25%;
-  display: block;
-}
-
-.youtube-portrait {
-  max-height: 90svh;
-  height: auto;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  margin: 0 auto;
-  /* display: block; */
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
 }
 
 /* Prevent double-tap zoom, but still allow taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  I also changed meta tag in html to prevent the double tap zoom. */
@@ -758,6 +757,7 @@ body {
   .up-arrow-btn {
     display: none;
   }
+  
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
   .portrait-img {
     height: auto;

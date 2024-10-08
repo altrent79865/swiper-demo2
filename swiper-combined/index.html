@@ -192,7 +192,9 @@
             ></a>
             <div class="pencil-title-row non-interactive">
               <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
-              <p class="media-item-title">Fruit Plate</p>
+              <p class="media-item-title">
+                Fruit Plate with Pineapple, and Melon
+              </p>
             </div>
             <!-- Options Button -->
             <button class="options-btn">
@@ -238,10 +240,19 @@
         <!-- Youtube Video in Africa in playing mode for mobile (portrait) -->
         <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
-            <img
-              src="../assets/youtube-kenya-iphone-playing.png"
-              class="portrait-img youtube-portrait"
-            />
+            <picture>
+              <!-- Image for screens 601px and larger -->
+              <source
+                srcset="../assets/youtube-kenya-desktop-playing.png"
+                media="(min-width: 601px)"
+              />
+              <!-- Default image for screens up to 600px width -->
+              <img
+                src="../assets/youtube-kenya-iphone-playing.png"
+                class="portrait-img youtube-portrait"
+                alt="Youtube video of safari in Kenya"
+              />
+            </picture>
           </div>
           <div class="title-row">
             <a href="../index.html" class="close-btn"
@@ -296,15 +307,20 @@
             </div>
           </div>
         </div>
-        <!-- Pasta with Truffle (landscape) -->
+        <!-- Grilled Focaccia Sandwich (landscape) -->
         <div class="swiper-slide">
-          <img src="../assets/pasta.jpg" class="landscape-img" />
+          <img
+            src="../assets/sandwich-landscape-4032x3024.jpeg"
+            class="landscape-img"
+          />
           <div class="title-row">
             <a href="../index.html" class="close-btn"
               ><span class="x-line"></span
             ></a>
             <div class="pencil-title-row non-interactive">
-              <p class="media-item-title">A great pasta dish with truffle</p>
+              <p class="media-item-title">
+                Grilled Cheese Focaccia with Mortadella
+              </p>
             </div>
             <!-- Options Button -->
             <button class="options-btn">
