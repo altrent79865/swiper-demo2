@@ -498,7 +498,7 @@ body {
 }
 
 /* Button on link to Open link */
-.grey_button {
+.link-button {
   display: inline-flex;
   align-items: center;
   /* border: 1px solid #d6d6d6; */

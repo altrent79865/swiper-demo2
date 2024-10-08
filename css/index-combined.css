@@ -377,6 +377,14 @@ body {
   /* display: block; */
 }
 
+.youtube-landscape {
+  width: 80vw;
+  min-width: 100vw;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
 .centered-video_play-icon {
   position: absolute;
   top: 50%;
@@ -448,7 +456,7 @@ body {
 }
 
 /* Button on link to Open link */
-.grey_button {
+.link-button {
   display: inline-flex;
   align-items: center;
   border: 1px solid #696969;
