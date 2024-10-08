@@ -377,13 +377,6 @@ body {
   /* display: block; */
 }
 
-.youtube-landscape {
-  /* width: 100%;
-  height: auto; */
-  /* max-width: none; */
-  /* object-fit: cover; */
-}
-
 .centered-video_play-icon {
   position: absolute;
   top: 50%;
@@ -672,7 +665,7 @@ body {
   position: relative;
 }
 
-/* Animation for sliding in from the right side */
+/* For first slide sliding in from the right side */
 @keyframes slide-in {
   to {
     opacity: 1;
@@ -680,7 +673,7 @@ body {
   }
 }
 
-/* Animation for sliding in from the bottom */
+/* For first slide sliding in from the bottom */
 @keyframes vertical-slide-in {
   to {
     opacity: 1;
@@ -690,7 +683,7 @@ body {
 
 /* Media Queries for Phones */
 @media (max-width: 600px) {
-  /* Animate the first slide content for Swiper Vertical to slide in from the bottom for screens up to 600px width. */
+  /* Animate first slide to slide in from the bottom for screens up to 600px width. */
   .first-slide .link-main-page-container,
   .first-slide .title-row,
   .first-slide .title-row-bottom {
@@ -737,7 +730,7 @@ body {
 }
 
 @media (min-width: 601px) {
-  /* Animate the first slide content for Swiper Navigation to slide in from the right side for screens 601px and wider. */
+  /* Animate first slide to slide in from the right side for screens 601px and wider. */
   .first-slide .link-main-page-container,
   .first-slide .title-row,
   .first-slide .title-row-bottom {
@@ -757,7 +750,7 @@ body {
   .up-arrow-btn {
     display: none;
   }
-  
+
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
   .portrait-img {
     height: auto;
