@@ -88,6 +88,11 @@ body {
   overflow: visible;
 }
 
+/* Hides the title-row when clicking on page and toggling title row. */
+.hidden-title-row {
+  display: none;
+}
+
 /* Close Button Styles */
 .close-btn {
   display: flex;
@@ -127,8 +132,11 @@ body {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* Increases the clickable area of buttons to prevent accidently turning the title row on or off  */
-.close-btn::before {
+/* Increases clickable area of close button, pencil, add new caption text and options button to prevent accidently turning the title row on or off  */
+.close-btn::before,
+.pencil-container::before,
+.add-new-caption::before,
+.options-btn::before {
   content: "";
   position: absolute;
   top: -20px;
@@ -139,8 +147,8 @@ body {
   pointer-events: auto;
 }
 
-.title-row .close-btn,
-.title-row .options-btn {
+.close-btn,
+.options-btn {
   position: absolute;
 }
 
@@ -155,19 +163,6 @@ body {
   position: relative;
   display: inline-block;
   cursor: pointer;
-}
-
-/* Increases clickable area of buttons to prevent accidently turning the title row on or off  */
-.pencil-container::before,
-.title-row .add-new-caption::before {
-  content: "";
-  position: absolute;
-  top: -14px;
-  bottom: -14px;
-  left: -20px;
-  right: -20px;
-  z-index: 100;
-  pointer-events: auto;
 }
 
 .title-row .pencil {
@@ -201,6 +196,7 @@ body {
   margin-right: 10px;
 }
 
+/* Options button with 3 Vertical Dots */
 .options-btn {
   display: flex;
   flex-direction: column;
@@ -217,19 +213,7 @@ body {
   gap: 0.158rem;
 }
 
-/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
-.title-row .options-btn::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  bottom: -20px;
-  left: -20px;
-  right: -20px;
-  background: transparent;
-  z-index: 100;
-  pointer-events: auto;
-}
-
+/* The 3 Vertical Dots inside Options button */
 .dot {
   width: 4px;
   height: 4px;
@@ -237,9 +221,9 @@ body {
   border-radius: 50%;
 }
 
-/* Nav Options Button Dropdown  */
+/* Dropdown from Options button */
 /* Initially hide links */
-#options-links {
+.options-dropdown {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -255,14 +239,14 @@ body {
   display: none;
 }
 
-.swiper-vertical-popup {
+.swiper-vertical-options-dropdown {
   position: fixed;
   top: 10px;
   right: 10px;
 }
 
-/* Links in the dropdown */
-#options-links li {
+/* List of Links in the dropdown from Options button */
+.options-dropdown li {
   display: block;
   padding: 6px 20px;
   color: white;
@@ -271,17 +255,17 @@ body {
   cursor: pointer;
 }
 
-#options-links li:hover {
+.options-dropdown li:hover {
   background-color: #3f3f3f;
 }
 
-#options-links.open {
+.options-dropdown.open {
   display: flex;
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Close Button (X) */
+/* Options dropdown Close Button (X) */
 .dropdown-close-btn {
   position: absolute;
   top: 2px;
@@ -294,12 +278,7 @@ body {
   padding: 4px 8px 5px 5px;
 }
 
-.dropdown-title {
-  font-weight: bold;
-  padding: 0px 15px 5px 15px;
-}
-
-/* Bottom Footer */
+/* Bottom Footer with bubble that show which item we're on / total number of items */
 .title-row-bottom {
   height: 60px;
   position: fixed;
@@ -335,6 +314,7 @@ body {
     /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
 }
 
+/* Layout of Images */
 .swiper-slide img {
   display: block;
   width: 100%;
@@ -360,7 +340,7 @@ body {
 /* Youtube Videos Layout */
 .youtube-video-iphone-image-container {
   position: relative;
-  width: 100%; /* Matches the container to the image width */
+  width: 100%;
   max-width: 100vw;
   display: flex;
   justify-content: center;
@@ -374,7 +354,6 @@ body {
   max-width: 100%;
   object-fit: contain;
   margin: 0 auto;
-  /* display: block; */
 }
 
 .youtube-landscape {
@@ -397,7 +376,7 @@ body {
   cursor: pointer;
 }
 
-/* Link Layout */
+/* Layout for a Link item */
 .link-img {
   width: 100%;
   height: auto;
@@ -478,7 +457,7 @@ body {
   object-fit: contain;
 }
 
-/* Prevent double-tap zoom, but still allow taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  I also changed meta tag in html to prevent the double tap zoom. */
+/* Prevents double-tap zoom, but still allow taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
 .left-arrow-btn,
 .right-arrow-btn,
 .down-arrow-btn,
@@ -486,48 +465,41 @@ body {
   touch-action: manipulation;
 }
 
-/* Arrows for horizontal swiping for Navigation and Fade Swiper */
+/* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
 .left-arrow-btn,
-.right-arrow-btn {
+.right-arrow-btn,
+.down-arrow-btn,
+.up-arrow-btn {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background-repeat: no-repeat;
+  touch-action: manipulation; /* Prevent zooming and double-tap issues */
+  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
+  user-select: none;
+  -webkit-user-select: none; /* Safari/Chrome for iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  pointer-events: auto;
+}
+
+/* Arrows for horizontal Navigation Swiper and Fade Swiper */
+.left-arrow-btn,
+.right-arrow-btn {
   width: 40px;
   height: 40px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  cursor: pointer;
-  border: none;
   z-index: 100;
   transition: opacity 0.3s;
   background-size: 20px 20px;
   background-position: center;
-  background-repeat: no-repeat;
-  opacity: 1;
-  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
-  user-select: none; /* Disable text selection */
-  -webkit-user-select: none; /* Safari/Chrome for iOS */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  touch-action: manipulation; /* Prevent zooming and double-tap issues */
-  pointer-events: auto;
-  display: none;
-}
-
-/* Increases the clickable area of buttons to prevent accidently turning the title row on or off */
-.left-arrow-btn::before,
-.right-arrow-btn::before {
-  content: "";
-  position: absolute;
-  top: -25px;
-  bottom: -25px;
-  left: -25px;
-  right: -25px;
-  background: transparent;
-  pointer-events: auto;
 }
 
 .left-arrow-btn {
@@ -557,39 +529,19 @@ body {
   display: block;
 }
 
-/* Arrows for vertical swiping.  I also had up- */
+/* Down Arrow for Swiper Vertical navigation */
 .down-arrow-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 46px;
   height: 46px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
   transition: opacity 0.1s;
   background-size: 23px 23px;
-  background-repeat: no-repeat;
-  touch-action: manipulation;
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
   background-position: center 58%;
-  opacity: 1;
-  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
-  user-select: none; /* Disable text selection */
-  -webkit-user-select: none; /* Safari/Chrome for iOS */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  touch-action: manipulation; /* Prevent zooming and double-tap issues */
-  pointer-events: auto;
 }
 
-.down-arrow-btn,
-.up-arrow-btn {
-  display: none;
-}
-
-/* Increases clickable area of buttons to prevent accidently turning the title row on or off */
+/* Increases the clickable area of navigation arrow buttons to prevent accidently turning the title row on or off */
+.left-arrow-btn::before,
+.right-arrow-btn::before,
 .down-arrow-btn::before {
   content: "";
   position: absolute;
@@ -601,12 +553,7 @@ body {
   pointer-events: auto;
 }
 
-/* Hide the title-row when clicking on page */
-.hidden-title-row {
-  display: none;
-}
-
-/* Edit Caption Pop-up */
+/* Edit Caption Pop-up when selecting from options menu */
 .edit-caption-popup {
   position: fixed;
   top: 0px;
@@ -673,7 +620,7 @@ body {
   position: relative;
 }
 
-/* For first slide sliding in from the right side */
+/* To animate first slide sliding in from the right side */
 @keyframes slide-in {
   to {
     opacity: 1;
@@ -681,7 +628,7 @@ body {
   }
 }
 
-/* For first slide sliding in from the bottom */
+/* To animate first slide sliding in from the bottom */
 @keyframes vertical-slide-in {
   to {
     opacity: 1;
@@ -723,16 +670,13 @@ body {
   }
 
   /* Enables Vertical Navigation on phones and small screens.  This hides the left and right arrow buttons. */
-  .down-arrow-btn {
-    display: flex;
-  }
-
-  .down-arrow-btn.hidden-title-row {
+  .left-arrow-btn,
+  .right-arrow-btn {
     display: none;
   }
 
-  .left-arrow-btn,
-  .right-arrow-btn {
+  /* Hides down arrow when clicking on page and toggling / hiding title row. Keeps clean look on page to just have swiping on mobile devices. */
+  .down-arrow-btn.hidden-title-row {
     display: none;
   }
 }
@@ -749,11 +693,6 @@ body {
   }
 
   /* Enables Horizontal Navigation on larger screens.  This hides the down button. */
-  .left-arrow-btn,
-  .right-arrow-btn {
-    display: flex;
-  }
-
   .down-arrow-btn,
   .up-arrow-btn {
     display: none;
@@ -773,6 +712,7 @@ body {
     object-position: center 25%;
     position: initial;
     max-height: initial;
+    border: 1px solid rgba(128, 128, 128, 0.4);
   }
 
   .link-main-page-container {
