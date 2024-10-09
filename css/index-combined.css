@@ -669,14 +669,16 @@ body {
     margin-bottom: 12px;
   }
 
-  /* Enables Vertical Navigation on phones and small screens.  This hides the left and right arrow buttons. */
-  .left-arrow-btn,
-  .right-arrow-btn {
+  /* Hides down arrow, title-row and title-row-bottom when clicking on page and toggling. Keeps clean look on page to just have swiping on mobile devices. */
+  .title-row.hidden-title-row,
+  .title-row-bottom.hidden-title-row,
+  .down-arrow-btn.hidden-title-row {
     display: none;
   }
 
-  /* Hides down arrow when clicking on page and toggling / hiding title row. Keeps clean look on page to just have swiping on mobile devices. */
-  .down-arrow-btn.hidden-title-row {
+  /* Enables Vertical Navigation on phones and small screens.  This hides the left and right arrow buttons. */
+  .left-arrow-btn,
+  .right-arrow-btn {
     display: none;
   }
 }
@@ -690,12 +692,6 @@ body {
     opacity: 0;
     transform: translateX(100%);
     animation: slide-in 0.2s forwards;
-  }
-
-  /* Enables Horizontal Navigation on larger screens.  This hides the down button. */
-  .down-arrow-btn,
-  .up-arrow-btn {
-    display: none;
   }
 
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
@@ -747,5 +743,17 @@ body {
 
   .link-title {
     margin-top: 0px;
+  }
+
+  /* Hides down arrow button on larger screens.  Up arrow is not visibe on any screen size. */
+  .down-arrow-btn,
+  .up-arrow-btn {
+    display: none;
+  }
+
+  /* Hides title-row and title-row-bottom when clicking on page and toggling. Keeps clean look on page to just have swiping on mobile devices. */
+  .title-row.hidden-title-row,
+  .title-row-bottom.hidden-title-row {
+    display: none;
   }
 }

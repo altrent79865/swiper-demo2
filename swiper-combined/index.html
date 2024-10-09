@@ -350,7 +350,10 @@
     <!-- <div class="swiper-pagination"></div> -->
 
     <!-- Options Dropdown -->
-    <div id="options-links" class="options-dropdown swiper-vertical-options-dropdown">
+    <div
+      id="options-links"
+      class="options-dropdown swiper-vertical-options-dropdown"
+    >
       <button id="options-close-btn" class="dropdown-close-btn">×</button>
       <!-- List of Links in the dropdown from Options button -->
       <ul>
@@ -582,14 +585,14 @@
           hasSwipedOnTouch = true;
         });
 
-        // Function to toggle the title-row and navigation buttons visibility
+        // Function to toggle the title-row and navigation buttons visibility, along with down arrow-button for slider vertical.
         let isTitleRowVisible = true; // Start with title-row visible
 
         function toggleTitleRow() {
           const titleRows = document.querySelectorAll(".title-row");
           const titleRowBottoms =
             document.querySelectorAll(".title-row-bottom");
-          const downArrowBtn = document.querySelector(".down-arrow-btn"); // Select the down-arrow-btn
+          const downArrowBtn = document.querySelector(".down-arrow-btn");
 
           if (isTitleRowVisible) {
             // Hide title rows
