@@ -669,16 +669,16 @@ body {
     margin-bottom: 12px;
   }
 
-  /* Hides down arrow, title-row and title-row-bottom when clicking on page and toggling. Keeps clean look on page to just have swiping on mobile devices. */
-  .title-row.hidden-title-row,
-  .title-row-bottom.hidden-title-row,
-  .down-arrow-btn.hidden-title-row {
+  /* Hides left and right arrow buttons on phones. */
+  .left-arrow-btn,
+  .right-arrow-btn {
     display: none;
   }
 
-  /* Enables Vertical Navigation on phones and small screens.  This hides the left and right arrow buttons. */
-  .left-arrow-btn,
-  .right-arrow-btn {
+  /* Toggle title-row, title-row-bottom and down arrow button's visibility when clicking on page.  Keeps clean look on page to just have swiping on mobile devices. */
+  .title-row.hidden-title-row,
+  .title-row-bottom.hidden-title-row,
+  .down-arrow-btn.hidden-title-row {
     display: none;
   }
 }
@@ -751,7 +751,7 @@ body {
     display: none;
   }
 
-  /* Hides title-row and title-row-bottom when clicking on page and toggling. Keeps clean look on page to just have swiping on mobile devices. */
+  /* Toggle title-row and title-row-bottom's visibility when clicking on page. Keeps clean look on page to not show anything extra on page except arrows. */
   .title-row.hidden-title-row,
   .title-row-bottom.hidden-title-row {
     display: none;
