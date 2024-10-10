@@ -58,13 +58,13 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  /* below was to fix flash of getting wrong title when refreshing page */
+  /* below was to fix flash of getting wrong title when refreshing page.  Initially hides Swiper */
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* Show Swiper when initialized. This was to fix flash of getting wrong title when refreshing page */
-.swiper-initialized {
+/* Show Swiper when initialized.  Fixed flash of getting wrong title when refreshing page */
+.swiper.swiper-initialized {
   opacity: 1;
 }
 
