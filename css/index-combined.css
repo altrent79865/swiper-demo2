@@ -58,20 +58,31 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  /* below was to fix flash of getting wrong title when refreshing page */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show Swiper when initialized. This was to fix flash of getting wrong title when refreshing page */
+.swiper-initialized {
+  opacity: 1;
 }
 
 .swiper-slide {
   background-color: black;
   height: 100svh;
   width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   /* Apply below to make images a long touch not open native features */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+.swiper-slide-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Title Row */
