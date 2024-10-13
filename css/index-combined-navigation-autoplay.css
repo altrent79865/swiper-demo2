@@ -304,19 +304,20 @@ body {
 
 /* Play/Pause Toggle Button */
 .autoplay-toggle {
-  position: relative; /* Establishes positioning context for ::before */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  left: 9px; /* Maintains the button's position within the footer */
-  width: 68px; /* 28px (original) + 20px * 2 (expanded area) */
-  height: 68px; /* 28px (original) + 20px * 2 (expanded area) */
-  background: transparent; /* Make the button itself transparent */
+  left: 9px;
+  width: 28px;
+  height: 28px;
+  background: transparent;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  overflow: visible; /* Allows the pseudo-element to extend beyond the button */
-  box-sizing: content-box; /* Exclude padding and border from the button's size */
+  overflow: visible;
+  z-index: 200;
+  /* box-sizing: content-box;  */
 }
 
 /* Inner Visual Button */
@@ -327,13 +328,26 @@ body {
   left: 50%;
   width: 28px;
   height: 28px;
-  background-color: rgba(0, 0, 0, 0.3); /* Original button background */
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  transform: translate(-50%, -50%); /* Center the visual button */
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
+}
+
+/* Expanded Clickable Area */
+.autoplay-toggle::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 /* SVG Icon Styles */
@@ -341,41 +355,39 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+  fill: white;
+  opacity: 0;
   transform: translate(-50%, -50%);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
+  z-index: 300;
 }
 
-/* Hide Pause Icon by default */
+/* Play Icon */
+.autoplay-toggle .play-icon {
+  opacity: 1; /* Visible by default */
+  transform: translate(-50%, -50%) translateX(1px);
+}
+
+/* Pause Icon */
 .autoplay-toggle .pause-icon {
-  display: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) translateX(1px);
 }
 
 /* When Playing, show Pause Icon and hide Play Icon */
 .autoplay-toggle.playing .play-icon {
-  display: none;
+  opacity: 0; /* Hide Play icon */
 }
 
 .autoplay-toggle.playing .pause-icon {
-  display: block;
+  opacity: 1; /* Show Pause icon */
 }
 
-/* Shift Play Icon 1px to the right to maintain centering */
-.autoplay-toggle .play-icon {
-  transform: translate(-50%, -50%) translateX(1px); /* Shift Play icon 1px to the right */
-}
-
-/* Fade Effect for Smooth Transitions */
-.autoplay-toggle .icon {
-  opacity: 0;
-}
-
-.autoplay-toggle:not(.playing) .play-icon {
-  opacity: 1;
-}
-
-.autoplay-toggle.playing .pause-icon {
-  opacity: 1;
+/* Ensure SVG Paths are White */
+.autoplay-toggle .icon polygon,
+.autoplay-toggle .icon rect {
+  fill: white;
 }
 
 /* Hide Play/Pause Button on Non-Active Slides */
