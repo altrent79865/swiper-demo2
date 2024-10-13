@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "serve": "^11.2.0"
+    "serve": "^14.2.3"
   },
   "main": "index.html",
   "name": "swiper-effect-cube",
