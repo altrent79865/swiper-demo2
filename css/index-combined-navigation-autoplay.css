@@ -304,35 +304,46 @@ body {
 
 /* Play/Pause Toggle Button */
 .autoplay-toggle {
-  position: relative;
+  position: relative; /* Establishes positioning context for ::before */
   display: flex;
   justify-content: center;
   align-items: center;
   left: 9px; /* Maintains the button's position within the footer */
-  width: 28px;
-  height: 28px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
+  width: 68px; /* 28px (original) + 20px * 2 (expanded area) */
+  height: 68px; /* 28px (original) + 20px * 2 (expanded area) */
+  background: transparent; /* Make the button itself transparent */
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  overflow: hidden; /* Ensures icons stay within the button */
-  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  overflow: visible; /* Allows the pseudo-element to extend beyond the button */
+  box-sizing: content-box; /* Exclude padding and border from the button's size */
+}
+
+/* Inner Visual Button */
+.autoplay-toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.3); /* Original button background */
+  border-radius: 50%;
+  transform: translate(-50%, -50%); /* Center the visual button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
 /* SVG Icon Styles */
 .autoplay-toggle .icon {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none; /* Allows the button to receive clicks without interference */
-}
-
-/* Centering Play and Pause Icons */
-.autoplay-toggle .play-icon,
-.autoplay-toggle .pause-icon {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
 }
 
 /* Hide Pause Icon by default */
@@ -365,12 +376,6 @@ body {
 
 .autoplay-toggle.playing .pause-icon {
   opacity: 1;
-}
-
-/* Adjust the second rectangle in Pause Icon for precise spacing */
-.autoplay-toggle.playing .pause-icon rect:last-child {
-  /* No longer needed if we've shifted the entire icon */
-  /* Remove this rule if you don't need to adjust individual rects */
 }
 
 /* Hide Play/Pause Button on Non-Active Slides */
