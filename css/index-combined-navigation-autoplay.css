@@ -337,6 +337,10 @@ body {
   z-index: 100;
 }
 
+.green-play::before {
+  background-color: #16b14f;
+}
+
 /* Expanded Clickable Area */
 .autoplay-toggle::after {
   content: "";
