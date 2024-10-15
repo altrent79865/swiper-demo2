@@ -18,37 +18,6 @@ body {
   color: #000;
 }
 
-/* Animate the first slide content for Swiper Navigation to slide in from the right side for screens 601px and wider. */
-/* .page-content {
-  opacity: 0;
-  transform: translateX(100%);
-  animation: slide-in 0.2s forwards;
-}
-
-@keyframes slide-in {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-} */
-
-/* Animate the first slide content for Swiper Vertical to slide in from the bottom for screens up to 600px width. */
-/* .first-slide .link-main-page-container,
-.first-slide .title-row,
-.first-slide .title-row-bottom {
-  opacity: 0;
-  transform: translateY(100%);
-  animation: vertical-slide-in 0.2s forwards;
-  animation-delay: 0.1s;
-}
-
-@keyframes vertical-slide-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-} */
-
 /* Prevent any scrollbars */
 ::-webkit-scrollbar {
   display: none;
@@ -120,7 +89,7 @@ body {
   position: relative;
 }
 
-/* The lines of the "X".*/
+/* The lines of the "X". */
 .close-btn .x-line::before,
 .close-btn .x-line::after {
   content: "";
@@ -177,14 +146,16 @@ body {
 }
 
 .title-row .pencil {
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5))
-    drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
   cursor: pointer;
   height: 18px;
   width: auto;
   margin-right: -14px;
   position: relative;
   z-index: 200;
+  /* Multiple Drop Shadows to match media-item-title  */
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))
+    drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.25));
 }
 
 .title-row .add-new-caption {
@@ -201,10 +172,13 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   color: white;
-  letter-spacing: 0.04rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.05rem;
   margin-left: 10px;
   margin-right: 10px;
+  /* same text shadow as pencil and title-row-bottom text */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+    /* Primary shadow */ 2px 2px 4px rgba(0, 0, 0, 0.3),
+    /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
 }
 
 /* Options button with 3 Vertical Dots */
@@ -289,7 +263,7 @@ body {
   padding: 4px 8px 5px 5px;
 }
 
-/* Bottom Footer with bubble that show which item we're on / total number of items */
+/* Bottom Footer with play / pause autoplay button and bubble that show which item we're on / total number of items in post, message or album. */
 .title-row-bottom {
   height: 60px;
   position: fixed;
@@ -317,7 +291,6 @@ body {
   transition: background-color 0.3s ease;
   overflow: visible;
   z-index: 200;
-  /* box-sizing: content-box;  */
 }
 
 /* Inner Visual Button */
@@ -337,11 +310,11 @@ body {
   z-index: 100;
 }
 
-.green-play::before {
-  background-color: #16b14f;
-}
+/* .green-play::before {
+  border: 2px solid #16b14f;
+}  */
 
-/* Expanded Clickable Area */
+/* Increases clickable area of play and pause button to prevent accidently turning the title row on or off  */
 .autoplay-toggle::after {
   content: "";
   position: absolute;
@@ -359,9 +332,8 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  fill: white;
   opacity: 0;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); */
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
   z-index: 300;
@@ -370,7 +342,7 @@ body {
 /* Play Icon */
 .autoplay-toggle .play-icon {
   opacity: 1; /* Visible by default */
-  transform: translate(-50%, -50%) translateX(1px);
+  transform: translate(-50%, -50%) translateX(2px);
 }
 
 /* Pause Icon */
@@ -388,7 +360,7 @@ body {
   opacity: 1; /* Show Pause icon */
 }
 
-/* Ensure SVG Paths are White */
+/* SVG Paths */
 .autoplay-toggle .icon polygon,
 .autoplay-toggle .icon rect {
   fill: white;
@@ -596,7 +568,7 @@ body {
   pointer-events: auto;
 }
 
-/* Arrows for horizontal Navigation Swiper and Fade Swiper */
+/* Arrows for horizontal Navigation Swiper */
 .left-arrow-btn,
 .right-arrow-btn {
   width: 40px;
@@ -810,7 +782,7 @@ body {
     display: block;
   }
 
-  /* This makes layout better on a device that is not tall yet wide, specifically a phone in landscape mode. */
+  /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
   .link-img {
     object-fit: cover;
     object-position: center 25%;
