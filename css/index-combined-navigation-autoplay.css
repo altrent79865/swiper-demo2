@@ -38,6 +38,9 @@ body {
 }
 
 .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: black;
   height: 100svh;
   width: 100vw;
@@ -48,11 +51,11 @@ body {
   -ms-user-select: none;
 }
 
-.swiper-slide-active {
+/* .swiper-slide-active {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 /* Title Row */
 .title-row {
@@ -290,6 +293,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease;
   overflow: visible;
+  outline: none;
   z-index: 200;
 }
 
@@ -325,6 +329,15 @@ body {
   background: transparent;
   pointer-events: auto;
   cursor: pointer;
+  border-radius: 50%;
+  outline: none;
+}
+
+/* Remove background highlight on active or focus states */
+.autoplay-toggle::after:active,
+.autoplay-toggle::after:focus {
+  background: transparent;
+  outline: none;
 }
 
 /* SVG Icon Styles */

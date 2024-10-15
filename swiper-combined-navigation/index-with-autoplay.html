@@ -399,22 +399,18 @@
             </div>
           </div>
         </div>
-        <!-- Youtube Video in Africa in playing mode -->
+        <!-- Youtube Video in Africa not in play mode -->
         <div class="swiper-slide">
-          <div class="image-container-for-portraits-desktop">
-            <picture>
-              <!-- Image for screens 601px and larger -->
-              <source
-                srcset="../assets/youtube-kenya-desktop-playing.png"
-                media="(min-width: 601px)"
-              />
-              <!-- Default image for screens up to 600px width -->
-              <img
-                src="../assets/youtube-kenya-iphone-playing.png"
-                class="portrait-img youtube-portrait"
-                alt="Youtube video of safari in Kenya"
-              />
-            </picture>
+          <div class="kenya-video-iphone-image-container">
+            <img
+              src="../assets/youtube-kenya-iphone-not-playing.jpg"
+              class="landscape-img youtube-landscape"
+            />
+            <img
+              src="../assets/video_play.png"
+              alt="icon"
+              class="centered-video_play-icon"
+            />
           </div>
           <div class="title-row">
             <a href="../index.html" class="close-btn"
@@ -459,18 +455,22 @@
             </div>
           </div>
         </div>
-        <!-- Youtube Video in Africa not in play mode -->
+        <!-- Youtube Video in Africa in playing mode -->
         <div class="swiper-slide">
-          <div class="kenya-video-iphone-image-container">
-            <img
-              src="../assets/youtube-kenya-iphone-not-playing.jpg"
-              class="landscape-img youtube-landscape"
-            />
-            <img
-              src="../assets/video_play.png"
-              alt="icon"
-              class="centered-video_play-icon"
-            />
+          <div class="image-container-for-portraits-desktop">
+            <picture>
+              <!-- Image for screens 601px and larger -->
+              <source
+                srcset="../assets/youtube-kenya-desktop-playing.png"
+                media="(min-width: 601px)"
+              />
+              <!-- Default image for screens up to 600px width -->
+              <img
+                src="../assets/youtube-kenya-iphone-playing.png"
+                class="portrait-img youtube-portrait"
+                alt="Youtube video of safari in Kenya"
+              />
+            </picture>
           </div>
           <div class="title-row">
             <a href="../index.html" class="close-btn"
@@ -612,11 +612,9 @@
 
         // Initialize Swiper with Autoplay Disabled by Default
         var swiper = new Swiper(".mySwiper", {
-          direction: "vertical", // Default direction
+          direction: "vertical",
           loop: false, // Disable looping
           speed: 200,
-          spaceBetween: 30,
-          centeredSlides: true,
           autoplay: {
             delay: 2500,
             disableOnInteraction: false,
