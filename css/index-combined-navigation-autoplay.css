@@ -293,8 +293,9 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease;
   overflow: visible;
-  outline: none;
   z-index: 200;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* Inner Visual Button */
@@ -331,6 +332,7 @@ body {
   cursor: pointer;
   border-radius: 50%;
   outline: none;
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* Remove background highlight on active or focus states */
@@ -338,6 +340,7 @@ body {
 .autoplay-toggle::after:focus {
   background: transparent;
   outline: none;
+  -webkit-tap-highlight-color: transparent; /* Ensure tap highlight is disabled */
 }
 
 /* SVG Icon Styles */
