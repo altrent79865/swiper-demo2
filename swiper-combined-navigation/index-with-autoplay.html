@@ -565,7 +565,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="swiper-pagination"></div> -->
     </div>
     <!-- Navigation Buttons for Vertical Swiper (Up & Down) -->
     <div class="navigation-buttons">
@@ -575,8 +574,6 @@
     <!-- Navigation Buttons for Horizontal Swiper (Left & Right) -->
     <button class="left-arrow-btn" aria-label="Navigate Left"></button>
     <button class="right-arrow-btn" aria-label="Navigate Right"></button>
-    <!-- Pagination (if needed) -->
-    <!-- <div class="swiper-pagination"></div> -->
 
     <!-- Options Dropdown -->
     <div
@@ -611,24 +608,21 @@
         const autoplayButtons = document.querySelectorAll(".autoplay-toggle");
 
         // Initialize Swiper with Autoplay Disabled by Default
-        var swiper = new Swiper(".mySwiper", {
-          direction: "vertical",
-          loop: false, // Disable looping
-          speed: 200,
+        const swiper = new Swiper(".mySwiper", {
+          direction: "vertical", // Swiper Vertical - direction for phones
+          loop: false,
+          speed: 200, // Speed for vertical navigation
           autoplay: {
             delay: 2500,
             disableOnInteraction: false,
             pauseOnMouseEnter: false,
             stopOnLastSlide: true, // Stop autoplay on the last slide
           },
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
           breakpoints: {
             601: {
               // When window width is >= 601px
-              direction: "horizontal",
+              direction: "horizontal", // Switch to Swiper Navigation
+              speed: 300, // Speed for horizontal navigation
             },
           },
           on: {
@@ -661,12 +655,10 @@
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
             button.classList.remove("playing"); // Switch to Play state
-            // Update aria-label for accessibility
             button.setAttribute("aria-label", "Play Autoplay");
           } else {
             swiper.autoplay.start();
             button.classList.add("playing"); // Switch to Pause state
-            // Update aria-label for accessibility
             button.setAttribute("aria-label", "Pause Autoplay");
           }
         }
@@ -679,7 +671,6 @@
           });
         });
 
-        // Optional: Update Play/Pause button when Swiper slides change
         swiper.on("slideChange", function () {
           // Update buttons' visibility and icon based on autoplay state
           autoplayButtons.forEach(function (button) {
@@ -950,6 +941,9 @@
           optionsBtn.addEventListener("click", function (event) {
             event.stopPropagation(); // Prevent click from toggling the title row
 
+            // Stop autoplay if running
+            stopAutoplayAndUpdateButtons();
+
             const isOpen = dropdownMenu.classList.contains("open");
 
             if (isOpen) {
@@ -1092,6 +1086,8 @@
             // Attach event listener to pencilContainer
             pencilContainer.addEventListener("click", function (event) {
               event.stopPropagation();
+              // Stop autoplay if running
+              stopAutoplayAndUpdateButtons();
               openEditCaptionPopup();
             });
 
@@ -1106,6 +1102,8 @@
             // Attach event listener to addCaptionElement
             addCaptionElement.addEventListener("click", function (event) {
               event.stopPropagation();
+              // Stop autoplay if running
+              stopAutoplayAndUpdateButtons();
               openEditCaptionPopup();
             });
 
@@ -1134,6 +1132,18 @@
           closeEditCaptionPopup(index);
         }
 
+        // Function to stop autoplay and update buttons
+        function stopAutoplayAndUpdateButtons() {
+          if (swiper.autoplay.running) {
+            swiper.autoplay.stop();
+            // Update autoplay buttons
+            autoplayButtons.forEach(function (button) {
+              button.classList.remove("playing");
+              button.setAttribute("aria-label", "Play Autoplay");
+            });
+          }
+        }
+
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
           // Save caption to the active slide
@@ -1149,6 +1159,8 @@
           if (pencilContainer) {
             pencilContainer.addEventListener("click", function (event) {
               event.stopPropagation();
+              // Stop autoplay if running
+              stopAutoplayAndUpdateButtons();
               // Close the dropdown menu if it's open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
@@ -1161,6 +1173,8 @@
           if (addCaptionElement) {
             addCaptionElement.addEventListener("click", function (event) {
               event.stopPropagation();
+              // Stop autoplay if running
+              stopAutoplayAndUpdateButtons();
               // Close the dropdown menu if it's open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
@@ -1190,7 +1204,7 @@
           event.stopPropagation();
         });
 
-        // Keydown event listner on keyboard
+        // Keydown event listener on keyboard
         document.addEventListener("keydown", function (e) {
           // Check if the swiper instance exists
           if (!swiper) return;
