@@ -618,7 +618,7 @@ body {
   background-image: url("../assets/64x64_0022_down-arrow-white.png");
   background-position: center 58%;
   position: relative;
-  top: 1px;
+  top: 2px;
 }
 
 /* Increases the clickable area of navigation arrow buttons to prevent accidently turning the title row on or off */
