@@ -638,7 +638,7 @@
 
         // Function to update the autoplay button states
         function updateAutoplayButtonState() {
-          autoplayButtons.forEach(function (button) {
+          autoplayButtons.forEach((button) => {
             if (swiper.autoplay.running) {
               button.classList.add("playing");
               button.setAttribute("aria-label", "Pause Autoplay");
@@ -653,7 +653,7 @@
         updateAutoplayButtonState();
 
         // Function to toggle autoplay and update button appearance
-        function toggleAutoplay(button) {
+        function toggleAutoplay() {
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
           } else {
@@ -672,7 +672,7 @@
         autoplayButtons.forEach(function (button) {
           button.addEventListener("click", function (e) {
             e.stopPropagation(); // Prevent triggering other click events
-            toggleAutoplay(button);
+            toggleAutoplay();
           });
         });
 
@@ -698,7 +698,6 @@
         const saveCaptionBtn = document.getElementById("save-caption-btn");
 
         // Options Dropdown Menu
-        const optionsBtns = document.querySelectorAll(".options-btn");
         const dropdownMenu = document.getElementById("options-links");
         const closeBtn = document.getElementById("options-close-btn");
         let activeOptionsBtn = null;
@@ -759,8 +758,17 @@
         // Initial update to arrow styles
         updateArrowStyles();
 
-        // Re-run updateArrowStyles on window resize
-        window.addEventListener("resize", updateArrowStyles);
+        // Debounced window resize event
+        let resizeTimeout;
+        window.addEventListener("resize", function () {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            updateArrowStyles();
+            if (dropdownMenu.classList.contains("open")) {
+              positionDropdownMenu();
+            }
+          }, 100);
+        });
 
         // Function to handle slide change if popup is open
         function handleSlideChange() {
@@ -795,29 +803,22 @@
           }
         }
 
-        // Touch and Click Event Handlers for Vertical Navigation
-        downButton.addEventListener("touchstart", handleTouchStart);
-        downButton.addEventListener("touchend", (e) =>
-          handleTouchEnd(e, "next")
-        );
-        downButton.addEventListener("click", (e) => handleClick(e, "next"));
+        // Navigation Buttons and their directions
+        const navigationButtons = [
+          { button: upButton, direction: "prev" },
+          { button: downButton, direction: "next" },
+          { button: leftArrow, direction: "prev" },
+          { button: rightArrow, direction: "next" },
+        ];
 
-        upButton.addEventListener("touchstart", handleTouchStart);
-        upButton.addEventListener("touchend", (e) => handleTouchEnd(e, "prev"));
-        upButton.addEventListener("click", (e) => handleClick(e, "prev"));
-
-        // Touch and Click Event Handlers for Horizontal Navigation
-        leftArrow.addEventListener("touchstart", handleTouchStart);
-        leftArrow.addEventListener("touchend", (e) =>
-          handleTouchEnd(e, "prev")
-        );
-        leftArrow.addEventListener("click", (e) => handleClick(e, "prev"));
-
-        rightArrow.addEventListener("touchstart", handleTouchStart);
-        rightArrow.addEventListener("touchend", (e) =>
-          handleTouchEnd(e, "next")
-        );
-        rightArrow.addEventListener("click", (e) => handleClick(e, "next"));
+        // Attach event listeners to navigation buttons
+        navigationButtons.forEach(({ button, direction }) => {
+          button.addEventListener("touchstart", handleTouchStart);
+          button.addEventListener("touchend", (e) =>
+            handleTouchEnd(e, direction)
+          );
+          button.addEventListener("click", (e) => handleClick(e, direction));
+        });
 
         // Prevent double navigation (touch + click)
         let isTouchActive = false;
@@ -896,19 +897,29 @@
         // Attach click event listener to toggle title-row, excluding the navigation and options buttons
         const swiperContainer = document.querySelector(".swiper");
         swiperContainer.addEventListener("click", function (event) {
+          const target = event.target;
+
           // Check if the clicked element is within the navigation buttons or options buttons
           if (
-            !event.target.closest(".down-arrow-btn") &&
-            !event.target.closest(".up-arrow-btn") &&
-            !event.target.closest(".left-arrow-btn") &&
-            !event.target.closest(".right-arrow-btn") &&
-            !event.target.closest(".options-btn")
+            !target.closest(".down-arrow-btn") &&
+            !target.closest(".up-arrow-btn") &&
+            !target.closest(".left-arrow-btn") &&
+            !target.closest(".right-arrow-btn") &&
+            !target.closest(".options-btn")
           ) {
             if (dropdownMenu.classList.contains("open")) {
               // Close the dropdown menu
-              dropdownMenu.classList.remove("open");
-              dropdownMenu.style.display = "none";
-              activeOptionsBtn = null;
+              closeDropdownMenu();
+            } else if (
+              target.closest(".pencil-container") ||
+              target.closest(".add-new-caption") ||
+              target.closest(".media-item-title:not(.non-interactive)")
+            ) {
+              // Handle caption edit clicks
+              const slide = target.closest(".swiper-slide");
+              if (slide) {
+                handleCaptionEditClick(event, slide);
+              }
             } else {
               toggleTitleRow();
             }
@@ -940,8 +951,9 @@
           dropdownMenu.style.visibility = "visible";
         }
 
-        optionsBtns.forEach(function (optionsBtn) {
-          optionsBtn.addEventListener("click", function (event) {
+        document.addEventListener("click", function (event) {
+          const optionsButton = event.target.closest(".options-btn");
+          if (optionsButton) {
             event.stopPropagation(); // Prevent click from toggling the title row
 
             // Stop autoplay if running
@@ -956,14 +968,14 @@
               activeOptionsBtn = null;
             } else {
               // Set the active options button
-              activeOptionsBtn = optionsBtn;
+              activeOptionsBtn = optionsButton;
 
               dropdownMenu.classList.add("open");
 
               // Position the dropdown menu
               positionDropdownMenu();
             }
-          });
+          }
         });
 
         // Dropdown Close Button
@@ -977,13 +989,6 @@
         // Prevent event propagation when clicking inside the dropdown menu
         dropdownMenu.addEventListener("click", function (event) {
           event.stopPropagation();
-        });
-
-        // Reposition the dropdown menu on window resize
-        window.addEventListener("resize", function () {
-          if (dropdownMenu.classList.contains("open")) {
-            positionDropdownMenu();
-          }
         });
 
         // Function to open the edit caption popup
@@ -1092,12 +1097,7 @@
               closeDropdownMenu();
             }
 
-            // Attach event listener to pencilContainer
-            pencilContainer.addEventListener("click", function (event) {
-              handleCaptionEditClick(event, slide);
-            });
-
-            // Create "Add a Caption" element
+            // Append pencilContainer and addCaptionElement to pencilTitleRow
             const addCaptionElement = document.createElement("p");
             addCaptionElement.classList.add(
               "media-item-title",
@@ -1105,12 +1105,6 @@
             );
             addCaptionElement.textContent = "Add a Caption";
 
-            // Attach event listener to addCaptionElement
-            addCaptionElement.addEventListener("click", function (event) {
-              handleCaptionEditClick(event, slide);
-            });
-
-            // Append pencilContainer and addCaptionElement to pencilTitleRow
             pencilTitleRow.appendChild(pencilContainer);
             pencilTitleRow.appendChild(addCaptionElement);
 
@@ -1123,11 +1117,6 @@
             const titleElement = document.createElement("p");
             titleElement.classList.add("media-item-title");
             titleElement.textContent = newCaption;
-
-            // Attach event listener to titleElement
-            titleElement.addEventListener("click", function (event) {
-              handleCaptionEditClick(event, slide);
-            });
 
             // Append titleElement to pencilTitleRow
             pencilTitleRow.appendChild(titleElement);
@@ -1156,41 +1145,14 @@
           openEditCaptionPopup(slide);
         }
 
-        // Attach event listeners to pencil icons and "Add a Caption" elements
-        swiper.slides.forEach((slide) => {
-          const pencilContainer = slide.querySelector(".pencil-container");
-          const addCaptionElement = slide.querySelector(".add-new-caption");
-          const titleElement = slide.querySelector(
-            ".media-item-title:not(.add-new-caption)"
-          );
-
-          if (pencilContainer) {
-            pencilContainer.addEventListener("click", function (event) {
-              handleCaptionEditClick(event, slide);
-            });
-          }
-
-          if (addCaptionElement) {
-            addCaptionElement.addEventListener("click", function (event) {
-              handleCaptionEditClick(event, slide);
-            });
-          }
-
-          if (titleElement) {
-            titleElement.addEventListener("click", function (event) {
-              handleCaptionEditClick(event, slide);
-            });
-          }
-        });
-
         // Close the edit caption popup when clicking outside of it
         document.addEventListener("click", function (event) {
           if (
             !editCaptionPopup.contains(event.target) &&
-            !event.target.classList.contains("options-btn") &&
+            !event.target.closest(".options-btn") &&
             !event.target.closest(".pencil-container") &&
-            !event.target.classList.contains("add-new-caption") &&
-            !event.target.classList.contains("media-item-title")
+            !event.target.closest(".add-new-caption") &&
+            !event.target.closest(".media-item-title")
           ) {
             if (!editCaptionPopup.classList.contains("hidden")) {
               // Simulate clicking the "Save" button to save current caption
