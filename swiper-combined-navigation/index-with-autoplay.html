@@ -612,12 +612,7 @@
           direction: "vertical", // Swiper Vertical - direction for phones
           loop: false,
           speed: 200, // Speed for vertical navigation
-          autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: false,
-            stopOnLastSlide: true, // Stop autoplay on the last slide
-          },
+          autoplay: false,
           breakpoints: {
             601: {
               // When window width is >= 601px
@@ -641,26 +636,36 @@
           },
         });
 
-        // Immediately pause autoplay after initialization
-        swiper.autoplay.stop();
+        // Function to update the autoplay button states
+        function updateAutoplayButtonState() {
+          autoplayButtons.forEach(function (button) {
+            if (swiper.autoplay.running) {
+              button.classList.add("playing");
+              button.setAttribute("aria-label", "Pause Autoplay");
+            } else {
+              button.classList.remove("playing");
+              button.setAttribute("aria-label", "Play Autoplay");
+            }
+          });
+        }
 
         // Initialize Play/Pause buttons to show Play state
-        autoplayButtons.forEach(function (button) {
-          button.classList.remove("playing"); // Ensure initial state is Play
-          button.setAttribute("aria-label", "Play Autoplay"); // Accessibility
-        });
+        updateAutoplayButtonState();
 
         // Function to toggle autoplay and update button appearance
         function toggleAutoplay(button) {
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
-            button.classList.remove("playing"); // Switch to Play state
-            button.setAttribute("aria-label", "Play Autoplay");
           } else {
+            swiper.params.autoplay = {
+              delay: 2500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: false,
+              stopOnLastSlide: true,
+            };
             swiper.autoplay.start();
-            button.classList.add("playing"); // Switch to Pause state
-            button.setAttribute("aria-label", "Pause Autoplay");
           }
+          updateAutoplayButtonState();
         }
 
         // Attach event listeners to all Play/Pause buttons
@@ -671,21 +676,16 @@
           });
         });
 
-        swiper.on("slideChange", function () {
-          // Update buttons' visibility and icon based on autoplay state
-          autoplayButtons.forEach(function (button) {
-            if (swiper.autoplay.running) {
-              button.classList.add("playing");
-              button.setAttribute("aria-label", "Pause Autoplay");
-            } else {
-              button.classList.remove("playing");
-              button.setAttribute("aria-label", "Play Autoplay");
-            }
-          });
-        });
+        // Function to stop autoplay and update buttons
+        function stopAutoplayAndUpdateButtons() {
+          if (swiper.autoplay.running) {
+            swiper.autoplay.stop();
+            updateAutoplayButtonState();
+          }
+        }
 
         // Navigation Buttons
-        const upButton = document.querySelector(".up-arrow-btn");
+        const upButton = document.querySelector(".up-arrow-btn"); // Up arrow is hidden
         const downButton = document.querySelector(".down-arrow-btn");
         const leftArrow = document.querySelector(".left-arrow-btn");
         const rightArrow = document.querySelector(".right-arrow-btn");
@@ -702,6 +702,9 @@
         const dropdownMenu = document.getElementById("options-links");
         const closeBtn = document.getElementById("options-close-btn");
         let activeOptionsBtn = null;
+
+        // Declare currentEditingSlide to keep track of the slide being edited
+        let currentEditingSlide = null; // Keeps track of the slide being edited
 
         // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
@@ -763,7 +766,7 @@
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
             // Save the caption to the slide being left using swiper.previousIndex
-            saveCaptionToSlide(swiper.previousIndex);
+            saveCaptionToSlide();
           }
         }
 
@@ -984,9 +987,9 @@
         });
 
         // Function to open the edit caption popup
-        function openEditCaptionPopup() {
-          const currentSlide = swiper.slides[swiper.activeIndex];
-          const titleElement = currentSlide.querySelector(".media-item-title");
+        function openEditCaptionPopup(slide) {
+          currentEditingSlide = slide; // Store the current slide
+          const titleElement = slide.querySelector(".media-item-title");
 
           // Trim any unnecessary spaces and ensure text is clean.
           let captionText = "";
@@ -1007,23 +1010,25 @@
           editCaptionTextarea.focus();
 
           // Hide the title row while editing
-          const titleRow = currentSlide.querySelector(".title-row");
+          const titleRow = slide.querySelector(".title-row");
           if (titleRow) {
             titleRow.classList.add("hidden-title-row");
           }
         }
 
         // Function to close the edit caption popup
-        function closeEditCaptionPopup(index) {
+        function closeEditCaptionPopup() {
           // Hide the popup
           editCaptionPopup.classList.add("hidden");
-          editCaptionTextarea.focus();
+          editCaptionTextarea.blur();
 
           // Show the title row of the slide being saved
-          const targetSlide = swiper.slides[index];
-          const titleRow = targetSlide.querySelector(".title-row");
-          if (titleRow) {
-            titleRow.classList.remove("hidden-title-row");
+          if (currentEditingSlide) {
+            const titleRow = currentEditingSlide.querySelector(".title-row");
+            if (titleRow) {
+              titleRow.classList.remove("hidden-title-row");
+            }
+            currentEditingSlide = null; // Reset after closing
           }
         }
 
@@ -1039,20 +1044,21 @@
         editCaptionOption.addEventListener("click", function (event) {
           event.stopPropagation();
           closeDropdownMenu(); // Close the options dropdown
-          openEditCaptionPopup();
+          // Get the current slide
+          const currentSlide = swiper.slides[swiper.activeIndex];
+          openEditCaptionPopup(currentSlide);
         });
 
-        // Function to save caption to a specific slide
-        function saveCaptionToSlide(index) {
+        // Function to save caption to the current editing slide
+        function saveCaptionToSlide() {
+          if (!currentEditingSlide) return; // Safety check
+
           // Get the new caption from the textarea with trim to remove unnecessary whitespace
           const newCaption = editCaptionTextarea.value.trim();
 
-          // Get the target slide based on the provided index
-          const targetSlide = swiper.slides[index];
-          if (!targetSlide) return; // Safety check
-
-          // Get the pencilTitleRow within the target slide
-          const pencilTitleRow = targetSlide.querySelector(".pencil-title-row");
+          // Get the pencilTitleRow within the current editing slide
+          const pencilTitleRow =
+            currentEditingSlide.querySelector(".pencil-title-row");
           if (!pencilTitleRow) return; // Safety check
 
           // Remove all existing title elements
@@ -1064,6 +1070,9 @@
           const existingPencilContainers =
             pencilTitleRow.querySelectorAll(".pencil-container");
           existingPencilContainers.forEach((element) => element.remove());
+
+          // Capture the slide reference before resetting currentEditingSlide
+          const slide = currentEditingSlide;
 
           if (newCaption === "") {
             // When caption is empty, show pencil icon and "Add a Caption"
@@ -1085,10 +1094,7 @@
 
             // Attach event listener to pencilContainer
             pencilContainer.addEventListener("click", function (event) {
-              event.stopPropagation();
-              // Stop autoplay if running
-              stopAutoplayAndUpdateButtons();
-              openEditCaptionPopup();
+              handleCaptionEditClick(event, slide);
             });
 
             // Create "Add a Caption" element
@@ -1101,10 +1107,7 @@
 
             // Attach event listener to addCaptionElement
             addCaptionElement.addEventListener("click", function (event) {
-              event.stopPropagation();
-              // Stop autoplay if running
-              stopAutoplayAndUpdateButtons();
-              openEditCaptionPopup();
+              handleCaptionEditClick(event, slide);
             });
 
             // Append pencilContainer and addCaptionElement to pencilTitleRow
@@ -1121,65 +1124,61 @@
             titleElement.classList.add("media-item-title");
             titleElement.textContent = newCaption;
 
+            // Attach event listener to titleElement
+            titleElement.addEventListener("click", function (event) {
+              handleCaptionEditClick(event, slide);
+            });
+
             // Append titleElement to pencilTitleRow
             pencilTitleRow.appendChild(titleElement);
 
-            // Add "non-interactive" class to pencilTitleRow
-            pencilTitleRow.classList.add("non-interactive");
+            // Remove "non-interactive" class from pencilTitleRow
+            pencilTitleRow.classList.remove("non-interactive");
           }
 
           // Close the popup and show the correct title row
-          closeEditCaptionPopup(index);
-        }
-
-        // Function to stop autoplay and update buttons
-        function stopAutoplayAndUpdateButtons() {
-          if (swiper.autoplay.running) {
-            swiper.autoplay.stop();
-            // Update autoplay buttons
-            autoplayButtons.forEach(function (button) {
-              button.classList.remove("playing");
-              button.setAttribute("aria-label", "Play Autoplay");
-            });
-          }
+          closeEditCaptionPopup();
         }
 
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
-          // Save caption to the active slide
-          saveCaptionToSlide(swiper.activeIndex);
+          // Save caption to the current editing slide
+          saveCaptionToSlide();
         });
 
-        // Event listener for clicking on "Add a Caption" or the pencil icon
+        // Function to handle caption edit clicks
+        function handleCaptionEditClick(event, slide) {
+          event.stopPropagation();
+          stopAutoplayAndUpdateButtons();
+          if (dropdownMenu.classList.contains("open")) {
+            closeDropdownMenu();
+          }
+          openEditCaptionPopup(slide);
+        }
+
+        // Attach event listeners to pencil icons and "Add a Caption" elements
         swiper.slides.forEach((slide) => {
           const pencilContainer = slide.querySelector(".pencil-container");
           const addCaptionElement = slide.querySelector(".add-new-caption");
+          const titleElement = slide.querySelector(
+            ".media-item-title:not(.add-new-caption)"
+          );
 
-          // Click on the pencil icon
           if (pencilContainer) {
             pencilContainer.addEventListener("click", function (event) {
-              event.stopPropagation();
-              // Stop autoplay if running
-              stopAutoplayAndUpdateButtons();
-              // Close the dropdown menu if it's open
-              if (dropdownMenu.classList.contains("open")) {
-                closeDropdownMenu();
-              }
-              openEditCaptionPopup();
+              handleCaptionEditClick(event, slide);
             });
           }
 
-          // Click on "Add a Caption"
           if (addCaptionElement) {
             addCaptionElement.addEventListener("click", function (event) {
-              event.stopPropagation();
-              // Stop autoplay if running
-              stopAutoplayAndUpdateButtons();
-              // Close the dropdown menu if it's open
-              if (dropdownMenu.classList.contains("open")) {
-                closeDropdownMenu();
-              }
-              openEditCaptionPopup();
+              handleCaptionEditClick(event, slide);
+            });
+          }
+
+          if (titleElement) {
+            titleElement.addEventListener("click", function (event) {
+              handleCaptionEditClick(event, slide);
             });
           }
         });
@@ -1190,7 +1189,8 @@
             !editCaptionPopup.contains(event.target) &&
             !event.target.classList.contains("options-btn") &&
             !event.target.closest(".pencil-container") &&
-            !event.target.classList.contains("add-new-caption")
+            !event.target.classList.contains("add-new-caption") &&
+            !event.target.classList.contains("media-item-title")
           ) {
             if (!editCaptionPopup.classList.contains("hidden")) {
               // Simulate clicking the "Save" button to save current caption
