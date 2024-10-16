@@ -607,6 +607,9 @@
         // Select all Play/Pause buttons
         const autoplayButtons = document.querySelectorAll(".autoplay-toggle");
 
+        // Declare a flag to track the first autoplay slide
+        let firstAutoplaySlide = false;
+
         // Initialize Swiper with Autoplay Disabled by Default
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Swiper Vertical - direction for phones
@@ -623,15 +626,24 @@
           on: {
             slideChange: function () {
               updateArrowStyles();
+
+              // Adjust autoplay delay after the first slide transition
+              if (swiper.autoplay.running && firstAutoplaySlide) {
+                swiper.params.autoplay.delay = 2500;
+                firstAutoplaySlide = false;
+                swiper.autoplay.stop();
+                swiper.autoplay.start();
+              }
+
+              // Close the dropdown if it is open
+              if (dropdownMenu.classList.contains("open")) {
+                closeDropdownMenu();
+              }
             },
             reachBeginning: updateArrowStyles,
             reachEnd: updateArrowStyles,
             slideChangeTransitionStart: function () {
               handleSlideChange();
-              // Close the dropdown if it is open
-              if (dropdownMenu.classList.contains("open")) {
-                closeDropdownMenu();
-              }
             },
           },
         });
@@ -657,12 +669,11 @@
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
           } else {
-            swiper.params.autoplay = {
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: false,
-              stopOnLastSlide: true,
-            };
+            swiper.params.autoplay.delay = 500;
+            swiper.params.autoplay.disableOnInteraction = false;
+            swiper.params.autoplay.pauseOnMouseEnter = false;
+            swiper.params.autoplay.stopOnLastSlide = true;
+            firstAutoplaySlide = true;
             swiper.autoplay.start();
           }
           updateAutoplayButtonState();
