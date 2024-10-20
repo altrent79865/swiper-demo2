@@ -42,18 +42,52 @@
                   >SAVEUR.COM</a
                 >
               </p>
-              <a
-                href="https://www.saveur.com"
-                class="link-button"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="../assets/jump_link_white.png"
-                  alt="icon"
-                  class="button-icon"
-                />
-                <span>Open Link</span>
-              </a>
+              <div class="link-btn-row">
+                <!-- Open Link Button -->
+                <a
+                  href="https://www.saveur.com"
+                  class="link-button"
+                  style="width: 44%; max-width: 118px"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="../assets/jump_link_white.png"
+                    alt="icon"
+                    class="button-icon"
+                    style="margin-right: 4px"
+                  />
+                  <span>Open Link</span>
+                </a>
+
+                <!-- Save Link Button with K Icon -->
+                <a
+                  href="#"
+                  class="link-button save-button"
+                  style="
+                    max-height: 31px;
+                    max-width: 118px;
+                    margin-left: 10px;
+                    position: relative;
+                    top: 2px;
+                    width: 44%;
+                  "
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="../assets/k_logo.png"
+                    alt="icon"
+                    style="
+                      width: 21px;
+                      height: auto;
+                      object-fit: contain;
+                      margin-right: 4px;
+                      margin-left: -1px;
+                    "
+                    class="kohono-icon"
+                  />
+                  <span style="padding-right: 12px">Save Link</span>
+                </a>
+              </div>
             </div>
           </div>
           <div class="title-row">
@@ -308,6 +342,7 @@
               ><span class="x-line"></span
             ></a>
             <div class="pencil-title-row non-interactive">
+              <!-- <img src="../assets/pencil-white.png" class="pencil" alt="" /> -->
               <p class="media-item-title">Fruit Plate with Pineapple & Melon</p>
             </div>
             <!-- Options Button -->
@@ -606,31 +641,6 @@
         // Declare a flag to track the first autoplay slide
         let firstAutoplaySlide = false;
 
-        // Navigation Buttons
-        const upButton = document.querySelector(".up-arrow-btn"); // Up arrow is hidden
-        const downButton = document.querySelector(".down-arrow-btn");
-        const leftArrowBtn = document.querySelector(".left-arrow-btn");
-        const rightArrowBtn = document.querySelector(".right-arrow-btn");
-
-        // UI Elements
-        const titleRows = document.querySelectorAll(".title-row");
-        const titleRowBottoms = document.querySelectorAll(".title-row-bottom");
-
-        // Elements for Edit Caption functionality
-        const editCaptionPopup = document.getElementById("edit-caption-popup");
-        const editCaptionTextarea = document.getElementById(
-          "edit-caption-textarea"
-        );
-        const saveCaptionBtn = document.getElementById("save-caption-btn");
-
-        // Options Dropdown Menu
-        const dropdownMenu = document.getElementById("options-links");
-        const closeBtn = document.getElementById("options-close-btn");
-        let activeOptionsBtn = null;
-
-        // Declare currentEditingSlide to keep track of the slide being edited
-        let currentEditingSlide = null; // Keeps track of the slide being edited
-
         // Initialize Swiper with Autoplay Disabled by Default
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Swiper Vertical - direction for phones
@@ -650,7 +660,7 @@
 
               // Adjust autoplay delay after the first slide transition
               if (swiper.autoplay.running && firstAutoplaySlide) {
-                swiper.params.autoplay.delay = 2500;
+                swiper.params.autoplay.delay = 3000;
                 firstAutoplaySlide = false;
                 swiper.autoplay.stop();
                 swiper.autoplay.start();
@@ -675,29 +685,9 @@
             if (swiper.autoplay.running) {
               button.classList.add("playing");
               button.setAttribute("aria-label", "Pause Autoplay");
-
-              // Show Pause icon and hide Play icon
-              const playIcon = button.querySelector(".play-icon");
-              const pauseIcon = button.querySelector(".pause-icon");
-              if (playIcon && pauseIcon) {
-                playIcon.classList.add("hidden-icon");
-                pauseIcon.classList.remove("hidden-icon");
-                pauseIcon.classList.add("visible-icon");
-                playIcon.classList.remove("visible-icon");
-              }
             } else {
               button.classList.remove("playing");
               button.setAttribute("aria-label", "Play Autoplay");
-
-              // Show Play icon and hide Pause icon
-              const playIcon = button.querySelector(".play-icon");
-              const pauseIcon = button.querySelector(".pause-icon");
-              if (playIcon && pauseIcon) {
-                playIcon.classList.remove("hidden-icon");
-                playIcon.classList.add("visible-icon");
-                pauseIcon.classList.add("hidden-icon");
-                pauseIcon.classList.remove("visible-icon");
-              }
             }
           });
         }
@@ -709,8 +699,6 @@
         function toggleAutoplay() {
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
-            // Show UI elements when autoplay is stopped
-            showUIElements();
           } else {
             swiper.params.autoplay.delay = 500;
             swiper.params.autoplay.disableOnInteraction = false;
@@ -718,8 +706,6 @@
             swiper.params.autoplay.stopOnLastSlide = true;
             firstAutoplaySlide = true;
             swiper.autoplay.start();
-            // Hide left and right arrows and other UI elements when autoplay starts
-            hideUIElementsForAutoplay();
           }
           updateAutoplayButtonState();
         }
@@ -737,10 +723,29 @@
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
             updateAutoplayButtonState();
-            // Show UI elements when autoplay is stopped
-            showUIElements();
           }
         }
+
+        // Navigation Buttons
+        const upButton = document.querySelector(".up-arrow-btn"); // Up arrow is hidden
+        const downButton = document.querySelector(".down-arrow-btn");
+        const leftArrow = document.querySelector(".left-arrow-btn");
+        const rightArrow = document.querySelector(".right-arrow-btn");
+
+        // Elements for Edit Caption functionality
+        const editCaptionPopup = document.getElementById("edit-caption-popup");
+        const editCaptionTextarea = document.getElementById(
+          "edit-caption-textarea"
+        );
+        const saveCaptionBtn = document.getElementById("save-caption-btn");
+
+        // Options Dropdown Menu
+        const dropdownMenu = document.getElementById("options-links");
+        const closeBtn = document.getElementById("options-close-btn");
+        let activeOptionsBtn = null;
+
+        // Declare currentEditingSlide to keep track of the slide being edited
+        let currentEditingSlide = null; // Keeps track of the slide being edited
 
         // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
@@ -771,23 +776,23 @@
           } else {
             // Update Horizontal Navigation
             if (swiper.isEnd) {
-              rightArrowBtn.classList.add("disabled");
-              rightArrowBtn.style.opacity = "0.2";
-              rightArrowBtn.setAttribute("disabled", true);
+              rightArrow.classList.add("disabled");
+              rightArrow.style.opacity = "0.2";
+              rightArrow.setAttribute("disabled", true);
             } else {
-              rightArrowBtn.classList.remove("disabled");
-              rightArrowBtn.style.opacity = "1";
-              rightArrowBtn.removeAttribute("disabled");
+              rightArrow.classList.remove("disabled");
+              rightArrow.style.opacity = "1";
+              rightArrow.removeAttribute("disabled");
             }
 
             if (swiper.isBeginning) {
-              leftArrowBtn.classList.add("disabled");
-              leftArrowBtn.style.opacity = "0.2";
-              leftArrowBtn.setAttribute("disabled", true);
+              leftArrow.classList.add("disabled");
+              leftArrow.style.opacity = "0.2";
+              leftArrow.setAttribute("disabled", true);
             } else {
-              leftArrowBtn.classList.remove("disabled");
-              leftArrowBtn.style.opacity = "1";
-              leftArrowBtn.removeAttribute("disabled");
+              leftArrow.classList.remove("disabled");
+              leftArrow.style.opacity = "1";
+              leftArrow.removeAttribute("disabled");
             }
           }
         }
@@ -844,8 +849,8 @@
         const navigationButtons = [
           { button: upButton, direction: "prev" },
           { button: downButton, direction: "next" },
-          { button: leftArrowBtn, direction: "prev" },
-          { button: rightArrowBtn, direction: "next" },
+          { button: leftArrow, direction: "prev" },
+          { button: rightArrow, direction: "next" },
         ];
 
         // Attach event listeners to navigation buttons
@@ -897,10 +902,15 @@
           hasSwipedOnTouch = true;
         });
 
-        // Function to toggle the title-row and down arrow-button visibility
+        // Function to toggle the title-row and navigation buttons visibility, along with down arrow-button for slider vertical.
         let isTitleRowVisible = true; // Start with title-row visible
 
         function toggleTitleRow() {
+          const titleRows = document.querySelectorAll(".title-row");
+          const titleRowBottoms =
+            document.querySelectorAll(".title-row-bottom");
+          const downArrowBtn = document.querySelector(".down-arrow-btn");
+
           if (isTitleRowVisible) {
             // Hide title rows
             titleRows.forEach((titleRow) =>
@@ -910,14 +920,7 @@
               titleRowBottom.classList.add("hidden-title-row")
             );
             // Hide down-arrow-btn
-            downButton.classList.add("hidden-title-row");
-
-            // Hide play/pause buttons only if autoplay is NOT running
-            if (!swiper.autoplay.running) {
-              autoplayButtons.forEach((button) =>
-                button.classList.add("hidden-title-row")
-              );
-            }
+            downArrowBtn.classList.add("hidden-title-row");
           } else {
             // Show title rows
             titleRows.forEach((titleRow) =>
@@ -927,92 +930,31 @@
               titleRowBottom.classList.remove("hidden-title-row")
             );
             // Show down-arrow-btn
-            downButton.classList.remove("hidden-title-row");
-
-            // Show play/pause buttons only if autoplay is NOT running
-            if (!swiper.autoplay.running) {
-              autoplayButtons.forEach((button) =>
-                button.classList.remove("hidden-title-row")
-              );
-            }
+            downArrowBtn.classList.remove("hidden-title-row");
           }
 
           isTitleRowVisible = !isTitleRowVisible;
         }
 
-        // Function to hide UI elements when autoplay starts
-        function hideUIElementsForAutoplay() {
-          // Hide title rows
-          titleRows.forEach((titleRow) =>
-            titleRow.classList.add("hidden-title-row")
-          );
-          titleRowBottoms.forEach((titleRowBottom) =>
-            titleRowBottom.classList.add("hidden-title-row")
-          );
-          // Hide down-arrow-btn
-          downButton.classList.add("hidden-title-row");
-          // Hide left and right arrows when entering autoplay
-          hideLeftRightArrows();
-          // **Ensure Play/Pause buttons remain visible during autoplay**
-          ensurePlayPauseVisible();
-        }
-
-        // Function to show UI elements when user interacts
-        function showUIElements() {
-          // Show title rows
-          titleRows.forEach((titleRow) =>
-            titleRow.classList.remove("hidden-title-row")
-          );
-          titleRowBottoms.forEach((titleRowBottom) =>
-            titleRowBottom.classList.remove("hidden-title-row")
-          );
-          // Show down-arrow-btn
-          downButton.classList.remove("hidden-title-row");
-          // Show left and right arrows when user interacts
-          showLeftRightArrows();
-          // **Ensure Play/Pause buttons remain visible during autoplay**
-          ensurePlayPauseVisible();
-        }
-
-        // Function to hide left and right arrow buttons when entering autoplay
-        function hideLeftRightArrows() {
-          leftArrowBtn.classList.add("hidden-title-row");
-          rightArrowBtn.classList.add("hidden-title-row");
-        }
-
-        // Function to show left and right arrow buttons when interacting during autoplay
-        function showLeftRightArrows() {
-          leftArrowBtn.classList.remove("hidden-title-row");
-          rightArrowBtn.classList.remove("hidden-title-row");
-        }
-
-        // Ensure Play/Pause buttons are always visible during autoplay
-        function ensurePlayPauseVisible() {
-          autoplayButtons.forEach((button) => {
-            button.classList.remove("hidden-title-row");
+        // Event listener for Save Link button to prevent title-row toggle
+        document
+          .querySelector(".save-button")
+          .addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevents event from reaching the title-row toggle
           });
-        }
 
-        // Attach touchstart event listener to show UI elements when user touches the screen
+        // Attach click event listener to toggle title-row, excluding the navigation and options buttons
         const swiperContainer = document.querySelector(".swiper");
-        swiperContainer.addEventListener("touchstart", function (event) {
-          if (swiper.autoplay.running) {
-            showUIElements();
-          }
-        });
-
-        // Also attach click event listener for desktop users
         swiperContainer.addEventListener("click", function (event) {
           const target = event.target;
 
-          // Check if the clicked element is within the navigation buttons, options buttons, or autoplay buttons
+          // Check if the clicked element is within the navigation buttons or options buttons
           if (
             !target.closest(".down-arrow-btn") &&
             !target.closest(".up-arrow-btn") &&
             !target.closest(".left-arrow-btn") &&
             !target.closest(".right-arrow-btn") &&
-            !target.closest(".options-btn") &&
-            !target.closest(".autoplay-toggle") // Ensure Play/Pause buttons are excluded
+            !target.closest(".options-btn")
           ) {
             if (dropdownMenu.classList.contains("open")) {
               // Close the dropdown menu
@@ -1028,11 +970,7 @@
                 handleCaptionEditClick(event, slide);
               }
             } else {
-              if (swiper.autoplay.running) {
-                showUIElements();
-              } else {
-                toggleTitleRow();
-              }
+              toggleTitleRow();
             }
           }
         });
@@ -1301,35 +1239,6 @@
             }
           }
         });
-
-        // Add Event Listeners for Swiper's Autoplay Events
-        swiper.on("autoplayStart", function () {
-          console.log("Autoplay started");
-          updateAutoplayButtonState();
-        });
-
-        swiper.on("autoplayStop", function () {
-          console.log("Autoplay stopped");
-          updateAutoplayButtonState();
-        });
-
-        // Function to hide left and right arrow buttons when entering autoplay
-        function hideLeftRightArrows() {
-          leftArrowBtn.classList.add("hidden-title-row");
-          rightArrowBtn.classList.add("hidden-title-row");
-        }
-
-        // Function to show left and right arrow buttons when interacting during autoplay
-        function showLeftRightArrows() {
-          leftArrowBtn.classList.remove("hidden-title-row");
-          rightArrowBtn.classList.remove("hidden-title-row");
-        }
-
-        // Ensure Play/Pause buttons are correctly displayed if autoplay is running on page load
-        if (swiper.autoplay.running) {
-          ensurePlayPauseVisible();
-          updateAutoplayButtonState(); // Ensure correct icon is displayed
-        }
       });
     </script>
   </body>

@@ -32,7 +32,7 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* Show Swiper when initialized.  Fixes flash of getting wrong title when refreshing page */
+/* Show Swiper when initialized.  Fixed flash of getting wrong title when refreshing page */
 .swiper.swiper-initialized {
   opacity: 1;
 }
@@ -73,16 +73,7 @@ body {
 
 /* Hides the title-row when clicking on page and toggling title row. */
 .hidden-title-row {
-  display: none !important;
-}
-
-/* .hidden-icon and .visible-icon were changes in an attempt to have the pause button show when autoplay is on. */
-.hidden-icon {
-  display: none !important;
-}
-
-.visible-icon {
-  display: inline !important;
+  display: none;
 }
 
 /* Close Button Styles */
@@ -164,9 +155,10 @@ body {
   margin-right: -14px;
   position: relative;
   z-index: 200;
-  filter: drop-shadow(1px 1px 2px rgba(22, 22, 22, 0.5))
-    drop-shadow(2px 2px 4px rgba(27, 27, 27, 0.3))
-    drop-shadow(0px 0px 5px rgba(44, 44, 44, 0.25));
+  /* Multiple Drop Shadows to match media-item-title  */
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))
+    drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.25));
 }
 
 .title-row .add-new-caption {
@@ -220,7 +212,7 @@ body {
 /* Dropdown from Options button */
 /* Initially hide links */
 .options-dropdown {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background-color: rgba(0, 0, 0, 0.9);
@@ -232,12 +224,7 @@ body {
   width: 220px;
   z-index: 1000;
   transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.options-dropdown.open {
-  display: flex; /* Show when open */
-  opacity: 1;
-  transform: translateY(0);
+  display: none;
 }
 
 .swiper-vertical-options-dropdown {
@@ -358,6 +345,7 @@ body {
   top: 50%;
   left: 50%;
   opacity: 0;
+  /* transform: translate(-50%, -50%); */
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
   z-index: 300;
@@ -385,10 +373,10 @@ body {
 }
 
 /* SVG Paths */
-/* .autoplay-toggle .icon polygon,
+.autoplay-toggle .icon polygon,
 .autoplay-toggle .icon rect {
   fill: white;
-} */
+}
 
 /* Hide Play/Pause Button on Non-Active Slides */
 .swiper-slide:not(.swiper-slide-active) .autoplay-toggle {
@@ -538,19 +526,25 @@ body {
   letter-spacing: 0.1px;
 }
 
+.link-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
 /* Button on link to Open link */
 .link-button {
   display: inline-flex;
   align-items: center;
   border: 1px solid #696969;
-  padding: 6px 16px 6px 10px;
+  padding: 2px 16px 2px 9px;
   text-decoration: none;
   color: white;
   background: none;
   cursor: pointer;
   gap: 5px;
-  max-width: 125px;
-  width: 100%;
+  max-width: 118px;
   white-space: nowrap;
   margin-left: 4px;
 }
@@ -561,7 +555,7 @@ body {
   object-fit: contain;
 }
 
-/* Prevents double-tap zoom, but still allows taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
+/* Prevents double-tap zoom, but still allow taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
 .left-arrow-btn,
 .right-arrow-btn,
 .down-arrow-btn,
@@ -797,7 +791,7 @@ body {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
     transform: translateX(100%);
-    animation: slide-in 0.2s forwards;
+    animation: slide-in 0.3s forwards;
   }
 
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
@@ -841,7 +835,6 @@ body {
     width: initial;
     position: initial;
     padding: initial;
-    padding-right: 14px;
     margin-top: initial;
     height: initial;
     margin-left: 10px;
