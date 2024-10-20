@@ -915,13 +915,6 @@
           isTitleRowVisible = !isTitleRowVisible;
         }
 
-        // Event listener for Save Link button to prevent title-row toggle
-        document
-          .querySelector(".save-button")
-          .addEventListener("click", function (event) {
-            event.stopPropagation(); // Prevents event from reaching the title-row toggle
-          });
-
         // Attach click event listener to toggle title-row, excluding the navigation and options buttons
         const swiperContainer = document.querySelector(".swiper");
         swiperContainer.addEventListener("click", function (event) {
@@ -933,7 +926,9 @@
             !target.closest(".up-arrow-btn") &&
             !target.closest(".left-arrow-btn") &&
             !target.closest(".right-arrow-btn") &&
-            !target.closest(".options-btn")
+            !target.closest(".options-btn") &&
+            !target.closest(".save-button") &&
+            !target.closest(".link-button")
           ) {
             if (dropdownMenu.classList.contains("open")) {
               // Close the dropdown menu
