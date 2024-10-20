@@ -513,7 +513,7 @@ body {
 }
 
 .link-clickable-text-wrapper {
-  margin-top: 20px;
+  margin-top: 14px;
   margin-bottom: 16px;
 }
 
@@ -545,6 +545,8 @@ body {
   cursor: pointer;
   gap: 5px;
   max-width: 118px;
+  width: 44%;
+  height: 34px;
   white-space: nowrap;
   margin-left: 4px;
 }
@@ -553,6 +555,28 @@ body {
   width: 16px;
   height: 16px;
   object-fit: contain;
+  margin-right: 4px;
+}
+
+.save-button {
+  height: 34px;
+  max-width: 118px;
+  margin-left: 10px;
+  position: relative;
+  /* top: 2px; */
+  width: 44%;
+}
+
+.save-button img {
+  width: 21px;
+  height: auto;
+  object-fit: contain;
+  margin-right: 4px;
+  margin-left: -1px;
+}
+
+.save-link-text {
+  padding-right: 12px;
 }
 
 /* Prevents double-tap zoom, but still allow taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
