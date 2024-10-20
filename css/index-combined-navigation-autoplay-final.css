@@ -572,7 +572,7 @@ body {
   height: auto;
   object-fit: contain;
   margin-right: 4px;
-  margin-left: -1px;
+  /* margin-left: -1px; */
 }
 
 .save-link-text {
