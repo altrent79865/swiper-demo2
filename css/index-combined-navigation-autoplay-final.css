@@ -513,8 +513,8 @@ body {
 }
 
 .link-clickable-text-wrapper {
-  margin-top: 14px;
-  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-bottom: 18px;
 }
 
 .link-clickable-text {
@@ -546,7 +546,7 @@ body {
   gap: 5px;
   max-width: 118px;
   width: 44%;
-  height: 34px;
+  height: 36px;
   white-space: nowrap;
   margin-left: 4px;
 }
@@ -559,7 +559,7 @@ body {
 }
 
 .save-button {
-  height: 34px;
+  height: 36px;
   max-width: 118px;
   margin-left: 10px;
   position: relative;
