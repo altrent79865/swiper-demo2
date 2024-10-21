@@ -83,7 +83,6 @@ body {
   overflow: visible;
   z-index: 300;
 }
-
 /* Close Button Styles */
 .close-btn {
   display: flex;
@@ -555,7 +554,7 @@ body {
   gap: 5px;
   max-width: 118px;
   width: 44%;
-  height: 36px;
+  height: 35px;
   white-space: nowrap;
   margin-left: 4px;
 }
@@ -569,7 +568,7 @@ body {
 
 /* Save Link Button */
 .save-button {
-  height: 36px;
+  height: 35px;
   max-width: 118px;
   margin-left: 10px;
   position: relative;
@@ -657,7 +656,7 @@ body {
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 400;
   display: block;
 }
 
@@ -671,6 +670,7 @@ body {
   background-position: center 58%;
   position: relative;
   top: 2px;
+  z-index: 400;
 }
 
 /* Increases the clickable area of navigation arrow buttons to prevent accidently toggling the title row visibility on or off */
@@ -777,10 +777,7 @@ body {
   .title-row,
   .title-row-bottom,
   .global-title-row .close-btn,
-  .global-title-row .options-btn,
-  .left-arrow-btn,
-  .right-arrow-btn,
-  .navigation-buttons,
+  .global-title-row .options-btn .navigation-buttons,
   .down-arrow-btn {
     /* Start with elements fully transparent and off-screen at the bottom */
     opacity: 0;
@@ -831,9 +828,7 @@ body {
   .global-title-row .close-btn,
   .global-title-row .options-btn,
   .left-arrow-btn,
-  .right-arrow-btn,
-  .navigation-buttons,
-  .down-arrow-btn {
+  .right-arrow-btn {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
     transform: translateX(100%);

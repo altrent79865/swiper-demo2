@@ -74,8 +74,8 @@
             </div>
           </div>
         </div>
-        <!-- Sandwich slide (portrait) -->
-        <div class="swiper-slide" data-hash="second-slide">
+        <!-- Sandwich slide (portrait photo) -->
+        <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
             <img
               src="../assets/sandwich-profile-3024x4032.jpeg"
@@ -88,7 +88,7 @@
             </div>
           </div>
         </div>
-        <!-- Christmas Meal slide (portrait) -->
+        <!-- Christmas Meal slide (portrait photo) -->
         <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
             <img src="../assets/christmas-meal.jpg" class="portrait-img" />
@@ -99,7 +99,7 @@
             </div>
           </div>
         </div>
-        <!-- Salsa (portrait) -->
+        <!-- Salsas (portrait photo) -->
         <div class="swiper-slide">
           <img src="../assets/salsa3024x4032.jpeg" class="portrait-img" />
           <div class="title-row">
@@ -108,7 +108,7 @@
             </div>
           </div>
         </div>
-        <!-- Pork with Rosemary with Pencil Icon and Add a Caption feature (portrait) -->
+        <!-- Pork with Rosemary with Pencil Icon and Add a Caption feature (portrait photo) -->
         <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
             <img src="../assets/meat-portrait.jpg" class="portrait-img" />
@@ -122,7 +122,7 @@
             </div>
           </div>
         </div>
-        <!-- Fruit Plate slide (portrait) -->
+        <!-- Fruit Plate slide (portrait photo) -->
         <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
             <img
@@ -136,7 +136,7 @@
             </div>
           </div>
         </div>
-        <!-- Sandwich slide (landscape) -->
+        <!-- Sandwich slide (landscape photo) -->
         <div class="swiper-slide">
           <img
             src="../assets/sandwich-unmade-landscape-4032x3024.jpeg"
@@ -176,7 +176,7 @@
                 srcset="../assets/youtube-kenya-desktop-playing.png"
                 media="(min-width: 601px)"
               />
-              <!-- Default image for screens up to 600px width -->
+              <!-- Image for screens up to 600px width -->
               <img
                 src="../assets/youtube-kenya-iphone-playing.png"
                 class="portrait-img youtube-portrait"
@@ -190,7 +190,7 @@
             </div>
           </div>
         </div>
-        <!-- Grilled Focaccia Sandwich (landscape) -->
+        <!-- Grilled Focaccia Sandwich (landscape photo) -->
         <div class="swiper-slide">
           <img
             src="../assets/sandwich-landscape-4032x3024.jpeg"
@@ -204,12 +204,12 @@
         </div>
       </div>
     </div>
-    <!-- Navigation Buttons for Vertical Swiper (Up & Down).  Image links of arrows are in CSS -->
+    <!-- Custom Navigation Buttons for Vertical Swiper (Up & Down).  Image links for arrow is in CSS -->
     <div class="navigation-buttons">
       <button class="up-arrow-btn" aria-label="Navigate Up"></button>
       <button class="down-arrow-btn" aria-label="Navigate Down"></button>
     </div>
-    <!-- Navigation Buttons for Horizontal Swiper (Left & Right). Image links of arrows are in CSS -->
+    <!-- Custom Navigation Buttons for Horizontal Swiper (Left & Right). Image links for arrows are in CSS -->
     <button class="left-arrow-btn" aria-label="Navigate Left"></button>
     <button class="right-arrow-btn" aria-label="Navigate Right"></button>
 
@@ -243,7 +243,7 @@
     <!-- Title Row Bottom -->
     <div class="title-row-bottom">
       <button class="autoplay-toggle" aria-label="Play Autoplay">
-        <!-- Creation of Play Button -->
+        <!-- Custom Play Button -->
         <svg
           class="icon play-icon"
           width="13"
@@ -254,7 +254,7 @@
         >
           <polygon points="0.5,0 12.0,7.5 0.5,15" fill="white" />
         </svg>
-        <!-- Creation of Pause Button -->
+        <!-- Custom Pause Button -->
         <svg
           class="icon pause-icon"
           width="14"
@@ -334,18 +334,15 @@
 
         // Toggle logic for the global close and options buttons
         const globalTitleRow = document.querySelector(".global-title-row");
-
         function toggleGlobalTitleRow() {
           const globalTitleRow = document.querySelector(".global-title-row");
           const closeButton = globalTitleRow.querySelector(".close-btn");
           const optionsButton = globalTitleRow.querySelector(".options-btn");
-
           // Toggle visibility for the entire global title row, close button, and options button
           globalTitleRow.classList.toggle("hidden-title-row");
           closeButton.classList.toggle("hidden");
           optionsButton.classList.toggle("hidden");
         }
-
         // Function to update the slide counter
         function updateCounter(swiper) {
           const baseSlideNumber = 38; // Starting number for the first slide
@@ -783,7 +780,7 @@
         function saveCaptionToSlide() {
           if (!currentEditingSlide) return; // Safety check
 
-          // Get the new caption from the textarea with trim to remove unnecessary whitespace.  Was having problems without this.
+          // Get the new caption from the textarea with trim to remove unnecessary whitespace.  I was having problems that this trim solved.
           const newCaption = editCaptionTextarea.value.trim();
 
           // Get the pencilTitleRow within the current editing slide
