@@ -777,8 +777,8 @@ body {
   .title-row,
   .title-row-bottom,
   .global-title-row .close-btn,
-  .global-title-row .options-btn .navigation-buttons,
-  .down-arrow-btn {
+  .global-title-row .options-btn,
+  .navigation-buttons .down-arrow-btn {
     /* Start with elements fully transparent and off-screen at the bottom */
     opacity: 0;
     transform: translateY(100%);
