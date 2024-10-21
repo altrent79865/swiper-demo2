@@ -70,6 +70,20 @@ body {
   display: none;
 }
 
+.global-title-row {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 23px;
+  cursor: default;
+  overflow: visible;
+  z-index: 300;
+}
+
 /* Close Button Styles */
 .close-btn {
   display: flex;
@@ -84,6 +98,7 @@ body {
   cursor: pointer;
   border: none;
   position: relative;
+  z-index: 300;
 }
 
 /* The lines of the "X". */
@@ -758,9 +773,15 @@ body {
 /* Media Queries for Phones */
 @media (max-width: 600px) {
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
-  .first-slide .link-main-page-container,
-  .first-slide .title-row,
-  .first-slide .title-row-bottom {
+  .link-main-page-container,
+  .title-row,
+  .title-row-bottom,
+  .global-title-row .close-btn,
+  .global-title-row .options-btn,
+  .left-arrow-btn,
+  .right-arrow-btn,
+  .navigation-buttons,
+  .down-arrow-btn {
     /* Start with elements fully transparent and off-screen at the bottom */
     opacity: 0;
     transform: translateY(100%);
@@ -804,9 +825,15 @@ body {
 
 @media (min-width: 601px) {
   /* Animate first slide to slide in from the right side for screens 601px and wider. */
-  .first-slide .link-main-page-container,
-  .first-slide .title-row,
-  .first-slide .title-row-bottom {
+  .link-main-page-container,
+  .title-row,
+  .title-row-bottom,
+  .global-title-row .close-btn,
+  .global-title-row .options-btn,
+  .left-arrow-btn,
+  .right-arrow-btn,
+  .navigation-buttons,
+  .down-arrow-btn {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
     transform: translateX(100%);
