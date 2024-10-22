@@ -290,6 +290,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   margin-top: -18px;
+  z-index: 300;
 }
 
 /* Play/Pause Toggle Button */
@@ -407,6 +408,7 @@ body {
   position: absolute;
   right: 9px;
   border: none;
+  z-index: 300;
 }
 
 .number-of-items-text {
@@ -539,19 +541,27 @@ body {
   letter-spacing: 0.1px;
 }
 
+.link-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
 /* Button on link to Open link */
 .link-button {
   display: inline-flex;
   align-items: center;
   border: 1px solid #696969;
-  padding: 6px 16px 6px 10px;
+  padding: 2px 16px 2px 9px;
   text-decoration: none;
   color: white;
   background: none;
   cursor: pointer;
   gap: 5px;
-  max-width: 125px;
-  width: 100%;
+  max-width: 118px;
+  width: 44%;
+  height: 35px;
   white-space: nowrap;
   margin-left: 4px;
 }
@@ -560,6 +570,29 @@ body {
   width: 16px;
   height: 16px;
   object-fit: contain;
+  margin-right: 4px;
+}
+
+/* Save Link Button */
+.save-button {
+  height: 35px;
+  max-width: 118px;
+  margin-left: 10px;
+  position: relative;
+  width: 44%;
+}
+
+/* Kohono icon image */
+.save-button img {
+  width: 21px;
+  height: auto;
+  object-fit: contain;
+  margin-right: 4px;
+}
+
+/* Adjusts the text 'Save Link" inside Save Link Button */
+.save-link-text {
+  padding-right: 12px;
 }
 
 /* Prevents double-tap zoom, but still allows taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
@@ -746,9 +779,7 @@ body {
 /* Media Queries for Phones */
 @media (max-width: 600px) {
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
-  .first-slide .link-main-page-container,
-  .first-slide .title-row,
-  .first-slide .title-row-bottom {
+  .link-main-page-container {
     /* Start with elements fully transparent and off-screen at the bottom */
     opacity: 0;
     transform: translateY(100%);
@@ -792,9 +823,7 @@ body {
 
 @media (min-width: 601px) {
   /* Animate first slide to slide in from the right side for screens 601px and wider. */
-  .first-slide .link-main-page-container,
-  .first-slide .title-row,
-  .first-slide .title-row-bottom {
+  .link-main-page-container {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
     transform: translateX(100%);

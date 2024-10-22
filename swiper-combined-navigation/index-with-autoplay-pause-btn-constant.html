@@ -42,18 +42,34 @@
                   >SAVEUR.COM</a
                 >
               </p>
-              <a
-                href="https://www.saveur.com"
-                class="link-button"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="../assets/jump_link_white.png"
-                  alt="icon"
-                  class="button-icon"
-                />
-                <span>Open Link</span>
-              </a>
+              <div class="link-btn-row">
+                <!-- Open Link Button -->
+                <a
+                  href="https://www.saveur.com"
+                  class="link-button"
+                  role="button"
+                  aria-label="Open link to website"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="../assets/jump_link_white.png"
+                    alt="icon"
+                    class="button-icon"
+                  />
+                  <span>Open Link</span>
+                </a>
+                <!-- Save Link Button with Kohono Icon. -->
+                <a
+                  href="#"
+                  class="link-button save-button"
+                  role="button"
+                  aria-label="Save link"
+                  rel="noopener noreferrer"
+                >
+                  <img src="../assets/k_logo.png" alt="icon" />
+                  <span class="save-link-text">Save Link</span>
+                </a>
+              </div>
             </div>
           </div>
           <div class="title-row">
@@ -70,11 +86,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">38/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Sandwich slide (portrait) -->
         <div class="swiper-slide" data-hash="second-slide">
@@ -98,11 +114,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">39/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Christmas Meal slide (portrait) -->
         <div class="swiper-slide">
@@ -123,11 +139,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">40/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Salsa (portrait) -->
         <div class="swiper-slide">
@@ -146,11 +162,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">41/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Pork with Rosemary with Pencil Icon and Add a Caption feature (portrait) -->
         <div class="swiper-slide">
@@ -174,11 +190,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">42/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Fruit Plate slide (portrait) -->
         <div class="swiper-slide">
@@ -202,11 +218,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">43/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Sandwich slide (landscape) -->
         <div class="swiper-slide">
@@ -228,11 +244,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">44/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Youtube Video in Africa not in play mode -->
         <div class="swiper-slide">
@@ -261,12 +277,12 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">45/47</span>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- Youtube Video in Africa in playing mode -->
         <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
@@ -298,11 +314,11 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">46/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Grilled Focaccia Sandwich (landscape) -->
         <div class="swiper-slide">
@@ -324,20 +340,20 @@
               <span class="dot"></span>
             </button>
           </div>
-          <div class="title-row-bottom">
+          <!-- <div class="title-row-bottom">
             <div class="number-of-items-btn">
               <span class="number-of-items-text">47/47</span>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <!-- Navigation Buttons for Vertical Swiper (Up & Down) -->
+    <!-- Custom Navigation Buttons for Vertical Swiper (Up & Down).  Image links for arrow is in CSS -->
     <div class="navigation-buttons">
       <button class="up-arrow-btn" aria-label="Navigate Up"></button>
       <button class="down-arrow-btn" aria-label="Navigate Down"></button>
     </div>
-    <!-- Navigation Buttons for Horizontal Swiper (Left & Right) -->
+    <!-- Custom Navigation Buttons for Horizontal Swiper (Left & Right). Image links for arrows are in CSS -->
     <button class="left-arrow-btn" aria-label="Navigate Left"></button>
     <button class="right-arrow-btn" aria-label="Navigate Right"></button>
 
@@ -345,22 +361,37 @@
     <div
       id="options-links"
       class="options-dropdown swiper-vertical-options-dropdown"
+      aria-label="Options menu"
     >
-      <button id="options-close-btn" class="dropdown-close-btn">×</button>
+      <button
+        id="options-close-btn"
+        class="dropdown-close-btn"
+        aria-label="Close options menu"
+      >
+        ×
+      </button>
       <!-- List of Links in the dropdown from Options button -->
       <ul>
-        <li>Edit Caption</li>
-        <li>Change Header</li>
-        <li>Set as Album Cover</li>
-        <li>Send to a Connection</li>
-        <li>Copy to an Album</li>
-        <li>Delete</li>
+        <li role="menuitem">Edit Caption</li>
+        <li role="menuitem">Change Header</li>
+        <li role="menuitem">Set as Album Cover</li>
+        <li role="menuitem">Send to a Connection</li>
+        <li role="menuitem">Copy to an Album</li>
+        <li role="menuitem">Delete</li>
       </ul>
     </div>
 
     <!-- Edit Caption Pop-up -->
-    <div id="edit-caption-popup" class="edit-caption-popup hidden">
-      <textarea id="edit-caption-textarea" maxlength="100"></textarea>
+    <div
+      id="edit-caption-popup"
+      class="edit-caption-popup hidden"
+      aria-label="Edit caption popup"
+    >
+      <textarea
+        id="edit-caption-textarea"
+        maxlength="100"
+        aria-label="Edit photo caption"
+      ></textarea>
       <button id="save-caption-btn">Save</button>
     </div>
 
@@ -389,6 +420,12 @@
       </svg>
     </button>
 
+    <!-- Counter of Number of Items -->
+    <div class="number-of-items-btn" aria-live="polite">
+      <span class="number-of-items-text">1/10</span>
+    </div>
+   
+
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -397,6 +434,9 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Select all Play/Pause buttons
         const autoplayButtons = document.querySelectorAll(".autoplay-toggle");
+        const numberOfItemsText = document.querySelector(
+          ".number-of-items-text"
+        );
 
         // Declare a flag to track the first autoplay slide
         let firstAutoplaySlide = false;
@@ -441,6 +481,7 @@
           },
           on: {
             slideChange: function () {
+              updateCounter(swiper);
               updateArrowStyles();
 
               // Adjust autoplay delay after the first slide transition
@@ -464,35 +505,22 @@
           },
         });
 
+        // Function to update the slide counter
+        function updateCounter(swiper) {
+          const totalSlides = swiper.slides.length; // Total number of slides
+          const currentSlide = swiper.activeIndex + 1; // Swiper's activeIndex starts at 0
+          numberOfItemsText.textContent = `${currentSlide}/${totalSlides}`;
+        }
+
         // Function to update the autoplay button states
         function updateAutoplayButtonState() {
           autoplayButtons.forEach((button) => {
             if (swiper.autoplay.running) {
               button.classList.add("playing");
               button.setAttribute("aria-label", "Pause Autoplay");
-
-              // Show Pause icon and hide Play icon
-              const playIcon = button.querySelector(".play-icon");
-              const pauseIcon = button.querySelector(".pause-icon");
-              if (playIcon && pauseIcon) {
-                playIcon.classList.add("hidden-icon");
-                pauseIcon.classList.remove("hidden-icon");
-                pauseIcon.classList.add("visible-icon");
-                playIcon.classList.remove("visible-icon");
-              }
             } else {
               button.classList.remove("playing");
               button.setAttribute("aria-label", "Play Autoplay");
-
-              // Show Play icon and hide Pause icon
-              const playIcon = button.querySelector(".play-icon");
-              const pauseIcon = button.querySelector(".pause-icon");
-              if (playIcon && pauseIcon) {
-                playIcon.classList.remove("hidden-icon");
-                playIcon.classList.add("visible-icon");
-                pauseIcon.classList.add("hidden-icon");
-                pauseIcon.classList.remove("visible-icon");
-              }
             }
           });
         }
@@ -696,44 +724,47 @@
         let isTitleRowVisible = true; // Start with title-row visible
 
         function toggleTitleRow() {
-          if (isTitleRowVisible) {
-            // Hide title rows
-            titleRows.forEach((titleRow) =>
-              titleRow.classList.add("hidden-title-row")
-            );
-            titleRowBottoms.forEach((titleRowBottom) =>
-              titleRowBottom.classList.add("hidden-title-row")
-            );
-            // Hide down-arrow-btn
-            downButton.classList.add("hidden-title-row");
+        const titleRowBottoms = document.querySelectorAll(".title-row-bottom");
+        if (isTitleRowVisible) {
+          // Hide title rows
+          titleRows.forEach((titleRow) =>
+            titleRow.classList.add("hidden-title-row")
+          );
+          titleRowBottoms.forEach((titleRowBottom) => {
+            titleRowBottom.classList.add("hidden-title-row");
+            titleRowBottom.style.transition = "none"; // Disable transition during toggle
+          });
+          // Hide down-arrow-btn
+          downButton.classList.add("hidden-title-row");
 
-            // Hide play/pause buttons only if autoplay is NOT running
-            if (!swiper.autoplay.running) {
-              autoplayButtons.forEach((button) =>
-                button.classList.add("hidden-title-row")
-              );
-            }
-          } else {
-            // Show title rows
-            titleRows.forEach((titleRow) =>
-              titleRow.classList.remove("hidden-title-row")
+          // Hide play/pause buttons only if autoplay is NOT running
+          if (!swiper.autoplay.running) {
+            autoplayButtons.forEach((button) =>
+              button.classList.add("hidden-title-row")
             );
-            titleRowBottoms.forEach((titleRowBottom) =>
-              titleRowBottom.classList.remove("hidden-title-row")
-            );
-            // Show down-arrow-btn
-            downButton.classList.remove("hidden-title-row");
-
-            // Show play/pause buttons only if autoplay is NOT running
-            if (!swiper.autoplay.running) {
-              autoplayButtons.forEach((button) =>
-                button.classList.remove("hidden-title-row")
-              );
-            }
           }
+        } else {
+          // Show title rows
+          titleRows.forEach((titleRow) =>
+            titleRow.classList.remove("hidden-title-row")
+          );
+          titleRowBottoms.forEach((titleRowBottom) => { // Corrected line
+            titleRowBottom.classList.remove("hidden-title-row");
+            titleRowBottom.style.transition = "none"; // Disable transition during toggle
+          });
+          // Show down-arrow-btn
+          downButton.classList.remove("hidden-title-row");
 
-          isTitleRowVisible = !isTitleRowVisible;
+          // Show play/pause buttons only if autoplay is NOT running
+          if (!swiper.autoplay.running) {
+            autoplayButtons.forEach((button) =>
+              button.classList.remove("hidden-title-row")
+            );
+          }
         }
+
+        isTitleRowVisible = !isTitleRowVisible;
+      }
 
         // Function to hide UI elements when autoplay starts
         function hideUIElementsForAutoplay() {
