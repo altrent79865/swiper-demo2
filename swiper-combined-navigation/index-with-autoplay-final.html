@@ -50,6 +50,8 @@
                 <a
                   href="https://www.saveur.com"
                   class="link-button"
+                  role="button"
+                  aria-label="Open link to website"
                   rel="noopener noreferrer"
                 >
                   <img
@@ -63,6 +65,8 @@
                 <a
                   href="#"
                   class="link-button save-button"
+                  role="button"
+                  aria-label="Save link"
                   rel="noopener noreferrer"
                 >
                   <img src="../assets/k_logo.png" alt="icon" />
@@ -119,7 +123,11 @@
           <div class="title-row">
             <div class="pencil-title-row">
               <div class="pencil-container">
-                <img src="../assets/pencil-white.png" class="pencil" alt="" />
+                <img
+                  src="../assets/pencil-white.png"
+                  class="pencil"
+                  alt="Edit caption"
+                />
               </div>
               <p class="media-item-title add-new-caption">Add a Caption</p>
             </div>
@@ -218,10 +226,15 @@
 
     <!-- Global Close Button and Options Button -->
     <div class="global-title-row">
-      <a href="../index.html" class="close-btn">
+      <a
+        href="../index.html"
+        class="close-btn"
+        aria-label="Close page"
+        role="button"
+      >
         <span class="x-line"></span>
       </a>
-      <button class="options-btn">
+      <button class="options-btn" aria-label="Open options menu">
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
@@ -231,16 +244,23 @@
     <div
       id="options-links"
       class="options-dropdown swiper-vertical-options-dropdown"
+      aria-label="Options menu"
     >
-      <button id="options-close-btn" class="dropdown-close-btn">×</button>
+      <button
+        id="options-close-btn"
+        class="dropdown-close-btn"
+        aria-label="Close options menu"
+      >
+        ×
+      </button>
       <!-- List of Links in the dropdown from Options button -->
       <ul>
-        <li>Edit Caption</li>
-        <li>Change Header</li>
-        <li>Set as Album Cover</li>
-        <li>Send to a Connection</li>
-        <li>Copy to an Album</li>
-        <li>Delete</li>
+        <li role="menuitem">Edit Caption</li>
+        <li role="menuitem">Change Header</li>
+        <li role="menuitem">Set as Album Cover</li>
+        <li role="menuitem">Send to a Connection</li>
+        <li role="menuitem">Copy to an Album</li>
+        <li role="menuitem">Delete</li>
       </ul>
     </div>
     <!-- Title Row Bottom -->
@@ -271,13 +291,21 @@
         </svg>
       </button>
       <!-- Counter of Number of Items -->
-      <div class="number-of-items-btn">
+      <div class="number-of-items-btn" aria-live="polite">
         <span class="number-of-items-text">38/47</span>
       </div>
     </div>
     <!-- Edit Caption Pop-up -->
-    <div id="edit-caption-popup" class="edit-caption-popup hidden">
-      <textarea id="edit-caption-textarea" maxlength="100"></textarea>
+    <div
+      id="edit-caption-popup"
+      class="edit-caption-popup hidden"
+      aria-label="Edit caption popup"
+    >
+      <textarea
+        id="edit-caption-textarea"
+        maxlength="100"
+        aria-label="Edit photo caption"
+      ></textarea>
       <button id="save-caption-btn">Save</button>
     </div>
 
@@ -338,7 +366,6 @@
         // Toggle logic for the global close and options buttons
         const globalTitleRow = document.querySelector(".global-title-row");
         function toggleGlobalTitleRow() {
-          const globalTitleRow = document.querySelector(".global-title-row");
           const closeButton = globalTitleRow.querySelector(".close-btn");
           const optionsButton = globalTitleRow.querySelector(".options-btn");
           // Toggle visibility for the entire global title row, close button, and options button

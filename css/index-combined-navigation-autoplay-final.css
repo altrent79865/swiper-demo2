@@ -92,7 +92,6 @@ body {
   height: 28px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  position: absolute;
   left: 9px;
   cursor: pointer;
   border: none;
@@ -378,12 +377,6 @@ body {
 
 .autoplay-toggle.playing .pause-icon {
   opacity: 1; /* Show Pause icon */
-}
-
-/* SVG Paths */
-.autoplay-toggle .icon polygon,
-.autoplay-toggle .icon rect {
-  fill: white;
 }
 
 /* Hide Play/Pause Button on Non-Active Slides */
