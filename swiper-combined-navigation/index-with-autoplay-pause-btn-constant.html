@@ -429,6 +429,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Initialize Swiper and Handle Navigation -->
+    <!-- Initialize Swiper and Handle Navigation -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Select all Play/Pause buttons
@@ -436,6 +437,7 @@
         const numberOfItemsText = document.querySelector(
           ".number-of-items-text"
         );
+        const numberOfItemsBtn = document.querySelector(".number-of-items-btn");
 
         // Declare a flag to track the first autoplay slide
         let firstAutoplaySlide = false;
@@ -719,12 +721,13 @@
           hasSwipedOnTouch = true;
         });
 
-        // Function to toggle the title-row and down arrow-button visibility
+        // Function to toggle the title-row and number-of-items-btn visibility
         let isTitleRowVisible = true; // Start with title-row visible
 
         function toggleTitleRow() {
           const titleRowBottoms =
             document.querySelectorAll(".title-row-bottom");
+
           if (isTitleRowVisible) {
             // Hide title rows
             titleRows.forEach((titleRow) =>
@@ -734,6 +737,10 @@
               titleRowBottom.classList.add("hidden-title-row");
               titleRowBottom.style.transition = "none"; // Disable transition during toggle
             });
+
+            // Hide number-of-items-btn
+            numberOfItemsBtn.classList.add("hidden-title-row");
+
             // Hide down-arrow-btn
             downButton.classList.add("hidden-title-row");
 
@@ -749,10 +756,13 @@
               titleRow.classList.remove("hidden-title-row")
             );
             titleRowBottoms.forEach((titleRowBottom) => {
-              // Corrected line
               titleRowBottom.classList.remove("hidden-title-row");
               titleRowBottom.style.transition = "none"; // Disable transition during toggle
             });
+
+            // Show number-of-items-btn
+            numberOfItemsBtn.classList.remove("hidden-title-row");
+
             // Show down-arrow-btn
             downButton.classList.remove("hidden-title-row");
 
@@ -776,6 +786,8 @@
           titleRowBottoms.forEach((titleRowBottom) =>
             titleRowBottom.classList.add("hidden-title-row")
           );
+          // Hide number-of-items-btn
+          numberOfItemsBtn.classList.add("hidden-title-row");
           // Hide down-arrow-btn
           downButton.classList.add("hidden-title-row");
           // Hide left and right arrows when entering autoplay
@@ -793,6 +805,8 @@
           titleRowBottoms.forEach((titleRowBottom) =>
             titleRowBottom.classList.remove("hidden-title-row")
           );
+          // Show number-of-items-btn
+          numberOfItemsBtn.classList.remove("hidden-title-row");
           // Show down-arrow-btn
           downButton.classList.remove("hidden-title-row");
           // Show left and right arrows when user interacts
@@ -1157,6 +1171,9 @@
           ensurePlayPauseVisible();
           updateAutoplayButtonState(); // Ensure correct icon is displayed
         }
+
+        // **Ensure to call updateCounter initially after Swiper initialization**
+        updateCounter(swiper);
       });
     </script>
   </body>
