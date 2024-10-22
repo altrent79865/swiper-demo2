@@ -1,0 +1,866 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #000000;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+}
+
+/* Prevent any scrollbars */
+::-webkit-scrollbar {
+  display: none;
+}
+
+.swiper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* below was to fix flash of getting wrong title when refreshing page.  Initially hides Swiper */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show Swiper when initialized.  Fixes flash of getting wrong title when refreshing page */
+.swiper.swiper-initialized {
+  opacity: 1;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  height: 100svh;
+  width: 100vw;
+  /* Apply below to make images a long touch not open native features */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* .swiper-slide-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* Title Row */
+.title-row {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  cursor: default;
+  overflow: visible;
+}
+
+/* Hides the title-row when clicking on page and toggling title row. */
+.hidden-title-row {
+  display: none !important;
+}
+
+/* .hidden-icon and .visible-icon were changes in an attempt to have the pause button show when autoplay is on. */
+.hidden-icon {
+  display: none !important;
+}
+
+.visible-icon {
+  display: inline !important;
+}
+
+/* Close Button Styles */
+.close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  left: 9px;
+  cursor: pointer;
+  border: none;
+  position: relative;
+}
+
+/* The lines of the "X". */
+.close-btn .x-line::before,
+.close-btn .x-line::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+
+/* First line of the 'X' */
+.close-btn .x-line::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Second line of the 'X' */
+.close-btn .x-line::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Increases clickable area of close button, pencil, add new caption text and options button to prevent accidently turning the title row on or off  */
+.close-btn::before,
+.pencil-container::before,
+.add-new-caption::before,
+.options-btn::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: -20px;
+  right: -20px;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.close-btn,
+.options-btn {
+  position: absolute;
+}
+
+.pencil-title-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+}
+
+.pencil-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.title-row .pencil {
+  cursor: pointer;
+  height: 18px;
+  width: auto;
+  margin-right: -14px;
+  position: relative;
+  z-index: 200;
+  filter: drop-shadow(1px 1px 2px rgba(22, 22, 22, 0.5))
+    drop-shadow(2px 2px 4px rgba(27, 27, 27, 0.3))
+    drop-shadow(0px 0px 5px rgba(44, 44, 44, 0.25));
+}
+
+.title-row .add-new-caption {
+  position: relative;
+  cursor: pointer;
+  z-index: 200;
+  display: inline-block;
+  padding: 14px;
+}
+
+.title-row .media-item-title {
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+  letter-spacing: 0.04rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* same text shadow as pencil and title-row-bottom text */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+    /* Primary shadow */ 2px 2px 4px rgba(0, 0, 0, 0.3),
+    /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
+}
+
+/* Options button with 3 Vertical Dots */
+.options-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  right: 9px;
+  cursor: pointer;
+  border: none;
+  gap: 0.158rem;
+}
+
+/* The 3 Vertical Dots inside Options button */
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* Dropdown from Options button */
+/* Initially hide links */
+.options-dropdown {
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  border: 1px solid rgba(128, 128, 128, 0.6);
+  padding: 20px 4px 18px 4px;
+  border-radius: 4px;
+  position: fixed;
+  width: 220px;
+  z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.options-dropdown.open {
+  display: flex; /* Show when open */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.swiper-vertical-options-dropdown {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+/* List of Links in the dropdown from Options button */
+.options-dropdown li {
+  display: block;
+  padding: 6px 20px;
+  color: white;
+  text-decoration: none;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.options-dropdown li:hover {
+  background-color: #3f3f3f;
+}
+
+.options-dropdown.open {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Options dropdown Close Button (X) */
+.dropdown-close-btn {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  padding: 4px 8px 5px 5px;
+}
+
+/* Bottom Footer with play / pause autoplay button and bubble that show which item we're on / total number of items in post, message or album. */
+.title-row-bottom {
+  height: 60px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: -18px;
+}
+
+/* Play/Pause Toggle Button */
+.autoplay-toggle {
+  position: fixed;
+  bottom: 16px;
+  left: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  overflow: visible;
+  z-index: 300;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
+}
+
+/* Inner Visual Button */
+.autoplay-toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Increases clickable area of play and pause button to prevent accidently turning the title row on or off  */
+.autoplay-toggle::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 50%;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
+}
+
+/* Remove background highlight on active or focus states */
+.autoplay-toggle::after:active,
+.autoplay-toggle::after:focus {
+  background: transparent;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; /* Ensure tap highlight is disabled */
+}
+
+/* SVG Icon Styles */
+.autoplay-toggle .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 300;
+}
+
+/* Play Icon */
+.autoplay-toggle .play-icon {
+  opacity: 1; /* Visible by default */
+  transform: translate(-50%, -50%) translateX(2px);
+}
+
+/* Pause Icon */
+.autoplay-toggle .pause-icon {
+  opacity: 0;
+  transform: translate(-50%, -50%) translateX(1px);
+}
+
+/* When Playing, show Pause Icon and hide Play Icon */
+.autoplay-toggle.playing .play-icon {
+  opacity: 0; /* Hide Play icon */
+}
+
+.autoplay-toggle.playing .pause-icon {
+  opacity: 1; /* Show Pause icon */
+}
+
+/* SVG Paths */
+/* .autoplay-toggle .icon polygon,
+.autoplay-toggle .icon rect {
+  fill: white;
+} */
+
+/* Hide Play/Pause Button on Non-Active Slides */
+.swiper-slide:not(.swiper-slide-active) .autoplay-toggle {
+  display: none;
+}
+
+.number-of-items-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 14px;
+  position: absolute;
+  right: 9px;
+  border: none;
+}
+
+.number-of-items-text {
+  color: white;
+  letter-spacing: 0.09rem;
+  padding-right: 8px;
+  padding-left: 8px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+    /* Primary shadow */ 2px 2px 4px rgba(0, 0, 0, 0.3),
+    /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
+}
+
+/* Layout of Images */
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
+.portrait-img {
+  height: 100svh;
+  max-height: 100svh;
+  width: auto;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+
+.landscape-img {
+  width: 100vw;
+  height: auto;
+  max-height: 100svh;
+  object-fit: contain;
+  display: block;
+}
+
+/* Youtube Videos Layout */
+.youtube-video-iphone-image-container {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.youtube-portrait {
+  max-height: 90svh;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.youtube-landscape {
+  width: 80vw;
+  min-width: 100vw;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
+.centered-video_play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 68px;
+  opacity: 0.9;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* Layout for a Link item */
+.link-img {
+  width: 100%;
+  height: auto;
+  max-height: 55svh;
+  object-fit: cover;
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.link-container {
+  background-color: black;
+  width: 100vw;
+  position: relative;
+  padding-left: 20px;
+  margin-top: calc(55svh);
+  height: calc(100svh - 55svh);
+  overflow-y: auto;
+}
+
+.link-title,
+.link-description {
+  text-align: left;
+  color: white;
+  padding-right: 20px;
+  margin-left: 4px;
+}
+
+.link-title {
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  margin-top: 3svh;
+  margin-bottom: 1rem;
+}
+
+.link-description {
+  letter-spacing: 0.3px;
+  line-height: 1rem;
+  color: rgb(218, 218, 218);
+}
+
+.link-clickable-text-wrapper {
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+
+.link-clickable-text {
+  display: inline;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: rgb(128, 128, 128);
+  margin-left: 4px;
+  letter-spacing: 0.1px;
+}
+
+/* Button on link to Open link */
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #696969;
+  padding: 6px 16px 6px 10px;
+  text-decoration: none;
+  color: white;
+  background: none;
+  cursor: pointer;
+  gap: 5px;
+  max-width: 125px;
+  width: 100%;
+  white-space: nowrap;
+  margin-left: 4px;
+}
+
+.button-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Prevents double-tap zoom, but still allows taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
+.left-arrow-btn,
+.right-arrow-btn,
+.down-arrow-btn,
+.swiper {
+  touch-action: manipulation;
+}
+
+/* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
+.left-arrow-btn,
+.right-arrow-btn,
+.down-arrow-btn,
+.up-arrow-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background-repeat: no-repeat;
+  touch-action: manipulation; /* Prevent zooming and double-tap issues */
+  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
+  user-select: none;
+  -webkit-user-select: none; /* Safari/Chrome for iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  pointer-events: auto;
+}
+
+/* Arrows for horizontal Navigation Swiper */
+.left-arrow-btn,
+.right-arrow-btn {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  transition: opacity 0.3s;
+  background-size: 20px 20px;
+  background-position: center;
+}
+
+.left-arrow-btn {
+  left: 9px;
+  background-image: url(../assets/64x64_0021_left-arrow-white.png);
+  background-position: calc(50% - 2px) center;
+}
+
+.right-arrow-btn {
+  right: 9px;
+  background-image: url("../assets/64x64_0022_right-arrow-white.png");
+  background-position: calc(50% + 2px) center;
+}
+
+.active-opacity {
+  opacity: 0.1 !important;
+}
+
+/* Custom arrows for vertical swiping for Vertical Swiper */
+/* Style for the navigation buttons container */
+.navigation-buttons {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: block;
+}
+
+/* Down Arrow for Swiper Vertical navigation */
+.down-arrow-btn {
+  width: 46px;
+  height: 46px;
+  transition: opacity 0.1s;
+  background-size: 23px 23px;
+  background-image: url("../assets/64x64_0022_down-arrow-white.png");
+  background-position: center 58%;
+  position: relative;
+  top: 2px;
+}
+
+/* Increases the clickable area of navigation arrow buttons to prevent accidently turning the title row on or off */
+.left-arrow-btn::before,
+.right-arrow-btn::before,
+.down-arrow-btn::before {
+  content: "";
+  position: absolute;
+  top: -25px;
+  bottom: -25px;
+  left: -25px;
+  right: -25px;
+  background: transparent;
+  pointer-events: auto;
+}
+
+/* Edit Caption Pop-up when selecting from options menu */
+.edit-caption-popup {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  padding: 10px;
+  z-index: 2000;
+}
+
+.edit-caption-popup textarea {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  width: 50%;
+  padding: 8px;
+  color: #fff;
+  background-color: #3f3f3f;
+  border: 1px solid #444;
+  border-radius: 2px;
+  resize: none;
+  height: 36px;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.edit-caption-popup textarea:focus {
+  border-color: #636363;
+  outline: none;
+}
+
+.edit-caption-popup textarea::placeholder {
+  color: #fff;
+}
+
+.edit-caption-popup button {
+  padding: 9px 18px;
+  color: black;
+  font-size: 14px;
+  background: linear-gradient(to bottom, #fdbb00 0%, #c98c00 100%);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.edit-caption-popup.hidden {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.image-container-for-portraits-desktop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* To animate first slide sliding in from the right side */
+@keyframes slide-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* To animate first slide sliding in from the bottom */
+@keyframes vertical-slide-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries for Phones */
+@media (max-width: 600px) {
+  /* Animate first slide to slide in from the bottom for screens up to 600px width. */
+  .first-slide .link-main-page-container,
+  .first-slide .title-row,
+  .first-slide .title-row-bottom {
+    /* Start with elements fully transparent and off-screen at the bottom */
+    opacity: 0;
+    transform: translateY(100%);
+    animation: vertical-slide-in 0.2s forwards;
+    animation-delay: 0.1s;
+  }
+
+  .edit-caption-popup {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 20px;
+  }
+
+  .edit-caption-popup textarea {
+    width: 100%;
+    height: 72px;
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .edit-caption-popup button {
+    width: auto;
+    align-self: flex-end;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Hides left and right arrow buttons on phones. */
+  .left-arrow-btn,
+  .right-arrow-btn {
+    display: none;
+  }
+
+  /* Toggle title-row, title-row-bottom and down arrow button's visibility when clicking on page.  Keeps clean look on page to just have swiping on mobile devices. */
+  .title-row.hidden-title-row,
+  .title-row-bottom.hidden-title-row,
+  .down-arrow-btn.hidden-title-row {
+    display: none;
+  }
+}
+
+@media (min-width: 601px) {
+  /* Animate first slide to slide in from the right side for screens 601px and wider. */
+  .first-slide .link-main-page-container,
+  .first-slide .title-row,
+  .first-slide .title-row-bottom {
+    /* Start with elements fully transparent and off-screen to the right */
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slide-in 0.2s forwards;
+  }
+
+  /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
+  .portrait-img {
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
+  .link-img {
+    object-fit: cover;
+    object-position: center 25%;
+    position: initial;
+    max-height: initial;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+  }
+
+  .link-main-page-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 90%;
+    background-color: black;
+    max-height: calc(100vh - 120px);
+    padding-top: -8px;
+    overflow: hidden;
+  }
+
+  .image-container-for-portraits-desktop-link {
+    flex: 1;
+    max-height: 100%;
+  }
+
+  .link-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: initial;
+    position: initial;
+    padding: initial;
+    padding-right: 14px;
+    margin-top: initial;
+    height: initial;
+    margin-left: 10px;
+  }
+
+  .link-title {
+    margin-top: 0px;
+  }
+
+  /* Hides down arrow button on larger screens.  Up arrow is not visibe on any screen size. */
+  .down-arrow-btn,
+  .up-arrow-btn {
+    display: none;
+  }
+
+  /* Toggle title-row and title-row-bottom's visibility when clicking on page. Keeps clean look on page to not show anything extra on page except arrows. */
+  .title-row.hidden-title-row,
+  .title-row-bottom.hidden-title-row {
+    display: none;
+  }
+}
