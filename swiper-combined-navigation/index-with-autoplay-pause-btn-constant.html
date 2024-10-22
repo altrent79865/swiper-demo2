@@ -281,8 +281,8 @@
             <div class="number-of-items-btn">
               <span class="number-of-items-text">45/47</span>
             </div>
-          </div>
-        </div> -->
+          </div> -->
+        </div>
         <!-- Youtube Video in Africa in playing mode -->
         <div class="swiper-slide">
           <div class="image-container-for-portraits-desktop">
@@ -424,7 +424,6 @@
     <div class="number-of-items-btn" aria-live="polite">
       <span class="number-of-items-text">1/10</span>
     </div>
-   
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -724,47 +723,49 @@
         let isTitleRowVisible = true; // Start with title-row visible
 
         function toggleTitleRow() {
-        const titleRowBottoms = document.querySelectorAll(".title-row-bottom");
-        if (isTitleRowVisible) {
-          // Hide title rows
-          titleRows.forEach((titleRow) =>
-            titleRow.classList.add("hidden-title-row")
-          );
-          titleRowBottoms.forEach((titleRowBottom) => {
-            titleRowBottom.classList.add("hidden-title-row");
-            titleRowBottom.style.transition = "none"; // Disable transition during toggle
-          });
-          // Hide down-arrow-btn
-          downButton.classList.add("hidden-title-row");
-
-          // Hide play/pause buttons only if autoplay is NOT running
-          if (!swiper.autoplay.running) {
-            autoplayButtons.forEach((button) =>
-              button.classList.add("hidden-title-row")
+          const titleRowBottoms =
+            document.querySelectorAll(".title-row-bottom");
+          if (isTitleRowVisible) {
+            // Hide title rows
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.add("hidden-title-row")
             );
-          }
-        } else {
-          // Show title rows
-          titleRows.forEach((titleRow) =>
-            titleRow.classList.remove("hidden-title-row")
-          );
-          titleRowBottoms.forEach((titleRowBottom) => { // Corrected line
-            titleRowBottom.classList.remove("hidden-title-row");
-            titleRowBottom.style.transition = "none"; // Disable transition during toggle
-          });
-          // Show down-arrow-btn
-          downButton.classList.remove("hidden-title-row");
+            titleRowBottoms.forEach((titleRowBottom) => {
+              titleRowBottom.classList.add("hidden-title-row");
+              titleRowBottom.style.transition = "none"; // Disable transition during toggle
+            });
+            // Hide down-arrow-btn
+            downButton.classList.add("hidden-title-row");
 
-          // Show play/pause buttons only if autoplay is NOT running
-          if (!swiper.autoplay.running) {
-            autoplayButtons.forEach((button) =>
-              button.classList.remove("hidden-title-row")
+            // Hide play/pause buttons only if autoplay is NOT running
+            if (!swiper.autoplay.running) {
+              autoplayButtons.forEach((button) =>
+                button.classList.add("hidden-title-row")
+              );
+            }
+          } else {
+            // Show title rows
+            titleRows.forEach((titleRow) =>
+              titleRow.classList.remove("hidden-title-row")
             );
+            titleRowBottoms.forEach((titleRowBottom) => {
+              // Corrected line
+              titleRowBottom.classList.remove("hidden-title-row");
+              titleRowBottom.style.transition = "none"; // Disable transition during toggle
+            });
+            // Show down-arrow-btn
+            downButton.classList.remove("hidden-title-row");
+
+            // Show play/pause buttons only if autoplay is NOT running
+            if (!swiper.autoplay.running) {
+              autoplayButtons.forEach((button) =>
+                button.classList.remove("hidden-title-row")
+              );
+            }
           }
+
+          isTitleRowVisible = !isTitleRowVisible;
         }
-
-        isTitleRowVisible = !isTitleRowVisible;
-      }
 
         // Function to hide UI elements when autoplay starts
         function hideUIElementsForAutoplay() {
