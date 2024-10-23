@@ -51,12 +51,6 @@ body {
   -ms-user-select: none;
 }
 
-/* .swiper-slide-active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 /* Title Row */
 .title-row {
   position: fixed;
@@ -99,6 +93,7 @@ body {
   cursor: pointer;
   border: none;
   position: relative;
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* The lines of the "X". */
@@ -167,6 +162,7 @@ body {
   filter: drop-shadow(1px 1px 2px rgba(22, 22, 22, 0.5))
     drop-shadow(2px 2px 4px rgba(27, 27, 27, 0.3))
     drop-shadow(0px 0px 5px rgba(44, 44, 44, 0.25));
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight CORY, MAKE SURE THIS WORKS ON ANDRIOD ALSO */
 }
 
 .title-row .add-new-caption {
@@ -175,6 +171,7 @@ body {
   z-index: 200;
   display: inline-block;
   padding: 14px;
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 .title-row .media-item-title {
@@ -190,6 +187,7 @@ body {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
     /* Primary shadow */ 2px 2px 4px rgba(0, 0, 0, 0.3),
     /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* Options button with 3 Vertical Dots */
@@ -310,7 +308,6 @@ body {
   overflow: visible;
   z-index: 300;
   outline: none;
-  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* Inner Visual Button */
@@ -600,8 +597,15 @@ body {
 .left-arrow-btn,
 .right-arrow-btn,
 .down-arrow-btn,
-.swiper {
-  touch-action: manipulation;
+.autoplay-toggle {
+  touch-action: manipulation; /* Prevent zooming and double-tap issues */
+  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
+  user-select: none;
+  -webkit-user-select: none; /* Safari/Chrome for iOS */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
@@ -618,13 +622,6 @@ body {
   cursor: pointer;
   border: none;
   background-repeat: no-repeat;
-  touch-action: manipulation; /* Prevent zooming and double-tap issues */
-  -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
-  user-select: none;
-  -webkit-user-select: none; /* Safari/Chrome for iOS */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  pointer-events: auto;
 }
 
 /* Arrows for horizontal Navigation Swiper */
