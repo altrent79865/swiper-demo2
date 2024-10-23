@@ -112,8 +112,7 @@ body {
 .close-btn::before,
 .options-btn::before,
 .title-row .pencil::before,
-.add-new-caption::before,
-.title-row .media-album-title {
+.add-new-caption::before {
   content: "";
   position: absolute;
   top: -20px;
@@ -124,9 +123,9 @@ body {
   pointer-events: auto;
 }
 
+
 .title-row .pencil::before,
-.add-new-caption::before,
-.title-row .media-album-title {
+.add-new-caption::before {
   top: -20px;
   bottom: -6px;
   left: -32px;
