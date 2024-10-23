@@ -12,10 +12,10 @@ body {
 }
 
 body {
-  background: #000000;
+  background: black;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
-  color: #000;
+  color: black;
 }
 
 /* Prevent any scrollbars */
@@ -70,15 +70,6 @@ body {
   display: none !important;
 }
 
-/* .hidden-icon and .visible-icon were changes in an attempt to have the pause button show when autoplay is on. */
-.hidden-icon {
-  display: none !important;
-}
-
-.visible-icon {
-  display: inline !important;
-}
-
 /* Close Button Styles */
 .close-btn {
   display: flex;
@@ -88,12 +79,10 @@ body {
   height: 28px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
-  position: absolute;
   left: 9px;
   cursor: pointer;
   border: none;
-  position: relative;
-  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
+  position: absolute;
 }
 
 /* The lines of the "X". */
@@ -119,11 +108,12 @@ body {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* Increases clickable area of close button, pencil, add new caption text and options button to prevent accidently turning the title row on or off  */
+/* Increases clickable area of close button, options button, pencil and add-new-caption to prevent accidently turning the title row on or off.  */
 .close-btn::before,
-.pencil-container::before,
+.options-btn::before,
+.title-row .pencil::before,
 .add-new-caption::before,
-.options-btn::before {
+.title-row .media-album-title {
   content: "";
   position: absolute;
   top: -20px;
@@ -134,9 +124,13 @@ body {
   pointer-events: auto;
 }
 
-.close-btn,
-.options-btn {
-  position: absolute;
+.title-row .pencil::before,
+.add-new-caption::before,
+.title-row .media-album-title {
+  top: -20px;
+  bottom: -6px;
+  left: -32px;
+  right: -12px;
 }
 
 .pencil-title-row {
@@ -146,11 +140,11 @@ body {
   height: 28px;
 }
 
-.pencil-container {
+/* .pencil-container {
   position: relative;
   display: inline-block;
   cursor: pointer;
-}
+} */
 
 .title-row .pencil {
   cursor: pointer;
@@ -162,19 +156,18 @@ body {
   filter: drop-shadow(1px 1px 2px rgba(22, 22, 22, 0.5))
     drop-shadow(2px 2px 4px rgba(27, 27, 27, 0.3))
     drop-shadow(0px 0px 5px rgba(44, 44, 44, 0.25));
-  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight CORY, MAKE SURE THIS WORKS ON ANDRIOD ALSO */
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight THIS LOOKS FIXED ON ANDROID ALSO, BUT TEST ANY OTHER NEW BUTTONS */
 }
 
-.title-row .add-new-caption {
+.add-new-caption {
   position: relative;
   cursor: pointer;
   z-index: 200;
   display: inline-block;
   padding: 14px;
-  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
-.title-row .media-item-title {
+.media-item-title {
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
@@ -183,11 +176,10 @@ body {
   letter-spacing: 0.04rem;
   margin-left: 10px;
   margin-right: 10px;
-  /* same text shadow as pencil and title-row-bottom text */
+  /* same text shadow as pencil and counter number-of-items-text */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
     /* Primary shadow */ 2px 2px 4px rgba(0, 0, 0, 0.3),
     /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
-  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* Options button with 3 Vertical Dots */
@@ -277,20 +269,6 @@ body {
   padding: 4px 8px 5px 5px;
 }
 
-/* Bottom Footer with play / pause autoplay button and bubble that show which item we're on / total number of items in post, message or album. */
-.title-row-bottom {
-  height: 60px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: -18px;
-  z-index: 300;
-}
-
 /* Play/Pause Toggle Button */
 .autoplay-toggle {
   position: fixed;
@@ -332,15 +310,11 @@ body {
   content: "";
   position: absolute;
   top: -20px;
+  bottom: -20px;
   left: -20px;
-  width: 48px;
-  height: 48px;
+  right: -20px;
   background: transparent;
   pointer-events: auto;
-  cursor: pointer;
-  border-radius: 50%;
-  outline: none;
-  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 /* Remove background highlight on active or focus states */
@@ -382,12 +356,6 @@ body {
 .autoplay-toggle.playing .pause-icon {
   opacity: 1; /* Show Pause icon */
 }
-
-/* SVG Paths */
-/* .autoplay-toggle .icon polygon,
-.autoplay-toggle .icon rect {
-  fill: white;
-} */
 
 /* Hide Play/Pause Button on Non-Active Slides */
 .swiper-slide:not(.swiper-slide-active) .autoplay-toggle {
@@ -597,7 +565,11 @@ body {
 .left-arrow-btn,
 .right-arrow-btn,
 .down-arrow-btn,
-.autoplay-toggle {
+.autoplay-toggle,
+.close-btn,
+.options-btn,
+.title-row .pencil,
+.add-new-caption {
   touch-action: manipulation; /* Prevent zooming and double-tap issues */
   -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
   user-select: none;
@@ -606,6 +578,7 @@ body {
   -ms-user-select: none; /* IE10+/Edge */
   pointer-events: auto;
   -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
+  tap-highlight-color: transparent;
 }
 
 /* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
@@ -701,7 +674,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
+  background-color: black;
   padding: 10px;
   z-index: 2000;
 }
@@ -711,7 +684,7 @@ body {
   font-size: 14px;
   width: 50%;
   padding: 8px;
-  color: #fff;
+  color: white;
   background-color: #3f3f3f;
   border: 1px solid #444;
   border-radius: 2px;
@@ -727,7 +700,7 @@ body {
 }
 
 .edit-caption-popup textarea::placeholder {
-  color: #fff;
+  color: white;
 }
 
 .edit-caption-popup button {
@@ -811,9 +784,8 @@ body {
     display: none;
   }
 
-  /* Toggle title-row, title-row-bottom and down arrow button's visibility when clicking on page.  Keeps clean look on page to just have swiping on mobile devices. */
+  /* Toggle title-row and down arrow button's visibility when clicking on page.  Keeps clean look on page to just have swiping on mobile devices. */
   .title-row.hidden-title-row,
-  .title-row-bottom.hidden-title-row,
   .down-arrow-btn.hidden-title-row {
     display: none;
   }
@@ -885,9 +857,8 @@ body {
     display: none;
   }
 
-  /* Toggle title-row and title-row-bottom's visibility when clicking on page. Keeps clean look on page to not show anything extra on page except arrows. */
-  .title-row.hidden-title-row,
-  .title-row-bottom.hidden-title-row {
+  /* Toggle title-rowss visibility when clicking on page. Keeps clean look on page to not show anything extra on page except arrows. */
+  .title-row.hidden-title-row {
     display: none;
   }
 }
