@@ -121,8 +121,8 @@ body {
   right: -20px;
   background: transparent;
   pointer-events: auto;
+  z-index: 300;
 }
-
 
 .title-row .pencil::before,
 .add-new-caption::before {
