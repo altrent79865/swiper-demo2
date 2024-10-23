@@ -272,7 +272,6 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Initialize Swiper and Handle Navigation -->
-    <!-- Initialize Swiper and Handle Navigation -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Select all Play/Pause buttons
@@ -294,6 +293,7 @@
         // UI Elements
         const titleRows = document.querySelectorAll(".title-row");
         const titleRowBottoms = document.querySelectorAll(".title-row-bottom");
+        const titleRow = document.querySelector(".title-row"); // Added to reference the title-row
 
         // Elements for Edit Caption functionality
         const editCaptionPopup = document.getElementById("edit-caption-popup");
@@ -327,6 +327,7 @@
             slideChange: function () {
               updateCounter(swiper);
               updateArrowStyles();
+              updateTitleRowContent(swiper.activeIndex); // Add this line
 
               // Adjust autoplay delay after the first slide transition
               if (swiper.autoplay.running && firstAutoplaySlide) {
@@ -696,21 +697,11 @@
             !target.closest(".left-arrow-btn") &&
             !target.closest(".right-arrow-btn") &&
             !target.closest(".options-btn") &&
-            !target.closest(".autoplay-toggle") // Ensure Play/Pause buttons are excluded
+            !target.closest(".autoplay-toggle")
           ) {
             if (dropdownMenu.classList.contains("open")) {
               // Close the dropdown menu
               closeDropdownMenu();
-            } else if (
-              target.closest(".pencil-container") ||
-              target.closest(".add-new-caption") ||
-              target.closest(".media-item-title:not(.non-interactive)")
-            ) {
-              // Handle caption edit clicks
-              const slide = target.closest(".swiper-slide");
-              if (slide) {
-                handleCaptionEditClick(event, slide);
-              }
             } else {
               if (swiper.autoplay.running) {
                 showUIElements();
@@ -718,6 +709,20 @@
                 toggleTitleRow();
               }
             }
+          }
+        });
+
+        // Add click event listener to titleRow for caption editing
+        titleRow.addEventListener("click", function (event) {
+          const target = event.target;
+
+          if (
+            target.closest(".pencil") ||
+            target.closest(".add-new-caption") ||
+            target.closest(".media-item-title")
+          ) {
+            // Handle caption edit clicks
+            handleCaptionEditClick(event);
           }
         });
 
@@ -787,33 +792,25 @@
         });
 
         // Function to open the edit caption popup
-        function openEditCaptionPopup(slide) {
-          currentEditingSlide = slide; // Store the current slide
-          const titleElement = slide.querySelector(".media-item-title");
+        function openEditCaptionPopup(activeIndex) {
+          const slides = swiper.slides;
+          const activeSlide = slides[activeIndex];
+          currentEditingSlide = activeSlide; // Store the current slide
 
-          // Trim any unnecessary spaces and ensure text is clean.
-          let captionText = "";
-          if (
-            titleElement &&
-            !titleElement.classList.contains("add-new-caption")
-          ) {
-            captionText = titleElement.textContent.trim();
-          }
+          // Get the title from data attributes
+          const title = activeSlide.getAttribute("data-title") || "";
 
           // Set the placeholder text and current title
           editCaptionTextarea.placeholder = "Photo Caption";
-          editCaptionTextarea.value = captionText;
+          editCaptionTextarea.value = title;
 
           // Show the popup
           editCaptionPopup.classList.remove("hidden");
           editCaptionTextarea.scrollTop = 0;
           editCaptionTextarea.focus();
 
-          // Hide the title row while editing
-          const titleRow = slide.querySelector(".title-row");
-          if (titleRow) {
-            titleRow.classList.add("hidden-title-row");
-          }
+          // Hide the title row
+          titleRow.classList.add("hidden-title-row");
         }
 
         // Function to close the edit caption popup
@@ -822,14 +819,10 @@
           editCaptionPopup.classList.add("hidden");
           editCaptionTextarea.blur();
 
-          // Show the title row of the slide being saved
-          if (currentEditingSlide) {
-            const titleRow = currentEditingSlide.querySelector(".title-row");
-            if (titleRow) {
-              titleRow.classList.remove("hidden-title-row");
-            }
-            currentEditingSlide = null; // Reset after closing
-          }
+          // Show the title row
+          titleRow.classList.remove("hidden-title-row");
+
+          currentEditingSlide = null; // Reset after closing
         }
 
         // Function to close dropdown menu
@@ -844,9 +837,8 @@
         editCaptionOption.addEventListener("click", function (event) {
           event.stopPropagation();
           closeDropdownMenu(); // Close the options dropdown
-          // Get the current slide
-          const currentSlide = swiper.slides[swiper.activeIndex];
-          openEditCaptionPopup(currentSlide);
+          // Open the edit caption popup for the current slide
+          openEditCaptionPopup(swiper.activeIndex);
         });
 
         // Function to save caption to the current editing slide
@@ -856,71 +848,13 @@
           // Get the new caption from the textarea with trim to remove unnecessary whitespace
           const newCaption = editCaptionTextarea.value.trim();
 
-          // Get the pencilTitleRow within the current editing slide
-          const pencilTitleRow =
-            currentEditingSlide.querySelector(".pencil-title-row");
-          if (!pencilTitleRow) return; // Safety check
+          // Update the data-title attribute of the current slide
+          currentEditingSlide.setAttribute("data-title", newCaption);
 
-          // Remove all existing title elements
-          const existingTitleElements =
-            pencilTitleRow.querySelectorAll(".media-item-title");
-          existingTitleElements.forEach((element) => element.remove());
+          // Update the pencilTitleRow content
+          updateTitleRowContent(swiper.activeIndex);
 
-          // Remove all existing pencil-container elements
-          const existingPencilContainers =
-            pencilTitleRow.querySelectorAll(".pencil-container");
-          existingPencilContainers.forEach((element) => element.remove());
-
-          // Capture the slide reference before resetting currentEditingSlide
-          const slide = currentEditingSlide;
-
-          if (newCaption === "") {
-            // When caption is empty, show pencil icon and "Add a Caption"
-            const pencilContainer = document.createElement("div");
-            pencilContainer.classList.add("pencil-container");
-
-            // Create pencil-container with pencil icon
-            const pencilImg = document.createElement("img");
-            pencilImg.src = "../assets/pencil-white.png";
-            pencilImg.classList.add("pencil");
-            pencilImg.alt = "";
-
-            pencilContainer.appendChild(pencilImg);
-
-            // Close the dropdown menu if it's open
-            if (dropdownMenu.classList.contains("open")) {
-              closeDropdownMenu();
-            }
-
-            // Append pencilContainer and addCaptionElement to pencilTitleRow
-            const addCaptionElement = document.createElement("p");
-            addCaptionElement.classList.add(
-              "media-item-title",
-              "add-new-caption"
-            );
-            addCaptionElement.textContent = "Add a Caption";
-
-            pencilTitleRow.appendChild(pencilContainer);
-            pencilTitleRow.appendChild(addCaptionElement);
-
-            // Remove "non-interactive" class from pencilTitleRow
-            pencilTitleRow.classList.remove("non-interactive");
-          } else {
-            // When there is a caption, show caption text without pencil icon
-
-            // Create new title element
-            const titleElement = document.createElement("p");
-            titleElement.classList.add("media-item-title");
-            titleElement.textContent = newCaption;
-
-            // Append titleElement to pencilTitleRow
-            pencilTitleRow.appendChild(titleElement);
-
-            // Remove "non-interactive" class from pencilTitleRow
-            pencilTitleRow.classList.remove("non-interactive");
-          }
-
-          // Close the popup and show the correct title row
+          // Close the popup
           closeEditCaptionPopup();
         }
 
@@ -931,13 +865,16 @@
         });
 
         // Function to handle caption edit clicks
-        function handleCaptionEditClick(event, slide) {
+        function handleCaptionEditClick(event) {
           event.stopPropagation();
+          event.preventDefault(); // Added to prevent default behavior
           stopAutoplayAndUpdateButtons();
+
           if (dropdownMenu.classList.contains("open")) {
             closeDropdownMenu();
           }
-          openEditCaptionPopup(slide);
+
+          openEditCaptionPopup(swiper.activeIndex);
         }
 
         // Close the edit caption popup when clicking outside of it
@@ -945,7 +882,7 @@
           if (
             !editCaptionPopup.contains(event.target) &&
             !event.target.closest(".options-btn") &&
-            !event.target.closest(".pencil-container") &&
+            !event.target.closest(".pencil") &&
             !event.target.closest(".add-new-caption") &&
             !event.target.closest(".media-item-title")
           ) {
@@ -1015,8 +952,59 @@
           updateAutoplayButtonState(); // Ensure correct icon is displayed
         }
 
-        // **Ensure to call updateCounter initially after Swiper initialization**
+        // Function to update the pencil-title-row content based on the active slide's data-title
+        function updateTitleRowContent(activeIndex) {
+          const slides = swiper.slides;
+          const activeSlide = slides[activeIndex];
+
+          // Get the title from the active slide's data attribute
+          const title = activeSlide.getAttribute("data-title") || "";
+
+          // Get the pencilTitleRow element
+          const pencilTitleRow = document.querySelector(".pencil-title-row");
+
+          // Clear existing content
+          pencilTitleRow.innerHTML = "";
+
+          if (title === "") {
+            // When there is no caption, show pencil icon and "Add a Caption"
+
+            // Create pencil icon
+            const pencilImg = document.createElement("img");
+            pencilImg.src = "../assets/pencil-white.png";
+            pencilImg.classList.add("pencil");
+            pencilImg.alt = "";
+
+            // Create "Add a Caption" element
+            const addCaptionElement = document.createElement("p");
+            addCaptionElement.classList.add(
+              "media-item-title",
+              "add-new-caption"
+            );
+            addCaptionElement.textContent = "Add a Caption";
+
+            // Append elements
+            pencilTitleRow.appendChild(pencilImg);
+            pencilTitleRow.appendChild(addCaptionElement);
+          } else {
+            // When there is a caption, show the caption text
+
+            // Create title element
+            const titleElement = document.createElement("p");
+            titleElement.classList.add("media-item-title");
+            titleElement.textContent = title;
+
+            // Append element
+            pencilTitleRow.appendChild(titleElement);
+          }
+
+          // Make the pencilTitleRow interactive
+          pencilTitleRow.classList.remove("non-interactive");
+        }
+
+        // Ensure to call updateCounter and updateTitleRowContent initially after Swiper initialization
         updateCounter(swiper);
+        updateTitleRowContent(swiper.activeIndex);
       });
     </script>
   </body>
