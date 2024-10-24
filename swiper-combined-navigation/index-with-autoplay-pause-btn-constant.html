@@ -175,13 +175,14 @@
         </div>
       </div>
     </div>
-    <!-- Title Row moved outside Swiper -->
+
+    <!-- Title Row -->
     <div class="title-row">
       <a href="../index.html" class="close-btn">
         <span class="x-line"></span>
       </a>
       <div class="pencil-title-row">
-        <!-- Title and optional pencil/add-caption elements will be injected here -->
+        <!-- Title and pencil/add-caption elements will be injected here -->
       </div>
       <!-- Options Button -->
       <button class="options-btn" aria-label="Options">
@@ -717,7 +718,7 @@
           const target = event.target;
 
           if (
-            target.closest(".pencil") ||
+            target.closest(".pencil-container") ||
             target.closest(".add-new-caption") ||
             target.closest(".media-item-title")
           ) {
@@ -969,11 +970,25 @@
           if (title === "") {
             // When there is no caption, show pencil icon and "Add a Caption"
 
+            // Create pencil container
+            const pencilContainer = document.createElement("div");
+            pencilContainer.classList.add("pencil-container");
+
             // Create pencil icon
             const pencilImg = document.createElement("img");
             pencilImg.src = "../assets/pencil-white.png";
             pencilImg.classList.add("pencil");
             pencilImg.alt = "";
+
+            // Append pencilImg to pencilContainer
+            pencilContainer.appendChild(pencilImg);
+
+            // Create expanded clickable area
+            const pencilClickArea = document.createElement("div");
+            pencilClickArea.classList.add("pencil-click-area");
+
+            // Append pencilClickArea to pencilContainer
+            pencilContainer.appendChild(pencilClickArea);
 
             // Create "Add a Caption" element
             const addCaptionElement = document.createElement("p");
@@ -983,8 +998,8 @@
             );
             addCaptionElement.textContent = "Add a Caption";
 
-            // Append elements
-            pencilTitleRow.appendChild(pencilImg);
+            // Append elements to pencilTitleRow
+            pencilTitleRow.appendChild(pencilContainer);
             pencilTitleRow.appendChild(addCaptionElement);
           } else {
             // When there is a caption, show the caption text
