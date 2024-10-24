@@ -768,7 +768,7 @@ body {
   .link-container {
     margin-top: 50svh; /* Starts directly below the image */
     height: auto;
-    padding-top: 1svh;
+    padding-top: 0;
   }
 
   .edit-caption-popup {
