@@ -68,8 +68,8 @@ body {
   z-index: 300;
 }
 
-/* Hides the title-row when clicking on page and toggling title row. */
-.hidden-title-row {
+/* Hides the elements detailed in javascript when clicking on page and toggling the page.  It will toggle the close-btn, title, pencil, add a caption, options-btn, play / pause button, left, right and down arrows, and counter.  Keeps clean look on page. */
+.hidden-element {
   display: none !important;
 }
 
@@ -110,32 +110,6 @@ body {
 /* Second line of the 'X' */
 .close-btn .x-line::after {
   transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* Increases clickable area of close button, options button, pencil and add-new-caption to prevent accidently turning the title row on or off.  */
-.close-btn::before,
-.options-btn::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  bottom: -20px;
-  left: -20px;
-  right: -20px;
-  background: transparent;
-  pointer-events: auto;
-  z-index: 300;
-}
-
-.pencil-click-area {
-  position: absolute;
-  top: -20px;
-  bottom: -6px;
-  left: -32px;
-  right: -12px;
-  background: transparent;
-  cursor: pointer;
-  pointer-events: auto;
-  z-index: 300;
 }
 
 .pencil-title-row {
@@ -311,18 +285,6 @@ body {
   z-index: 100;
 }
 
-/* Increases clickable area of play and pause button to prevent accidently turning the title row on or off  */
-.autoplay-toggle::after {
-  content: "";
-  position: absolute;
-  top: -20px;
-  bottom: -20px;
-  left: -20px;
-  right: -20px;
-  background: transparent;
-  pointer-events: auto;
-}
-
 /* Remove background highlight on active or focus states */
 .autoplay-toggle::after:active,
 .autoplay-toggle::after:focus {
@@ -448,8 +410,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 85px;
-  height: 75px;
+  width: 68px;
+  height: 68px;
   opacity: 0.9;
   object-fit: contain;
   cursor: pointer;
@@ -604,7 +566,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Arrows for horizontal Navigation Swiper */
+/* Custom rrows for horizontal swiping for Swiper Navigation */
 .left-arrow-btn,
 .right-arrow-btn {
   width: 40px;
@@ -634,8 +596,7 @@ body {
   opacity: 0.1 !important;
 }
 
-/* Custom arrows for vertical swiping for Vertical Swiper */
-/* Style for the navigation buttons container */
+/* Custom arrows for vertical swiping for Swiper Vertical */
 .navigation-buttons {
   position: absolute;
   bottom: 12px;
@@ -657,18 +618,49 @@ body {
   top: 2px;
 }
 
-/* Increases the clickable area of navigation arrow buttons to prevent accidently turning the title row on or off */
+/* Increases the clickable area of all these buttons.  A large touch area is important, otherwise it results in often toggling visibility of buttons when wanting to click / touch them.  */
 .left-arrow-btn::before,
 .right-arrow-btn::before,
-.down-arrow-btn::before {
-  content: "";
+.down-arrow-btn::before,
+.autoplay-toggle::after,
+.close-btn::before,
+.options-btn::before,
+.pencil-click-area {
   position: absolute;
+  background: transparent;
+  pointer-events: auto;
+  z-index: 300;
+  cursor: pointer;
+}
+
+/* This has a little bit bigger click / touch area than close-btn and options-btn on title row. */
+.left-arrow-btn::before,
+.right-arrow-btn::before,
+.down-arrow-btn::before,
+.autoplay-toggle::after {
+  content: "";
   top: -25px;
   bottom: -25px;
   left: -25px;
   right: -25px;
-  background: transparent;
-  pointer-events: auto;
+}
+
+/* Increases clickable / touch area of close button and options button. */
+.close-btn::before,
+.options-btn::before {
+  content: "";
+  top: -20px;
+  bottom: -20px;
+  left: -20px;
+  right: -20px;
+}
+
+/* Increases clickable / touch area of pencil and Add a Caption. */
+.pencil-click-area {
+  top: -20px;
+  bottom: -12px;
+  left: -20px;
+  right: -12px;
 }
 
 /* Edit Caption Pop-up when selecting from options menu */
@@ -738,7 +730,7 @@ body {
   position: relative;
 }
 
-/* To animate first slide sliding in from the right side */
+/* To animate first slide sliding in from the right side when screen sizes are 601px or larger width */
 @keyframes slide-in {
   to {
     opacity: 1;
@@ -746,7 +738,7 @@ body {
   }
 }
 
-/* To animate first slide sliding in from the bottom */
+/* To animate first slide sliding in from the bottom when screen sizes are up to 600px width */
 @keyframes vertical-slide-in {
   to {
     opacity: 1;
@@ -790,12 +782,6 @@ body {
   .right-arrow-btn {
     display: none;
   }
-
-  /* Toggle title-row and down arrow button's visibility when clicking on page.  Keeps clean look on page to just have swiping on mobile devices. */
-  .title-row.hidden-title-row,
-  .down-arrow-btn.hidden-title-row {
-    display: none;
-  }
 }
 
 @media (min-width: 601px) {
@@ -805,6 +791,14 @@ body {
     opacity: 0;
     transform: translateX(100%);
     animation: slide-in 0.2s forwards;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 90%;
+    background-color: black;
+    max-height: calc(100vh - 120px);
+    padding-top: -8px;
+    overflow: hidden;
   }
 
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
@@ -822,17 +816,6 @@ body {
     position: initial;
     max-height: initial;
     border: 1px solid rgba(128, 128, 128, 0.4);
-  }
-
-  .link-main-page-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    width: 90%;
-    background-color: black;
-    max-height: calc(100vh - 120px);
-    padding-top: -8px;
-    overflow: hidden;
   }
 
   .image-container-for-portraits-desktop-link {
@@ -858,14 +841,9 @@ body {
     margin-top: 0px;
   }
 
-  /* Hides down arrow button on larger screens.  Up arrow is not visibe on any screen size. */
+  /* Hides down arrow button on larger screens.  Up arrow is not visible on any screen size. */
   .down-arrow-btn,
   .up-arrow-btn {
-    display: none;
-  }
-
-  /* Toggle title-rowss visibility when clicking on page. Keeps clean look on page to not show anything extra on page except arrows. */
-  .title-row.hidden-title-row {
     display: none;
   }
 }

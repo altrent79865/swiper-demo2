@@ -576,45 +576,45 @@
           if (isTitleRowVisible) {
             // Hide title rows
             titleRows.forEach((titleRow) =>
-              titleRow.classList.add("hidden-title-row")
+              titleRow.classList.add("hidden-element")
             );
             titleRowBottoms.forEach((titleRowBottom) => {
-              titleRowBottom.classList.add("hidden-title-row");
+              titleRowBottom.classList.add("hidden-element");
               titleRowBottom.style.transition = "none"; // Disable transition during toggle
             });
 
             // Hide number-of-items-btn
-            numberOfItemsBtn.classList.add("hidden-title-row");
+            numberOfItemsBtn.classList.add("hidden-element");
 
             // Hide down-arrow-btn
-            downButton.classList.add("hidden-title-row");
+            downButton.classList.add("hidden-element");
 
             // Hide play/pause buttons only if autoplay is NOT running
             if (!swiper.autoplay.running) {
               autoplayButtons.forEach((button) =>
-                button.classList.add("hidden-title-row")
+                button.classList.add("hidden-element")
               );
             }
           } else {
             // Show title rows
             titleRows.forEach((titleRow) =>
-              titleRow.classList.remove("hidden-title-row")
+              titleRow.classList.remove("hidden-element")
             );
             titleRowBottoms.forEach((titleRowBottom) => {
-              titleRowBottom.classList.remove("hidden-title-row");
+              titleRowBottom.classList.remove("hidden-element");
               titleRowBottom.style.transition = "none"; // Disable transition during toggle
             });
 
             // Show number-of-items-btn
-            numberOfItemsBtn.classList.remove("hidden-title-row");
+            numberOfItemsBtn.classList.remove("hidden-element");
 
             // Show down-arrow-btn
-            downButton.classList.remove("hidden-title-row");
+            downButton.classList.remove("hidden-element");
 
             // Show play/pause buttons only if autoplay is NOT running
             if (!swiper.autoplay.running) {
               autoplayButtons.forEach((button) =>
-                button.classList.remove("hidden-title-row")
+                button.classList.remove("hidden-element")
               );
             }
           }
@@ -626,15 +626,15 @@
         function hideUIElementsForAutoplay() {
           // Hide title rows
           titleRows.forEach((titleRow) =>
-            titleRow.classList.add("hidden-title-row")
+            titleRow.classList.add("hidden-element")
           );
           titleRowBottoms.forEach((titleRowBottom) =>
-            titleRowBottom.classList.add("hidden-title-row")
+            titleRowBottom.classList.add("hidden-element")
           );
           // Hide number-of-items-btn
-          numberOfItemsBtn.classList.add("hidden-title-row");
+          numberOfItemsBtn.classList.add("hidden-element");
           // Hide down-arrow-btn
-          downButton.classList.add("hidden-title-row");
+          downButton.classList.add("hidden-element");
           // Hide left and right arrows when entering autoplay
           hideLeftRightArrows();
           // Ensure Play/Pause buttons remain visible during autoplay
@@ -645,15 +645,15 @@
         function showUIElements() {
           // Show title rows
           titleRows.forEach((titleRow) =>
-            titleRow.classList.remove("hidden-title-row")
+            titleRow.classList.remove("hidden-element")
           );
           titleRowBottoms.forEach((titleRowBottom) =>
-            titleRowBottom.classList.remove("hidden-title-row")
+            titleRowBottom.classList.remove("hidden-element")
           );
           // Show number-of-items-btn
-          numberOfItemsBtn.classList.remove("hidden-title-row");
+          numberOfItemsBtn.classList.remove("hidden-element");
           // Show down-arrow-btn
-          downButton.classList.remove("hidden-title-row");
+          downButton.classList.remove("hidden-element");
           // Show left and right arrows when user interacts
           showLeftRightArrows();
           // Ensure Play/Pause buttons remain visible during autoplay
@@ -662,20 +662,20 @@
 
         // Function to hide left and right arrow buttons when entering autoplay
         function hideLeftRightArrows() {
-          leftArrowBtn.classList.add("hidden-title-row");
-          rightArrowBtn.classList.add("hidden-title-row");
+          leftArrowBtn.classList.add("hidden-element");
+          rightArrowBtn.classList.add("hidden-element");
         }
 
         // Function to show left and right arrow buttons when interacting during autoplay
         function showLeftRightArrows() {
-          leftArrowBtn.classList.remove("hidden-title-row");
-          rightArrowBtn.classList.remove("hidden-title-row");
+          leftArrowBtn.classList.remove("hidden-element");
+          rightArrowBtn.classList.remove("hidden-element");
         }
 
         // Ensure Play/Pause buttons are always visible during autoplay
         function ensurePlayPauseVisible() {
           autoplayButtons.forEach((button) => {
-            button.classList.remove("hidden-title-row");
+            button.classList.remove("hidden-element");
           });
         }
 
@@ -731,16 +731,6 @@
 
         // Get the options button
         const optionsButton = document.querySelector(".options-btn");
-
-        // Remove the touchstart event listener (if present)
-        // optionsButton.addEventListener(
-        //   "touchstart",
-        //   function (e) {
-        //     e.preventDefault(); // Prevent default behavior
-        //     e.stopPropagation();
-        //   },
-        //   { passive: false }
-        // );
 
         // Add touchend event listener to prevent double-tap zoom and trigger click
         optionsButton.addEventListener(
@@ -878,7 +868,7 @@
           editCaptionTextarea.focus();
 
           // Hide the title row
-          titleRow.classList.add("hidden-title-row");
+          titleRow.classList.add("hidden-element");
         }
 
         // Function to close the edit caption popup
@@ -888,7 +878,7 @@
           editCaptionTextarea.blur();
 
           // Show the title row
-          titleRow.classList.remove("hidden-title-row");
+          titleRow.classList.remove("hidden-element");
 
           currentEditingSlide = null; // Reset after closing
         }
