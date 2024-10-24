@@ -574,7 +574,7 @@ body {
 .autoplay-toggle,
 .close-btn,
 .options-btn,
-.pencil,
+.pencil-click-area,
 .add-new-caption {
   touch-action: manipulation; /* Prevent zooming and double-tap issues */
   -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
