@@ -417,26 +417,28 @@ body {
   cursor: pointer;
 }
 
-/* Layout for a Link item */
+/* Layout for a Link item.  The link-img is for image accompanying a link. */
 .link-img {
   width: 100%;
   height: auto;
-  max-height: 55svh;
+  height: 50svh;
   object-fit: cover;
   display: block;
   position: fixed;
+  top: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
 }
 
+/* Container for text related to a link media item, specifically, link-title, link-description, url clickable text and open and save link buttons */
 .link-container {
   background-color: black;
   width: 100vw;
   position: relative;
   padding-left: 20px;
-  margin-top: calc(55svh);
-  height: calc(100svh - 55svh);
+  margin-top: calc(50svh);
+  height: calc(100svh - 50svh);
   overflow-y: auto;
 }
 
@@ -529,7 +531,7 @@ body {
   padding-right: 12px;
 }
 
-/* Prevents double-tap zoom, but still allows taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
+/* Prevents double-tap zoom on these buttons / clickable areas, but still allows taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
 .left-arrow-btn,
 .right-arrow-btn,
 .down-arrow-btn,
@@ -749,12 +751,24 @@ body {
 /* Media Queries for Phones */
 @media (max-width: 600px) {
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
+
+  /* Container for text related to a link media item, specifically, link-title, link-description, url clickable text and open and save link buttons  */
+
   .link-main-page-container {
     /* Start with elements fully transparent and off-screen at the bottom */
     opacity: 0;
     transform: translateY(100%);
     animation: vertical-slide-in 0.2s forwards;
     animation-delay: 0.1s;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+  }
+
+  .link-container {
+    margin-top: 50svh; /* Starts directly below the image */
+    height: auto;
+    padding-top: 1svh;
   }
 
   .edit-caption-popup {
@@ -786,6 +800,7 @@ body {
 
 @media (min-width: 601px) {
   /* Animate first slide to slide in from the right side for screens 601px and wider. */
+
   .link-main-page-container {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
@@ -801,28 +816,7 @@ body {
     overflow: hidden;
   }
 
-  /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
-  .portrait-img {
-    height: auto;
-    width: auto;
-    object-fit: contain;
-    display: block;
-  }
-
-  /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
-  .link-img {
-    object-fit: cover;
-    object-position: center 25%;
-    position: initial;
-    max-height: initial;
-    border: 1px solid rgba(128, 128, 128, 0.4);
-  }
-
-  .image-container-for-portraits-desktop-link {
-    flex: 1;
-    max-height: 100%;
-  }
-
+  /* Container for text related to a link media item, specifically, link-title, link-description, url clickable text and open and save link buttons  */
   .link-container {
     flex: 1;
     display: flex;
@@ -839,6 +833,26 @@ body {
 
   .link-title {
     margin-top: 0px;
+  }
+
+  /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
+  .link-img {
+    object-position: center 25%;
+    position: initial;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+  }
+
+  .image-container-for-portraits-desktop-link {
+    flex: 1;
+    max-height: 100%;
+  }
+
+  /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
+  .portrait-img {
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: block;
   }
 
   /* Hides down arrow button on larger screens.  Up arrow is not visible on any screen size. */
