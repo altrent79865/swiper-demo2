@@ -574,6 +574,7 @@ body {
 .autoplay-toggle,
 .close-btn,
 .options-btn,
+.options-btn .dot,
 .pencil-click-area,
 .add-new-caption {
   touch-action: manipulation; /* Prevent zooming and double-tap issues */
