@@ -727,22 +727,35 @@
           }
         });
 
-        // **Begin of Modified Code**
+        // ** Begin of Modified Code **
 
         // Get the options button
         const optionsButton = document.querySelector(".options-btn");
 
-        // Add touchstart event listener to prevent double-tap zoom
+        // Remove the touchstart event listener (if present)
+        // optionsButton.addEventListener(
+        //   "touchstart",
+        //   function (e) {
+        //     e.preventDefault(); // Prevent default behavior
+        //     e.stopPropagation();
+        //   },
+        //   { passive: false }
+        // );
+
+        // Add touchend event listener to prevent double-tap zoom and trigger click
         optionsButton.addEventListener(
-          "touchstart",
+          "touchend",
           function (e) {
-            e.preventDefault(); // Prevent default behavior
+            e.preventDefault(); // Prevent default double-tap zoom behavior
             e.stopPropagation();
+
+            // Manually trigger the click event to open the dropdown
+            optionsButton.click();
           },
           { passive: false }
         );
 
-        // Add click event listener directly to optionsButton
+        // Click event listener on optionsButton remains the same
         optionsButton.addEventListener("click", function (event) {
           event.stopPropagation(); // Prevent click from toggling the title row
 
@@ -765,23 +778,33 @@
           }
         });
 
-        // Add touchstart and click event listeners to the dots inside options button
+        // Update the dot elements
         const optionButtonDots = document.querySelectorAll(".options-btn .dot");
 
+        // Remove the touchstart event listener and add touchend
         optionButtonDots.forEach(function (dot) {
+          // Remove or comment out the touchstart listener if present
+          // dot.addEventListener(
+          //   "touchstart",
+          //   function (e) {
+          //     e.preventDefault();
+          //     e.stopPropagation();
+          //   },
+          //   { passive: false }
+          // );
+
+          // Add touchend event listener
           dot.addEventListener(
-            "touchstart",
+            "touchend",
             function (e) {
-              e.preventDefault(); // Prevent default behavior
+              e.preventDefault();
               e.stopPropagation();
+
+              // Manually trigger the click event on optionsButton
+              optionsButton.click();
             },
             { passive: false }
           );
-
-          dot.addEventListener("click", function (e) {
-            e.stopPropagation();
-            optionsButton.click();
-          });
         });
 
         // Close the dropdown when clicking outside of it
@@ -834,7 +857,7 @@
           dropdownMenu.style.visibility = "visible";
         }
 
-        // **End of Modified Code**
+        // ** End of Modified Code **
 
         // Function to open the edit caption popup
         function openEditCaptionPopup(activeIndex) {
@@ -971,24 +994,6 @@
           console.log("Autoplay stopped");
           updateAutoplayButtonState();
         });
-
-        // Function to hide left and right arrow buttons when entering autoplay
-        function hideLeftRightArrows() {
-          leftArrowBtn.classList.add("hidden-title-row");
-          rightArrowBtn.classList.add("hidden-title-row");
-        }
-
-        // Function to show left and right arrow buttons when interacting during autoplay
-        function showLeftRightArrows() {
-          leftArrowBtn.classList.remove("hidden-title-row");
-          rightArrowBtn.classList.remove("hidden-title-row");
-        }
-
-        // Ensure Play/Pause buttons are correctly displayed if autoplay is running on page load
-        if (swiper.autoplay.running) {
-          ensurePlayPauseVisible();
-          updateAutoplayButtonState(); // Ensure correct icon is displayed
-        }
 
         // Function to update the pencil-title-row content based on the active slide's data-title
         function updateTitleRowContent(activeIndex) {
