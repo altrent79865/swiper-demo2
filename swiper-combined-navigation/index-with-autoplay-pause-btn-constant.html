@@ -637,7 +637,7 @@
           downButton.classList.add("hidden-title-row");
           // Hide left and right arrows when entering autoplay
           hideLeftRightArrows();
-          // **Ensure Play/Pause buttons remain visible during autoplay**
+          // Ensure Play/Pause buttons remain visible during autoplay
           ensurePlayPauseVisible();
         }
 
@@ -656,7 +656,7 @@
           downButton.classList.remove("hidden-title-row");
           // Show left and right arrows when user interacts
           showLeftRightArrows();
-          // **Ensure Play/Pause buttons remain visible during autoplay**
+          // Ensure Play/Pause buttons remain visible during autoplay
           ensurePlayPauseVisible();
         }
 
@@ -727,7 +727,89 @@
           }
         });
 
-        // Options Dropdown Menu Positioning and Toggle
+        // **Begin of Modified Code**
+
+        // Get the options button
+        const optionsButton = document.querySelector(".options-btn");
+
+        // Add touchstart event listener to prevent double-tap zoom
+        optionsButton.addEventListener(
+          "touchstart",
+          function (e) {
+            e.preventDefault(); // Prevent default behavior
+            e.stopPropagation();
+          },
+          { passive: false }
+        );
+
+        // Add click event listener directly to optionsButton
+        optionsButton.addEventListener("click", function (event) {
+          event.stopPropagation(); // Prevent click from toggling the title row
+
+          // Stop autoplay if running
+          stopAutoplayAndUpdateButtons();
+
+          const isOpen = dropdownMenu.classList.contains("open");
+
+          if (isOpen) {
+            // Close dropdown menu
+            closeDropdownMenu();
+          } else {
+            // Set the active options button
+            activeOptionsBtn = optionsButton;
+
+            dropdownMenu.classList.add("open");
+
+            // Position the dropdown menu
+            positionDropdownMenu();
+          }
+        });
+
+        // Add touchstart and click event listeners to the dots inside options button
+        const optionButtonDots = document.querySelectorAll(".options-btn .dot");
+
+        optionButtonDots.forEach(function (dot) {
+          dot.addEventListener(
+            "touchstart",
+            function (e) {
+              e.preventDefault(); // Prevent default behavior
+              e.stopPropagation();
+            },
+            { passive: false }
+          );
+
+          dot.addEventListener("click", function (e) {
+            e.stopPropagation();
+            optionsButton.click();
+          });
+        });
+
+        // Close the dropdown when clicking outside of it
+        document.addEventListener("click", function (event) {
+          // If the dropdown is open and the click is outside the dropdown and options button, close it
+          if (
+            dropdownMenu.classList.contains("open") &&
+            !dropdownMenu.contains(event.target) &&
+            !event.target.closest(".options-btn")
+          ) {
+            closeDropdownMenu();
+          }
+        });
+
+        // Dropdown Close Button
+        closeBtn.addEventListener("click", function (event) {
+          event.stopPropagation();
+          closeDropdownMenu();
+        });
+
+        // Function to close dropdown menu
+        function closeDropdownMenu() {
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none";
+          activeOptionsBtn = null;
+        }
+
+        // Function to position the dropdown menu
         function positionDropdownMenu() {
           if (!activeOptionsBtn) return;
 
@@ -752,45 +834,7 @@
           dropdownMenu.style.visibility = "visible";
         }
 
-        document.addEventListener("click", function (event) {
-          const optionsButton = event.target.closest(".options-btn");
-          if (optionsButton) {
-            event.stopPropagation(); // Prevent click from toggling the title row
-
-            // Stop autoplay if running
-            stopAutoplayAndUpdateButtons();
-
-            const isOpen = dropdownMenu.classList.contains("open");
-
-            if (isOpen) {
-              // Close dropdown menu
-              dropdownMenu.classList.remove("open");
-              dropdownMenu.style.display = "none";
-              activeOptionsBtn = null;
-            } else {
-              // Set the active options button
-              activeOptionsBtn = optionsButton;
-
-              dropdownMenu.classList.add("open");
-
-              // Position the dropdown menu
-              positionDropdownMenu();
-            }
-          }
-        });
-
-        // Dropdown Close Button
-        closeBtn.addEventListener("click", function (event) {
-          event.stopPropagation();
-          dropdownMenu.classList.remove("open");
-          dropdownMenu.style.display = "none"; // Hide the dropdown menu
-          activeOptionsBtn = null;
-        });
-
-        // Prevent event propagation when clicking inside the dropdown menu
-        dropdownMenu.addEventListener("click", function (event) {
-          event.stopPropagation();
-        });
+        // **End of Modified Code**
 
         // Function to open the edit caption popup
         function openEditCaptionPopup(activeIndex) {
@@ -824,13 +868,6 @@
           titleRow.classList.remove("hidden-title-row");
 
           currentEditingSlide = null; // Reset after closing
-        }
-
-        // Function to close dropdown menu
-        function closeDropdownMenu() {
-          dropdownMenu.classList.remove("open");
-          dropdownMenu.style.display = "none";
-          activeOptionsBtn = null;
         }
 
         // Event listener for the "Edit Caption" option
@@ -883,7 +920,7 @@
           if (
             !editCaptionPopup.contains(event.target) &&
             !event.target.closest(".options-btn") &&
-            !event.target.closest(".pencil") &&
+            !event.target.closest(".pencil-click-area") &&
             !event.target.closest(".add-new-caption") &&
             !event.target.closest(".media-item-title")
           ) {
@@ -974,7 +1011,7 @@
             const pencilContainer = document.createElement("div");
             pencilContainer.classList.add("pencil-container");
 
-            // Create pencil icon.  I created pencil icon here because I wanted to expand click / touch area and was having issues with psuedo classes that I'm using for other items.
+            // Create pencil icon
             const pencilImg = document.createElement("img");
             pencilImg.src = "../assets/pencil-white.png";
             pencilImg.classList.add("pencil");
