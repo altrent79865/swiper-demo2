@@ -537,7 +537,7 @@ body {
 .options-btn .dot,
 .pencil-click-area,
 .add-new-caption {
-  /* touch-action: manipulation;  */
+  touch-action: manipulation; /* Prevent zooming and double-tap issues */
   -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
   user-select: none;
   -webkit-user-select: none; /* Safari/Chrome for iOS */
@@ -733,6 +733,7 @@ body {
   width: 100%;
   height: 100svh;
   position: relative;
+  overflow: auto;
 }
 
 /* To animate first slide sliding in from the right side when screen sizes are 601px or larger width */
@@ -848,6 +849,7 @@ body {
   .image-container-for-portraits-desktop-link {
     flex: 1;
     max-height: 100%;
+    overflow: auto;
   }
 
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
