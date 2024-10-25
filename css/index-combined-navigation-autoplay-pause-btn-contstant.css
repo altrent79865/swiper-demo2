@@ -48,6 +48,11 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  /* To work with Swiper Zoom */
+  touch-action: auto;
+  overflow: auto;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Title Row at top of page */
@@ -731,8 +736,9 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100svh;
-  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* To animate first slide sliding in from the right side when screen sizes are 601px or larger width */
@@ -852,8 +858,8 @@ body {
 
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
   .portrait-img {
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
     object-fit: contain;
     display: block;
   }
