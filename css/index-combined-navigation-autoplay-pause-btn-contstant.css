@@ -44,10 +44,10 @@ body {
   height: 100svh;
   width: 100vw;
   /* Apply below to make images a long touch not open native features */
-  user-select: none;
+  /* user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; */
 }
 
 /* Title Row at top of page */
@@ -539,7 +539,7 @@ body {
 .add-new-caption {
   touch-action: manipulation; /* Prevent zooming and double-tap issues */
   -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
-  user-select: none;
+  /* user-select: none; */
   -webkit-user-select: none; /* Safari/Chrome for iOS */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
@@ -635,30 +635,30 @@ body {
 .left-arrow-btn::before,
 .right-arrow-btn::before,
 .down-arrow-btn::before {
-  /* content: ""; */
-  /* top: -25px;
+  content: "";
+  top: -25px;
   bottom: -25px;
   left: -25px;
-  right: -25px; */
+  right: -25px;
 }
 
 /* This is a little bigger so easy to touch  play / pause buttons without having to concentrate where touching on device */
 .autoplay-toggle::after {
-  /* content: "";
+  content: "";
   top: -35px;
   bottom: -30px;
   left: -30px;
-  right: -35px; */
+  right: -35px;
 }
 
 /* Increases clickable / touch area of close button and options button. */
 .close-btn::before,
 .options-btn::before {
-  /* content: "";
+  content: "";
   top: -20px;
   bottom: -20px;
   left: -20px;
-  right: -20px; */
+  right: -20px;
 }
 
 /* Increases clickable / touch area of pencil and Add a Caption. */
