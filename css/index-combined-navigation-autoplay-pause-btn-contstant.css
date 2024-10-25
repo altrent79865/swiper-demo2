@@ -836,7 +836,8 @@ body {
 
   /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
   .link-img {
-    object-position: center 25%;
+    height: initial;
+    object-position: center 35%;
     position: initial;
     border: 1px solid rgba(128, 128, 128, 0.4);
   }
