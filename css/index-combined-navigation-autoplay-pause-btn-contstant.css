@@ -533,7 +533,13 @@ body {
 /* Prevents double-tap zoom on these buttons / clickable areas, but still allows taps and swipes.  The double tap zoom was causing iOS devices to get stuck on a zoom size.  */
 .left-arrow-btn,
 .right-arrow-btn,
-.down-arrow-btn {
+.down-arrow-btn,
+.autoplay-toggle,
+.close-btn,
+.options-btn,
+.options-btn .dot,
+.pencil-click-area,
+.add-new-caption {
   touch-action: manipulation; /* Prevent zooming and double-tap issues */
   -webkit-touch-callout: none; /* Disable callout (copy menu) on long press */
   user-select: none;
@@ -544,14 +550,6 @@ body {
   -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
   tap-highlight-color: transparent;
 }
-
-/* ,
-.autoplay-toggle,
-.close-btn,
-.options-btn,
-.options-btn .dot,
-.pencil-click-area,
-.add-new-caption */
 
 /* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
 .left-arrow-btn,
@@ -845,7 +843,7 @@ body {
 
   /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
   .link-img {
-    height: 60svh;
+    /* height: 60svh; */
     object-fit: cover;
     object-position: center 35%;
     position: initial;
