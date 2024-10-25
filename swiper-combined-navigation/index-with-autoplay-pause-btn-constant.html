@@ -35,60 +35,60 @@
           data-hash="first-slide"
           data-title="Drago's Charbroiled Steak Recipe"
         >
-          <div class="link-main-page-container">
-            <!-- Link image -->
-            <div class="image-container-for-portraits-desktop-link">
-              <div class="swiper-zoom-container">
+          <div class="swiper-zoom-container">
+            <div class="link-main-page-container">
+              <!-- Link image -->
+              <div class="image-container-for-portraits-desktop-link">
                 <img
                   src="../assets/steak.jpg"
                   class="link-img"
                   alt="Charbroiled steak image"
                 />
               </div>
-            </div>
-            <!-- Holds title, description, url, save link and open link buttons -->
-            <div class="link-container">
-              <p class="link-title">Drago's Charbroiled Steak Recipe</p>
-              <p class="link-description">
-                This recipe for charbroiled steak was created by Tommy Cicero of
-                Drago's Restaurant in New Orleans.
-              </p>
-              <p class="link-clickable-text-wrapper">
-                <a
-                  href="https://www.saveur.com"
-                  rel="noopener noreferrer"
-                  class="link-clickable-text"
-                  aria-label="Link to Saveur's website"
-                  >SAVEUR.COM</a
-                >
-              </p>
-              <div class="link-btn-row">
-                <!-- Open Link Button -->
-                <a
-                  href="https://www.saveur.com"
-                  class="link-button"
-                  role="button"
-                  aria-label="Open link to Saveur website"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="../assets/jump_link_white.png"
-                    alt="link-icon"
-                    class="button-icon"
-                  />
-                  <span>Open Link</span>
-                </a>
-                <!-- Save Link Button -->
-                <a
-                  href="#"
-                  class="link-button save-button"
-                  role="button"
-                  aria-label="Save link"
-                  rel="noopener noreferrer"
-                >
-                  <img src="../assets/k_logo.png" alt="Kohono icon" />
-                  <span class="save-link-text">Save Link</span>
-                </a>
+              <!-- Holds title, description, url, save link and open link buttons -->
+              <div class="link-container">
+                <p class="link-title">Drago's Charbroiled Steak Recipe</p>
+                <p class="link-description">
+                  This recipe for charbroiled steak was created by Tommy Cicero
+                  of Drago's Restaurant in New Orleans.
+                </p>
+                <p class="link-clickable-text-wrapper">
+                  <a
+                    href="https://www.saveur.com"
+                    rel="noopener noreferrer"
+                    class="link-clickable-text"
+                    aria-label="Link to Saveur's website"
+                    >SAVEUR.COM</a
+                  >
+                </p>
+                <div class="link-btn-row">
+                  <!-- Open Link Button -->
+                  <a
+                    href="https://www.saveur.com"
+                    class="link-button"
+                    role="button"
+                    aria-label="Open link to Saveur website"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="../assets/jump_link_white.png"
+                      alt="link-icon"
+                      class="button-icon"
+                    />
+                    <span>Open Link</span>
+                  </a>
+                  <!-- Save Link Button -->
+                  <a
+                    href="#"
+                    class="link-button save-button"
+                    role="button"
+                    aria-label="Save link"
+                    rel="noopener noreferrer"
+                  >
+                    <img src="../assets/k_logo.png" alt="Kohono icon" />
+                    <span class="save-link-text">Save Link</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -96,11 +96,13 @@
         <!-- Sandwich slide (portrait) -->
         <div class="swiper-slide" data-title="Focaccia with Mortadella">
           <div class="image-container-for-portraits-desktop">
-            <img
-              src="../assets/sandwich-profile-3024x4032.jpeg"
-              class="portrait-img"
-              alt="Image of Focaccia Bread, Mortadella and cheese"
-            />
+            <div class="swiper-zoom-container">
+              <img
+                src="../assets/sandwich-profile-3024x4032.jpeg"
+                class="portrait-img"
+                alt="Image of Focaccia Bread, Mortadella and cheese"
+              />
+            </div>
           </div>
         </div>
         <!-- Christmas Meal slide (portrait) -->
@@ -370,7 +372,7 @@
           autoplay: false,
           zoom: {
             maxRatio: 5,
-          },  
+          },
           breakpoints: {
             601: {
               // When window width is >= 601px
