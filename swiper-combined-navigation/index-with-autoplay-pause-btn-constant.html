@@ -766,7 +766,7 @@
         optionsButton.addEventListener(
           "touchend",
           function (e) {
-            // e.preventDefault();
+            e.preventDefault(); // Prevent default double-tap zoom behavior
             e.stopPropagation();
 
             // Manually trigger the click event to open the dropdown
@@ -807,7 +807,7 @@
           dot.addEventListener(
             "touchend",
             function (e) {
-              // e.preventDefault();
+              e.preventDefault();
               e.stopPropagation();
 
               // Manually trigger the click event on optionsButton
