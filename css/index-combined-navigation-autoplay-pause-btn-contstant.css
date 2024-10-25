@@ -48,6 +48,9 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  /* To work with Swiper Zoom */
+  touch-action: auto;
+  overflow: auto;
 }
 
 /* Title Row at top of page */
@@ -733,6 +736,8 @@ body {
   width: 100%;
   height: 100svh;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 /* To animate first slide sliding in from the right side when screen sizes are 601px or larger width */
