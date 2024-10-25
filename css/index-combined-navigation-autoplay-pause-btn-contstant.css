@@ -30,7 +30,6 @@ body {
   /* below was to fix flash of getting wrong title when refreshing page.  Initially hides Swiper */
   opacity: 0;
   transition: opacity 0.3s ease;
-  z-index: 0;
 }
 
 /* Show Swiper when initialized.  Fixes flash of getting wrong title when refreshing page */
@@ -843,7 +842,7 @@ body {
 
   /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
   .link-img {
-    /* height: 60svh; */
+    height: 60svh;
     object-fit: cover;
     object-position: center 35%;
     position: initial;
