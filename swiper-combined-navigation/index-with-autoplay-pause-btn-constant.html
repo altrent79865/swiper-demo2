@@ -20,7 +20,11 @@
 
   <body>
     <!-- Swiper -->
-    <div class="swiper mySwiper">
+    <div
+      class="swiper mySwiper"
+      role="region"
+      aria-label="navigation of media items"
+    >
       <div class="swiper-wrapper">
         <!-- Steak Link -->
         <div
@@ -29,20 +33,27 @@
           data-title="Drago's Charbroiled Steak Recipe"
         >
           <div class="link-main-page-container">
+            <!-- Link image -->
             <div class="image-container-for-portraits-desktop-link">
-              <img src="../assets/steak.jpg" class="link-img" />
+              <img
+                src="../assets/steak.jpg"
+                class="link-img"
+                alt="Charbroiled steak image"
+              />
             </div>
+            <!-- Holds title, description, url, save link and open link buttons -->
             <div class="link-container">
               <p class="link-title">Drago's Charbroiled Steak Recipe</p>
               <p class="link-description">
-                This authentic recipe for charbroiled steak was developed by
-                Tommy Cicero of Drago's Restaurant in New Orleans.
+                This recipe for charbroiled steak was created by Tommy Cicero of
+                Drago's Restaurant in New Orleans.
               </p>
               <p class="link-clickable-text-wrapper">
                 <a
                   href="https://www.saveur.com"
                   rel="noopener noreferrer"
                   class="link-clickable-text"
+                  aria-label="Link to Saveur's website"
                   >SAVEUR.COM</a
                 >
               </p>
@@ -52,17 +63,17 @@
                   href="https://www.saveur.com"
                   class="link-button"
                   role="button"
-                  aria-label="Open link to website"
+                  aria-label="Open link to Saveur website"
                   rel="noopener noreferrer"
                 >
                   <img
                     src="../assets/jump_link_white.png"
-                    alt="icon"
+                    alt="link-icon"
                     class="button-icon"
                   />
                   <span>Open Link</span>
                 </a>
-                <!-- Save Link Button with Kohono Icon. -->
+                <!-- Save Link Button -->
                 <a
                   href="#"
                   class="link-button save-button"
@@ -70,7 +81,7 @@
                   aria-label="Save link"
                   rel="noopener noreferrer"
                 >
-                  <img src="../assets/k_logo.png" alt="icon" />
+                  <img src="../assets/k_logo.png" alt="Kohono icon" />
                   <span class="save-link-text">Save Link</span>
                 </a>
               </div>
@@ -78,15 +89,12 @@
           </div>
         </div>
         <!-- Sandwich slide (portrait) -->
-        <div
-          class="swiper-slide"
-          data-hash="second-slide"
-          data-title="Focaccia with Mortadella"
-        >
+        <div class="swiper-slide" data-title="Focaccia with Mortadella">
           <div class="image-container-for-portraits-desktop">
             <img
               src="../assets/sandwich-profile-3024x4032.jpeg"
               class="portrait-img"
+              alt="Image of Focaccia Bread, Mortadella and cheese"
             />
           </div>
         </div>
@@ -96,20 +104,28 @@
           data-title="Christmas Dinner Table and Dessert"
         >
           <div class="image-container-for-portraits-desktop">
-            <img src="../assets/christmas-meal.jpg" class="portrait-img" />
+            <img
+              src="../assets/christmas-meal.jpg"
+              class="portrait-img"
+              alt="Christmas dinner table with desserts"
+            />
           </div>
         </div>
         <!-- Salsa (portrait) -->
         <div class="swiper-slide" data-title="Favorite Salsas">
-          <img src="../assets/salsa3024x4032.jpeg" class="portrait-img" />
+          <img
+            src="../assets/salsa3024x4032.jpeg"
+            class="portrait-img"
+            alt="Different types of salsas"
+          />
         </div>
-        <!-- Pork with Rosemary slide with Pencil Icon and Add a Caption feature (portrait) -->
+        <!-- Flower Arrangement (portrait) -->
         <div class="swiper-slide" data-title="">
           <div class="image-container-for-portraits-desktop">
             <img
-              src="../assets/flower-arrangement.jpg
-            "
+              src="../assets/flower-arrangement-3840x5760.jpg"
               class="portrait-img"
+              alt="Flower arrangement"
             />
           </div>
         </div>
@@ -122,6 +138,7 @@
             <img
               src="../assets/fruit-portrait-3024x4032.jpeg"
               class="portrait-img"
+              alt="Fruit plate with pineapple and melon"
             />
           </div>
         </div>
@@ -130,6 +147,7 @@
           <img
             src="../assets/sandwich-unmade-landscape-4032x3024.jpeg"
             class="landscape-img"
+            alt="Unmade Focaccia sandwich with mortadella"
           />
         </div>
         <!-- Youtube Video in Africa not in play mode -->
@@ -141,11 +159,12 @@
             <img
               src="../assets/youtube-kenya-iphone-not-playing.jpg"
               class="landscape-img youtube-landscape"
+              alt="YouTube video of wildebeests running"
             />
             <img
               src="../assets/video_play.png"
-              alt="icon"
               class="centered-video_play-icon"
+              alt="Play video icon"
             />
           </div>
         </div>
@@ -161,11 +180,11 @@
                 srcset="../assets/youtube-kenya-desktop-playing.png"
                 media="(min-width: 601px)"
               />
-              <!-- Default image for screens up to 600px width -->
+              <!-- Image for screens up to 600px width -->
               <img
                 src="../assets/youtube-kenya-iphone-playing.png"
                 class="portrait-img youtube-portrait"
-                alt="Youtube video of safari in Kenya"
+                alt="YouTube video of wildebeests running"
               />
             </picture>
           </div>
@@ -175,21 +194,27 @@
           <img
             src="../assets/sandwich-landscape-4032x3024.jpeg"
             class="landscape-img"
+            alt="Grilled Focaccia sandwich with mortadella"
           />
         </div>
       </div>
     </div>
 
-    <!-- Title Row -->
+    <!-- Title Row at top of page -->
     <div class="title-row">
-      <a href="../index.html" class="close-btn">
+      <!-- Close Button ("X") -->
+      <a
+        href="../index.html"
+        class="close-btn"
+        aria-label="Close media item and go back"
+      >
         <span class="x-line"></span>
       </a>
       <div class="pencil-title-row">
-        <!-- Title and pencil/add-caption elements will be injected here -->
+        <!-- Title and pencil/add-new-caption elements will be injected here -->
       </div>
-      <!-- Options Button -->
-      <button class="options-btn" aria-label="Options">
+      <!-- Options Menu Button (3 dots) -->
+      <button class="options-btn" aria-label="Options menu">
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
@@ -198,28 +223,42 @@
 
     <!-- Custom Navigation Buttons for Vertical Swiper (Up & Down). Image links for arrow is in CSS -->
     <div class="navigation-buttons">
-      <button class="up-arrow-btn" aria-label="Navigate Up"></button>
-      <button class="down-arrow-btn" aria-label="Navigate Down"></button>
+      <button
+        class="up-arrow-btn"
+        aria-label="Navigate Up to previous item"
+      ></button>
+      <button
+        class="down-arrow-btn"
+        aria-label="Navigate Down to next item"
+      ></button>
     </div>
     <!-- Custom Navigation Buttons for Horizontal Swiper (Left & Right). Image links for arrows are in CSS -->
-    <button class="left-arrow-btn" aria-label="Navigate Left"></button>
-    <button class="right-arrow-btn" aria-label="Navigate Right"></button>
+    <button
+      class="left-arrow-btn"
+      aria-label="Navigate Left to previous item"
+    ></button>
+    <button
+      class="right-arrow-btn"
+      aria-label="Navigate Right to next item"
+    ></button>
 
     <!-- Options Dropdown -->
     <div
       id="options-links"
       class="options-dropdown swiper-vertical-options-dropdown"
-      aria-label="Options menu"
+      role="menu"
+      aria-label="menu"
     >
+      <!-- Options Dropdown close button ("X") -->
       <button
         id="options-close-btn"
         class="dropdown-close-btn"
-        aria-label="Close options menu"
+        aria-label="Close options dropdown menu"
       >
         ×
       </button>
-      <!-- List of Links in the dropdown from Options button -->
-      <ul>
+      <!-- List of links in the Options Dropdown -->
+      <ul role="none">
         <li role="menuitem">Edit Caption</li>
         <li role="menuitem">Change Header</li>
         <li role="menuitem">Set as Album Cover</li>
@@ -240,11 +279,15 @@
         maxlength="100"
         aria-label="Edit photo caption"
       ></textarea>
-      <button id="save-caption-btn">Save</button>
+      <!-- Save Caption Button -->
+      <button id="save-caption-btn" aria-label="Save edited caption">
+        Save
+      </button>
     </div>
 
     <!-- Autoplay Toggle -->
-    <button class="autoplay-toggle" aria-label="Play Autoplay">
+    <button class="autoplay-toggle" aria-label="Toggle Autoplay">
+      <!-- Play Button -->
       <svg
         class="icon play-icon"
         width="13"
@@ -255,6 +298,7 @@
       >
         <polygon points="0.5,0 12.0,7.5 0.5,15" fill="white" />
       </svg>
+      <!-- Pause Button -->
       <svg
         class="icon pause-icon"
         width="14"
@@ -297,8 +341,7 @@
 
         // UI Elements
         const titleRows = document.querySelectorAll(".title-row");
-        const titleRowBottoms = document.querySelectorAll(".title-row-bottom");
-        const titleRow = document.querySelector(".title-row"); // Added to reference the title-row
+        const titleRow = document.querySelector(".title-row");
 
         // Elements for Edit Caption functionality
         const editCaptionPopup = document.getElementById("edit-caption-popup");
@@ -312,7 +355,6 @@
         const closeBtn = document.getElementById("options-close-btn");
         let activeOptionsBtn = null;
 
-        // Declare currentEditingSlide to keep track of the slide being edited
         let currentEditingSlide = null; // Keeps track of the slide being edited
 
         // Initialize Swiper with Autoplay Disabled by Default
@@ -332,7 +374,7 @@
             slideChange: function () {
               updateCounter(swiper);
               updateArrowStyles();
-              updateTitleRowContent(swiper.activeIndex); // Add this line
+              updateTitleRowContent(swiper.activeIndex);
 
               // Adjust autoplay delay after the first slide transition
               if (swiper.autoplay.running && firstAutoplaySlide) {
@@ -357,7 +399,7 @@
 
         // Function to update the slide counter
         function updateCounter(swiper) {
-          const totalSlides = swiper.slides.length; // Total number of slides
+          const totalSlides = swiper.slides.length;
           const currentSlide = swiper.activeIndex + 1; // Swiper's activeIndex starts at 0
           numberOfItemsText.textContent = `${currentSlide}/${totalSlides}`;
         }
@@ -540,7 +582,7 @@
             e.stopPropagation(); // Prevent event from bubbling up
             return;
           }
-          e.preventDefault(); // Always prevent default behavior
+          e.preventDefault();
           isTouchActive = true;
           hasSwipedOnTouch = false; // Reset the swipe flag at the start of touch
         }
@@ -570,22 +612,15 @@
           hasSwipedOnTouch = true;
         });
 
-        // Function to toggle the title-row and number-of-items-btn visibility
+        // Function to toggle visibility of items
         let isTitleRowVisible = true; // Start with title-row visible
 
         function toggleTitleRow() {
-          const titleRowBottoms =
-            document.querySelectorAll(".title-row-bottom");
-
           if (isTitleRowVisible) {
             // Hide title rows
             titleRows.forEach((titleRow) =>
               titleRow.classList.add("hidden-element")
             );
-            titleRowBottoms.forEach((titleRowBottom) => {
-              titleRowBottom.classList.add("hidden-element");
-              titleRowBottom.style.transition = "none"; // Disable transition during toggle
-            });
 
             // Hide number-of-items-btn
             numberOfItemsBtn.classList.add("hidden-element");
@@ -604,10 +639,6 @@
             titleRows.forEach((titleRow) =>
               titleRow.classList.remove("hidden-element")
             );
-            titleRowBottoms.forEach((titleRowBottom) => {
-              titleRowBottom.classList.remove("hidden-element");
-              titleRowBottom.style.transition = "none"; // Disable transition during toggle
-            });
 
             // Show number-of-items-btn
             numberOfItemsBtn.classList.remove("hidden-element");
@@ -622,7 +653,6 @@
               );
             }
           }
-
           isTitleRowVisible = !isTitleRowVisible;
         }
 
@@ -632,9 +662,7 @@
           titleRows.forEach((titleRow) =>
             titleRow.classList.add("hidden-element")
           );
-          titleRowBottoms.forEach((titleRowBottom) =>
-            titleRowBottom.classList.add("hidden-element")
-          );
+
           // Hide number-of-items-btn
           numberOfItemsBtn.classList.add("hidden-element");
           // Hide down-arrow-btn
@@ -650,9 +678,6 @@
           // Show title rows
           titleRows.forEach((titleRow) =>
             titleRow.classList.remove("hidden-element")
-          );
-          titleRowBottoms.forEach((titleRowBottom) =>
-            titleRowBottom.classList.remove("hidden-element")
           );
           // Show number-of-items-btn
           numberOfItemsBtn.classList.remove("hidden-element");
@@ -731,8 +756,6 @@
           }
         });
 
-        // ** Begin of Modified Code **
-
         // Get the options button
         const optionsButton = document.querySelector(".options-btn");
 
@@ -777,16 +800,6 @@
 
         // Remove the touchstart event listener and add touchend
         optionButtonDots.forEach(function (dot) {
-          // Remove or comment out the touchstart listener if present
-          // dot.addEventListener(
-          //   "touchstart",
-          //   function (e) {
-          //     e.preventDefault();
-          //     e.stopPropagation();
-          //   },
-          //   { passive: false }
-          // );
-
           // Add touchend event listener
           dot.addEventListener(
             "touchend",
@@ -851,8 +864,6 @@
           dropdownMenu.style.visibility = "visible";
         }
 
-        // ** End of Modified Code **
-
         // Function to open the edit caption popup
         function openEditCaptionPopup(activeIndex) {
           const slides = swiper.slides;
@@ -900,7 +911,7 @@
         function saveCaptionToSlide() {
           if (!currentEditingSlide) return; // Safety check
 
-          // Get the new caption from the textarea with trim to remove unnecessary whitespace
+          // Get the new caption from the textarea with trim to remove unnecessary whitespace.  Was causing issues without this.
           const newCaption = editCaptionTextarea.value.trim();
 
           // Update the data-title attribute of the current slide

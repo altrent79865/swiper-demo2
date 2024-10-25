@@ -53,7 +53,7 @@ body {
   -ms-user-select: none;
 }
 
-/* Title Row */
+/* Title Row at top of page */
 .title-row {
   position: fixed;
   top: 0;
