@@ -548,7 +548,7 @@ body {
   -ms-user-select: none; /* IE10+/Edge */
   pointer-events: auto;
   -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
-  /* tap-highlight-color: transparent; */
+  tap-highlight-color: transparent;
 }
 
 /* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
