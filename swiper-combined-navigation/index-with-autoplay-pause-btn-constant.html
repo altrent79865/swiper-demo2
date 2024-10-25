@@ -324,6 +324,11 @@
       <span class="number-of-items-text">1/10</span>
     </div>
 
+    <!-- Exit Zoom Button -->
+    <button class="exit-zoom-button hidden" aria-label="Exit Zoom">
+      <span class="exit-zoom-button-text">Exit Zoom</span>
+    </button>
+
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -336,6 +341,7 @@
           ".number-of-items-text"
         );
         const numberOfItemsBtn = document.querySelector(".number-of-items-btn");
+        const exitZoomBtn = document.querySelector(".exit-zoom-button");
 
         // Declare a flag to track the first autoplay slide
         let firstAutoplaySlide = false;
@@ -415,10 +421,10 @@
                   isZoomedIn = true;
                   // Hide UI elements
                   hideUIElementsForZoom();
+                  // Show Exit Zoom button
+                  exitZoomBtn.classList.remove("hidden");
                   // Change counter to "Exit Zoom"
                   numberOfItemsText.textContent = "Exit Zoom";
-                  // Add a class to identify the exit zoom button
-                  numberOfItemsBtn.classList.add("exit-zoom-btn");
                 }
               } else {
                 swiper.allowSlideNext = true;
@@ -427,10 +433,10 @@
                   isZoomedIn = false;
                   // Show UI elements
                   showUIElementsAfterZoom();
+                  // Hide Exit Zoom button
+                  exitZoomBtn.classList.add("hidden");
                   // Restore the counter text
                   updateCounter(swiper);
-                  // Remove the exit zoom class
-                  numberOfItemsBtn.classList.remove("exit-zoom-btn");
                 }
               }
             },
@@ -657,7 +663,7 @@
         });
 
         // Event listener for "Exit Zoom" button
-        numberOfItemsBtn.addEventListener("click", function () {
+        exitZoomBtn.addEventListener("click", function () {
           if (isZoomedIn) {
             // Reset the zoom level
             swiper.zoom.out();
