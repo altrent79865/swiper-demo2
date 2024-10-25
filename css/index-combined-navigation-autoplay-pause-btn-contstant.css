@@ -45,10 +45,10 @@ body {
   height: 100svh;
   width: 100vw;
   /* Apply below to make images a long touch not open native features */
-  user-select: none;
+  /* user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; */
 }
 
 /* Title Row at top of page */
