@@ -44,7 +44,6 @@ body {
   background-color: black;
   height: 100svh;
   width: 100vw;
-  z-index: 0;
   /* Apply below to make images a long touch not open native features */
   user-select: none;
   -webkit-user-select: none;
