@@ -8,7 +8,7 @@ html,
 body {
   position: relative;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 body {
@@ -421,7 +421,7 @@ body {
   height: 55svh;
   object-fit: cover;
   display: block;
-  /* position: fixed; */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
