@@ -421,7 +421,7 @@ body {
 .link-img {
   width: 100%;
   height: auto;
-  height: 50svh;
+  height: 55svh;
   object-fit: cover;
   display: block;
   position: fixed;
@@ -437,8 +437,8 @@ body {
   width: 100vw;
   position: relative;
   padding-left: 20px;
-  margin-top: calc(50svh);
-  height: calc(100svh - 50svh);
+  margin-top: 55svh;
+  height: calc(100svh - 45svh);
   overflow-y: auto;
 }
 
@@ -766,7 +766,6 @@ body {
   }
 
   .link-container {
-    margin-top: 50svh; /* Starts directly below the image */
     height: auto;
     padding-top: 0;
   }
@@ -805,7 +804,7 @@ body {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
     transform: translateX(100%);
-    animation: slide-in 0.2s forwards;
+    animation: slide-in 0.3s forwards;
     display: flex;
     align-items: flex-start;
     gap: 20px;
