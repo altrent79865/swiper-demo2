@@ -8,7 +8,6 @@ html,
 body {
   position: relative;
   height: 100%;
-  /* overflow: hidden; */
 }
 
 body {
@@ -636,30 +635,30 @@ body {
 .left-arrow-btn::before,
 .right-arrow-btn::before,
 .down-arrow-btn::before {
-  content: "";
-  top: -25px;
+  /* content: ""; */
+  /* top: -25px;
   bottom: -25px;
   left: -25px;
-  right: -25px;
+  right: -25px; */
 }
 
 /* This is a little bigger so easy to touch  play / pause buttons without having to concentrate where touching on device */
 .autoplay-toggle::after {
-  content: "";
+  /* content: "";
   top: -35px;
   bottom: -30px;
   left: -30px;
-  right: -35px;
+  right: -35px; */
 }
 
 /* Increases clickable / touch area of close button and options button. */
 .close-btn::before,
 .options-btn::before {
-  content: "";
+  /* content: "";
   top: -20px;
   bottom: -20px;
   left: -20px;
-  right: -20px;
+  right: -20px; */
 }
 
 /* Increases clickable / touch area of pencil and Add a Caption. */
@@ -733,7 +732,6 @@ body {
   align-items: center;
   width: 100%;
   height: 100svh;
-  /* overflow: hidden; */
   position: relative;
 }
 
@@ -817,7 +815,6 @@ body {
     background-color: black;
     max-height: calc(100vh - 120px);
     padding-top: -8px;
-    /* overflow: hidden; */
   }
 
   /* Container for text related to a link media item, specifically, link-title, link-description, url clickable text and open and save link buttons  */
