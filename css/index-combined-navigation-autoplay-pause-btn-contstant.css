@@ -73,7 +73,7 @@ body {
   display: none !important;
 }
 
-/* Close Button Styles */
+/* Circular background part of button that appears behind close button */
 .close-btn {
   display: flex;
   justify-content: center;
@@ -135,7 +135,7 @@ body {
   filter: drop-shadow(1px 1px 2px rgba(22, 22, 22, 0.5))
     drop-shadow(2px 2px 4px rgba(27, 27, 27, 0.3))
     drop-shadow(0px 0px 5px rgba(44, 44, 44, 0.25));
-  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight THIS LOOKS FIXED ON ANDROID ALSO, BUT TEST ANY OTHER NEW BUTTONS */
+  -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
 }
 
 .add-new-caption {
@@ -161,7 +161,7 @@ body {
     /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
 }
 
-/* Options button with 3 Vertical Dots */
+/* Circular background part of button that appears behind options button's 3 Vertical Dots */
 .options-btn {
   display: flex;
   flex-direction: column;
@@ -205,7 +205,7 @@ body {
 }
 
 .options-dropdown.open {
-  display: flex; /* Show when open */
+  display: flex;
   opacity: 1;
   transform: translateY(0);
 }
@@ -268,7 +268,7 @@ body {
   outline: none;
 }
 
-/* Inner Visual Button */
+/* Circular background part of button that appears behind play / pause icon */
 .autoplay-toggle::before {
   content: "";
   position: absolute;
@@ -330,6 +330,7 @@ body {
   display: none;
 }
 
+/* Oblong background part of area that appears behind number of items */
 .number-of-items-btn {
   position: fixed;
   bottom: 16px;
@@ -404,7 +405,6 @@ body {
   object-fit: contain;
 }
 
-/* Has a large touch area to prevent toggling visibility when using thumbs on iOS device. */
 .centered-video_play-icon {
   position: absolute;
   top: 50%;
@@ -430,7 +430,7 @@ body {
   margin: 0 auto;
 }
 
-/* Container for text related to a link media item, specifically, link-title, link-description, url clickable text and open and save link buttons */
+/* Container for text related to a link media item.  Specifically, it holds link-title, link-description, clickable URL text and open and save link buttons */
 .link-container {
   background-color: black;
   width: 100vw;
@@ -483,7 +483,7 @@ body {
   flex-wrap: nowrap;
 }
 
-/* Button on link to Open link */
+/* Open link Button */
 .link-button {
   display: inline-flex;
   align-items: center;
@@ -548,7 +548,7 @@ body {
   -ms-user-select: none; /* IE10+/Edge */
   pointer-events: auto;
   -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
-  tap-highlight-color: transparent;
+  /* tap-highlight-color: transparent; */
 }
 
 /* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
@@ -567,7 +567,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Custom rrows for horizontal swiping for Swiper Navigation */
+/* Custom arrows for horizontal swiping for Swiper Navigation */
 .left-arrow-btn,
 .right-arrow-btn {
   width: 40px;
@@ -645,7 +645,7 @@ body {
   right: -25px;
 }
 
-/* I wanted this a little bigger so easy to start stop pause button without having to concentrate where touching on device */
+/* This is a little bigger so easy to touch  play / pause buttons without having to concentrate where touching on device */
 .autoplay-toggle::after {
   content: "";
   top: -35px;
@@ -843,10 +843,11 @@ body {
 
   /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
   .link-img {
+    height: 60svh;
     object-fit: cover;
     object-position: center 35%;
     position: initial;
-    border: 1px solid rgba(128, 128, 128, 0.4);
+    border: 1px solid rgba(128, 128, 128, 0.5);
   }
 
   .image-container-for-portraits-desktop-link {
