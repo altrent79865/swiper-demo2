@@ -637,13 +637,21 @@ body {
 /* This has a little bit bigger click / touch area than close-btn and options-btn on title row. */
 .left-arrow-btn::before,
 .right-arrow-btn::before,
-.down-arrow-btn::before,
-.autoplay-toggle::after {
+.down-arrow-btn::before {
   content: "";
   top: -25px;
   bottom: -25px;
   left: -25px;
   right: -25px;
+}
+
+/* I wanted this a little bigger so easy to start stop pause button without having to concentrate where touching on device */
+.autoplay-toggle::after {
+  content: "";
+  top: -35px;
+  bottom: -30px;
+  left: -30px;
+  right: -35px;
 }
 
 /* Increases clickable / touch area of close button and options button. */
