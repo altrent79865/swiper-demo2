@@ -249,7 +249,7 @@ body {
 
 /* Play/Pause Toggle Button */
 .autoplay-toggle {
-  position: relative;
+  position: fixed;
   bottom: 16px;
   left: 9px;
   display: flex;
@@ -421,7 +421,7 @@ body {
   height: 55svh;
   object-fit: cover;
   display: block;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
