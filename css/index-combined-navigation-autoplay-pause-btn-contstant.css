@@ -420,7 +420,6 @@ body {
 /* Layout for a Link item.  The link-img is for image accompanying a link. */
 .link-img {
   width: 100%;
-  height: auto;
   height: 55svh;
   object-fit: cover;
   display: block;
@@ -836,7 +835,7 @@ body {
 
   /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
   .link-img {
-    height: initial;
+    object-fit: cover;
     object-position: center 35%;
     position: initial;
     border: 1px solid rgba(128, 128, 128, 0.4);
