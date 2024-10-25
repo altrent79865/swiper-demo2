@@ -38,11 +38,13 @@
           <div class="link-main-page-container">
             <!-- Link image -->
             <div class="image-container-for-portraits-desktop-link">
-              <img
-                src="../assets/steak.jpg"
-                class="link-img"
-                alt="Charbroiled steak image"
-              />
+              <div class="swiper-zoom-container">
+                <img
+                  src="../assets/steak.jpg"
+                  class="link-img"
+                  alt="Charbroiled steak image"
+                />
+              </div>
             </div>
             <!-- Holds title, description, url, save link and open link buttons -->
             <div class="link-container">
@@ -365,8 +367,10 @@
           direction: "vertical", // Swiper Vertical - direction for phones
           loop: false,
           speed: 200, // Speed for vertical navigation
-          touchStartPreventDefault: false,
           autoplay: false,
+          zoom: {
+            maxRatio: 5,
+          },  
           breakpoints: {
             601: {
               // When window width is >= 601px
