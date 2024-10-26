@@ -671,7 +671,8 @@ body {
 .autoplay-toggle::after,
 .close-btn::before,
 .options-btn::before,
-.pencil-click-area {
+.pencil-click-area,
+.exit-zoom-button::before {
   position: absolute;
   background: transparent;
   pointer-events: auto;
@@ -707,6 +708,14 @@ body {
   bottom: -20px;
   left: -20px;
   right: -20px;
+}
+
+.exit-zoom-button::before {
+  content: "";
+  top: -35px;
+  bottom: -35px;
+  left: -35px;
+  right: -35px;
 }
 
 /* Increases clickable / touch area of pencil and Add a Caption. */
