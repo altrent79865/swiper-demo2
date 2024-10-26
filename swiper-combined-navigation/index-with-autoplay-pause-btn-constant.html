@@ -444,7 +444,7 @@
             slideChangeTransitionStart: function () {
               handleSlideChange();
             },
-            zoomChange: function (scale) {
+            zoomChange: function (swiperInstance, scale, imageEl, slideEl) {
               console.log("Zoom changed to scale:", scale);
               if (scale !== 1) {
                 swiper.allowSlideNext = false;
