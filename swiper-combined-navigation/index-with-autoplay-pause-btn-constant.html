@@ -402,7 +402,8 @@
           spaceBetween: 0, // No space between slides
           autoplay: false, // Disable autoplay on initialization
           zoom: {
-            maxRatio: 5,
+            maxRatio: 8, // Increased from 5 to 8 to allow deeper zoom
+            minRatio: 1, // Ensures images don't shrink below original size
             toggle: false, // Disable toggle on double click
           },
           breakpoints: {
@@ -458,7 +459,7 @@
                     console.log("Autoplay stopped due to zoom.");
                   }
 
-                  // Hide UI elements
+                  // Hide UI elements except Exit Zoom button
                   hideUIElementsForZoom();
 
                   // Hide Link Container if Present
@@ -467,8 +468,31 @@
                   // Hide number-of-items-btn to prevent residual background
                   numberOfItemsBtn.classList.add("hidden-element");
 
-                  // Show Exit Zoom button
+                  // Ensure Exit Zoom button remains in its original position and style
                   exitZoomBtn.classList.remove("hidden");
+                  exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
+
+                  // Adjust the swiper-zoom-container to cover full viewport
+                  const zoomContainers = document.querySelectorAll(
+                    ".swiper-zoom-container"
+                  );
+                  zoomContainers.forEach((container) => {
+                    container.style.width = "100vw";
+                    container.style.height = "100vh";
+                    container.style.display = "flex";
+                    container.style.justifyContent = "center";
+                    container.style.alignItems = "center";
+                  });
+
+                  // Adjust image styles to ensure full coverage without distortion
+                  const images = document.querySelectorAll(
+                    ".swiper-zoom-container img"
+                  );
+                  images.forEach((img) => {
+                    img.style.maxWidth = "100%";
+                    img.style.maxHeight = "100%";
+                    img.style.objectFit = "contain"; // Change to "cover" if preferred
+                  });
 
                   // Disable Swiping
                   swiper.allowTouchMove = false;
@@ -487,6 +511,29 @@
 
                   // Hide Exit Zoom button
                   exitZoomBtn.classList.add("hidden");
+                  exitZoomBtn.style.zIndex = ""; // Reset z-index
+
+                  // Reset the swiper-zoom-container to original size
+                  const zoomContainers = document.querySelectorAll(
+                    ".swiper-zoom-container"
+                  );
+                  zoomContainers.forEach((container) => {
+                    container.style.width = "";
+                    container.style.height = "";
+                    container.style.display = "";
+                    container.style.justifyContent = "";
+                    container.style.alignItems = "";
+                  });
+
+                  // Reset image styles
+                  const images = document.querySelectorAll(
+                    ".swiper-zoom-container img"
+                  );
+                  images.forEach((img) => {
+                    img.style.maxWidth = "";
+                    img.style.maxHeight = "";
+                    img.style.objectFit = "";
+                  });
 
                   // Show number-of-items-btn and update the counter
                   numberOfItemsBtn.classList.remove("hidden-element");
@@ -914,7 +961,7 @@
           if (optionsButton) {
             optionsButton.classList.add("hidden-element");
           }
-          // Hide number-of-items-btn already handled in zoomChange
+          // number-of-items-btn is already hidden in zoomChange
           // Hide other elements if necessary
         }
 
