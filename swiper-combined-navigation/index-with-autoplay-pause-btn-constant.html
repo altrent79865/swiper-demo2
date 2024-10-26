@@ -549,11 +549,11 @@
 
         // Function to update the slide counter
         function updateCounter(swiper) {
-          if (isZoomedIn) {
-            // When zoomed in, hide the slide counter
+          if (swiper.autoplay.running) {
+            // During autoplay, hide the slide counter
             numberOfItemsBtn.classList.add("hidden-element");
-          } else {
-            // Show the slide counter
+          } else if (!isZoomedIn) {
+            // When not zoomed in and not autoplaying, show the slide counter
             numberOfItemsBtn.classList.remove("hidden-element");
             const totalSlides = swiper.slides.length;
             const currentSlide = swiper.activeIndex + 1; // Swiper's activeIndex starts at 0
