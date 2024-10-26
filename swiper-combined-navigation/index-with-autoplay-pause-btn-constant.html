@@ -386,9 +386,6 @@
         // Variable to track zoom state
         let isZoomedIn = false;
 
-        // Variable to track autoplay state before zooming
-        let wasAutoplayRunningBeforeZoom = false;
-
         // **Select the Options Button**
         const optionsButton = document.querySelector(".options-btn");
         if (!optionsButton) {
@@ -424,14 +421,6 @@
               updateArrowStyles();
               updateTitleRowContent(swiper.activeIndex);
 
-              // Adjust autoplay delay after the first slide transition
-              if (swiper.autoplay.running && wasAutoplayRunningBeforeZoom) {
-                swiper.params.autoplay.delay = 2500;
-                wasAutoplayRunningBeforeZoom = false;
-                swiper.autoplay.stop();
-                swiper.autoplay.start();
-              }
-
               // Close the dropdown if it is open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
@@ -460,7 +449,6 @@
                   isZoomedIn = true;
                   console.log("Entering zoomed-in state.");
                   // Check if autoplay is running before zooming
-                  wasAutoplayRunningBeforeZoom = swiper.autoplay.running;
                   if (swiper.autoplay.running) {
                     swiper.autoplay.stop();
                     console.log("Autoplay stopped due to zoom.");
@@ -471,6 +459,8 @@
                   exitZoomBtn.classList.remove("hidden");
                   // Change counter to "Exit Zoom"
                   numberOfItemsText.textContent = "Exit Zoom";
+                  // Update autoplay button state
+                  updateAutoplayButtonState();
                 }
               } else {
                 // Exiting zoomed-in state
@@ -483,11 +473,8 @@
                   exitZoomBtn.classList.add("hidden");
                   // Restore the counter text
                   updateCounter(swiper);
-                  // Resume autoplay if it was running before zoom
-                  if (wasAutoplayRunningBeforeZoom) {
-                    swiper.autoplay.start();
-                    console.log("Autoplay resumed after exiting zoom.");
-                  }
+                  // Update autoplay button state
+                  updateAutoplayButtonState();
                 }
               }
             },
@@ -512,9 +499,11 @@
             if (swiper.autoplay.running) {
               button.classList.add("playing");
               button.setAttribute("aria-label", "Pause Autoplay");
+              button.textContent = "Pause"; // Update button text/icon if needed
             } else {
               button.classList.remove("playing");
               button.setAttribute("aria-label", "Play Autoplay");
+              button.textContent = "Play"; // Update button text/icon if needed
             }
           });
           console.log("Autoplay button states updated.");
@@ -809,7 +798,7 @@
           // Hide left and right arrows when entering autoplay
           hideLeftRightArrows();
           // Ensure Play/Pause buttons remain visible during autoplay
-          ensurePlayPauseVisible();
+          ensureAutoplayButtonsVisible();
         }
 
         // Function to show UI elements when user interacts
@@ -826,7 +815,7 @@
           // Show left and right arrows when user interacts
           showLeftRightArrows();
           // Ensure Play/Pause buttons remain visible during autoplay
-          ensurePlayPauseVisible();
+          ensureAutoplayButtonsVisible();
         }
 
         // Function to hide left and right arrow buttons when entering autoplay
@@ -844,7 +833,7 @@
         }
 
         // Ensure Play/Pause buttons are always visible during autoplay
-        function ensurePlayPauseVisible() {
+        function ensureAutoplayButtonsVisible() {
           autoplayButtons.forEach((button) => {
             button.classList.remove("hidden-element");
           });

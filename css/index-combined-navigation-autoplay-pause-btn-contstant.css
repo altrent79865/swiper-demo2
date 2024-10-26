@@ -389,6 +389,10 @@ body {
   display: none;
 }
 
+.swiper-zoom-container {
+  text-align: left;
+}
+
 /* Layout of Images */
 .swiper-slide img {
   display: block;
