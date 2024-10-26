@@ -489,9 +489,12 @@
                     ".swiper-zoom-container img"
                   );
                   images.forEach((img) => {
-                    img.style.maxWidth = "100%";
-                    img.style.maxHeight = "100%";
-                    img.style.objectFit = "contain"; // Change to "cover" if preferred
+                    img.style.maxWidth = "none"; // Remove max-width to prevent shrinking
+                    img.style.maxHeight = "none"; // Remove max-height to prevent shrinking
+                    img.style.width = "auto"; // Allow width to adjust naturally
+                    img.style.height = "auto"; // Allow height to adjust naturally
+                    img.style.objectFit = "cover"; // Ensure the image covers the container
+                    img.style.transformOrigin = "center center"; // Center the zoom
                   });
 
                   // Disable Swiping
@@ -532,7 +535,10 @@
                   images.forEach((img) => {
                     img.style.maxWidth = "";
                     img.style.maxHeight = "";
+                    img.style.width = "";
+                    img.style.height = "";
                     img.style.objectFit = "";
+                    img.style.transformOrigin = "";
                   });
 
                   // Show number-of-items-btn and update the counter
