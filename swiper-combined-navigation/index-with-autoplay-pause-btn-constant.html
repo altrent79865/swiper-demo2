@@ -111,29 +111,35 @@
           data-title="Christmas Dinner Table and Dessert"
         >
           <div class="image-container-for-portraits-desktop">
-            <img
-              src="../assets/christmas-meal.jpg"
-              class="portrait-img"
-              alt="Christmas dinner table with desserts"
-            />
+            <div class="swiper-zoom-container">
+              <img
+                src="../assets/christmas-meal.jpg"
+                class="portrait-img"
+                alt="Christmas dinner table with desserts"
+              />
+            </div>
           </div>
         </div>
         <!-- Salsa (portrait) -->
         <div class="swiper-slide" data-title="Favorite Salsas">
-          <img
-            src="../assets/salsa3024x4032.jpeg"
-            class="portrait-img"
-            alt="Different types of salsas"
-          />
+          <div class="swiper-zoom-container">
+            <img
+              src="../assets/salsa3024x4032.jpeg"
+              class="portrait-img"
+              alt="Different types of salsas"
+            />
+          </div>
         </div>
         <!-- Flower Arrangement (portrait) -->
         <div class="swiper-slide" data-title="">
           <div class="image-container-for-portraits-desktop">
-            <img
-              src="../assets/flower-arrangement-3840x5760.jpg"
-              class="portrait-img"
-              alt="Flower arrangement"
-            />
+            <div class="swiper-zoom-container">
+              <img
+                src="../assets/flower-arrangement-3840x5760.jpg"
+                class="portrait-img"
+                alt="Flower arrangement"
+              />
+            </div>
           </div>
         </div>
         <!-- Fruit Plate slide (portrait) -->
@@ -142,37 +148,43 @@
           data-title="Fruit Plate with Pineapple & Melon"
         >
           <div class="image-container-for-portraits-desktop">
-            <img
-              src="../assets/fruit-portrait-3024x4032.jpeg"
-              class="portrait-img"
-              alt="Fruit plate with pineapple and melon"
-            />
+            <div class="swiper-zoom-container">
+              <img
+                src="../assets/fruit-portrait-3024x4032.jpeg"
+                class="portrait-img"
+                alt="Fruit plate with pineapple and melon"
+              />
+            </div>
           </div>
         </div>
         <!-- Sandwich slide (landscape) -->
         <div class="swiper-slide" data-title="Focaccia with Mortadella">
-          <img
-            src="../assets/sandwich-unmade-landscape-4032x3024.jpeg"
-            class="landscape-img"
-            alt="Unmade Focaccia sandwich with mortadella"
-          />
+          <div class="swiper-zoom-container">
+            <img
+              src="../assets/sandwich-unmade-landscape-4032x3024.jpeg"
+              class="landscape-img"
+              alt="Unmade Focaccia sandwich with mortadella"
+            />
+          </div>
         </div>
         <!-- Youtube Video in Africa not in play mode -->
         <div
           class="swiper-slide"
           data-title="Finding the Wildebeasts on Safari"
         >
-          <div class="kenya-video-iphone-image-container">
-            <img
-              src="../assets/youtube-kenya-iphone-not-playing.jpg"
-              class="landscape-img youtube-landscape"
-              alt="YouTube video of wildebeests running"
-            />
-            <img
-              src="../assets/video_play.png"
-              class="centered-video_play-icon"
-              alt="Play video icon"
-            />
+          <div class="swiper-zoom-container">
+            <div class="kenya-video-iphone-image-container">
+              <img
+                src="../assets/youtube-kenya-iphone-not-playing.jpg"
+                class="landscape-img youtube-landscape"
+                alt="YouTube video of wildebeests running"
+              />
+              <img
+                src="../assets/video_play.png"
+                class="centered-video_play-icon"
+                alt="Play video icon"
+              />
+            </div>
           </div>
         </div>
         <!-- Youtube Video in Africa in playing mode -->
@@ -181,28 +193,32 @@
           data-title="Finding the Wildebeasts on Safari"
         >
           <div class="image-container-for-portraits-desktop">
-            <picture>
-              <!-- Image for screens 601px and larger -->
-              <source
-                srcset="../assets/youtube-kenya-desktop-playing.png"
-                media="(min-width: 601px)"
-              />
-              <!-- Image for screens up to 600px width -->
-              <img
-                src="../assets/youtube-kenya-iphone-playing.png"
-                class="portrait-img youtube-portrait"
-                alt="YouTube video of wildebeests running"
-              />
-            </picture>
+            <div class="swiper-zoom-container">
+              <picture>
+                <!-- Image for screens 601px and larger -->
+                <source
+                  srcset="../assets/youtube-kenya-desktop-playing.png"
+                  media="(min-width: 601px)"
+                />
+                <!-- Image for screens up to 600px width -->
+                <img
+                  src="../assets/youtube-kenya-iphone-playing.png"
+                  class="portrait-img youtube-portrait"
+                  alt="YouTube video of wildebeests running"
+                />
+              </picture>
+            </div>
           </div>
         </div>
         <!-- Grilled Focaccia Sandwich (landscape) -->
         <div class="swiper-slide" data-title="Grilled Focaccia with Mortadella">
-          <img
-            src="../assets/sandwich-landscape-4032x3024.jpeg"
-            class="landscape-img"
-            alt="Grilled Focaccia sandwich with mortadella"
-          />
+          <div class="swiper-zoom-container">
+            <img
+              src="../assets/sandwich-landscape-4032x3024.jpeg"
+              class="landscape-img"
+              alt="Grilled Focaccia sandwich with mortadella"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -372,6 +388,9 @@
 
         // Variable to track zoom state
         let isZoomedIn = false;
+
+        // **NEW ADDITION: Select the Options Button**
+        const optionsButton = document.querySelector(".options-btn");
 
         // Initialize Swiper with Autoplay Disabled by Default
         const swiper = new Swiper(".mySwiper", {
