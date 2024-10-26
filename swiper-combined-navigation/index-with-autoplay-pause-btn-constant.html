@@ -876,6 +876,13 @@
           if (optionsButton) {
             optionsButton.classList.remove("hidden-element");
           }
+          // **EXPLICITLY RESTORE `number-of-items-text`**
+          if (numberOfItemsBtn) {
+            numberOfItemsBtn.classList.remove("hidden-element");
+          }
+          if (numberOfItemsText) {
+            numberOfItemsText.classList.remove("hidden-element");
+          }
           // Show other elements if necessary
         }
 
