@@ -927,9 +927,10 @@
           // Get the dropdown menu's width
           const dropdownWidth = dropdownMenu.offsetWidth;
 
-          // Position the dropdown menu so that its top right corner aligns with the top right corner of the options button
+          // Position the dropdown menu so that its top aligns with the bottom of the options button
+          // and its right aligns with the right edge of the options button
           dropdownMenu.style.position = "fixed";
-          dropdownMenu.style.top = rect.top + "px"; // Align top edges
+          dropdownMenu.style.top = rect.bottom + window.scrollY + "px"; // Below the button
           dropdownMenu.style.left = rect.right - dropdownWidth + "px"; // Align right edges
 
           dropdownMenu.style.visibility = "visible";
@@ -1031,22 +1032,48 @@
           openEditCaptionPopup(swiper.activeIndex);
         }
 
-        // Close the edit caption popup when clicking outside of it
+        // Close the edit caption popup and dropdown when clicking outside
         document.addEventListener("click", function (event) {
-          if (
-            !editCaptionPopup.contains(event.target) &&
-            !event.target.closest(".options-btn") &&
-            !event.target.closest(".pencil-click-area") &&
-            !event.target.closest(".add-new-caption") &&
-            !event.target.closest(".media-item-title")
-          ) {
+          // Define selectors for interactive elements
+          const interactiveSelectors = [
+            ".options-btn",
+            ".autoplay-toggle",
+            ".left-arrow-btn",
+            ".right-arrow-btn",
+            ".up-arrow-btn",
+            ".down-arrow-btn",
+            "#options-links",
+            "#edit-caption-popup",
+            ".pencil-click-area",
+            ".add-new-caption",
+            ".media-item-title",
+            ".link-button",
+            ".close-btn",
+            ".dropdown-close-btn",
+          ];
+
+          // Check if the click is inside any interactive element
+          const isClickInsideInteractive = interactiveSelectors.some(
+            (selector) => event.target.closest(selector)
+          );
+
+          if (!isClickInsideInteractive) {
+            // If the dropdown is open, close it
+            if (dropdownMenu.classList.contains("open")) {
+              closeDropdownMenu();
+              console.log("Options dropdown closed by clicking outside.");
+            }
+
+            // If the edit caption popup is open, save and close it
             if (!editCaptionPopup.classList.contains("hidden")) {
               console.log(
                 "Click outside detected. Saving caption and closing popup."
               );
-              // Simulate clicking the "Save" button to save current caption
               saveCaptionToSlide();
             }
+
+            // Toggle UI visibility
+            toggleTitleRow();
           }
         });
 
@@ -1055,10 +1082,26 @@
           event.stopPropagation();
         });
 
+        // Prevent event propagation when clicking inside the dropdown menu
+        dropdownMenu.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+
         // Keydown event listener on keyboard
         document.addEventListener("keydown", function (e) {
           // Check if the swiper instance exists
           if (!swiper) return;
+
+          // Close dropdown and popups on Escape key
+          if (e.key === "Escape") {
+            if (dropdownMenu.classList.contains("open")) {
+              closeDropdownMenu();
+            }
+            if (!editCaptionPopup.classList.contains("hidden")) {
+              saveCaptionToSlide();
+            }
+            return;
+          }
 
           // Determine the current direction of Swiper
           if (swiper.isVertical()) {
@@ -1178,6 +1221,33 @@
         // Ensure to call updateCounter and updateTitleRowContent initially after Swiper initialization
         updateCounter(swiper);
         updateTitleRowContent(swiper.activeIndex);
+
+        // **New: Event listener for the Options Button to toggle the dropdown**
+        if (optionsButton) {
+          optionsButton.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent the click from bubbling up
+            if (dropdownMenu.classList.contains("open")) {
+              closeDropdownMenu(); // If already open, close it
+            } else {
+              activeOptionsBtn = optionsButton; // Set the active button for positioning
+              positionDropdownMenu(); // Position the dropdown
+              dropdownMenu.classList.add("open"); // Open the dropdown
+              console.log("Options dropdown opened.");
+            }
+          });
+        }
+
+        // **New: Event listener for the Close Button in the dropdown**
+        if (closeBtn) {
+          closeBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent the click from bubbling up
+            closeDropdownMenu(); // Close the dropdown
+            console.log("Options dropdown closed via close button.");
+          });
+        }
+
+        // **Ensure dropdown closes when clicking outside or when UI is toggled**
+        // (Handled by the existing document click listener)
       });
     </script>
   </body>
