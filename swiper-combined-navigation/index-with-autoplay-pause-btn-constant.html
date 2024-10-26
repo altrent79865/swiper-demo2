@@ -463,6 +463,8 @@
                   numberOfItemsText.textContent = "Exit Zoom";
                   // Update autoplay button state
                   updateAutoplayButtonState();
+                  // **Disable Swiping**
+                  swiper.allowTouchMove = false;
                 }
               } else {
                 // Exiting zoomed-in state
@@ -477,6 +479,8 @@
                   updateCounter(swiper);
                   // Update autoplay button state
                   updateAutoplayButtonState();
+                  // **Enable Swiping**
+                  swiper.allowTouchMove = true;
                 }
               }
             },
