@@ -355,7 +355,7 @@
         const autoplayButtons = document.querySelectorAll(".autoplay-toggle"); // Play/Pause buttons (SVG)
         const numberOfItemsText = document.querySelector(
           ".number-of-items-text"
-        ); // Slide counter
+        ); // Slide counter text
         const numberOfItemsBtn = document.querySelector(".number-of-items-btn"); // Button containing the slide counter
         const exitZoomBtn = document.querySelector(".exit-zoom-button"); // Exit Zoom button
 
@@ -464,12 +464,11 @@
                   // Hide Link Container if Present
                   hideLinkContainerIfPresent();
 
+                  // Hide number-of-items-btn to prevent residual background
+                  numberOfItemsBtn.classList.add("hidden-element");
+
                   // Show Exit Zoom button
                   exitZoomBtn.classList.remove("hidden");
-
-                  // Optionally, you can set the counter text to "Exit Zoom" or keep it hidden
-                  // Here, we'll keep it as the counter remains hidden
-                  // numberOfItemsText.textContent = "Exit Zoom"; // Avoid duplicating text
 
                   // Disable Swiping
                   swiper.allowTouchMove = false;
@@ -489,7 +488,8 @@
                   // Hide Exit Zoom button
                   exitZoomBtn.classList.add("hidden");
 
-                  // Restore the counter text
+                  // Show number-of-items-btn and update the counter
+                  numberOfItemsBtn.classList.remove("hidden-element");
                   updateCounter(swiper);
 
                   // Enable Swiping
@@ -503,7 +503,7 @@
         // Function to update the slide counter
         function updateCounter(swiper) {
           if (isZoomedIn) {
-            // When zoomed in, we rely solely on the Exit Zoom button
+            // When zoomed in, hide the slide counter
             numberOfItemsBtn.classList.add("hidden-element");
           } else {
             // Show the slide counter
@@ -775,6 +775,12 @@
         let isTitleRowVisible = true; // Start with title-row visible
 
         function toggleTitleRow() {
+          if (isZoomedIn) {
+            // Do not allow toggling when zoomed in
+            console.log("Cannot toggle UI elements while zoomed in.");
+            return;
+          }
+
           if (isTitleRowVisible) {
             console.log("Hiding title row and related UI elements.");
             // Hide title rows
@@ -908,6 +914,7 @@
           if (optionsButton) {
             optionsButton.classList.add("hidden-element");
           }
+          // Hide number-of-items-btn already handled in zoomChange
           // Hide other elements if necessary
         }
 
@@ -930,6 +937,7 @@
           if (optionsButton) {
             optionsButton.classList.remove("hidden-element");
           }
+          // number-of-items-btn is shown and counter updated in zoomChange
           // Show other elements if necessary
         }
 
@@ -1090,6 +1098,7 @@
             ".link-button",
             ".close-btn",
             ".dropdown-close-btn",
+            ".exit-zoom-button", // Ensure clicks on Exit Zoom button are considered interactive
           ];
 
           // Check if the click is inside any interactive element
@@ -1126,6 +1135,11 @@
 
         // Prevent event propagation when clicking inside the dropdown menu
         dropdownMenu.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+
+        // Prevent event propagation when clicking inside the Exit Zoom button
+        exitZoomBtn.addEventListener("click", function (event) {
           event.stopPropagation();
         });
 
