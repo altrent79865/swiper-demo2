@@ -713,9 +713,9 @@ body {
 /* Increases clickable / touch area of Exit Zoom button. */
 .exit-zoom-button::before {
   content: "";
-  top: -40px;
+  top: -45px;
   bottom: -35px;
-  left: -180px;
+  left: -90px;
   right: -35px;
 }
 
