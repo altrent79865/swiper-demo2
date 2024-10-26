@@ -397,17 +397,13 @@
           );
         }
 
-        // Initialize Swiper with Autoplay and Zoom
+        // Initialize Swiper with Autoplay Disabled Initially
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Swiper Vertical - direction for phones
           loop: false,
           speed: 200, // Speed for vertical navigation
           spaceBetween: 0, // No space between slides
-          autoplay: {
-            delay: 3000, // Autoplay delay in milliseconds
-            disableOnInteraction: false, // Autoplay won't be disabled after user interactions
-            pauseOnMouseEnter: true, // Autoplay will pause on mouse enter
-          },
+          autoplay: false, // Disable autoplay on initialization
           zoom: {
             maxRatio: 5,
             toggle: false, // Disable toggle on double click
@@ -535,11 +531,11 @@
             // Show UI elements when autoplay is stopped
             showUIElements();
           } else {
-            swiper.params.autoplay.delay = 500;
-            swiper.params.autoplay.disableOnInteraction = false;
-            swiper.params.autoplay.pauseOnMouseEnter = false;
-            swiper.params.autoplay.stopOnLastSlide = true;
-            wasAutoplayRunningBeforeZoom = true;
+            swiper.params.autoplay = {
+              delay: 3000, // Autoplay delay in milliseconds
+              disableOnInteraction: false, // Autoplay won't be disabled after user interactions
+              pauseOnMouseEnter: true, // Autoplay will pause on mouse enter
+            };
             swiper.autoplay.start();
             console.log("Autoplay started.");
             // Hide left and right arrows and other UI elements when autoplay starts
@@ -867,7 +863,7 @@
           rightArrowBtn.classList.add("hidden-element");
           upButton.classList.add("hidden-element");
           downButton.classList.add("hidden-element");
-          // Hide autoplay button
+          // Hide autoplay buttons
           autoplayButtons.forEach((button) =>
             button.classList.add("hidden-element")
           );
@@ -889,7 +885,7 @@
           rightArrowBtn.classList.remove("hidden-element");
           upButton.classList.remove("hidden-element");
           downButton.classList.remove("hidden-element");
-          // Show autoplay button
+          // Show autoplay buttons
           autoplayButtons.forEach((button) =>
             button.classList.remove("hidden-element")
           );
