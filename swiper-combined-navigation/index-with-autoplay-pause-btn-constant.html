@@ -353,41 +353,47 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Select all necessary UI elements
         const autoplayButtons = document.querySelectorAll(".autoplay-toggle"); // Play/Pause buttons (SVG)
-        const numberOfItemsText = document.querySelector(".number-of-items-text"); // Slide counter
+        const numberOfItemsText = document.querySelector(
+          ".number-of-items-text"
+        ); // Slide counter
         const numberOfItemsBtn = document.querySelector(".number-of-items-btn"); // Button containing the slide counter
         const exitZoomBtn = document.querySelector(".exit-zoom-button"); // Exit Zoom button
-    
+
         // Navigation Buttons
         const upButton = document.querySelector(".up-arrow-btn");
         const downButton = document.querySelector(".down-arrow-btn");
         const leftArrowBtn = document.querySelector(".left-arrow-btn");
         const rightArrowBtn = document.querySelector(".right-arrow-btn");
-    
+
         // UI Elements
         const titleRows = document.querySelectorAll(".title-row");
         const titleRow = document.querySelector(".title-row");
-    
+
         // Elements for Edit Caption functionality
         const editCaptionPopup = document.getElementById("edit-caption-popup");
-        const editCaptionTextarea = document.getElementById("edit-caption-textarea");
+        const editCaptionTextarea = document.getElementById(
+          "edit-caption-textarea"
+        );
         const saveCaptionBtn = document.getElementById("save-caption-btn");
-    
+
         // Options Dropdown Menu
         const dropdownMenu = document.getElementById("options-links");
         const closeBtn = document.getElementById("options-close-btn");
         let activeOptionsBtn = null;
-    
+
         let currentEditingSlide = null; // Keeps track of the slide being edited
-    
+
         // Variable to track zoom state
         let isZoomedIn = false;
-    
+
         // **Select the Options Button**
         const optionsButton = document.querySelector(".options-btn");
         if (!optionsButton) {
-          console.error("Options Button not found. Please check the class name.");
+          console.error(
+            "Options Button not found. Please check the class name."
+          );
         }
-    
+
         // Initialize Swiper with Autoplay Disabled Initially
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Swiper Vertical - direction for phones
@@ -414,7 +420,7 @@
               updateCounter(swiper);
               updateArrowStyles();
               updateTitleRowContent(swiper.activeIndex);
-    
+
               // Close the dropdown if it is open
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
@@ -460,7 +466,7 @@
                   updateAutoplayButtonState();
                   // **Disable Swiping**
                   swiper.allowTouchMove = false;
-    
+
                   // **Hide Link Container if Present**
                   hideLinkContainerIfPresent();
                 }
@@ -479,7 +485,7 @@
                   updateAutoplayButtonState();
                   // **Enable Swiping**
                   swiper.allowTouchMove = true;
-    
+
                   // **Show Link Container if Previously Hidden**
                   showLinkContainerIfHidden();
                 }
@@ -487,7 +493,7 @@
             },
           },
         });
-    
+
         // Function to update the slide counter
         function updateCounter(swiper) {
           if (isZoomedIn) {
@@ -499,7 +505,7 @@
           }
           console.log("Counter updated to:", numberOfItemsText.textContent);
         }
-    
+
         // Function to update the autoplay button states (Play/Pause SVG Icons)
         function updateAutoplayButtonState() {
           autoplayButtons.forEach((button) => {
@@ -527,10 +533,10 @@
           });
           console.log("Autoplay button states updated.");
         }
-    
+
         // Initialize Play/Pause buttons to show Play icon
         updateAutoplayButtonState();
-    
+
         // Function to toggle autoplay and update button appearance
         function toggleAutoplay() {
           if (swiper.autoplay.running) {
@@ -551,7 +557,7 @@
           }
           updateAutoplayButtonState();
         }
-    
+
         // Attach event listeners to all Play/Pause buttons
         autoplayButtons.forEach(function (button) {
           button.addEventListener("click", function (e) {
@@ -559,7 +565,7 @@
             toggleAutoplay();
           });
         });
-    
+
         // Function to stop autoplay and update buttons
         function stopAutoplayAndUpdateButtons() {
           if (swiper.autoplay.running) {
@@ -570,13 +576,13 @@
             showUIElements();
           }
         }
-    
+
         // Function to update arrow styles (for disabling)
         function updateArrowStyles() {
           // Determine current mode based on screen width
           const isVertical = window.innerWidth <= 600;
           console.log("Updating arrow styles. Vertical mode:", isVertical);
-    
+
           if (isVertical) {
             // Update Vertical Navigation
             if (swiper.isEnd) {
@@ -590,7 +596,7 @@
               downButton.removeAttribute("disabled");
               console.log("Down arrow enabled.");
             }
-    
+
             if (swiper.isBeginning) {
               upButton.classList.add("disabled");
               upButton.style.opacity = "0.2";
@@ -615,7 +621,7 @@
               rightArrowBtn.removeAttribute("disabled");
               console.log("Right arrow enabled.");
             }
-    
+
             if (swiper.isBeginning) {
               leftArrowBtn.classList.add("disabled");
               leftArrowBtn.style.opacity = "0.2";
@@ -629,10 +635,10 @@
             }
           }
         }
-    
+
         // Initial update to arrow styles
         updateArrowStyles();
-    
+
         // Debounced window resize event
         let resizeTimeout;
         window.addEventListener("resize", function () {
@@ -644,7 +650,7 @@
             }
           }, 100);
         });
-    
+
         // Function to handle slide change if popup is open
         function handleSlideChange() {
           if (!editCaptionPopup.classList.contains("hidden")) {
@@ -655,7 +661,7 @@
             saveCaptionToSlide();
           }
         }
-    
+
         // Function to handle arrow click with opacity effect and popup check
         function handleArrowClick(button, direction) {
           if (!button.classList.contains("disabled")) {
@@ -665,17 +671,17 @@
               console.log("Saving caption before navigating.");
               saveCaptionBtn.click();
             }
-    
+
             button.classList.add("active-opacity");
             console.log(
               `Arrow button clicked: ${direction}. Applying active-opacity.`
             );
-    
+
             // Remove the class after 100ms for the transition effect
             setTimeout(() => {
               button.classList.remove("active-opacity");
             }, 100);
-    
+
             // Trigger slide navigation directly
             if (direction === "next") {
               swiper.slideNext();
@@ -686,7 +692,7 @@
             }
           }
         }
-    
+
         // Navigation Buttons and their directions
         const navigationButtons = [
           { button: upButton, direction: "prev" },
@@ -694,18 +700,20 @@
           { button: leftArrowBtn, direction: "prev" },
           { button: rightArrowBtn, direction: "next" },
         ];
-    
+
         // Attach event listeners to navigation buttons
         navigationButtons.forEach(({ button, direction }) => {
           button.addEventListener("touchstart", handleTouchStart);
-          button.addEventListener("touchend", (e) => handleTouchEnd(e, direction));
+          button.addEventListener("touchend", (e) =>
+            handleTouchEnd(e, direction)
+          );
           button.addEventListener("click", (e) => handleClick(e, direction));
         });
-    
+
         // Prevent double navigation (touch + click)
         let isTouchActive = false;
         let hasSwipedOnTouch = false; // Flag to track swiping during touch event
-    
+
         function handleTouchStart(e) {
           if (e.target.classList.contains("disabled")) {
             e.preventDefault(); // Prevent default behavior (like zooming)
@@ -716,7 +724,7 @@
           isTouchActive = true;
           hasSwipedOnTouch = false; // Reset the swipe flag at the start of touch
         }
-    
+
         function handleTouchEnd(e, direction) {
           if (!e.target.classList.contains("disabled") && !hasSwipedOnTouch) {
             handleArrowClick(e.target, direction);
@@ -725,25 +733,25 @@
             isTouchActive = false;
           }, 100);
         }
-    
+
         function handleClick(e, direction) {
           if (!isTouchActive && !e.target.classList.contains("disabled")) {
             e.stopPropagation();
             handleArrowClick(e.target, direction);
           }
         }
-    
+
         // Detect swipe to prevent touchend from triggering slide navigation twice
         swiper.on("slidePrevTransitionStart", () => {
           hasSwipedOnTouch = true;
           console.log("Slide previous transition started.");
         });
-    
+
         swiper.on("slideNextTransitionStart", () => {
           hasSwipedOnTouch = true;
           console.log("Slide next transition started.");
         });
-    
+
         // Event listener for "Exit Zoom" button
         exitZoomBtn.addEventListener("click", function () {
           if (isZoomedIn) {
@@ -753,10 +761,10 @@
             // Swiper's zoomChange event will handle the rest
           }
         });
-    
+
         // Function to toggle visibility of items
         let isTitleRowVisible = true; // Start with title-row visible
-    
+
         function toggleTitleRow() {
           if (isTitleRowVisible) {
             console.log("Hiding title row and related UI elements.");
@@ -764,42 +772,50 @@
             titleRows.forEach((titleRow) =>
               titleRow.classList.add("hidden-element")
             );
-    
+
             // Hide number-of-items-btn
             numberOfItemsBtn.classList.add("hidden-element");
-    
+
             // Hide down-arrow-btn
             downButton.classList.add("hidden-element");
-    
+
             // Hide play/pause buttons only if autoplay is NOT running
             if (!swiper.autoplay.running) {
               autoplayButtons.forEach((button) =>
                 button.classList.add("hidden-element")
               );
             }
+
+            // **Hide left and right arrows regardless of autoplay**
+            leftArrowBtn.classList.add("hidden-element");
+            rightArrowBtn.classList.add("hidden-element");
           } else {
             console.log("Showing title row and related UI elements.");
             // Show title rows
             titleRows.forEach((titleRow) =>
               titleRow.classList.remove("hidden-element")
             );
-    
+
             // Show number-of-items-btn
             numberOfItemsBtn.classList.remove("hidden-element");
-    
+
             // Show down-arrow-btn
             downButton.classList.remove("hidden-element");
-    
+
             // Show play/pause buttons only if autoplay is NOT running
             if (!swiper.autoplay.running) {
               autoplayButtons.forEach((button) =>
                 button.classList.remove("hidden-element")
               );
             }
+
+            // **Show left and right arrows regardless of autoplay**
+            leftArrowBtn.classList.remove("hidden-element");
+            rightArrowBtn.classList.remove("hidden-element");
           }
-          isTitleRowVisible = !isTitleRowVisible;
+          isTitleRowVisible = !isTitleRowVisible; // Toggle the flag after state change
         }
-    
+
         // Function to hide UI elements when autoplay starts
         function hideUIElementsForAutoplay() {
           console.log("Hiding UI elements for autoplay.");
@@ -807,7 +823,7 @@
           titleRows.forEach((titleRow) =>
             titleRow.classList.add("hidden-element")
           );
-    
+
           // Hide number-of-items-btn
           numberOfItemsBtn.classList.add("hidden-element");
           // Hide down-arrow-btn
@@ -816,8 +832,11 @@
           hideLeftRightArrows();
           // Ensure Play/Pause buttons remain visible during autoplay
           ensureAutoplayButtonsVisible();
+
+          // **Update the visibility flag**
+          isTitleRowVisible = false;
         }
-    
+
         // Function to show UI elements when user interacts
         function showUIElements() {
           console.log("Showing UI elements after stopping autoplay.");
@@ -833,22 +852,25 @@
           showLeftRightArrows();
           // Ensure Play/Pause buttons remain visible during autoplay
           ensureAutoplayButtonsVisible();
+
+          // **Update the visibility flag**
+          isTitleRowVisible = true;
         }
-    
+
         // Function to hide left and right arrow buttons when entering autoplay
         function hideLeftRightArrows() {
           leftArrowBtn.classList.add("hidden-element");
           rightArrowBtn.classList.add("hidden-element");
           console.log("Left and right arrows hidden for autoplay.");
         }
-    
+
         // Function to show left and right arrow buttons when interacting during autoplay
         function showLeftRightArrows() {
           leftArrowBtn.classList.remove("hidden-element");
           rightArrowBtn.classList.remove("hidden-element");
           console.log("Left and right arrows shown after autoplay.");
         }
-    
+
         // Ensure Play/Pause buttons are always visible during autoplay
         function ensureAutoplayButtonsVisible() {
           autoplayButtons.forEach((button) => {
@@ -856,7 +878,7 @@
           });
           console.log("Autoplay buttons are visible.");
         }
-    
+
         // Function to hide UI elements specifically for zoom
         function hideUIElementsForZoom() {
           console.log("Hiding UI elements for zoom.");
@@ -879,7 +901,7 @@
           }
           // Hide other elements if necessary
         }
-    
+
         function showUIElementsAfterZoom() {
           console.log("Showing UI elements after exiting zoom.");
           // Show title rows
@@ -908,68 +930,72 @@
           }
           // Show other elements if necessary
         }
-    
+
         // Function to position the dropdown menu
         function positionDropdownMenu() {
           if (!activeOptionsBtn) return;
-    
+
           // Temporarily display the dropdown menu to get its dimensions
           dropdownMenu.style.display = "block";
           dropdownMenu.style.visibility = "hidden";
-    
+
           // Allow the browser to render the dropdown menu
           dropdownMenu.offsetHeight;
-    
+
           // Get the position of the options button relative to the viewport
           const rect = activeOptionsBtn.getBoundingClientRect();
-    
+
           // Get the dropdown menu's width
           const dropdownWidth = dropdownMenu.offsetWidth;
-    
+
+          // **Adjust the top position with a slight upward offset (e.g., 5px) if needed**
+          const topOffset = 0; // Modify this value if needed (e.g., -5)
+          const adjustedTop = rect.top + topOffset;
+
           // Position the dropdown menu so that its top right corner aligns with the options button's top right corner
           dropdownMenu.style.position = "fixed";
-          dropdownMenu.style.top = rect.top + "px"; // Align top edges
+          dropdownMenu.style.top = adjustedTop + "px"; // Align top edges with offset
           dropdownMenu.style.left = rect.right - dropdownWidth + "px"; // Align right edges
-    
+
           dropdownMenu.style.visibility = "visible";
         }
-    
+
         // Function to open the edit caption popup
         function openEditCaptionPopup(activeIndex) {
           console.log("Opening edit caption popup for slide:", activeIndex);
           const slides = swiper.slides;
           const activeSlide = slides[activeIndex];
           currentEditingSlide = activeSlide; // Store the current slide
-    
+
           // Get the title from data attributes
           const title = activeSlide.getAttribute("data-title") || "";
-    
+
           // Set the placeholder text and current title
           editCaptionTextarea.placeholder = "Photo Caption";
           editCaptionTextarea.value = title;
-    
+
           // Show the popup
           editCaptionPopup.classList.remove("hidden");
           editCaptionTextarea.scrollTop = 0;
           editCaptionTextarea.focus();
-    
+
           // Hide the title row
           titleRow.classList.add("hidden-element");
         }
-    
+
         // Function to close the edit caption popup
         function closeEditCaptionPopup() {
           console.log("Closing edit caption popup.");
           // Hide the popup
           editCaptionPopup.classList.add("hidden");
           editCaptionTextarea.blur();
-    
+
           // Show the title row
           titleRow.classList.remove("hidden-element");
-    
+
           currentEditingSlide = null; // Reset after closing
         }
-    
+
         // Function to close the dropdown menu
         function closeDropdownMenu() {
           console.log("Closing dropdown menu.");
@@ -977,7 +1003,7 @@
           dropdownMenu.style.display = "none";
           activeOptionsBtn = null;
         }
-    
+
         // Event listener for the "Edit Caption" option
         const editCaptionOption = dropdownMenu.querySelector("li:nth-child(1)");
         if (editCaptionOption) {
@@ -990,46 +1016,46 @@
         } else {
           console.warn("Edit Caption option not found in dropdown menu.");
         }
-    
+
         // Function to save caption to the current editing slide
         function saveCaptionToSlide() {
           if (!currentEditingSlide) return; // Safety check
-    
+
           // Get the new caption from the textarea with trim to remove unnecessary whitespace.
           const newCaption = editCaptionTextarea.value.trim();
-    
+
           console.log("Saving new caption:", newCaption);
-    
+
           // Update the data-title attribute of the current slide
           currentEditingSlide.setAttribute("data-title", newCaption);
-    
+
           // Update the pencilTitleRow content
           updateTitleRowContent(swiper.activeIndex);
-    
+
           // Close the popup
           closeEditCaptionPopup();
         }
-    
+
         // Event listener for the "Save" button in the popup
         saveCaptionBtn.addEventListener("click", function () {
           console.log("Save button clicked.");
           // Save caption to the current editing slide
           saveCaptionToSlide();
         });
-    
+
         // Function to handle caption edit clicks
         function handleCaptionEditClick(event) {
           event.stopPropagation();
           event.preventDefault(); // Prevent default behavior
           stopAutoplayAndUpdateButtons();
-    
+
           if (dropdownMenu.classList.contains("open")) {
             closeDropdownMenu();
           }
-    
+
           openEditCaptionPopup(swiper.activeIndex);
         }
-    
+
         // **New: Close the edit caption popup and dropdown when clicking outside**
         document.addEventListener("click", function (event) {
           // Define selectors for interactive elements
@@ -1049,19 +1075,19 @@
             ".close-btn",
             ".dropdown-close-btn",
           ];
-    
+
           // Check if the click is inside any interactive element
-          const isClickInsideInteractive = interactiveSelectors.some((selector) =>
-            event.target.closest(selector)
+          const isClickInsideInteractive = interactiveSelectors.some(
+            (selector) => event.target.closest(selector)
           );
-    
+
           if (!isClickInsideInteractive) {
             // If the dropdown is open, close it
             if (dropdownMenu.classList.contains("open")) {
               closeDropdownMenu();
               console.log("Options dropdown closed by clicking outside.");
             }
-    
+
             // If the edit caption popup is open, save and close it
             if (!editCaptionPopup.classList.contains("hidden")) {
               console.log(
@@ -1069,27 +1095,27 @@
               );
               saveCaptionToSlide();
             }
-    
+
             // Toggle UI visibility
             toggleTitleRow();
           }
         });
-    
+
         // Prevent event propagation when clicking inside the edit caption popup
         editCaptionPopup.addEventListener("click", function (event) {
           event.stopPropagation();
         });
-    
+
         // Prevent event propagation when clicking inside the dropdown menu
         dropdownMenu.addEventListener("click", function (event) {
           event.stopPropagation();
         });
-    
+
         // Keydown event listener on keyboard
         document.addEventListener("keydown", function (e) {
           // Check if the swiper instance exists
           if (!swiper) return;
-    
+
           // Close dropdown and popups on Escape key
           if (e.key === "Escape") {
             if (dropdownMenu.classList.contains("open")) {
@@ -1100,7 +1126,7 @@
             }
             return;
           }
-    
+
           // Determine the current direction of Swiper
           if (swiper.isVertical()) {
             if (e.key === "ArrowUp") {
@@ -1124,63 +1150,66 @@
             }
           }
         });
-    
+
         // Add Event Listeners for Swiper's Autoplay Events
         swiper.on("autoplayStart", function () {
           console.log("Autoplay started.");
           updateAutoplayButtonState();
         });
-    
+
         swiper.on("autoplayStop", function () {
           console.log("Autoplay stopped.");
           updateAutoplayButtonState();
         });
-    
+
         // Function to update the pencil-title-row content based on the active slide's data-title
         function updateTitleRowContent(activeIndex) {
           console.log("Updating title row content for slide:", activeIndex);
           const slides = swiper.slides;
           const activeSlide = slides[activeIndex];
-    
+
           // Get the title from the active slide's data attribute
           const title = activeSlide.getAttribute("data-title") || "";
-    
+
           // Get the pencilTitleRow element
           const pencilTitleRow = document.querySelector(".pencil-title-row");
-    
+
           if (!pencilTitleRow) {
             console.warn("pencil-title-row element not found.");
             return;
           }
-    
+
           // Clear existing content
           pencilTitleRow.innerHTML = "";
-    
+
           if (title === "") {
             // When there is no caption, show pencil icon and "Add a Caption"
-    
+
             // Create pencil container
             const pencilContainer = document.createElement("div");
             pencilContainer.classList.add("pencil-container");
-    
+
             // Create pencil icon
             const pencilImg = document.createElement("img");
             pencilImg.src = "../assets/pencil-white.png";
             pencilImg.classList.add("pencil");
             pencilImg.alt = "Edit caption";
-    
+
             // Append pencilImg to pencilContainer
             pencilContainer.appendChild(pencilImg);
-    
+
             // Create expanded clickable area
             const pencilClickArea = document.createElement("div");
             pencilClickArea.classList.add("pencil-click-area");
             pencilClickArea.addEventListener("click", handleCaptionEditClick);
-            pencilClickArea.addEventListener("touchstart", handleCaptionEditClick);
-    
+            pencilClickArea.addEventListener(
+              "touchstart",
+              handleCaptionEditClick
+            );
+
             // Append pencilClickArea to pencilContainer
             pencilContainer.appendChild(pencilClickArea);
-    
+
             // Create "Add a Caption" element
             const addCaptionElement = document.createElement("p");
             addCaptionElement.classList.add(
@@ -1189,27 +1218,30 @@
             );
             addCaptionElement.textContent = "Add a Caption";
             addCaptionElement.addEventListener("click", handleCaptionEditClick);
-            addCaptionElement.addEventListener("touchstart", handleCaptionEditClick);
-    
+            addCaptionElement.addEventListener(
+              "touchstart",
+              handleCaptionEditClick
+            );
+
             // Append elements to pencilTitleRow
             pencilTitleRow.appendChild(pencilContainer);
             pencilTitleRow.appendChild(addCaptionElement);
           } else {
             // When there is a caption, show the caption text
-    
+
             // Create title element
             const titleElement = document.createElement("p");
             titleElement.classList.add("media-item-title");
             titleElement.textContent = title;
-    
+
             // Append element
             pencilTitleRow.appendChild(titleElement);
           }
-    
+
           // Make the pencilTitleRow interactive
           pencilTitleRow.classList.remove("non-interactive");
         }
-    
+
         // Function to hide the link-container if the current slide has a link
         function hideLinkContainerIfPresent() {
           const currentSlide = swiper.slides[swiper.activeIndex];
@@ -1219,7 +1251,7 @@
             console.log("Link container hidden during zoom.");
           }
         }
-    
+
         // Function to show the link-container if it was hidden
         function showLinkContainerIfHidden() {
           const currentSlide = swiper.slides[swiper.activeIndex];
@@ -1229,11 +1261,11 @@
             console.log("Link container shown after exiting zoom.");
           }
         }
-    
+
         // Ensure to call updateCounter and updateTitleRowContent initially after Swiper initialization
         updateCounter(swiper);
         updateTitleRowContent(swiper.activeIndex);
-    
+
         // **Event Listener for the Options Button to Toggle the Dropdown**
         if (optionsButton) {
           optionsButton.addEventListener("click", function (e) {
@@ -1248,7 +1280,7 @@
             }
           });
         }
-    
+
         // **Event Listener for the Close Button in the Dropdown**
         if (closeBtn) {
           closeBtn.addEventListener("click", function (e) {
