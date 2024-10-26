@@ -451,43 +451,48 @@
                 if (!isZoomedIn) {
                   isZoomedIn = true;
                   console.log("Entering zoomed-in state.");
-                  // Check if autoplay is running before zooming
+
+                  // Stop autoplay if running
                   if (swiper.autoplay.running) {
                     swiper.autoplay.stop();
                     console.log("Autoplay stopped due to zoom.");
                   }
+
                   // Hide UI elements
                   hideUIElementsForZoom();
+
+                  // Hide Link Container if Present
+                  hideLinkContainerIfPresent();
+
                   // Show Exit Zoom button
                   exitZoomBtn.classList.remove("hidden");
-                  // Change counter to "Exit Zoom"
-                  numberOfItemsText.textContent = "";
-                  // Update autoplay button state
-                  updateAutoplayButtonState();
-                  // **Disable Swiping**
-                  swiper.allowTouchMove = false;
 
-                  // **Hide Link Container if Present**
-                  hideLinkContainerIfPresent();
+                  // Change counter to "Exit Zoom"
+                  numberOfItemsText.textContent = "Exit Zoom";
+
+                  // Disable Swiping
+                  swiper.allowTouchMove = false;
                 }
               } else {
                 // Exiting zoomed-in state
                 if (isZoomedIn) {
                   isZoomedIn = false;
                   console.log("Exiting zoomed-in state.");
+
                   // Show UI elements
                   showUIElementsAfterZoom();
+
+                  // Show Link Container if Previously Hidden
+                  showLinkContainerIfHidden();
+
                   // Hide Exit Zoom button
                   exitZoomBtn.classList.add("hidden");
+
                   // Restore the counter text
                   updateCounter(swiper);
-                  // Update autoplay button state
-                  updateAutoplayButtonState();
-                  // **Enable Swiping**
-                  swiper.allowTouchMove = true;
 
-                  // **Show Link Container if Previously Hidden**
-                  showLinkContainerIfHidden();
+                  // Enable Swiping
+                  swiper.allowTouchMove = true;
                 }
               }
             },
@@ -1061,8 +1066,12 @@
           const mediaItemTitles =
             document.querySelectorAll(".media-item-title");
           mediaItemTitles.forEach((title) => {
-            title.addEventListener("click", handleCaptionEditClick);
-            title.addEventListener("touchstart", handleCaptionEditClick);
+            // Avoid adding multiple event listeners to the same element
+            if (!title.dataset.listenerAdded) {
+              title.addEventListener("click", handleCaptionEditClick);
+              title.addEventListener("touchstart", handleCaptionEditClick);
+              title.dataset.listenerAdded = "true";
+            }
           });
         }
 
@@ -1260,7 +1269,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const linkContainer = currentSlide.querySelector(".link-container");
           if (linkContainer) {
-            linkContainer.classList.add("hidden");
+            linkContainer.classList.add("hidden-element");
             console.log("Link container hidden during zoom.");
           }
         }
@@ -1270,7 +1279,7 @@
           const currentSlide = swiper.slides[swiper.activeIndex];
           const linkContainer = currentSlide.querySelector(".link-container");
           if (linkContainer) {
-            linkContainer.classList.remove("hidden");
+            linkContainer.classList.remove("hidden-element");
             console.log("Link container shown after exiting zoom.");
           }
         }
