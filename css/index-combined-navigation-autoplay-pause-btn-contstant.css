@@ -359,6 +359,7 @@ body {
 }
 
 /* Exit Zoom button visibility for Swiper Zoom feature */
+/* Oblong background part of area that appears behind Exit Zoom Button. */
 .exit-zoom-button {
   position: fixed;
   bottom: 16px;

@@ -865,6 +865,13 @@
           currentEditingSlide = null; // Reset after closing
         }
 
+        // Function to close the dropdown menu
+        function closeDropdownMenu() {
+          dropdownMenu.classList.remove("open");
+          dropdownMenu.style.display = "none";
+          activeOptionsBtn = null;
+        }
+
         // Event listener for the "Edit Caption" option
         const editCaptionOption = dropdownMenu.querySelector("li:nth-child(1)");
         editCaptionOption.addEventListener("click", function (event) {
