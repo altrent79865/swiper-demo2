@@ -948,8 +948,8 @@
           // Get the dropdown menu's width
           const dropdownWidth = dropdownMenu.offsetWidth;
 
-          // **Adjust the top position with a slight upward offset (e.g., 5px) if needed**
-          const topOffset = 0; // Modify this value if needed (e.g., -5)
+          // **Adjust the top position with a slight upward offset (e.g., -5px) if needed**
+          const topOffset = -5; // Modify this value as needed
           const adjustedTop = rect.top + topOffset;
 
           // Position the dropdown menu so that its top right corner aligns with the options button's top right corner
@@ -1054,6 +1054,16 @@
           }
 
           openEditCaptionPopup(swiper.activeIndex);
+        }
+
+        // **Add Event Listeners to media-item-title Elements**
+        function addMediaItemTitleListeners() {
+          const mediaItemTitles =
+            document.querySelectorAll(".media-item-title");
+          mediaItemTitles.forEach((title) => {
+            title.addEventListener("click", handleCaptionEditClick);
+            title.addEventListener("touchstart", handleCaptionEditClick);
+          });
         }
 
         // **New: Close the edit caption popup and dropdown when clicking outside**
@@ -1240,6 +1250,9 @@
 
           // Make the pencilTitleRow interactive
           pencilTitleRow.classList.remove("non-interactive");
+
+          // **Add Event Listeners to media-item-title Elements**
+          addMediaItemTitleListeners();
         }
 
         // Function to hide the link-container if the current slide has a link
@@ -1270,6 +1283,16 @@
         if (optionsButton) {
           optionsButton.addEventListener("click", function (e) {
             e.stopPropagation(); // Prevent the click from bubbling up
+
+            // **Stop Autoplay if Running**
+            if (swiper.autoplay.running) {
+              swiper.autoplay.stop();
+              console.log("Autoplay stopped due to options-btn click.");
+              // Update autoplay button state and UI visibility
+              updateAutoplayButtonState();
+              showUIElements();
+            }
+
             if (dropdownMenu.classList.contains("open")) {
               closeDropdownMenu(); // If already open, close it
             } else {
@@ -1289,6 +1312,28 @@
             console.log("Options dropdown closed via close button.");
           });
         }
+
+        // **Add Event Listeners to media-item-title Elements**
+        function addMediaItemTitleListeners() {
+          const mediaItemTitles =
+            document.querySelectorAll(".media-item-title");
+          mediaItemTitles.forEach((title) => {
+            // Avoid adding multiple event listeners to the same element
+            if (!title.dataset.listenerAdded) {
+              title.addEventListener("click", handleCaptionEditClick);
+              title.addEventListener("touchstart", handleCaptionEditClick);
+              title.dataset.listenerAdded = "true";
+            }
+          });
+        }
+
+        // **Prevent Event Propagation for Newly Added media-item-title Elements**
+        // This ensures that clicks on media-item-title elements don't bubble up to the document listener
+        document.querySelectorAll(".media-item-title").forEach((title) => {
+          title.addEventListener("click", function (event) {
+            event.stopPropagation();
+          });
+        });
       });
     </script>
   </body>
