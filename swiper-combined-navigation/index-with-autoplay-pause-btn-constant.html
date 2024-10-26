@@ -352,7 +352,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Select all necessary UI elements
-        const autoplayButtons = document.querySelectorAll(".autoplay-toggle"); // Play/Pause buttons
+        const autoplayButtons = document.querySelectorAll(".autoplay-toggle"); // Play/Pause buttons (SVG)
         const numberOfItemsText = document.querySelector(
           ".number-of-items-text"
         ); // Slide counter
@@ -397,7 +397,7 @@
         // Initialize Swiper with Autoplay Disabled Initially
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Swiper Vertical - direction for phones
-          loop: false,
+          loop: false, // Disable looping
           speed: 200, // Speed for vertical navigation
           spaceBetween: 0, // No space between slides
           autoplay: false, // Disable autoplay on initialization
@@ -434,6 +434,8 @@
             // Event when swiper reaches the end
             reachEnd: function () {
               console.log("Reached the end of the swiper.");
+              swiper.autoplay.stop(); // Stop autoplay when the last slide is reached
+              updateAutoplayButtonState(); // Update the Play/Pause button to show Play icon
               updateArrowStyles();
             },
             // Event when a slide change transition starts
@@ -493,23 +495,35 @@
           console.log("Counter updated to:", numberOfItemsText.textContent);
         }
 
-        // Function to update the autoplay button states
+        // Function to update the autoplay button states (Play/Pause SVG Icons)
         function updateAutoplayButtonState() {
           autoplayButtons.forEach((button) => {
             if (swiper.autoplay.running) {
               button.classList.add("playing");
               button.setAttribute("aria-label", "Pause Autoplay");
-              button.textContent = "Pause"; // Update button text/icon if needed
+              // Assume each button contains both Play and Pause SVGs
+              const playIcon = button.querySelector(".play-icon");
+              const pauseIcon = button.querySelector(".pause-icon");
+              if (playIcon && pauseIcon) {
+                playIcon.style.display = "none";
+                pauseIcon.style.display = "inline-block";
+              }
             } else {
               button.classList.remove("playing");
               button.setAttribute("aria-label", "Play Autoplay");
-              button.textContent = "Play"; // Update button text/icon if needed
+              // Assume each button contains both Play and Pause SVGs
+              const playIcon = button.querySelector(".play-icon");
+              const pauseIcon = button.querySelector(".pause-icon");
+              if (playIcon && pauseIcon) {
+                playIcon.style.display = "inline-block";
+                pauseIcon.style.display = "none";
+              }
             }
           });
           console.log("Autoplay button states updated.");
         }
 
-        // Initialize Play/Pause buttons to show Play state
+        // Initialize Play/Pause buttons to show Play icon
         updateAutoplayButtonState();
 
         // Function to toggle autoplay and update button appearance
