@@ -56,6 +56,12 @@ body {
   overflow: hidden;
 }
 
+.swiper-zoom-container > canvas,
+.swiper-zoom-container > img,
+.swiper-zoom-container > svg {
+  object-fit: cover;
+}
+
 /* Title Row at top of page */
 .title-row {
   position: fixed;
