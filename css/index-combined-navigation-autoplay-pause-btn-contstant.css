@@ -401,7 +401,7 @@ body {
 }
 
 /* Layout of Images */
-.swiper-slide img {
+img.swiper-slide {
   display: block;
   width: 100%;
 }
@@ -820,6 +820,10 @@ body {
   .swiper-zoom-container > canvas,
   .swiper-zoom-container > img,
   .swiper-zoom-container > svg {
+    object-fit: cover;
+  }
+
+  .swiper-slide img {
     object-fit: cover;
   }
 
