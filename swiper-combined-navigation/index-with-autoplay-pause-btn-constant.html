@@ -402,7 +402,8 @@
           spaceBetween: 0, // No space between slides
           autoplay: false, // Disable autoplay on initialization
           zoom: {
-            maxRatio: 5,
+            maxRatio: 8, // Increased from 5 to 8 to allow deeper zoom
+            minRatio: 1, // Ensures images don't shrink below original size
             toggle: false, // Disable toggle on double click
           },
           breakpoints: {
@@ -467,8 +468,41 @@
                   // Hide number-of-items-btn to prevent residual background
                   numberOfItemsBtn.classList.add("hidden-element");
 
-                  // Show Exit Zoom button
+                  // Show Exit Zoom button and adjust its styling to eliminate black background
                   exitZoomBtn.classList.remove("hidden");
+                  exitZoomBtn.style.position = "fixed";
+                  exitZoomBtn.style.top = "20px";
+                  exitZoomBtn.style.right = "20px";
+                  exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
+
+                  // Ensure Exit Zoom button has no background or unwanted styles
+                  exitZoomBtn.style.background = "transparent";
+                  exitZoomBtn.style.border = "none";
+                  exitZoomBtn.style.padding = "10px 20px";
+                  exitZoomBtn.style.color = "white";
+                  exitZoomBtn.style.fontSize = "16px";
+
+                  // Adjust the swiper-zoom-container to cover full viewport
+                  const zoomContainers = document.querySelectorAll(
+                    ".swiper-zoom-container"
+                  );
+                  zoomContainers.forEach((container) => {
+                    container.style.width = "100vw";
+                    container.style.height = "100vh";
+                    container.style.display = "flex";
+                    container.style.justifyContent = "center";
+                    container.style.alignItems = "center";
+                  });
+
+                  // Optionally, adjust image styles to ensure full coverage
+                  const images = document.querySelectorAll(
+                    ".swiper-zoom-container img"
+                  );
+                  images.forEach((img) => {
+                    img.style.maxWidth = "100%";
+                    img.style.maxHeight = "100%";
+                    img.style.objectFit = "contain"; // or "cover" based on preference
+                  });
 
                   // Disable Swiping
                   swiper.allowTouchMove = false;
@@ -487,6 +521,39 @@
 
                   // Hide Exit Zoom button
                   exitZoomBtn.classList.add("hidden");
+
+                  // Reset Exit Zoom button styles if modified
+                  exitZoomBtn.style.position = "";
+                  exitZoomBtn.style.top = "";
+                  exitZoomBtn.style.right = "";
+                  exitZoomBtn.style.zIndex = "";
+                  exitZoomBtn.style.background = "";
+                  exitZoomBtn.style.border = "";
+                  exitZoomBtn.style.padding = "";
+                  exitZoomBtn.style.color = "";
+                  exitZoomBtn.style.fontSize = "";
+
+                  // Reset the swiper-zoom-container to original size
+                  const zoomContainers = document.querySelectorAll(
+                    ".swiper-zoom-container"
+                  );
+                  zoomContainers.forEach((container) => {
+                    container.style.width = "";
+                    container.style.height = "";
+                    container.style.display = "";
+                    container.style.justifyContent = "";
+                    container.style.alignItems = "";
+                  });
+
+                  // Optionally, reset image styles
+                  const images = document.querySelectorAll(
+                    ".swiper-zoom-container img"
+                  );
+                  images.forEach((img) => {
+                    img.style.maxWidth = "";
+                    img.style.maxHeight = "";
+                    img.style.objectFit = "";
+                  });
 
                   // Show number-of-items-btn and update the counter
                   numberOfItemsBtn.classList.remove("hidden-element");
@@ -914,7 +981,7 @@
           if (optionsButton) {
             optionsButton.classList.add("hidden-element");
           }
-          // Hide number-of-items-btn already handled in zoomChange
+          // number-of-items-btn is already hidden in zoomChange
           // Hide other elements if necessary
         }
 
