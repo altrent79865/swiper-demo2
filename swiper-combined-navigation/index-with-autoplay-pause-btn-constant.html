@@ -1234,11 +1234,15 @@
         swiper.on("autoplayStart", function () {
           console.log("Autoplay started.");
           updateAutoplayButtonState();
+          // During autoplay, ensure 'number-of-items-btn' is hidden
+          numberOfItemsBtn.classList.add("hidden-element");
         });
 
         swiper.on("autoplayStop", function () {
           console.log("Autoplay stopped.");
           updateAutoplayButtonState();
+          // When autoplay stops, show 'number-of-items-btn'
+          numberOfItemsBtn.classList.remove("hidden-element");
         });
 
         // Function to update the pencil-title-row content based on the active slide's data-title
