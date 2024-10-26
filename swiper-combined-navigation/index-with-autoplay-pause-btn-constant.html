@@ -467,8 +467,9 @@
                   // Show Exit Zoom button
                   exitZoomBtn.classList.remove("hidden");
 
-                  // Change counter to "Exit Zoom"
-                  numberOfItemsText.textContent = "";
+                  // Optionally, you can set the counter text to "Exit Zoom" or keep it hidden
+                  // Here, we'll keep it as the counter remains hidden
+                  // numberOfItemsText.textContent = "Exit Zoom"; // Avoid duplicating text
 
                   // Disable Swiping
                   swiper.allowTouchMove = false;
@@ -502,8 +503,11 @@
         // Function to update the slide counter
         function updateCounter(swiper) {
           if (isZoomedIn) {
-            numberOfItemsText.textContent = "Exit Zoom";
+            // When zoomed in, we rely solely on the Exit Zoom button
+            numberOfItemsBtn.classList.add("hidden-element");
           } else {
+            // Show the slide counter
+            numberOfItemsBtn.classList.remove("hidden-element");
             const totalSlides = swiper.slides.length;
             const currentSlide = swiper.activeIndex + 1; // Swiper's activeIndex starts at 0
             numberOfItemsText.textContent = `${currentSlide}/${totalSlides}`;
@@ -926,13 +930,6 @@
           if (optionsButton) {
             optionsButton.classList.remove("hidden-element");
           }
-          // **EXPLICITLY RESTORE `number-of-items-text`**
-          if (numberOfItemsBtn) {
-            numberOfItemsBtn.classList.remove("hidden-element");
-          }
-          if (numberOfItemsText) {
-            numberOfItemsText.classList.remove("hidden-element");
-          }
           // Show other elements if necessary
         }
 
@@ -1115,8 +1112,10 @@
               saveCaptionToSlide();
             }
 
-            // Toggle UI visibility
-            toggleTitleRow();
+            // Toggle UI visibility only if not in zoomed-in state
+            if (!isZoomedIn) {
+              toggleTitleRow();
+            }
           }
         });
 
