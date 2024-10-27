@@ -494,11 +494,25 @@
                     img.style.width = "auto"; // Allow width to adjust naturally
                     img.style.height = "auto"; // Allow height to adjust naturally
                     img.style.objectFit = "cover"; // Ensure the image covers the container
-                    img.style.transformOrigin = "center center"; // Center the zoom
+                    img.style.transformOrigin = "top center"; // Lock top of the image to top of viewport
                   });
 
                   // Disable Swiping
                   swiper.allowTouchMove = false;
+
+                  // Prevent panning by adding touchmove event listeners
+                  const handleTouchMove = function (e) {
+                    if (e.touches.length <= 1) {
+                      e.preventDefault();
+                    }
+                  };
+
+                  images.forEach((img) => {
+                    img.addEventListener("touchmove", handleTouchMove, {
+                      passive: false,
+                    });
+                    img.dataset.preventPanning = "true";
+                  });
                 }
               } else {
                 // Exiting zoomed-in state
@@ -539,6 +553,20 @@
                     img.style.height = "";
                     img.style.objectFit = "";
                     img.style.transformOrigin = "";
+                  });
+
+                  // Remove touchmove event listeners to allow panning again
+                  const handleTouchMove = function (e) {
+                    if (e.touches.length <= 1) {
+                      e.preventDefault();
+                    }
+                  };
+
+                  images.forEach((img) => {
+                    if (img.dataset.preventPanning === "true") {
+                      img.removeEventListener("touchmove", handleTouchMove);
+                      delete img.dataset.preventPanning;
+                    }
                   });
 
                   // Show number-of-items-btn and update the counter

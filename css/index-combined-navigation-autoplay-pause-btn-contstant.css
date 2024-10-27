@@ -823,10 +823,6 @@ img.swiper-slide {
     object-fit: cover;
   }
 
-  .swiper-slide img {
-    object-fit: cover;
-  }
-
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
 
   /* Container for text related to a link media item, specifically, link-title, link-description, url clickable text and open and save link buttons  */
