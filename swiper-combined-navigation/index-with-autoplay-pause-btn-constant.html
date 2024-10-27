@@ -484,11 +484,8 @@
                   exitZoomBtn.classList.remove("hidden");
                   exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
 
-                  // **Removed manual style modifications to prevent cropping and black spaces**
-
-                  // **Allow panning by keeping swiper.allowTouchMove = true**
-                  // Removed disabling touch move to allow panning
-                  // swiper.allowTouchMove = false;
+                  // **Disable Swiping to prevent navigating to other slides**
+                  swiper.allowTouchMove = false;
                 }
               } else {
                 // Exiting zoomed-in state
@@ -506,13 +503,11 @@
                   exitZoomBtn.classList.add("hidden");
                   exitZoomBtn.style.zIndex = ""; // Reset z-index
 
-                  // **Removed manual style modifications to restore original layout**
-
                   // Show number-of-items-btn and update the counter
                   numberOfItemsBtn.classList.remove("hidden-element");
 
-                  // **Ensure swiper.allowTouchMove is true**
-                  // swiper.allowTouchMove = true; // It is already true by default
+                  // **Re-enable Swiping**
+                  swiper.allowTouchMove = true;
                 }
               }
             },
