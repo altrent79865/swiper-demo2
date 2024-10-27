@@ -400,10 +400,15 @@
           loop: false, // Disable looping
           speed: 200, // Speed for vertical navigation
           spaceBetween: 0, // No space between slides
+          autoplay: {
+            delay: 2500, // Autoplay delay in milliseconds between slides
+            disableOnInteraction: false, // Autoplay won't be disabled after user interactions
+            pauseOnMouseEnter: true, // Autoplay will pause on mouse enter
+          },
           autoplay: false, // Disable autoplay on initialization
           zoom: {
-            // maxRatio: 5, // Increased from 5 to 8 to allow deeper zoom
-            // minRatio: 1, // Ensures images don't shrink below original size
+            maxRatio: 8, // Increased from 5 to 8 to allow deeper zoom
+            minRatio: 1, // Ensures images don't shrink below original size
             toggle: false, // Disable toggle on double click
           },
           breakpoints: {
@@ -491,28 +496,15 @@
                   images.forEach((img) => {
                     img.style.maxWidth = "none"; // Remove max-width to prevent shrinking
                     img.style.maxHeight = "none"; // Remove max-height to prevent shrinking
-                    img.style.width = "auto"; // Allow width to adjust naturally
-                    img.style.height = "auto"; // Allow height to adjust naturally
+                    img.style.width = "100%"; // Ensure width fills the container
+                    img.style.height = "100%"; // Ensure height fills the container
                     img.style.objectFit = "cover"; // Ensure the image covers the container
-                    img.style.transformOrigin = "top center"; // Lock top of the image to top of viewport
+                    img.style.objectPosition = "top center"; // Align top of image to top of viewport
+                    img.style.transformOrigin = "top center"; // Lock top of the image
                   });
 
                   // Disable Swiping
                   swiper.allowTouchMove = false;
-
-                  // Prevent panning by adding touchmove event listeners
-                  const handleTouchMove = function (e) {
-                    if (e.touches.length <= 1) {
-                      e.preventDefault();
-                    }
-                  };
-
-                  images.forEach((img) => {
-                    img.addEventListener("touchmove", handleTouchMove, {
-                      passive: false,
-                    });
-                    img.dataset.preventPanning = "true";
-                  });
                 }
               } else {
                 // Exiting zoomed-in state
@@ -552,21 +544,8 @@
                     img.style.width = "";
                     img.style.height = "";
                     img.style.objectFit = "";
+                    img.style.objectPosition = "";
                     img.style.transformOrigin = "";
-                  });
-
-                  // Remove touchmove event listeners to allow panning again
-                  const handleTouchMove = function (e) {
-                    if (e.touches.length <= 1) {
-                      e.preventDefault();
-                    }
-                  };
-
-                  images.forEach((img) => {
-                    if (img.dataset.preventPanning === "true") {
-                      img.removeEventListener("touchmove", handleTouchMove);
-                      delete img.dataset.preventPanning;
-                    }
                   });
 
                   // Show number-of-items-btn and update the counter
@@ -627,7 +606,7 @@
         // Initialize Play/Pause buttons to show Play icon
         updateAutoplayButtonState();
 
-        // Function to toggle autoplay and update button appearance
+        // Function to toggle autoplay and update button appearance with delays
         function toggleAutoplay() {
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
@@ -635,17 +614,15 @@
             // Show UI elements when autoplay is stopped
             showUIElements();
           } else {
-            swiper.params.autoplay = {
-              delay: 3000, // Autoplay delay in milliseconds
-              disableOnInteraction: false, // Autoplay won't be disabled after user interactions
-              pauseOnMouseEnter: true, // Autoplay will pause on mouse enter
-            };
-            swiper.autoplay.start();
-            console.log("Autoplay started.");
-            // Hide left and right arrows and other UI elements when autoplay starts
-            hideUIElementsForAutoplay();
+            // Implement a 500ms delay before starting autoplay
+            setTimeout(() => {
+              swiper.autoplay.start();
+              console.log("Autoplay started after 500ms delay.");
+              // Hide left and right arrows and other UI elements when autoplay starts
+              hideUIElementsForAutoplay();
+              updateAutoplayButtonState();
+            }, 500);
           }
-          updateAutoplayButtonState();
         }
 
         // Attach event listeners to all Play/Pause buttons
