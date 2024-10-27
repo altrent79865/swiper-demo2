@@ -484,32 +484,7 @@
                   exitZoomBtn.classList.remove("hidden");
                   exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
 
-                  // **Removed the following styles to prevent cropping and black spaces**
-                  /*
-                  const zoomContainers = document.querySelectorAll(
-                    ".swiper-zoom-container"
-                  );
-                  zoomContainers.forEach((container) => {
-                    container.style.width = "100vw";
-                    container.style.height = "100vh";
-                    container.style.display = "flex";
-                    container.style.justifyContent = "center";
-                    container.style.alignItems = "center";
-                  });
-    
-                  const images = document.querySelectorAll(
-                    ".swiper-zoom-container img"
-                  );
-                  images.forEach((img) => {
-                    img.style.maxWidth = "none"; // Remove max-width to prevent shrinking
-                    img.style.maxHeight = "none"; // Remove max-height to prevent shrinking
-                    img.style.width = "100%"; // Ensure width fills the container
-                    img.style.height = "100%"; // Ensure height fills the container
-                    img.style.objectFit = "cover"; // Ensure the image covers the container
-                    img.style.objectPosition = "top center"; // Align top of image to top of viewport
-                    img.style.transformOrigin = "top center"; // Lock top of the image
-                  });
-                  */
+                  // **Removed manual style modifications to prevent cropping and black spaces**
 
                   // **Allow panning by keeping swiper.allowTouchMove = true**
                   // Removed disabling touch move to allow panning
@@ -531,39 +506,13 @@
                   exitZoomBtn.classList.add("hidden");
                   exitZoomBtn.style.zIndex = ""; // Reset z-index
 
-                  // **Removed the following styles to restore original layout**
-                  /*
-                  const zoomContainers = document.querySelectorAll(
-                    ".swiper-zoom-container"
-                  );
-                  zoomContainers.forEach((container) => {
-                    container.style.width = "";
-                    container.style.height = "";
-                    container.style.display = "";
-                    container.style.justifyContent = "";
-                    container.style.alignItems = "";
-                  });
-    
-                  const images = document.querySelectorAll(
-                    ".swiper-zoom-container img"
-                  );
-                  images.forEach((img) => {
-                    img.style.maxWidth = "";
-                    img.style.maxHeight = "";
-                    img.style.width = "";
-                    img.style.height = "";
-                    img.style.objectFit = "";
-                    img.style.objectPosition = "";
-                    img.style.transformOrigin = "";
-                  });
-                  */
+                  // **Removed manual style modifications to restore original layout**
 
                   // Show number-of-items-btn and update the counter
                   numberOfItemsBtn.classList.remove("hidden-element");
-                  updateCounter(swiper);
 
-                  // **Re-enable Swiping if it was disabled**
-                  // swiper.allowTouchMove = true;
+                  // **Ensure swiper.allowTouchMove is true**
+                  // swiper.allowTouchMove = true; // It is already true by default
                 }
               }
             },
