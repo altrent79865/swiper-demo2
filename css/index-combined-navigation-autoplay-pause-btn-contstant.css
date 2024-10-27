@@ -820,7 +820,8 @@ img.swiper-slide {
 @media (max-width: 600px) {
   .swiper-zoom-container > canvas,
   .swiper-zoom-container > img,
-  .swiper-zoom-container > svg {
+  .swiper-zoom-container > svg,
+  .swiper-zoom-container > .link-img {
     object-fit: contain;
   }
 
