@@ -451,6 +451,8 @@
               updateAutoplayButtonState(); // Update the Play/Pause button to show Play icon
               showUIElements(); // Restore UI elements when autoplay ends
               updateArrowStyles();
+              // **Reset the autoplay transition flag when autoplay stops**
+              hasFirstAutoplayTransition = false;
             },
             // Event when a slide change transition starts
             slideChangeTransitionStart: function () {
@@ -469,6 +471,8 @@
                   if (swiper.autoplay.running) {
                     swiper.autoplay.stop();
                     console.log("Autoplay stopped due to zoom.");
+                    // **Reset the autoplay transition flag when autoplay stops**
+                    hasFirstAutoplayTransition = false;
                   }
 
                   // Hide UI elements except Exit Zoom button
@@ -484,8 +488,7 @@
                   exitZoomBtn.classList.remove("hidden");
                   exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
 
-                  // **Disable Swiping to prevent navigating to other slides**
-                  swiper.allowTouchMove = false;
+                  // **Removed swiper.allowTouchMove = false; to allow panning during zoom**
                 }
               } else {
                 // Exiting zoomed-in state
@@ -506,8 +509,7 @@
                   // Show number-of-items-btn and update the counter
                   numberOfItemsBtn.classList.remove("hidden-element");
 
-                  // **Re-enable Swiping**
-                  swiper.allowTouchMove = true;
+                  // **Removed swiper.allowTouchMove = true; as it is no longer necessary**
                 }
               }
             },
@@ -567,6 +569,8 @@
             console.log("Autoplay stopped.");
             // Show UI elements when autoplay is stopped
             showUIElements();
+            // **Reset the autoplay transition flag when autoplay stops**
+            hasFirstAutoplayTransition = false;
           } else {
             // Implement a 500ms delay before starting autoplay
             setTimeout(() => {
@@ -580,6 +584,8 @@
               // Hide left and right arrows and other UI elements when autoplay starts
               hideUIElementsForAutoplay();
               updateAutoplayButtonState();
+              // **Reset the autoplay transition flag when autoplay starts**
+              hasFirstAutoplayTransition = false;
             }, 500);
           }
         }
@@ -600,6 +606,8 @@
             console.log("Autoplay stopped via interaction.");
             // Show UI elements when autoplay is stopped
             showUIElements();
+            // **Reset the autoplay transition flag when autoplay stops**
+            hasFirstAutoplayTransition = false;
           }
         }
 
@@ -1221,6 +1229,8 @@
           updateAutoplayButtonState();
           // When autoplay stops, show 'number-of-items-btn'
           numberOfItemsBtn.classList.remove("hidden-element");
+          // **Reset the autoplay transition flag when autoplay stops**
+          hasFirstAutoplayTransition = false;
         });
 
         // Function to update the pencil-title-row content based on the active slide's data-title
@@ -1342,6 +1352,8 @@
               // Update autoplay button state and UI visibility
               updateAutoplayButtonState();
               showUIElements();
+              // **Reset the autoplay transition flag when autoplay stops**
+              hasFirstAutoplayTransition = false;
             }
 
             if (dropdownMenu.classList.contains("open")) {
