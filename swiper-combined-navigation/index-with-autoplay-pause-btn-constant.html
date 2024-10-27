@@ -394,17 +394,15 @@
           );
         }
 
+        // Flag to track the first autoplay transition
+        let isFirstAutoplayTransition = true;
+
         // Initialize Swiper with Autoplay Disabled Initially
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Swiper Vertical - direction for phones
           loop: false, // Disable looping
           speed: 200, // Speed for vertical navigation
           spaceBetween: 0, // No space between slides
-          autoplay: {
-            delay: 2500, // Autoplay delay in milliseconds between slides
-            disableOnInteraction: false, // Autoplay won't be disabled after user interactions
-            pauseOnMouseEnter: true, // Autoplay will pause on mouse enter
-          },
           autoplay: false, // Disable autoplay on initialization
           zoom: {
             maxRatio: 8, // Increased from 5 to 8 to allow deeper zoom
@@ -431,6 +429,15 @@
               if (dropdownMenu.classList.contains("open")) {
                 closeDropdownMenu();
               }
+
+              // Handle autoplay delay adjustments
+              if (swiper.autoplay.running && isFirstAutoplayTransition) {
+                isFirstAutoplayTransition = false;
+                swiper.params.autoplay.delay = 2500; // Set delay for subsequent slides
+                console.log(
+                  "Autoplay delay set to 2500ms for subsequent slides."
+                );
+              }
             },
             // Event when swiper reaches the beginning
             reachBeginning: function () {
@@ -445,118 +452,8 @@
               showUIElements(); // Restore UI elements when autoplay ends
               updateArrowStyles();
             },
-            // Event when a slide change transition starts
-            slideChangeTransitionStart: function () {
-              handleSlideChange();
-            },
-            // Event when zoom level changes
-            zoomChange: function (swiperInstance, scale, imageEl, slideEl) {
-              console.log("Zoom changed to scale:", scale);
-              if (scale !== 1) {
-                // Entering zoomed-in state
-                if (!isZoomedIn) {
-                  isZoomedIn = true;
-                  console.log("Entering zoomed-in state.");
-
-                  // Stop autoplay if running
-                  if (swiper.autoplay.running) {
-                    swiper.autoplay.stop();
-                    console.log("Autoplay stopped due to zoom.");
-                  }
-
-                  // Hide UI elements except Exit Zoom button
-                  hideUIElementsForZoom();
-
-                  // Hide Link Container if Present
-                  hideLinkContainerIfPresent();
-
-                  // Hide number-of-items-btn to prevent residual background
-                  numberOfItemsBtn.classList.add("hidden-element");
-
-                  // Ensure Exit Zoom button remains in its original position and style
-                  exitZoomBtn.classList.remove("hidden");
-                  exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
-
-                  // Adjust the swiper-zoom-container to cover full viewport
-                  const zoomContainers = document.querySelectorAll(
-                    ".swiper-zoom-container"
-                  );
-                  zoomContainers.forEach((container) => {
-                    container.style.width = "100vw";
-                    container.style.height = "100vh";
-                    container.style.display = "flex";
-                    container.style.justifyContent = "center";
-                    container.style.alignItems = "center";
-                  });
-
-                  // Adjust image styles to ensure full coverage without distortion
-                  const images = document.querySelectorAll(
-                    ".swiper-zoom-container img"
-                  );
-                  images.forEach((img) => {
-                    img.style.maxWidth = "none"; // Remove max-width to prevent shrinking
-                    img.style.maxHeight = "none"; // Remove max-height to prevent shrinking
-                    img.style.width = "100%"; // Ensure width fills the container
-                    img.style.height = "100%"; // Ensure height fills the container
-                    img.style.objectFit = "cover"; // Ensure the image covers the container
-                    img.style.objectPosition = "top center"; // Align top of image to top of viewport
-                    img.style.transformOrigin = "top center"; // Lock top of the image
-                  });
-
-                  // Disable Swiping
-                  swiper.allowTouchMove = false;
-                }
-              } else {
-                // Exiting zoomed-in state
-                if (isZoomedIn) {
-                  isZoomedIn = false;
-                  console.log("Exiting zoomed-in state.");
-
-                  // Show UI elements
-                  showUIElementsAfterZoom();
-
-                  // Show Link Container if Previously Hidden
-                  showLinkContainerIfHidden();
-
-                  // Hide Exit Zoom button
-                  exitZoomBtn.classList.add("hidden");
-                  exitZoomBtn.style.zIndex = ""; // Reset z-index
-
-                  // Reset the swiper-zoom-container to original size
-                  const zoomContainers = document.querySelectorAll(
-                    ".swiper-zoom-container"
-                  );
-                  zoomContainers.forEach((container) => {
-                    container.style.width = "";
-                    container.style.height = "";
-                    container.style.display = "";
-                    container.style.justifyContent = "";
-                    container.style.alignItems = "";
-                  });
-
-                  // Reset image styles
-                  const images = document.querySelectorAll(
-                    ".swiper-zoom-container img"
-                  );
-                  images.forEach((img) => {
-                    img.style.maxWidth = "";
-                    img.style.maxHeight = "";
-                    img.style.width = "";
-                    img.style.height = "";
-                    img.style.objectFit = "";
-                    img.style.objectPosition = "";
-                    img.style.transformOrigin = "";
-                  });
-
-                  // Show number-of-items-btn and update the counter
-                  numberOfItemsBtn.classList.remove("hidden-element");
-                  updateCounter(swiper);
-
-                  // Enable Swiping
-                  swiper.allowTouchMove = true;
-                }
-              }
-            },
+            // Removed the custom zoomChange event handler to restore default behavior
+            // If any additional zoom-related events are needed, they can be added here
           },
         });
 
@@ -616,6 +513,11 @@
           } else {
             // Implement a 500ms delay before starting autoplay
             setTimeout(() => {
+              swiper.params.autoplay = {
+                delay: 500, // Initial delay of 500ms before first slide
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              };
               swiper.autoplay.start();
               console.log("Autoplay started after 500ms delay.");
               // Hide left and right arrows and other UI elements when autoplay starts
@@ -725,7 +627,7 @@
               "Slide changed while edit caption popup is open. Saving caption."
             );
             // Save the caption to the slide being left using swiper.previousIndex
-            saveCaptionToSlide();
+            saveCaptionBtn.click();
           }
         }
 
@@ -995,7 +897,7 @@
           if (optionsButton) {
             optionsButton.classList.remove("hidden-element");
           }
-          // number-of-items-btn is shown and counter updated in zoomChange
+          // number-of-items-btn is shown and counter updated in swiper's slideChange event
           // Show other elements if necessary
         }
 
