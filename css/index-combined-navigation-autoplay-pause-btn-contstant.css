@@ -821,7 +821,7 @@ img.swiper-slide {
   .swiper-zoom-container > canvas,
   .swiper-zoom-container > img,
   .swiper-zoom-container > svg {
-    object-fit: cover;
+    object-fit: contain;
   }
 
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
