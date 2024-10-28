@@ -50,8 +50,8 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   /* To work with Swiper Zoom */
-  touch-action: manipulation;
-  overflow: hidden;
+  touch-action: auto;
+  overflow: auto;
   position: relative;
   overflow: hidden;
 }
@@ -207,11 +207,11 @@ body {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* .options-dropdown.open {
+.options-dropdown.open {
   display: flex;
   opacity: 1;
   transform: translateY(0);
-} */
+}
 
 .swiper-vertical-options-dropdown {
   position: fixed;
@@ -401,27 +401,25 @@ body {
 }
 
 /* Layout of Images */
-img.swiper-slide {
+.swiper-slide img {
   display: block;
   width: 100%;
 }
 
 .portrait-img {
-  height: 100%;
-  width: 100%;
-  /* max-height: 100svh; */
+  height: 100svh;
+  max-height: 100svh;
+  width: auto;
   object-fit: cover;
-  object-position: center;
-  /* I took out center 25% thinking this will fix zoom. */
-  /* object-position: center 25%; */
+  object-position: center 25%;
   display: block;
 }
 
 .landscape-img {
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  object-fit: cover; /* Default state */
-  object-position: center; /* Center the image */
+  max-height: 100svh;
+  object-fit: contain;
   display: block;
 }
 
@@ -715,7 +713,7 @@ img.swiper-slide {
 /* Increases clickable / touch area of Exit Zoom button. */
 .exit-zoom-button::before {
   content: "";
-  top: -45px;
+  top: -40px;
   bottom: -35px;
   left: -90px;
   right: -35px;
@@ -819,19 +817,10 @@ img.swiper-slide {
 
 /* Media Queries for Phones */
 @media (max-width: 600px) {
-  .swiper-slide img.portrait-img,
-  .swiper-slide img.landscape-img {
-    width: 100%;
-    height: 100%;
+  .swiper-zoom-container > canvas,
+  .swiper-zoom-container > img,
+  .swiper-zoom-container > svg {
     object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-
-  /* Apply object-fit: contain only when zoomed-in */
-  .swiper-slide.zoomed-in img.portrait-img,
-  .swiper-slide.zoomed-in img.landscape-img {
-    object-fit: contain;
   }
 
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
@@ -924,21 +913,6 @@ img.swiper-slide {
     object-position: center 35%;
     position: initial;
     border: 1px solid rgba(128, 128, 128, 0.5);
-  }
-
-  .swiper-slide img.portrait-img,
-  .swiper-slide img.landscape-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-  }
-
-  /* Apply object-fit: contain only when zoomed-in */
-  .swiper-slide.zoomed-in img.portrait-img,
-  .swiper-slide.zoomed-in img.landscape-img {
-    object-fit: contain;
   }
 
   .image-container-for-portraits-desktop-link {
