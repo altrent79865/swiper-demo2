@@ -412,6 +412,7 @@ img.swiper-slide {
   /* max-height: 100svh; */
   width: auto;
   object-fit: cover;
+  object-position: center/
   /* I took out center 25% thinking this will fix zoom. */
   /* object-position: center 25%; */
   display: block;
@@ -924,6 +925,21 @@ img.swiper-slide {
     object-position: center 35%;
     position: initial;
     border: 1px solid rgba(128, 128, 128, 0.5);
+  }
+
+  .swiper-slide img.portrait-img,
+  .swiper-slide img.landscape-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+  }
+
+  /* Apply object-fit: contain only when zoomed-in */
+  .swiper-slide.zoomed-in img.portrait-img,
+  .swiper-slide.zoomed-in img.landscape-img {
+    object-fit: contain;
   }
 
   .image-container-for-portraits-desktop-link {
