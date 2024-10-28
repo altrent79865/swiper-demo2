@@ -475,6 +475,12 @@
                     hasFirstAutoplayTransition = false;
                   }
 
+                  // Disable Swiper swipe navigation
+                  swiper.allowTouchMove = false;
+
+                  // Add 'zoomed-in' class to the current slide for CSS adjustments
+                  slideEl.classList.add("zoomed-in");
+
                   // Hide UI elements except Exit Zoom button
                   hideUIElementsForZoom();
 
@@ -488,13 +494,20 @@
                   exitZoomBtn.classList.remove("hidden");
                   exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
 
-                  // **Removed swiper.allowTouchMove = false; to allow panning during zoom**
+                  // Prevent panning outside the image
+                  imageEl.style.transform = "translate(0, 0)";
                 }
               } else {
                 // Exiting zoomed-in state
                 if (isZoomedIn) {
                   isZoomedIn = false;
                   console.log("Exiting zoomed-in state.");
+
+                  // Enable Swiper swipe navigation
+                  swiper.allowTouchMove = true;
+
+                  // Remove 'zoomed-in' class from the current slide
+                  slideEl.classList.remove("zoomed-in");
 
                   // Show UI elements
                   showUIElementsAfterZoom();
@@ -508,8 +521,6 @@
 
                   // Show number-of-items-btn and update the counter
                   numberOfItemsBtn.classList.remove("hidden-element");
-
-                  // **Removed swiper.allowTouchMove = true; as it is no longer necessary**
                 }
               }
             },

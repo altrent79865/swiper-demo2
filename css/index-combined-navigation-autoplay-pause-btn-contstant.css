@@ -50,8 +50,8 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   /* To work with Swiper Zoom */
-  touch-action: auto;
-  overflow: auto;
+  touch-action: manipulation;
+  overflow: hidden;
   position: relative;
   overflow: hidden;
 }
@@ -397,7 +397,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: visible;
+  overflow: hidden;
 }
 
 /* Layout of Images */
@@ -412,15 +412,16 @@ img.swiper-slide {
   /* max-height: 100svh; */
   width: auto;
   object-fit: cover;
-  object-position: center 25%;
+  /* I took out center 25% thinking this will fix zoom. */
+  /* object-position: center 25%; */
   display: block;
 }
 
 .landscape-img {
   width: 100%;
   height: 100%;
-  max-height: 100svh;
-  object-fit: contain;
+  object-fit: cover; /* Default state */
+  object-position: center; /* Center the image */
   display: block;
 }
 
@@ -818,9 +819,18 @@ img.swiper-slide {
 
 /* Media Queries for Phones */
 @media (max-width: 600px) {
-  .swiper-zoom-container > canvas,
-  .swiper-zoom-container > img,
-  .swiper-zoom-container > svg {
+  .swiper-slide img.portrait-img,
+  .swiper-slide img.landscape-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Apply object-fit: contain only when zoomed-in */
+  .swiper-slide.zoomed-in img.portrait-img,
+  .swiper-slide.zoomed-in img.landscape-img {
     object-fit: contain;
   }
 
