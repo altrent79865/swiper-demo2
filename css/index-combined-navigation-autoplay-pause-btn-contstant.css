@@ -207,11 +207,11 @@ body {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.options-dropdown.open {
+/* .options-dropdown.open {
   display: flex;
   opacity: 1;
   transform: translateY(0);
-}
+} */
 
 .swiper-vertical-options-dropdown {
   position: fixed;
@@ -410,9 +410,8 @@ img.swiper-slide {
   height: 100%;
   width: 100%;
   /* max-height: 100svh; */
-  width: auto;
   object-fit: cover;
-  object-position: center/
+  object-position: center;
   /* I took out center 25% thinking this will fix zoom. */
   /* object-position: center 25%; */
   display: block;

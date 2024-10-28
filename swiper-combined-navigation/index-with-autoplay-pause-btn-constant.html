@@ -421,6 +421,16 @@
             // Event when slide changes
             slideChange: function () {
               console.log("Slide changed to index:", swiper.activeIndex);
+
+              // Remove 'zoomed-in' class from all slides
+              swiper.slides.forEach((slide) =>
+                slide.classList.remove("zoomed-in")
+              );
+
+              // Reset zoom state
+              isZoomedIn = false;
+              swiper.allowTouchMove = true;
+
               updateCounter(swiper);
               updateArrowStyles();
               updateTitleRowContent(swiper.activeIndex);
@@ -430,7 +440,7 @@
                 closeDropdownMenu();
               }
 
-              // **Handle autoplay delay adjustments after the first transition**
+              // Handle autoplay delay adjustments after the first transition
               if (swiper.autoplay.running && !hasFirstAutoplayTransition) {
                 hasFirstAutoplayTransition = true;
                 swiper.params.autoplay.delay = 2500; // Set delay for subsequent slides
@@ -915,7 +925,7 @@
           console.log("Left and right arrows hidden for autoplay.");
         }
 
-        // Function to show left and right arrow buttons when interacting during autoplay
+        // Function to show left and right arrow buttons when exiting autoplay
         function showLeftRightArrows() {
           leftArrowBtn.classList.remove("hidden-element");
           rightArrowBtn.classList.remove("hidden-element");
