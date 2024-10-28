@@ -817,10 +817,13 @@ body {
 
 /* Media Queries for Phones */
 @media (max-width: 600px) {
-  .swiper-zoom-container > canvas,
-  .swiper-zoom-container > img,
-  .swiper-zoom-container > svg {
-    object-fit: cover;
+  
+  .landscape-img {
+    width: 100vw;
+    height: 100%;
+    max-height: 100svh;
+    object-fit: contain;
+    display: block;
   }
 
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
@@ -872,7 +875,11 @@ body {
 
 @media (min-width: 601px) {
   /* Animate first slide to slide in from the right side for screens 601px and wider. */
-
+  /* .swiper-zoom-container > canvas,
+  .swiper-zoom-container > img,
+  .swiper-zoom-container > svg {
+    object-fit: contain;
+  } */
   .link-main-page-container {
     /* Start with elements fully transparent and off-screen to the right */
     opacity: 0;
