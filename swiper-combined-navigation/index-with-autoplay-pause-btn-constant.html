@@ -351,81 +351,12 @@
     <!-- Initialize Swiper and Handle Navigation -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Initialize Swiper
-        const swiper = new Swiper(".mySwiper", {
-          direction: "vertical", // Default direction for mobile
-          loop: false, // Disable looping
-          speed: 200, // Transition speed
-          spaceBetween: 0, // No space between slides
-          autoplay: false, // Autoplay disabled by default
-          zoom: {
-            maxRatio: 8, // Maximum zoom level
-            minRatio: 1, // Minimum zoom level (no zoom)
-            toggle: false, // Disable toggle on double-click
-          },
-          breakpoints: {
-            601: {
-              direction: "horizontal", // Horizontal direction for larger screens
-              speed: 300,
-              spaceBetween: 0,
-            },
-          },
-          on: {
-            // Event triggered when zoom level changes
-            zoomChange: function (swiperInstance, scale, imageEl, slideEl) {
-              if (scale !== 1) {
-                // Entering zoomed-in state
-                handleZoomIn(swiperInstance, imageEl, slideEl);
-              } else {
-                // Exiting zoomed-in state
-                handleZoomOut(swiperInstance, slideEl);
-              }
-            },
-            // Event triggered when slide changes
-            slideChange: function () {
-              handleSlideChange();
-            },
-            // Event triggered when autoplay starts
-            autoplayStart: function () {
-              console.log("Autoplay started.");
-              updateAutoplayButtonState();
-              // Hide number-of-items-btn during autoplay
-              numberOfItemsBtn.classList.add("hidden-element");
-            },
-            // Event triggered when autoplay stops
-            autoplayStop: function () {
-              console.log("Autoplay stopped.");
-              updateAutoplayButtonState();
-              // Show number-of-items-btn when autoplay stops
-              numberOfItemsBtn.classList.remove("hidden-element");
-              // Reset autoplay transition flag
-              hasFirstAutoplayTransition = false;
-            },
-            // Event triggered when reaching the end of slides
-            reachEnd: function () {
-              console.log("Reached the end of the swiper.");
-              swiper.autoplay.stop(); // Stop autoplay at the last slide
-              updateAutoplayButtonState(); // Update Play/Pause button
-              showUIElements(); // Restore UI elements
-            },
-            // Event triggered when reaching the beginning of slides
-            reachBeginning: function () {
-              console.log("Reached the beginning of the swiper.");
-              updateArrowStyles(); // Update arrow button states
-            },
-            // Event triggered when a transition starts
-            slideChangeTransitionStart: function () {
-              handleSlideChange();
-            },
-          },
-        });
-
-        // Select necessary UI elements
-        const autoplayButtons = document.querySelectorAll(".autoplay-toggle"); // Play/Pause buttons
+        // Select all necessary UI elements
+        const autoplayButtons = document.querySelectorAll(".autoplay-toggle"); // Play/Pause buttons (SVG)
         const numberOfItemsText = document.querySelector(
           ".number-of-items-text"
         ); // Slide counter text
-        const numberOfItemsBtn = document.querySelector(".number-of-items-btn"); // Slide counter button
+        const numberOfItemsBtn = document.querySelector(".number-of-items-btn"); // Button containing the slide counter
         const exitZoomBtn = document.querySelector(".exit-zoom-button"); // Exit Zoom button
 
         // Navigation Buttons
@@ -465,6 +396,146 @@
 
         // **Flag to track if the first autoplay transition has occurred**
         let hasFirstAutoplayTransition = false;
+
+        // Initialize Swiper with Autoplay Disabled Initially
+        const swiper = new Swiper(".mySwiper", {
+          direction: "vertical", // Swiper Vertical - direction for phones
+          loop: false, // Disable looping
+          speed: 200, // Speed for vertical navigation
+          spaceBetween: 0, // No space between slides
+          autoplay: false, // Disable autoplay on initialization
+          zoom: {
+            maxRatio: 8, // Increased from 5 to 8 to allow deeper zoom
+            minRatio: 1, // Ensures images don't shrink below original size
+            toggle: false, // Disable toggle on double click
+          },
+          breakpoints: {
+            601: {
+              // When window width is >= 601px
+              direction: "horizontal", // Switch to Swiper Navigation
+              speed: 300, // Speed for horizontal navigation
+              spaceBetween: 0, // No space between slides
+            },
+          },
+          on: {
+            // Event when slide changes
+            slideChange: function () {
+              console.log("Slide changed to index:", swiper.activeIndex);
+
+              // Remove 'zoomed-in' class from all slides
+              swiper.slides.forEach((slide) =>
+                slide.classList.remove("zoomed-in")
+              );
+
+              // Reset zoom state
+              isZoomedIn = false;
+              swiper.allowTouchMove = true;
+
+              updateCounter(swiper);
+              updateArrowStyles();
+              updateTitleRowContent(swiper.activeIndex);
+
+              // Close the dropdown if it is open
+              if (dropdownMenu.classList.contains("open")) {
+                closeDropdownMenu();
+              }
+
+              // Handle autoplay delay adjustments after the first transition
+              if (swiper.autoplay.running && !hasFirstAutoplayTransition) {
+                hasFirstAutoplayTransition = true;
+                swiper.params.autoplay.delay = 2500; // Set delay for subsequent slides
+                console.log(
+                  "Autoplay delay set to 2500ms for subsequent slides."
+                );
+              }
+            },
+            // Event when swiper reaches the beginning
+            reachBeginning: function () {
+              console.log("Reached the beginning of the swiper.");
+              updateArrowStyles();
+            },
+            // Event when swiper reaches the end
+            reachEnd: function () {
+              console.log("Reached the end of the swiper.");
+              swiper.autoplay.stop(); // Stop autoplay when the last slide is reached
+              updateAutoplayButtonState(); // Update the Play/Pause button to show Play icon
+              showUIElements(); // Restore UI elements when autoplay ends
+              updateArrowStyles();
+              // **Reset the autoplay transition flag when autoplay stops**
+              hasFirstAutoplayTransition = false;
+            },
+            // Event when a slide change transition starts
+            slideChangeTransitionStart: function () {
+              handleSlideChange();
+            },
+            // Event when zoom level changes
+            zoomChange: function (swiperInstance, scale, imageEl, slideEl) {
+              console.log("Zoom changed to scale:", scale);
+              if (scale !== 1) {
+                // Entering zoomed-in state
+                if (!isZoomedIn) {
+                  isZoomedIn = true;
+                  console.log("Entering zoomed-in state.");
+
+                  // Stop autoplay if running
+                  if (swiper.autoplay.running) {
+                    swiper.autoplay.stop();
+                    console.log("Autoplay stopped due to zoom.");
+                    // **Reset the autoplay transition flag when autoplay stops**
+                    hasFirstAutoplayTransition = false;
+                  }
+
+                  // Disable Swiper swipe navigation
+                  swiper.allowTouchMove = false;
+
+                  // Add 'zoomed-in' class to the current slide for CSS adjustments
+                  slideEl.classList.add("zoomed-in");
+
+                  // Hide UI elements except Exit Zoom button
+                  hideUIElementsForZoom();
+
+                  // Hide Link Container if Present
+                  hideLinkContainerIfPresent();
+
+                  // Hide number-of-items-btn to prevent residual background
+                  numberOfItemsBtn.classList.add("hidden-element");
+
+                  // Ensure Exit Zoom button remains in its original position and style
+                  exitZoomBtn.classList.remove("hidden");
+                  exitZoomBtn.style.zIndex = "1000"; // Ensure it stays on top
+
+                  // Prevent panning outside the image
+                  imageEl.style.transform = "translate(0, 0)";
+                }
+              } else {
+                // Exiting zoomed-in state
+                if (isZoomedIn) {
+                  isZoomedIn = false;
+                  console.log("Exiting zoomed-in state.");
+
+                  // Enable Swiper swipe navigation
+                  swiper.allowTouchMove = true;
+
+                  // Remove 'zoomed-in' class from the current slide
+                  slideEl.classList.remove("zoomed-in");
+
+                  // Show UI elements
+                  showUIElementsAfterZoom();
+
+                  // Show Link Container if Previously Hidden
+                  showLinkContainerIfHidden();
+
+                  // Hide Exit Zoom button
+                  exitZoomBtn.classList.add("hidden");
+                  exitZoomBtn.style.zIndex = ""; // Reset z-index
+
+                  // Show number-of-items-btn and update the counter
+                  numberOfItemsBtn.classList.remove("hidden-element");
+                }
+              }
+            },
+          },
+        });
 
         // Function to update the slide counter
         function updateCounter(swiper) {
@@ -519,7 +590,7 @@
             console.log("Autoplay stopped.");
             // Show UI elements when autoplay is stopped
             showUIElements();
-            // Reset the autoplay transition flag when autoplay stops
+            // **Reset the autoplay transition flag when autoplay stops**
             hasFirstAutoplayTransition = false;
           } else {
             // Implement a 500ms delay before starting autoplay
@@ -534,7 +605,7 @@
               // Hide left and right arrows and other UI elements when autoplay starts
               hideUIElementsForAutoplay();
               updateAutoplayButtonState();
-              // Reset the autoplay transition flag when autoplay starts
+              // **Reset the autoplay transition flag when autoplay starts**
               hasFirstAutoplayTransition = false;
             }, 500);
           }
@@ -556,7 +627,7 @@
             console.log("Autoplay stopped via interaction.");
             // Show UI elements when autoplay is stopped
             showUIElements();
-            // Reset the autoplay transition flag when autoplay stops
+            // **Reset the autoplay transition flag when autoplay stops**
             hasFirstAutoplayTransition = false;
           }
         }
@@ -644,11 +715,6 @@
             // Save the caption to the slide being left using swiper.previousIndex
             saveCaptionToSlide();
           }
-
-          // Update the slide counter
-          updateCounter(swiper);
-          updateArrowStyles();
-          updateTitleRowContent(swiper.activeIndex);
         }
 
         // Function to handle arrow click with opacity effect and popup check
@@ -781,7 +847,7 @@
               );
             }
 
-            // Hide left and right arrows regardless of autoplay
+            // **Hide left and right arrows regardless of autoplay**
             leftArrowBtn.classList.add("hidden-element");
             rightArrowBtn.classList.add("hidden-element");
           } else {
@@ -804,7 +870,7 @@
               );
             }
 
-            // Show left and right arrows regardless of autoplay
+            // **Show left and right arrows regardless of autoplay**
             leftArrowBtn.classList.remove("hidden-element");
             rightArrowBtn.classList.remove("hidden-element");
           }
@@ -828,7 +894,7 @@
           // Ensure Play/Pause buttons remain visible during autoplay
           ensureAutoplayButtonsVisible();
 
-          // Update the visibility flag
+          // **Update the visibility flag**
           isTitleRowVisible = false;
         }
 
@@ -848,7 +914,7 @@
           // Ensure Play/Pause buttons remain visible during autoplay
           ensureAutoplayButtonsVisible();
 
-          // Update the visibility flag
+          // **Update the visibility flag**
           isTitleRowVisible = true;
         }
 
@@ -1171,6 +1237,23 @@
           }
         });
 
+        // Add Event Listeners for Swiper's Autoplay Events
+        swiper.on("autoplayStart", function () {
+          console.log("Autoplay started.");
+          updateAutoplayButtonState();
+          // During autoplay, ensure 'number-of-items-btn' is hidden
+          numberOfItemsBtn.classList.add("hidden-element");
+        });
+
+        swiper.on("autoplayStop", function () {
+          console.log("Autoplay stopped.");
+          updateAutoplayButtonState();
+          // When autoplay stops, show 'number-of-items-btn'
+          numberOfItemsBtn.classList.remove("hidden-element");
+          // **Reset the autoplay transition flag when autoplay stops**
+          hasFirstAutoplayTransition = false;
+        });
+
         // Function to update the pencil-title-row content based on the active slide's data-title
         function updateTitleRowContent(activeIndex) {
           console.log("Updating title row content for slide:", activeIndex);
@@ -1290,7 +1373,7 @@
               // Update autoplay button state and UI visibility
               updateAutoplayButtonState();
               showUIElements();
-              // Reset the autoplay transition flag when autoplay stops
+              // **Reset the autoplay transition flag when autoplay stops**
               hasFirstAutoplayTransition = false;
             }
 
@@ -1313,110 +1396,6 @@
             console.log("Options dropdown closed via close button.");
           });
         }
-
-        // Function to prevent panning issues and ensure smooth zoom/pan functionality
-        swiper.on("touchMove", function (e) {
-          if (isZoomedIn) {
-            // Custom logic to ensure proper panning behavior without cropping
-            const activeSlide = swiper.slides[swiper.activeIndex];
-            const imageEl = activeSlide.querySelector("img");
-
-            if (imageEl) {
-              // Allow panning across the entire zoomed image
-              imageEl.style.touchAction = "none"; // Disable default touch behavior
-            }
-          }
-        });
-
-        // Function to ensure the image covers the viewport appropriately
-        function ensureImageCoversViewport(imageEl) {
-          const viewportHeight = window.innerHeight;
-          const viewportWidth = window.innerWidth;
-
-          // For portrait images, ensure no black space appears above or below
-          if (imageEl.classList.contains("portrait-img")) {
-            imageEl.style.height = `${viewportHeight}px`;
-            imageEl.style.width = "auto";
-            imageEl.style.objectFit = "cover";
-          }
-
-          // For landscape images, allow object-fit: contain when zoom is not engaged
-          if (imageEl.classList.contains("landscape-img")) {
-            imageEl.style.objectFit = "contain";
-          }
-        }
-
-        // Function to handle Zoom In
-        function handleZoomIn(swiperInstance, imageEl, slideEl) {
-          isZoomedIn = true;
-
-          // Stop autoplay if running
-          if (swiperInstance.autoplay.running) {
-            swiperInstance.autoplay.stop();
-            console.log("Autoplay stopped due to zoom.");
-            // Reset the autoplay transition flag when autoplay stops
-            hasFirstAutoplayTransition = false;
-          }
-
-          // Disable Swiper swipe navigation
-          swiperInstance.allowTouchMove = false;
-
-          // Add 'zoomed-in' class to the current slide for CSS adjustments
-          slideEl.classList.add("zoomed-in");
-
-          // Hide UI elements except Exit Zoom button
-          hideUIElementsForZoom();
-
-          // Hide Link Container if Present
-          hideLinkContainerIfPresent();
-
-          // Ensure the zoomable image occupies the entire viewport without showing black areas
-          ensureImageCoversViewport(imageEl);
-
-          // Set panning boundaries to allow moving across the entire image without cropping
-          imageEl.style.transform = "translate(0, 0)";
-        }
-
-        // Function to handle Zoom Out
-        function handleZoomOut(swiperInstance, slideEl) {
-          isZoomedIn = false;
-          swiperInstance.allowTouchMove = true; // Re-enable slide navigation
-
-          // Remove 'zoomed-in' class from the current slide
-          slideEl.classList.remove("zoomed-in");
-
-          // Show UI elements
-          showUIElementsAfterZoom();
-
-          // Show Link Container if Previously Hidden
-          showLinkContainerIfHidden();
-
-          // Hide Exit Zoom button
-          exitZoomBtn.classList.add("hidden");
-          exitZoomBtn.style.zIndex = ""; // Reset z-index
-
-          // Show number-of-items-btn and update the counter
-          numberOfItemsBtn.classList.remove("hidden-element");
-        }
-
-        // Function to prevent double-tap zoom and other touch issues
-        function preventDoubleTapZoom() {
-          let lastTouchEnd = 0;
-          document.addEventListener(
-            "touchend",
-            function (event) {
-              const now = new Date().getTime();
-              if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-              }
-              lastTouchEnd = now;
-            },
-            false
-          );
-        }
-
-        // Call the function to prevent double-tap zoom
-        preventDoubleTapZoom();
       });
     </script>
   </body>
