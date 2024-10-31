@@ -214,7 +214,7 @@
         <span class="x-line"></span>
       </a>
       <div class="pencil-title-row">
-        <!-- Title and pencil/add-new-caption elements will be injected here -->
+        <!-- Title and pencil/add-new-caption elements injected here -->
       </div>
       <!-- Options Menu Button (3 dots) -->
       <button class="options-btn" aria-label="Options menu">
@@ -360,11 +360,11 @@
 
         let currentEditingSlide = null; // Keeps track of the slide being edited
 
-        // Initialize Swiper with Autoplay Disabled by Default
+        // Initialize Swiper with Autoplay. Disabled by Default
         const swiper = new Swiper(".mySwiper", {
           direction: "vertical", // Swiper Vertical - direction for phones
           loop: false,
-          speed: 200, // Speed for vertical navigation
+          speed: 200, // Speed for vertical navigation.  A little slower than horizontal navigation.
           autoplay: false,
           breakpoints: {
             601: {
@@ -423,13 +423,14 @@
         // Initialize Play/Pause buttons to show Play state
         updateAutoplayButtonState();
 
-        // Function to toggle autoplay and update button appearance
+        // Function to toggle autoplay and update button appearance.
         function toggleAutoplay() {
           if (swiper.autoplay.running) {
             swiper.autoplay.stop();
             // Show UI elements when autoplay is stopped
             showUIElements();
           } else {
+            //  When autoplay starts the delay for first slide is 500ms so user can see autoplay is engaged, then 2500ms delay before slide changes therafter.
             swiper.params.autoplay.delay = 500;
             swiper.params.autoplay.disableOnInteraction = false;
             swiper.params.autoplay.pauseOnMouseEnter = false;
@@ -560,6 +561,7 @@
 
         // Navigation Buttons and their directions
         const navigationButtons = [
+          // UpButton is hidden and not usable.
           { button: upButton, direction: "prev" },
           { button: downButton, direction: "next" },
           { button: leftArrowBtn, direction: "prev" },
@@ -581,7 +583,7 @@
 
         function handleTouchStart(e) {
           if (e.target.classList.contains("disabled")) {
-            e.preventDefault(); // Prevent default behavior (like zooming)
+            e.preventDefault(); // Prevent default behavior (like a zoom that was getting stuck in zoomed-up position)
             e.stopPropagation(); // Prevent event from bubbling up
             return;
           }
@@ -775,7 +777,7 @@
           { passive: false }
         );
 
-        // Click event listener on optionsButton remains the same
+        // Click event listener on optionsButton
         optionsButton.addEventListener("click", function (event) {
           event.stopPropagation(); // Prevent click from toggling the title row
 
@@ -850,16 +852,16 @@
           dropdownMenu.style.display = "block";
           dropdownMenu.style.visibility = "hidden";
 
-          // Allow the browser to render the dropdown menu
+          // Browser render the dropdown menu
           dropdownMenu.offsetHeight;
 
           // Get the position of the options button relative to the viewport
           const rect = activeOptionsBtn.getBoundingClientRect();
 
-          // Get the dropdown menu's width
+          // Dropdown menu's width
           const dropdownWidth = dropdownMenu.offsetWidth;
 
-          // Position the dropdown menu so that its top right corner aligns with the top right corner of the options button
+          // Positioning of dropdown menu so that its top right corner aligns with the top right corner of the options button
           dropdownMenu.style.position = "fixed";
           dropdownMenu.style.top = rect.top + "px"; // Align top edges
           dropdownMenu.style.left = rect.right - dropdownWidth + "px"; // Align right edges
@@ -914,7 +916,7 @@
         function saveCaptionToSlide() {
           if (!currentEditingSlide) return; // Safety check
 
-          // Get the new caption from the textarea with trim to remove unnecessary whitespace.  Was causing issues without this.
+          // Get the new caption from the textarea with trim to remove unnecessary whitespace.  Had some issues issues without this.
           const newCaption = editCaptionTextarea.value.trim();
 
           // Update the data-title attribute of the current slide

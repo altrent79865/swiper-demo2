@@ -43,7 +43,7 @@ body {
   background-color: black;
   height: 100svh;
   width: 100vw;
-  /* Apply below to make images a long touch not open native features */
+  /* Apply below to make a long touch not open native features */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -548,7 +548,7 @@ body {
   tap-highlight-color: transparent;
 }
 
-/* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but creates problems with swiper vertical functionality when removing up-arrow-btn. */
+/* Arrows for navigation of slides.  Note the up-arrow-btn is always hidden and we only use down-arrow-btn to navigate slides, but it's possible it could create problems with swiper vertical functionality when removing up-arrow-btn. */
 .left-arrow-btn,
 .right-arrow-btn,
 .down-arrow-btn,
@@ -735,14 +735,6 @@ body {
   position: relative;
 }
 
-/* To animate first slide sliding in from the right side when screen sizes are 601px or larger width */
-@keyframes slide-in {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 /* To animate first slide sliding in from the bottom when screen sizes are up to 600px width */
 @keyframes vertical-slide-in {
   to {
@@ -751,12 +743,19 @@ body {
   }
 }
 
+/* To animate first slide sliding in from the right side when screen sizes are 601px or larger width */
+@keyframes slide-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Media Queries for Phones */
 @media (max-width: 600px) {
   /* Animate first slide to slide in from the bottom for screens up to 600px width. */
 
   /* Container for text related to a link media item, specifically, link-title, link-description, url clickable text and open and save link buttons  */
-
   .link-main-page-container {
     /* Start with elements fully transparent and off-screen at the bottom */
     opacity: 0;
