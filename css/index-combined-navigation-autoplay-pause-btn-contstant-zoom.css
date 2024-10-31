@@ -7,7 +7,9 @@
 html,
 body {
   position: relative;
-  height: 100%;
+  height: 100svh;
+  height: 100vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
+  overflow: hidden;
 }
 
 body {
@@ -42,12 +44,17 @@ body {
   align-items: center;
   background-color: black;
   height: 100svh;
+  height: 100vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
   width: 100vw;
   /* Apply below to make images a long touch not open native features */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  /* To work with Swiper Zoom */
+  touch-action: none;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Title Row at top of page */
@@ -62,7 +69,7 @@ body {
   margin-top: 10px;
   cursor: default;
   overflow: visible;
-  z-index: 200;
+  z-index: 300;
 }
 
 /* Hides the elements detailed in javascript when clicking on page and toggling the page.  It will toggle the close-btn, title, pencil, add a caption, options-btn, play / pause button, left, right and down arrows, and counter.  Keeps clean look on page. */
@@ -352,25 +359,73 @@ body {
     /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
 }
 
+/* Exit Zoom button visibility for Swiper Zoom feature */
+/* Oblong background part of area that appears behind Exit Zoom Button. */
+.exit-zoom-button {
+  position: fixed;
+  bottom: 16px;
+  right: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  z-index: 400;
+}
+
+.exit-zoom-button-text {
+  color: white;
+  letter-spacing: 0.09rem;
+  padding: 0 8px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5),
+    /* Primary shadow */ 2px 2px 4px rgba(0, 0, 0, 0.3),
+    /* Secondary shadow */ 0px 0px 5px rgba(0, 0, 0, 0.25); /* Glow effect */
+}
+
+.exit-zoom-button.hidden {
+  display: none;
+}
+
+.swiper-zoom-container {
+  /* text-align: left; */
+  /* To fix link zoom*/
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Ensure that images within Swiper slides do not exceed their containers */
+.swiper-slide .swiper-zoom-container img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 /* Layout of Images */
-.swiper-slide img {
+img.swiper-slide {
   display: block;
   width: 100%;
 }
 
 .portrait-img {
-  height: 100svh;
-  max-height: 100svh;
-  width: auto;
+  width: 100%;
+  height: 100%;
+  /* max-height: 100svh; */
   object-fit: cover;
   object-position: center 25%;
   display: block;
 }
 
 .landscape-img {
-  width: 100vw;
-  height: auto;
-  max-height: 100svh;
+  width: auto;
+  height: 100%;
+  /* max-height: 100svh; */
   object-fit: contain;
   display: block;
 }
@@ -387,6 +442,7 @@ body {
 
 .youtube-portrait {
   max-height: 90svh;
+  max-height: 90vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
   height: auto;
   width: auto;
   max-width: 100%;
@@ -418,9 +474,10 @@ body {
 .link-img {
   width: 100%;
   height: 55svh;
+  height: 55vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
   object-fit: cover;
   display: block;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -434,7 +491,9 @@ body {
   position: relative;
   padding-left: 20px;
   margin-top: 55svh;
+  margin-top: 55vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
   height: calc(100svh - 45svh);
+  height: calc(100vh - 45vh);
   overflow-y: auto;
 }
 
@@ -450,6 +509,7 @@ body {
   font-weight: bold;
   letter-spacing: 0.3px;
   margin-top: 3svh;
+  margin-top: 3vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
   margin-bottom: 1rem;
 }
 
@@ -623,7 +683,8 @@ body {
 .autoplay-toggle::after,
 .close-btn::before,
 .options-btn::before,
-.pencil-click-area {
+.pencil-click-area,
+.exit-zoom-button::before {
   position: absolute;
   background: transparent;
   pointer-events: auto;
@@ -659,6 +720,15 @@ body {
   bottom: -20px;
   left: -20px;
   right: -20px;
+}
+
+/* Increases clickable / touch area of Exit Zoom button. */
+.exit-zoom-button::before {
+  content: "";
+  top: -45px;
+  bottom: -35px;
+  left: -90px;
+  right: -35px;
 }
 
 /* Increases clickable / touch area of pencil and Add a Caption. */
@@ -726,13 +796,19 @@ body {
   display: none;
 }
 
+.swiper-slide .link-container.hidden-element {
+  display: none !important;
+}
+
 .image-container-for-portraits-desktop {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100svh;
+  height: 100%;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 /* To animate first slide sliding in from the right side when screen sizes are 601px or larger width */
@@ -765,13 +841,18 @@ body {
     animation-delay: 0.1s;
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
+    /* align-self: flex-start; */
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
 
-  .link-container {
+  /* .link-container {
     height: auto;
     padding-top: 0;
-  }
+  } */
 
   .edit-caption-popup {
     flex-direction: column;
@@ -798,6 +879,47 @@ body {
   .right-arrow-btn {
     display: none;
   }
+
+  /* THIS TO END OF THIS MEDIA QUERY WAS FROM LAST CHANGE */
+  .swiper-zoom-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Ensure portrait images fully cover the container */
+  .portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Optional: Adjust .link-main-page-container to not interfere with image sizing */
+  .link-main-page-container {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Optional: Hide the link-container on small screens to maximize image coverage */
+  .swiper-slide .link-container {
+    display: none;
+  }
+
+  /* Ensure that slides without link-container also cover full height */
+  .swiper-slide {
+    height: 100svh;
+    height: 100vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
+    width: 100vw;
+  }
 }
 
 @media (min-width: 601px) {
@@ -813,7 +935,10 @@ body {
     gap: 20px;
     width: 90%;
     background-color: black;
-    max-height: calc(100vh - 120px);
+    max-height: calc(100svh - 120px);
+    max-height: calc(
+      100vh - 120px
+    ); /* Fallback, but svh was also needed to prevent zooming on a long touch */
     padding-top: -8px;
   }
 
@@ -839,6 +964,7 @@ body {
   /* This makes layout better on a device that is wide, but not tall, specifically a phone in landscape mode. */
   .link-img {
     height: 60svh;
+    height: 60vh; /* Fallback, but svh was also needed to prevent zooming on a long touch */
     object-fit: cover;
     object-position: center 35%;
     position: initial;
@@ -848,15 +974,18 @@ body {
   .image-container-for-portraits-desktop-link {
     flex: 1;
     max-height: 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
   }
 
   /* This below fixes a portrait image from looking skinny on an ipad in portrait mode.  */
-  .portrait-img {
-    height: auto;
-    width: auto;
+  /* .portrait-img {
+    height: 100%;
+    width: 100%;
     object-fit: contain;
     display: block;
-  }
+  } */
 
   /* Hides down arrow button on larger screens.  Up arrow is not visible on any screen size. */
   .down-arrow-btn,
